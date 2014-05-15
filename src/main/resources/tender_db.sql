@@ -134,7 +134,7 @@ CREATE TABLE tender (
 	description TEXT,
 
 	FOREIGN KEY (status_id) REFERENCES tender_status(id),
-	FOREIGN KEY (author_id) REFERENCES user(id),
+	FOREIGN KEY (author_id) REFERENCES profile(id),
 	PRIMARY KEY(id)
 
 );
@@ -176,13 +176,13 @@ CREATE TABLE moderator_category (
 
 );
 
-CREATE TABLE tender_item (
+CREATE TABLE tender_unit (
 
 	id INT NOT NULL AUTO_INCREMENT,
-	item_id INT NOT NULL,
+	unit_id INT NOT NULL,
 	tender_id INT NOT NULL,
 
-	FOREIGN KEY (item_id) REFERENCES item(id),
+	FOREIGN KEY (unit_id) REFERENCES item(id),
 	FOREIGN KEY (tender_id) REFERENCES tender(id),
 	PRIMARY KEY (id)
 
@@ -232,8 +232,10 @@ CREATE TABLE bid (
 	id INT NOT NULL AUTO_INCREMENT,
 	price DECIMAL(13,2)  NOT NULL,
 	date DATE  NOT NULL,
-	proposal_id INT NOT NULL,
+	proposal_id INT,
+	unit_id INT NOT NULL,
 
+	FOREIGN KEY (unit_id) REFERENCES unit(id),
 	FOREIGN KEY (proposal_id) REFERENCES proposal(id),
 	PRIMARY KEY (id)
 
@@ -261,18 +263,6 @@ CREATE TABLE user_role (
 
 	FOREIGN KEY (user_id) REFERENCES user(id),
 	FOREIGN KEY (role_id) REFERENCES role(id),
-	PRIMARY KEY (id)
-
-);
-
-CREATE TABLE item_bid (
-
-	id INT NOT NULL AUTO_INCREMENT,
-	item_id INT NOT NULL,
-	bid_id INT NOT NULL,
-
-	FOREIGN KEY (item_id) REFERENCES item(id),
-	FOREIGN KEY (bid_id) REFERENCES bid(id),
 	PRIMARY KEY (id)
 
 );
@@ -305,6 +295,7 @@ CREATE TABLE deal (
 
 	id INT NOT NULL AUTO_INCREMENT,
 	bid_id	INT NOT NULL,
+	proposal_id INT NOT NULL,
 	customer_id INT NOT NULL,
 	seller_id INT NOT NULL,
 	sum	DECIMAL(13,2) NOT NULL,
@@ -312,6 +303,7 @@ CREATE TABLE deal (
 	status_id INT NOT NULL,
 
 	FOREIGN KEY (status_id) REFERENCES deal_status(id), 
+	FOREIGN KEY (proposal_id) REFERENCES proposal(id), 
 	FOREIGN KEY (bid_id) REFERENCES bid(id),
 	FOREIGN KEY (customer_id) REFERENCES profile(id),
 	FOREIGN KEY (seller_id) REFERENCES profile(id),
@@ -344,17 +336,6 @@ CREATE TABLE deal_bid (
 	PRIMARY KEY (id)
 );
 
-CREATE TABLE proposal_bid (
-
-	id INT NOT NULL AUTO_INCREMENT,
-	proposial_id INT NOT NULL,
-	bid_id INT NOT NULL,
-
-	FOREIGN KEY (proposial_id) REFERENCES proposal(id),
-	FOREIGN KEY (bid_id) REFERENCES bid(id),
-	PRIMARY KEY (id)
-);
-
 CREATE TABLE seller_location (
 
 	id INT NOT NULL AUTO_INCREMENT,
@@ -378,9 +359,4 @@ CREATE TABLE seller_category (
 	PRIMARY KEY (id)
 
 );
-
-
-
-
-
 
