@@ -1,0 +1,15 @@
+INSERT INTO address (city, street, building_number, postcode) VALUES ('Vilnohirsk', 'Stepova', 1, 27500); 
+INSERT INTO address (city, street, building_number, postcode) VALUES ('Drohobych', 'Khmelnitsky', 5, 29000); 
+INSERT INTO address (city, street, building_number, postcode) VALUES ('Kiev', 'Moskovska', 21, 01015); 
+INSERT INTO address (city, street, building_number, postcode) VALUES ('Nizhyn', 'Vosstaniya', 8, 16500); 
+INSERT INTO address (city, street, building_number, postcode) VALUES ('Dnipropetrovsk', 'Yuzhnaya', 12, 22300); 
+INSERT INTO address (city, street, building_number, postcode) VALUES ('Donetsk', 'Dzerzhinsky', 14, 12500); 
+INSERT INTO address (city, street, building_number, postcode) VALUES ('Kiev', 'Solomenskaya', 21, 26600); 
+INSERT INTO address (city, street, building_number, postcode) VALUES ('Odessa', 'Bunin', 32, 24500); 
+INSERT INTO address (city, street, building_number, postcode) VALUES ('Simferopol', 'Timoshenko', 55, 23300); 
+INSERT INTO address (city, street, building_number, postcode) VALUES ('Kiev', 'Narodnogo Opolcheniy', 7, 07500); 
+INSERT INTO address (city, street, building_number, postcode) VALUES ('Kiev', 'Karla Marksa', 9, 12500); 
+INSERT INTO address (city, street, building_number, postcode) VALUES ('Alchevsk', 'Moskovskaya', 34, 32500); 
+INSERT INTO address (city, street, building_number, postcode) VALUES ('Novoukrayinka', 'Pershoi Mayivki', 55, 21500); 
+INSERT INTO address (city, street, building_number, postcode) VALUES ('Lviv', 'Kravchenko', 2, 26600); 
+INSERT INTO address (city, street, building_number, postcode) VALUES ('Odessa', 'Bugaevskaya', 3, 25600); 
