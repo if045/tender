@@ -1,4 +1,4 @@
-package com.tenders.entity;
+package com.softserveinc.tender.entity;
 
 public class Address {
     private Integer id;

@@ -1,11 +1,11 @@
-package com.tenders.entity;
+package com.softserveinc.tender.entity;
 
 import java.sql.Date;
 import java.util.List;
 
 public class Tender {
     private Integer id;
-    private User author;
+    private Profile author;
     private String title;
     private Date createDate;
     private Date endDate;
@@ -13,5 +13,5 @@ public class Tender {
     private Double suitablePrice;
     private String description;
     private List<Unit> units;
-    private List<Location> locations;
+    private List<Location> location;
 }

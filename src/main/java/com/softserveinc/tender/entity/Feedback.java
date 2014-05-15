@@ -1,4 +1,4 @@
-package com.tenders.entity;
+package com.softserveinc.tender.entity;
 
 public class Feedback {
     private Integer id;
