@@ -10,8 +10,8 @@ public class Tender {
     private Date createDate;
     private Date endDate;
     private TenderStatus status;
-    private Double price;
+    private Double suitablePrice;
     private String description;
-    private List<Item> items;
+    private List<Unit> units;
     private List<Location> locations;
 }

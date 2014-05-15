@@ -11,5 +11,5 @@ public class Deal {
     private Double sum;
     private Date date;
     private DealStatus status;
-    private List<Bid> bids;
+    private Proposal proposal;
 }
