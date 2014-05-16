@@ -14,12 +14,12 @@ public class Deal {
     @Column(name = "id")
     private Integer id;
 
-    @OneToMany
+    @OneToOne
     @JoinColumn(name = "bid_id")
     private Bid bid;
 
     @ManyToOne
-    @JoinColumn(name = "customer-id")
+    @JoinColumn(name = "customer_id")
     private Profile customer;
 
     @ManyToOne
@@ -32,7 +32,7 @@ public class Deal {
     @Column(name = "date")
     private Date date;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "status_id")
     private DealStatus status;
 
