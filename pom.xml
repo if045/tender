@@ -7,15 +7,168 @@
   <version>1.0-SNAPSHOT</version>
   <name>tender Maven Webapp</name>
   <url>http://maven.apache.org</url>
+
+  <properties>
+    <java-version>1.7</java-version>
+    <javaee-api-version>6.0</javaee-api-version>
+    <org.springframework-version>3.2.3.RELEASE</org.springframework-version>
+    <spring.data.version>1.3.0.RELEASE</spring.data.version>
+    <org.slf4j-version>1.7.5</org.slf4j-version>
+    <ch.qos.logback-version>1.0.7</ch.qos.logback-version>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <hibernate.version>4.2.1.Final</hibernate.version>
+    <h2-version>1.3.171</h2-version>
+    <servlet-version>3.0.1</servlet-version>
+    <jsp-version>2.2</jsp-version>
+    <jstl-version>1.2</jstl-version>
+    <maven-compiler-plugin-version>3.0</maven-compiler-plugin-version>
+    <tomcat7-maven-plugin-version>2.0</tomcat7-maven-plugin-version>
+    <maven-resources-plugin-version>2.6</maven-resources-plugin-version>
+  </properties>
+
   <dependencies>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>3.8.1</version>
-      <scope>test</scope>
+      <!--Java EE API-->
+      <dependency>
+          <groupId>javax</groupId>
+          <artifactId>javaee-api</artifactId>
+          <version>${javaee-api-version}</version>
+          <scope>provided</scope>
+      </dependency>
+
+      <!-- Spring -->
+      <dependency>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-context</artifactId>
+          <version>${org.springframework-version}</version>
+          <exclusions>
+              <!-- Exclude Commons Logging in favor of SLF4j -->
+              <exclusion>
+                  <groupId>commons-logging</groupId>
+                  <artifactId>commons-logging</artifactId>
+              </exclusion>
+          </exclusions>
+      </dependency>
+      <dependency>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-webmvc</artifactId>
+          <version>${org.springframework-version}</version>
+      </dependency>
+
+      <!-- Persistence -->
+      <dependency>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-jdbc</artifactId>
+          <version>${org.springframework-version}</version>
+      </dependency>
+      <dependency>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-tx</artifactId>
+          <version>${org.springframework-version}</version>
+      </dependency>
+      <dependency>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-orm</artifactId>
+          <version>${org.springframework-version}</version>
+      </dependency>
+      <dependency>
+          <groupId>org.springframework.data</groupId>
+          <artifactId>spring-data-jpa</artifactId>
+          <version>${spring.data.version}</version>
+      </dependency>
+      <dependency>
+          <groupId>org.hibernate</groupId>
+          <artifactId>hibernate-entitymanager</artifactId>
+          <version>${hibernate.version}</version>
+      </dependency>
+      <dependency>
+          <groupId>com.h2database</groupId>
+          <artifactId>h2</artifactId>
+          <version>${h2-version}</version>
+      </dependency>
+
+      <!-- Logging -->
+      <dependency>
+          <groupId>org.slf4j</groupId>
+          <artifactId>slf4j-api</artifactId>
+          <version>${org.slf4j-version}</version>
+      </dependency>
+      <dependency>
+          <groupId>org.slf4j</groupId>
+          <artifactId>jcl-over-slf4j</artifactId>
+          <version>${org.slf4j-version}</version>
+          <scope>runtime</scope>
+      </dependency>
+      <dependency>
+          <groupId>ch.qos.logback</groupId>
+          <artifactId>logback-classic</artifactId>
+          <version>${ch.qos.logback-version}</version>
+      </dependency>
+
+      <!-- Servlet -->
+      <dependency>
+          <groupId>javax.servlet</groupId>
+          <artifactId>javax.servlet-api</artifactId>
+          <version>${servlet-version}</version>
+          <scope>provided</scope>
+      </dependency>
+      <dependency>
+          <groupId>javax.servlet.jsp</groupId>
+          <artifactId>jsp-api</artifactId>
+          <version>${jsp-version}</version>
+          <scope>provided</scope>
+      </dependency>
+      <dependency>
+          <groupId>javax.servlet</groupId>
+          <artifactId>jstl</artifactId>
+          <version>${jstl-version}</version>
+      </dependency>
+
+      <!--JUnit-->
+      <dependency>
+          <groupId>junit</groupId>
+          <artifactId>junit</artifactId>
+          <version>3.8.1</version>
+          <scope>test</scope>
     </dependency>
   </dependencies>
   <build>
     <finalName>tender</finalName>
+    <plugins>
+      <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>${maven-compiler-plugin-version}</version>
+          <configuration>
+              <source>${java-version}</source>
+              <target>${java-version}</target>
+          </configuration>
+      </plugin>
+      <plugin>
+          <groupId>org.apache.tomcat.maven</groupId>
+          <artifactId>tomcat7-maven-plugin</artifactId>
+          <version>${tomcat7-maven-plugin-version}</version>
+      </plugin>
+      <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-resources-plugin</artifactId>
+          <version>${maven-resources-plugin-version}</version>
+          <configuration>
+              <encoding>UTF-8</encoding>
+          </configuration>
+      </plugin>
+      <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-dependency-plugin</artifactId>
+          <executions>
+              <execution>
+                  <id>install</id>
+                  <phase>install</phase>
+                  <goals>
+                      <goal>sources</goal>
+                  </goals>
+              </execution>
+          </executions>
+      </plugin>
+    </plugins>
   </build>
 </project>
