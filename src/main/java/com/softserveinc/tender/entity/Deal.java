@@ -1,6 +1,7 @@
 package com.softserveinc.tender.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.lang.annotation.Retention;
 import java.sql.Date;
 import java.util.List;
@@ -15,29 +16,36 @@ public class Deal {
     private Integer id;
 
     @OneToOne
-    @JoinColumn(name = "bid_id")
+    @JoinColumn(name = "bid_id", nullable = false)
+    @NotNull
     private Bid bid;
 
     @ManyToOne
-    @JoinColumn(name = "customer_id")
+    @JoinColumn(name = "customer_id", nullable = false)
+    @NotNull
     private Profile customer;
 
     @ManyToOne
-    @JoinColumn(name = "seller_id")
+    @JoinColumn(name = "seller_id", nullable = false)
+    @NotNull
     private Profile seller;
 
-    @Column(name = "sum")
+    @Column(name = "sum", nullable = false)
+    @NotNull
     private Double sum;
 
-    @Column(name = "date")
+    @Column(name = "date", nullable = false)
+    @NotNull
     private Date date;
 
-    @ManyToOne
-    @JoinColumn(name = "status_id")
+    @OneToOne
+    @JoinColumn(name = "status_id", nullable = false)
+    @NotNull
     private DealStatus status;
 
     @OneToOne
-    @JoinColumn(name = "proposal_id")
+    @JoinColumn(name = "proposal_id", nullable = false)
+    @NotNull
     private Proposal proposal;
 
     public Integer getId() {
