@@ -32,7 +32,7 @@ public class Deal {
     @Column(name = "date")
     private Date date;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "status_id")
     private DealStatus status;
 
