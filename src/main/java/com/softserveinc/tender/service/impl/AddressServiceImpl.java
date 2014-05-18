@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.annotation.Resource;
 import java.util.List;
 
 @Service
@@ -15,30 +14,30 @@ import java.util.List;
 public class AddressServiceImpl implements AddressService {
 
     @Autowired
-    private AddressRepo addressRepository;
+    private AddressRepo addressRepo;
 
     @Override
     public Address save(Address address) {
-        return addressRepository.save(address);
+        return addressRepo.save(address);
     }
 
     @Override
     public Address findById(int id) {
-        return addressRepository.findOne(id);
+        return addressRepo.findOne(id);
     }
 
     @Override
     public List<Address> findAll() {
-        return addressRepository.findAll();
+        return addressRepo.findAll();
     }
 
     @Override
     public Address update(Address address) {
-        return addressRepository.saveAndFlush(address);
+        return addressRepo.saveAndFlush(address);
     }
 
     @Override
     public void deleteById(int addressID) {
-        addressRepository.delete(addressID);
+        addressRepo.delete(addressID);
     }
 }

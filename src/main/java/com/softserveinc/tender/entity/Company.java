@@ -23,7 +23,7 @@ public class Company {
     @Column(name = "logo")
     private byte[] logo;
 
-    @OneToOne(optional = false)
+    @OneToOne
     @JoinColumn(name="address_id")
     private Address address;
 
