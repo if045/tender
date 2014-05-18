@@ -13,7 +13,7 @@ public class Location {
     @Column(name = "name")
     private String name;
 
-    public int getId() {
+    public int getId( ) {
         return id;
     }
 
