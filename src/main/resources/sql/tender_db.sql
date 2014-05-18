@@ -52,7 +52,7 @@ CREATE TABLE category (
 
 	id INT NOT NULL AUTO_INCREMENT,
 	name VARCHAR(30) UNIQUE NOT NULL,
-	parent INT NOT NULL,
+	parent INT,
 
 	FOREIGN KEY (parent) REFERENCES category(id),
 	PRIMARY KEY(id)
@@ -70,10 +70,10 @@ CREATE TABLE role (
 
 CREATE TABLE user (
 	
-	id INT UNIQUE NOT NULL AUTO_INCREMENT,
+	id INT NOT NULL AUTO_INCREMENT,
 	login VARCHAR(30) UNIQUE NOT NULL,
 	password VARCHAR(15) NOT NULL,
-	create_data DATE NOT NULL,
+	create_date DATE NOT NULL,
 
 	PRIMARY KEY(id)
 );
@@ -126,13 +126,13 @@ CREATE TABLE tender (
 
 	id INT UNIQUE NOT NULL AUTO_INCREMENT,
 	author_id INT NOT NULL,
-	title VARCHAR(15) NOT NULL,
+	title VARCHAR(30) NOT NULL,
 	create_date DATE NOT NULL,
 	end_date DATE NOT NULL,
 	status_id INT NOT NULL,
-	price DECIMAL (13,2) NOT NULL,
+	suitable_price DECIMAL (13,2) NOT NULL,
 	description TEXT,
-
+	
 	FOREIGN KEY (status_id) REFERENCES tender_status(id),
 	FOREIGN KEY (author_id) REFERENCES profile(id),
 	PRIMARY KEY(id)
@@ -144,9 +144,9 @@ CREATE TABLE item (
 	id INT NOT NULL AUTO_INCREMENT,
 	name VARCHAR(15) NOT NULL,
 	type ENUM ('P' , 'S') NOT NULL,
-	category INT NOT NULL,
+	category_id INT NOT NULL,
 
-	FOREIGN KEY (category) REFERENCES category(id),
+	FOREIGN KEY (category_id) REFERENCES category(id),
 	PRIMARY KEY (id)
 
 );
@@ -154,7 +154,7 @@ CREATE TABLE item (
 CREATE TABLE unit (
 
 	id INT NOT NULL AUTO_INCREMENT,
-	quantity INT NOT NULL,
+	quantity DOUBLE(10,2) NOT NULL,
 	measurement_id INT NOT NULL,
 	item_id INT NOT NULL,
 
@@ -247,11 +247,11 @@ CREATE TABLE conflict (
 	moderator_id INT NOT NULL,
 	bid_id INT NOT NULL,
 	description TEXT NOT NULL,
-	status INT NOT NULL,
+	status_id INT NOT NULL,
 
 	FOREIGN KEY (moderator_id) REFERENCES user(id),
 	FOREIGN KEY (bid_id) REFERENCES bid(id),
-	FOREIGN KEY (status) REFERENCES conflict_status(id),
+	FOREIGN KEY (status_id) REFERENCES conflict_status(id),
 	PRIMARY KEY (id)
 );
 
@@ -286,7 +286,7 @@ CREATE TABLE feedback (
 CREATE TABLE deal_status (
 
 	id INT NOT NULL AUTO_INCREMENT,
-	name VARCHAR(15) NOT NULL,
+	name VARCHAR(15) UNIQUE NOT NULL,
 
 	PRIMARY KEY (id)
 );
