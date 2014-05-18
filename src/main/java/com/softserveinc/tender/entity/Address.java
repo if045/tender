@@ -22,7 +22,7 @@ public class Address {
     @Column(name = "postcode")
     private int postcode;
 
-    @OneToOne(optional = false, mappedBy="address")
+    @OneToOne(mappedBy="address")
     public Company company;
 
     public Company getCompany() {

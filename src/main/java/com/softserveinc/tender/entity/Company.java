@@ -24,7 +24,7 @@ public class Company {
     private byte[] logo;
 
     @OneToOne(optional = false)
-    @JoinColumn(name="address_id", unique = true, nullable = false, updatable = false)
+    @JoinColumn(name="address_id")
     private Address address;
 
     public int getId() {
