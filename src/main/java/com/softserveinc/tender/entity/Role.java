@@ -8,8 +8,8 @@ import java.util.List;
 public class Role {
 
     @Id
-    @GeneratedValue
-    @Column(name = "id", nullable = false, length = 11)
+    @GeneratedValue(strategy =GenerationType.AUTO )
+    @Column
     private Integer id;
 
     @Column(name = "name", unique = true, nullable = false, length = 10)

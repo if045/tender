@@ -8,8 +8,8 @@ import java.util.Date;
 public class Profile {
 
     @Id
-    @GeneratedValue
-    @Column(name = "id", nullable = false, length = 11)
+    @GeneratedValue(strategy =GenerationType.AUTO )
+    @Column
     private Integer id;
 
     @Column(name = "icon")

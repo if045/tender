@@ -9,14 +9,15 @@ public class Category {
 
 
     @Id
-    @GeneratedValue
-    @Column(name = "id", nullable = false, length = 11)
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column
     private Integer id;
 
     @Column(name = "name", nullable = false, length = 30)
     private String name;
 
-    @Column(name = "parent", nullable = false, length = 11)
+    @OneToOne
+    @JoinColumn(name = "id")
     private Category parent;
 
 
