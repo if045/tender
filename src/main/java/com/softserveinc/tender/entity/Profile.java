@@ -34,11 +34,11 @@ public class Profile {
     @Column(name = "checked",nullable = false, length = 1)
     private Boolean checked;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name = "company_id")
     private Company company;
 
