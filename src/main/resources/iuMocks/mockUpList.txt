@@ -1,4 +1,5 @@
-Tender List page = tenderList.png
+Tender List page = tendersList.png
+Headers for pages = pageHeaders.png
 Create tender page = newTender.png
 Deal List page = dealList.png
 Review Tender page = tenderView.png
