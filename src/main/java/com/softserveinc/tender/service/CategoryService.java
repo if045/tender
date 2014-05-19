@@ -1,14 +1,15 @@
 package com.softserveinc.tender.service;
 
 
-import com.softserveinc.tender.entity.User;
+import com.softserveinc.tender.entity.Category;
+
 
 import java.util.List;
 
 public interface CategoryService {
-    List<User> findAll();
+    List<Category> findAll();
 
-    User findUserById(int id);
+    Category findCategoryById(int id);
 
-    void saveUser(User user);
+    void saveCategory(Category category);
 }

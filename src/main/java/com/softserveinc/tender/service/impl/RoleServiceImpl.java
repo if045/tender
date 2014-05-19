@@ -30,6 +30,6 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public void saveRole(Role role) {
-        roleRepository.save(deal);
+        roleRepository.save(role);
     }
 }

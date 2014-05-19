@@ -9,8 +9,8 @@ import java.util.List;
 public class User {
 
     @Id
-    @GeneratedValue
-    @Column(name = "id", unique = true, nullable = false, length = 11)
+    @GeneratedValue(strategy =GenerationType.AUTO )
+    @Column
     private Integer id;
 
     @Column(name = "password", nullable = false, length = 15)
