@@ -10,26 +10,21 @@ public class Comment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @NotNull
     @Column(name = "id")
     private Integer id;
 
     @ManyToOne
-    @JoinColumn(name = "tender_id")
-    @NotNull
+    @JoinColumn(name = "tender_id", nullable = false)
     private Tender tender;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
-    @NotNull
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @Column(name = "message")
-    @NotNull
+    @Column(name = "message", nullable = false)
     private String message;
 
-    @Column(name = "date")
-    @NotNull
+    @Column(name = "date", nullable = false)
     private Date date;
 
     public Integer getId() {
