@@ -7,6 +7,5 @@ public interface LocationService {
     public Location save(Location location);
     public Location findById(int id);
     public List<Location> findAll();
-    public Location update(Location location);
     public void deleteById(int id);
 }

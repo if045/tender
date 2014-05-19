@@ -33,11 +33,6 @@ public class CompanyServiceImpl implements CompanyService {
     }
 
     @Override
-    public Company update(Company company) {
-        return companyRepo.saveAndFlush(company);
-    }
-
-    @Override
     public void deleteById(int id) {
         companyRepo.delete(id);
     }

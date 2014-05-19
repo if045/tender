@@ -7,6 +7,5 @@ public interface CompanyService {
     public Company save(Company address);
     public Company findById(int id);
     public List<Company> findAll();
-    public Company update(Company company);
     public void deleteById(int id);
 }

@@ -33,11 +33,6 @@ public class LocationServiceImpl implements LocationService {
     }
 
     @Override
-    public Location update(Location location) {
-        return locationRepo.saveAndFlush(location);
-    }
-
-    @Override
     public void deleteById(int id) {
         locationRepo.delete(id);
     }

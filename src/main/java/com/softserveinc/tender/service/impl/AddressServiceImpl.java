@@ -32,11 +32,6 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
-    public Address update(Address address) {
-        return addressRepo.saveAndFlush(address);
-    }
-
-    @Override
     public void deleteById(int addressID) {
         addressRepo.delete(addressID);
     }
