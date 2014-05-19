@@ -1,0 +1,28 @@
+package com.softserveinc.tender.service.impl;
+
+import com.softserveinc.tender.entity.Feedback;
+import com.softserveinc.tender.repo.FeedbackRepository;
+import com.softserveinc.tender.service.FeedbackService;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.List;
+
+public class FeedbackServiceImpl implements FeedbackService{
+    @Autowired
+    private FeedbackRepository feedbackRepository;
+
+    @Override
+    public List<Feedback> findByProfile() {
+        return feedbackRepository.findByProfile();
+    }
+
+    @Override
+    public void save(Feedback feedback) {
+        feedbackRepository.save(feedback);
+    }
+
+    @Override
+    public void deleteById(Integer id) {
+        feedbackRepository.delete(id);
+    }
+}
