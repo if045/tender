@@ -5,15 +5,18 @@ import javax.persistence.*;
 @Entity
 @Table(name = "address")
 public class Address {
+    private static final int ADDRESS_CITY_LENGTH = 30;
+    private static final int ADDRESS_STREET_LENGTH = 30;
+
     @Id
     @Column(name = "id")
-    @GeneratedValue
+    @GeneratedValue(strategy=GenerationType.AUTO)
     private int id;
 
-    @Column(name = "city")
+    @Column(name = "city", length = ADDRESS_CITY_LENGTH)
     private String city;
 
-    @Column(name = "street")
+    @Column(name = "street", length = ADDRESS_STREET_LENGTH)
     private String street;
 
     @Column(name = "building_number")

@@ -5,15 +5,18 @@ import javax.persistence.*;
 @Entity
 @Table(name = "location")
 public class Location {
+
+    private static final int LOCATION_NAME_LENGTH = 30;
+
     @Id
     @Column(name = "id")
-    @GeneratedValue
+    @GeneratedValue(strategy=GenerationType.AUTO)
     private int id;
 
-    @Column(name = "name")
+    @Column(name = "name", nullable = false, unique = true, length = LOCATION_NAME_LENGTH)
     private String name;
 
-    public int getId( ) {
+    public int getId() {
         return id;
     }
 

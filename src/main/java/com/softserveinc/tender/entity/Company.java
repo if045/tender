@@ -6,18 +6,22 @@ import java.util.Arrays;
 @Entity
 @Table(name = "company")
 public class Company {
+
+    private static final int COMPANY_NAME_LENGTH = 50;
+    private static final int COMPANY_EMAIL_LENGTH = 30;
+
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy=GenerationType.AUTO)
     @Column(name = "id")
     private int id;
 
-    @Column(name = "name")
+    @Column(name = "name", length = COMPANY_NAME_LENGTH)
     private String name;
 
     @Column(name = "srn")
     private int srn;
 
-    @Column(name = "email")
+    @Column(name = "email", nullable = false, length = COMPANY_NAME_LENGTH)
     private String email;
 
     @Column(name = "logo")
