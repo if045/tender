@@ -1,14 +1,11 @@
 package com.softserveinc.tender.entity;
 
 import javax.persistence.*;
-import javax.validation.constraints.Size;
 import java.util.Date;
 
 @Entity
 @Table(name = "bid")
 public class Bid {
-
-    private static final int MINIMUM_SUM_VALUE = 0;
 
     @Id
     @GeneratedValue
@@ -16,14 +13,13 @@ public class Bid {
     private Integer id;
 
     @Column(name = "price", nullable = false)
-    @Size(min = MINIMUM_SUM_VALUE)
     private Double price;
 
     @Column(name = "date", nullable = false)
     private Date date;
 
     @ManyToOne
-    @JoinColumn(name = "unit_id")
+    @JoinColumn(name = "unit_id", nullable = false)
     private Unit unit;
 
 
