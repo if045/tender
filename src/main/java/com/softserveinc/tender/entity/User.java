@@ -24,20 +24,20 @@ public class User {
     @Column(name = "login",nullable = false,unique = true, length = 30)
     private String login;
 
-    @ManyToMany
-    @JoinTable
+    @ManyToMany(cascade={CascadeType.ALL})
+    @JoinTable(name="user_role",joinColumns = {@JoinColumn(name="user_id")},inverseJoinColumns = {@JoinColumn(name="role_id")})
     private List<Role> roles;
 
-    @ManyToMany
-    @JoinTable
+    @ManyToMany(cascade={CascadeType.ALL})
+    @JoinTable(name="seller_location",joinColumns = {@JoinColumn(name="seller_id")},inverseJoinColumns = {@JoinColumn(name="location_id")})
     private List<Location> sellerLocations;
 
-    @ManyToMany
-    @JoinTable
+    @ManyToMany(cascade={CascadeType.ALL})
+    @JoinTable(name="seller_category",joinColumns = {@JoinColumn(name="seller_id")},inverseJoinColumns = {@JoinColumn(name="category_id")})
     private List<Category> sellerCategories;
 
-    @ManyToMany
-    @JoinTable
+    @ManyToMany(cascade={CascadeType.ALL})
+    @JoinTable(name="moderator_category",joinColumns = {@JoinColumn(name="user_id")},inverseJoinColumns = {@JoinColumn(name="categoty_id")})
     private List<Category> moderatorCategories;
 
     public Integer getId() {

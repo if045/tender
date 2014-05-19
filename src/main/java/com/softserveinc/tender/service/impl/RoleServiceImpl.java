@@ -6,7 +6,7 @@ import com.softserveinc.tender.repo.RoleRepository;
 import com.softserveinc.tender.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
-
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
