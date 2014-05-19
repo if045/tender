@@ -13,18 +13,18 @@ public class Conflict {
     private Integer id;
 
     @ManyToOne
-    @JoinColumn(name = "moderator_id")
+    @JoinColumn(name = "moderator_id", nullable = false)
     private User moderator;
 
     @OneToOne
-    @JoinColumn(name = "bid_id")
+    @JoinColumn(name = "bid_id", nullable = false)
     private Bid bid;
 
-    @Column(name = "description")
+    @Column(name = "description", nullable = false)
     private String description;
 
     @ManyToOne
-    @JoinColumn(name = "status_id")
+    @JoinColumn(name = "status_id", nullable = false)
     private ConflictStatus status;
 
     public Integer getId() {

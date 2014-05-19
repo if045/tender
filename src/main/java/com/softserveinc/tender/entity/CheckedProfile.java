@@ -12,15 +12,15 @@ public class CheckedProfile {
     private Integer id;
 
     @OneToOne
-    @JoinColumn(name = "profile_id")
+    @JoinColumn(name = "profile_id", nullable = false)
     private Profile profile;
 
     @ManyToOne
-    @JoinColumn(name = "moderator_id")
+    @JoinColumn(name = "moderator_id", nullable = false)
     private User moderator;
 
     @ManyToOne
-    @JoinColumn(name = "status_id")
+    @JoinColumn(name = "status_id", nullable = false)
     private CheckedStatus status;
 
     public Integer getId() {
