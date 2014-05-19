@@ -10,34 +10,34 @@ public class User {
 
     @Id
     @GeneratedValue
-    @Column(name = "id",unique=true,nullable = false,length = 11)
+    @Column(name = "id", unique = true, nullable = false, length = 11)
     private Integer id;
 
-    @Column(name = "password",nullable = false, length = 15)
+    @Column(name = "password", nullable = false, length = 15)
     private String password;
 
 
-    @Column(name = "create_date",nullable =false)
-    @Temporal(value=TemporalType.DATE)
+    @Column(name = "create_date", nullable = false)
+    @Temporal(value = TemporalType.DATE)
     private Date createDate;
 
-    @Column(name = "login",nullable = false,unique = true, length = 30)
+    @Column(name = "login", nullable = false, unique = true, length = 30)
     private String login;
 
-    @ManyToMany(cascade={CascadeType.ALL})
-    @JoinTable(name="user_role",joinColumns = {@JoinColumn(name="user_id")},inverseJoinColumns = {@JoinColumn(name="role_id")})
+    @ManyToMany
+    @JoinTable(name = "user_role", joinColumns = {@JoinColumn(name = "user_id")}, inverseJoinColumns = {@JoinColumn(name = "role_id")})
     private List<Role> roles;
 
-    @ManyToMany(cascade={CascadeType.ALL})
-    @JoinTable(name="seller_location",joinColumns = {@JoinColumn(name="seller_id")},inverseJoinColumns = {@JoinColumn(name="location_id")})
+    @ManyToMany
+    @JoinTable(name = "seller_location", joinColumns = {@JoinColumn(name = "seller_id")}, inverseJoinColumns = {@JoinColumn(name = "location_id")})
     private List<Location> sellerLocations;
 
-    @ManyToMany(cascade={CascadeType.ALL})
-    @JoinTable(name="seller_category",joinColumns = {@JoinColumn(name="seller_id")},inverseJoinColumns = {@JoinColumn(name="category_id")})
+    @ManyToMany
+    @JoinTable(name = "seller_category", joinColumns = {@JoinColumn(name = "seller_id")}, inverseJoinColumns = {@JoinColumn(name = "category_id")})
     private List<Category> sellerCategories;
 
-    @ManyToMany(cascade={CascadeType.ALL})
-    @JoinTable(name="moderator_category",joinColumns = {@JoinColumn(name="user_id")},inverseJoinColumns = {@JoinColumn(name="categoty_id")})
+    @ManyToMany
+    @JoinTable(name = "moderator_category", joinColumns = {@JoinColumn(name = "user_id")}, inverseJoinColumns = {@JoinColumn(name = "categoty_id")})
     private List<Category> moderatorCategories;
 
     public Integer getId() {

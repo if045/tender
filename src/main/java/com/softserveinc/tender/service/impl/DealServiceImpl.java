@@ -11,7 +11,7 @@ import java.util.List;
 
 @Service
 @Transactional
-public class DealServiceImpl implements DealService{
+public class DealServiceImpl implements DealService {
 
     @Autowired
     private DealRepository dealRepository;

@@ -14,23 +14,21 @@ import java.util.List;
 public class ProfileServiceImpl implements ProfileService {
 
 
+    @Autowired
+    private ProfileRepository profileRepository;
 
+    @Override
+    public List<Profile> findAll() {
+        return profileRepository.findAll();
+    }
 
-        @Autowired
-        private ProfileRepository profileRepository;
+    @Override
+    public Profile findProfileById(int id) {
+        return profileRepository.findOne(id);
+    }
 
-        @Override
-        public List<Profile> findAll() {
-            return profileRepository.findAll();
-        }
-
-        @Override
-        public Profile findProfileById(int id) {
-            return profileRepository.findOne(id);
-        }
-
-        @Override
-        public void saveProfile(Profile profile) {
-            profileRepository.save(deal);
-        }
+    @Override
+    public void saveProfile(Profile profile) {
+        profileRepository.save(deal);
+    }
 }

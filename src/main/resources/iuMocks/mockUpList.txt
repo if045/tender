@@ -7,4 +7,6 @@ Moderator conflict page = conflictsList.png
 Moderator users check page = checkList.png
 Moderator category management = categoriesTree.png
 Registration page = registration.png
-Profile change page(for different user) = Profile_for_simplyUser.png, Profile_for_customer, Profile_for_seler.
+Profile change page(simplyUser) = Profile_for_simplyUser.png
+Profile change page(customer) = Profile_for_customer
+Profile change page(seller) = Profile_for_seller.

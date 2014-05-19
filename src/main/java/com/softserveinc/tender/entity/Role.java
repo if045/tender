@@ -9,15 +9,14 @@ public class Role {
 
     @Id
     @GeneratedValue
-    @Column(name = "id",nullable = false,length = 11)
+    @Column(name = "id", nullable = false, length = 11)
     private Integer id;
 
-    @Column(name = "name",unique = true ,nullable = false,length = 10)
+    @Column(name = "name", unique = true, nullable = false, length = 10)
     private String name;
 
-    @ManyToMany(cascade={CascadeType.ALL})
-    @JoinTable(name="user_role", joinColumns = {@JoinColumn(name="role_id")},inverseJoinColumns = {@JoinColumn(name="user_id")})
-
+    @ManyToMany(cascade = {CascadeType.ALL})
+    @JoinTable(name = "user_role", joinColumns = {@JoinColumn(name = "role_id")}, inverseJoinColumns = {@JoinColumn(name = "user_id")})
 
 
     public Integer getId() {

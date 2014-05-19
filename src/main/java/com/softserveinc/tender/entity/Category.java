@@ -4,19 +4,19 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name="category")
+@Table(name = "category")
 public class Category {
 
 
     @Id
     @GeneratedValue
-    @Column(name = "id",nullable = false,length = 11)
+    @Column(name = "id", nullable = false, length = 11)
     private Integer id;
 
-    @Column(name = "name",nullable = false,length = 30)
+    @Column(name = "name", nullable = false, length = 30)
     private String name;
 
-    @Column(name = "parent",nullable = false,length = 11)
+    @Column(name = "parent", nullable = false, length = 11)
     private Category parent;
 
 

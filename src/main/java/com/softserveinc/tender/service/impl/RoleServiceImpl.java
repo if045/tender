@@ -15,7 +15,6 @@ import java.util.List;
 public class RoleServiceImpl implements RoleService {
 
 
-
     @Autowired
     private RoleRepository roleRepository;
 
@@ -25,10 +24,12 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public Role findRoleById(int id) {return roleRepository.findOne(id); }
+    public Role findRoleById(int id) {
+        return roleRepository.findOne(id);
+    }
 
     @Override
-    public void saveRole (Role role) {
+    public void saveRole(Role role) {
         roleRepository.save(deal);
     }
 }
