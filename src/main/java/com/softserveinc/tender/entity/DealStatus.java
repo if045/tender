@@ -1,7 +1,6 @@
 package com.softserveinc.tender.entity;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "deal_status")
