@@ -21,7 +21,7 @@ public class ProfileServiceImpl implements ProfileService {
         }
 
         @Override
-        public Profile findDealById(int id) {
+        public Profile findProfileById(int id) {
             return profileRepository.findOne(id);
         }
 

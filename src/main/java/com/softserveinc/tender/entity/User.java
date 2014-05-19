@@ -16,7 +16,9 @@ public class User {
     @Column(name = "password")
     private String password;
 
+
     @Column(name = "create_date")
+    @Temporal(value=TemporalType.Date)
     private Date createDate;
 
     @Column(name = "login")
