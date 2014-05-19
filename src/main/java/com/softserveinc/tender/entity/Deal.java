@@ -11,8 +11,6 @@ import java.util.List;
 @Table(name = "deal")
 public class Deal {
 
-    private static final int MINIMUM_SUM_VALUE = 0;
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
@@ -31,7 +29,6 @@ public class Deal {
     private Profile seller;
 
     @Column(name = "sum", nullable = false)
-    @Size(min = MINIMUM_SUM_VALUE)
     private Double sum;
 
     @Column(name = "date", nullable = false)
