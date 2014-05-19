@@ -22,12 +22,12 @@ public class Bid {
     @Column(name = "date", nullable = false)
     private Date date;
 
-    @OneToMany
+    @ManyToOne
     @JoinColumn(name = "unit_id")
     private Unit unit;
 
 
-    @OneToMany
+    @ManyToOne
     @JoinColumn(name = "proposal_id")
     private Proposal proposal;
 
