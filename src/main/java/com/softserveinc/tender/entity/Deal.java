@@ -1,6 +1,8 @@
 package com.softserveinc.tender.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.lang.annotation.Retention;
 import java.sql.Date;
 import java.util.List;
@@ -9,35 +11,38 @@ import java.util.List;
 @Table(name = "deal")
 public class Deal {
 
+    private static final int MINIMUM_SUM_VALUE = 0;
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private Integer id;
 
     @OneToOne
-    @JoinColumn(name = "bid_id")
+    @JoinColumn(name = "bid_id", nullable = false)
     private Bid bid;
 
     @ManyToOne
-    @JoinColumn(name = "customer_id")
+    @JoinColumn(name = "customer_id", nullable = false)
     private Profile customer;
 
     @ManyToOne
-    @JoinColumn(name = "seller_id")
+    @JoinColumn(name = "seller_id", nullable = false)
     private Profile seller;
 
-    @Column(name = "sum")
+    @Column(name = "sum", nullable = false)
+    @Size(min = MINIMUM_SUM_VALUE)
     private Double sum;
 
-    @Column(name = "date")
+    @Column(name = "date", nullable = false)
     private Date date;
 
-    @ManyToOne
-    @JoinColumn(name = "status_id")
+    @OneToOne
+    @JoinColumn(name = "status_id", nullable = false)
     private DealStatus status;
 
     @OneToOne
-    @JoinColumn(name = "proposal_id")
+    @JoinColumn(name = "proposal_id", nullable = false)
     private Proposal proposal;
 
     public Integer getId() {
