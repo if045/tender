@@ -9,7 +9,8 @@ Moderator conflict page = conflictsList.png
 Moderator users check page = checkList.png
 Moderator category management = categoriesTree.png
 Registration page = registration.png
-Profile change page = profile.png
+Profile change page(simplyUser) = Profile_for_simplyUser.png
+Profile change page(customer) = Profile_for_customer.png
+Profile change page(seller) = Profile_for_seller.png
 Create Proposal page = createProposal.png
 Send Feedback form = sendFeedback.png
-
