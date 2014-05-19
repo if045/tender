@@ -1,6 +1,7 @@
 package com.softserveinc.tender.entity;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "role")
@@ -8,11 +9,15 @@ public class Role {
 
     @Id
     @GeneratedValue
-    @Column(name = "id")
+    @Column(name = "id",nullable = false,length = 11)
     private Integer id;
 
-    @Column(name = "name")
+    @Column(name = "name",unique = true ,nullable = false,length = 10)
     private String name;
+
+    @ManyToMany(mappedBy ="roles")
+    private List<User> users;
+
 
     public Integer getId() {
         return id;

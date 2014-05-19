@@ -9,28 +9,29 @@ public class Profile {
 
     @Id
     @GeneratedValue
-    @Column(name = "id")
+    @Column(name = "id",nullable = false,length = 11)
     private Integer id;
 
     @Column(name = "icon")
     private String icon;
 
-    @Column(name = "first_name")
+    @Column(name = "first_name",nullable = false,length = 20)
     private String firstName;
 
-    @Column(name = "last_name")
+    @Column(name = "last_name",nullable = false, length = 20)
     private String lastName;
 
     @Column(name = "birthday")
+    @Temporal(value=TemporalType.DATE)
     private Date birthday;
 
-    @Column(name = "telephone")
+    @Column(name = "telephone",nullable =false,length = 20)
     private String telephone;
 
-    @Column(name = "person")
+    @Column(name = "person",nullable =false,length = 1)
     private Character person;
 
-    @Column(name = "checked")
+    @Column(name = "checked",nullable = false, length = 1)
     private Boolean checked;
 
     @OneToOne

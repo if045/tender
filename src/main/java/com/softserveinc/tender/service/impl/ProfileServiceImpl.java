@@ -3,13 +3,16 @@ package com.softserveinc.tender.service.impl;
 import com.softserveinc.tender.entity.Profile;
 import com.softserveinc.tender.repo.ProfileRepository;
 import com.softserveinc.tender.service.ProfileService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+@Service
+@Transactional
 public class ProfileServiceImpl implements ProfileService {
 
-    @Service
-    @Transactional
+
 
 
         @Autowired

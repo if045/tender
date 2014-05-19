@@ -10,18 +10,18 @@ public class User {
 
     @Id
     @GeneratedValue
-    @Column(name = "id")
+    @Column(name = "id",unique=true,nullable = false,length = 11)
     private Integer id;
 
-    @Column(name = "password")
+    @Column(name = "password",nullable = false, length = 15)
     private String password;
 
 
-    @Column(name = "create_date")
-    @Temporal(value=TemporalType.Date)
+    @Column(name = "create_date",nullable =false)
+    @Temporal(value=TemporalType.DATE)
     private Date createDate;
 
-    @Column(name = "login")
+    @Column(name = "login",nullable = false,unique = true, length = 30)
     private String login;
 
     @ManyToMany
