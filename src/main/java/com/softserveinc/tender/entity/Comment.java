@@ -1,7 +1,6 @@
 package com.softserveinc.tender.entity;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.sql.Date;
 
 @Entity
