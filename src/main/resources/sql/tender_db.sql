@@ -157,9 +157,11 @@ CREATE TABLE unit (
 	quantity DOUBLE(10,2) NOT NULL,
 	measurement_id INT NOT NULL,
 	item_id INT NOT NULL,
+	tender_id INT NOT NULL,
 
 	FOREIGN KEY (item_id) REFERENCES item(id),
 	FOREIGN KEY (measurement_id) REFERENCES measurement(id),
+	FOREIGN KEY (tender_id) REFERENCES tender(id),
 	PRIMARY KEY (id)
 
 );
@@ -176,17 +178,6 @@ CREATE TABLE moderator_category (
 
 );
 
-CREATE TABLE tender_unit (
-
-	id INT NOT NULL AUTO_INCREMENT,
-	unit_id INT NOT NULL,
-	tender_id INT NOT NULL,
-
-	FOREIGN KEY (unit_id) REFERENCES item(id),
-	FOREIGN KEY (tender_id) REFERENCES tender(id),
-	PRIMARY KEY (id)
-
-);
 
 CREATE TABLE checked_profile (
 
