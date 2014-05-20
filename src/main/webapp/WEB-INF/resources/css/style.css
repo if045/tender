@@ -65,3 +65,7 @@ body {
 .page_body {
 	margin-left: 0px;
 }
+
+#startDate, #endDate {
+	width:49%;
+}

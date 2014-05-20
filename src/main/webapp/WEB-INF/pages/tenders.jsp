@@ -94,11 +94,11 @@
                         <div>
                             <div>Active</div>
                             <div class="date_filter">
-                                <div class="input-group date pull-left" style="width:50%;" id="startDate" data-date="29-03-2013" data-date-format="dd-mm-yyyy">
+                                <div class="input-group date pull-left" id="startDate" data-date="29-03-2013" data-date-format="dd-mm-yyyy">
                                     <input class="form-control" size="10" type="text" value="29-03-2013">
                                     <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                                 </div>
-                                <div class="input-group date pull-left" style="width:50%;" id="endDate" data-date="29-03-2013" data-date-format="dd-mm-yyyy">
+                                <div class="input-group date pull-right" id="endDate" data-date="29-03-2013" data-date-format="dd-mm-yyyy">
                                     <input class="form-control" size="10" type="text" value="29-03-2013">
                                     <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                                 </div>
