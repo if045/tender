@@ -1,7 +1,6 @@
 package com.softserveinc.tender.service.impl;
 
 import com.softserveinc.tender.entity.Comment;
-import com.softserveinc.tender.entity.User;
 import com.softserveinc.tender.repo.CommentRepository;
 import com.softserveinc.tender.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,13 +15,13 @@ public class CommentServiceImpl implements CommentService {
     private CommentRepository commentRepository;
 
     @Override
-    public List<Comment> findByTender() {
-        return commentRepository.findByTender();
+    public List<Comment> findByTender(Integer tenderId) {
+        return commentRepository.findByTender(tenderId);
     }
 
     @Override
-    public List<User> findByUser() {
-        return commentRepository.findByUser();
+    public List<Comment> findByUser(Integer userId) {
+        return commentRepository.findByUser(userId);
     }
 
     @Override

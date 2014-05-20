@@ -16,13 +16,13 @@ public class ProposalServiceImpl implements ProposalService {
     private ProposalRepository proposalRepository;
 
     @Override
-    public List<Proposal> findByTender() {
-        return proposalRepository.findByTender();
+    public List<Proposal> findByTender(Integer tenderId) {
+        return proposalRepository.findByTender(tenderId);
     }
 
     @Override
-    public List<Proposal> findBySeller() {
-        return proposalRepository.findBySeller();
+    public List<Proposal> findBySeller(Integer sellerId) {
+        return proposalRepository.findBySeller(sellerId);
     }
 
     @Override
