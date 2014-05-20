@@ -33,8 +33,8 @@ public class TenderServiceImpl implements TenderService {
     }
 
     @Transactional
-    public List<Location> find(int id) {
-      return tenderRepository.find(id) ;
+    public List<Location> findByLocation(int id) {
+      return tenderRepository.findByLocation(id) ;
     }
     @Transactional
     public Tender findOneWithUnits(int id) {

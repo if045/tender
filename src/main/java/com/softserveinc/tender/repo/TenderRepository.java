@@ -11,5 +11,5 @@ import java.util.List;
 
 public interface TenderRepository extends JpaRepository<Tender,Integer> {
     @Query("SELECT b FROM Tender b where b.location.id = :id")
-    public List<Location> find(@Param("id") int id);
+    public List<Location> findByLocation(@Param("id") int id);
 }
