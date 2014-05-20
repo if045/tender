@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface TenderRepository extends JpaRepository<Tender, Integer> {
     @Query("select t from Tender t where t.suitablePrice between :min and :max")
-    List<Tender> findBySuitablePrice(@Param("min") double min,
-                                     @Param("max") double max);
+    List<Tender> findByCustomParameters(@Param("min") double min,
+                                        @Param("max") double max);
 
 }

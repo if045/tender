@@ -14,11 +14,11 @@ public class TenderController {
     @Autowired
     private TenderService tenderService;
 
-    @RequestMapping(value = "/filter", method = RequestMethod.GET)
+    @RequestMapping(value = "/tenders", method = RequestMethod.GET)
     public String filter(@RequestParam("minPrice") double minPrice,
                          @RequestParam("maxPrice") double maxPrice,
                          Model model) {
-        model.addAttribute("tendersList", tenderService.filter(minPrice, maxPrice));
+        model.addAttribute("tenders", tenderService.findByCustomParameters(minPrice, maxPrice));
         return "tenders";
     }
 

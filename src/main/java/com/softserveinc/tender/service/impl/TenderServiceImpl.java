@@ -41,7 +41,7 @@ public class TenderServiceImpl implements TenderService {
     }
 
     @Override
-    public List<Tender> filter(double min, double max) {
-        return tenderRepository.filter(min, max);
+    public List<Tender> findByCustomParameters(Double min, Double max) {
+        return tenderRepository.findByCustomParameters(min, max);
     }
 }
