@@ -14,7 +14,7 @@ import java.util.List;
 
 @Service
 @Transactional
-public class TenderServiceImpl implements TenderService{
+public class TenderServiceImpl implements TenderService {
 
     @Autowired
     private TenderRepository tenderRepository;
@@ -38,5 +38,10 @@ public class TenderServiceImpl implements TenderService{
         //дописати
 
         return tender;
+    }
+
+    @Override
+    public List<Tender> filter(double min, double max) {
+        return tenderRepository.filter(min, max);
     }
 }

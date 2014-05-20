@@ -9,4 +9,5 @@ public interface TenderService {
     List<Tender> findAll();
     Tender findOne(int id);
     Tender findOneWithUnits(int id);
+    List<Tender> filter(double min, double max);
 }
