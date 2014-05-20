@@ -41,7 +41,7 @@ public class TenderServiceImpl implements TenderService{
     }
 
     @Override
-    public List<Tender> findByStatus(String status) {
-        return tenderRepository.findByStatus(status);
+    public List<Tender> findTendersByParameters(int tender_status) {
+        return tenderRepository.findTendersByParameters(tender_status);
     }
 }

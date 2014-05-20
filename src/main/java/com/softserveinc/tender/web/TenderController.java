@@ -18,10 +18,10 @@ public class TenderController {
     @Autowired
     private TenderStatusService tenderStatusService;
 
-    @RequestMapping(value = "statusFilter/{status}", method = RequestMethod.GET)
-    public String statusFilter(@PathVariable String status, Model model) {
+    @RequestMapping(value = "statusFilter/{tender_status}", method = {RequestMethod.POST, RequestMethod.GET})
+    public String statusFilter(@PathVariable int tender_status, Model model) {
 
-        model.addAttribute("tenders", tenderService.findByStatus(status));
+        model.addAttribute("tenders", tenderService.findTendersByParameters(tender_status));
 
         return "tenders";
     }
