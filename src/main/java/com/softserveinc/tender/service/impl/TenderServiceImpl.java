@@ -1,5 +1,6 @@
 package com.softserveinc.tender.service.impl;
 
+import com.softserveinc.tender.entity.Location;
 import com.softserveinc.tender.entity.Tender;
 import com.softserveinc.tender.entity.Unit;
 import com.softserveinc.tender.repo.TenderRepository;
@@ -14,7 +15,7 @@ import java.util.List;
 
 @Service
 @Transactional
-public class TenderServiceImpl implements TenderService{
+public class TenderServiceImpl implements TenderService {
 
     @Autowired
     private TenderRepository tenderRepository;
@@ -27,13 +28,18 @@ public class TenderServiceImpl implements TenderService{
     }
 
     @Transactional
-    public List<Tender> findAll(){
+    public List<Tender> findAll() {
         return tenderRepository.findAll();
     }
 
     @Transactional
-    public Tender findOneWithUnits(int id){
-        Tender tender=new Tender();
+    public List<Location> find(int id) {
+      return tenderRepository.find(id) ;
+    }
+    @Transactional
+    public Tender findOneWithUnits(int id) {
+        Tender tender = new Tender();
+
 
         //дописати
 

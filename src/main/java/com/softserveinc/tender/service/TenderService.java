@@ -1,5 +1,6 @@
 package com.softserveinc.tender.service;
 
+import com.softserveinc.tender.entity.Location;
 import com.softserveinc.tender.entity.Tender;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -9,4 +10,5 @@ public interface TenderService {
     List<Tender> findAll();
     Tender findOne(int id);
     Tender findOneWithUnits(int id);
+    public List<Location> find(int id);
 }
