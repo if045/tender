@@ -1,6 +1,7 @@
 package com.softserveinc.tender.web;
 
 import com.softserveinc.tender.service.ItemService;
+
 import com.softserveinc.tender.service.LocationService;
 import com.softserveinc.tender.service.TenderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,12 +19,16 @@ public class TenderController {
     @Autowired
     private LocationService locationService;
 
+    @Autowired
+    private ItemService itemService;
+
     @RequestMapping("/index")
     public String showAllTenders(Model model) {
         model.addAttribute("tenders", tenderService.findAll());
         model.addAttribute("locations", locationService.getTendersLocation());
+        model.addAttribute("items", itemService.findAll());
         return "tenders";
-            }
+    }
 
     @RequestMapping("/")
     public String home() {
@@ -31,5 +36,5 @@ public class TenderController {
     }
 
 
-}
 
+}
