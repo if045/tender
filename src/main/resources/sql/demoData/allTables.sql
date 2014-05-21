@@ -257,3 +257,56 @@ INSERT INTO deal (bid_id, proposal_id, customer_id, seller_id, sum, date, status
 (1, 4, 5, 2, 1250500.00, CURDATE(), 1),
 (9, 9, 6, 3, 56000.00, CURDATE(), 3),
 (6, 6, 6, 7, 95600.00, CURDATE(), 3);
+
+INSERT INTO moderator_category (user_id, category_id) VALUES
+(1, 1),
+(1, 2),
+(1, 3),
+(1, 4),
+(5, 7),
+(5, 8);
+
+INSERT INTO seller_category (seller_id, category_id) VALUES
+(2, 1),
+(2, 2),
+(3, 3),
+(4, 4),
+(7, 7),
+(7, 8);
+
+INSERT INTO seller_location (seller_id, location_id) VALUES
+(2, 1),
+(2, 2),
+(3, 13),
+(4, 24),
+(7, 4),
+(7, 5),
+(8, 17),
+(8, 18);
+
+INSERT INTO tender_location (tender_id, location_id) VALUES
+(1, 8),
+(2, 1),
+(2, 2),
+(3, 13),
+(4, 24),
+(5, 7),
+(6, 15),
+(6, 22),
+(7, 4),
+(7, 5),
+(8, 17),
+(8, 18),
+(9, 3),
+(10, 25),
+(11, 6);
+
+INSERT INTO user_role (user_id, role_id) VALUES
+(1, 2),
+(2, 3),
+(3, 3),
+(4, 3),
+(5, 2),
+(7, 3),
+(6, 4),
+(8, 3);
