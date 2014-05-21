@@ -37,7 +37,7 @@ public class User {
     private List<Category> sellerCategories;
 
     @ManyToMany
-    @JoinTable(name = "moderator_category", joinColumns = {@JoinColumn(name = "user_id")}, inverseJoinColumns = {@JoinColumn(name = "categoty_id")})
+    @JoinTable(name = "moderator_category", joinColumns = {@JoinColumn(name = "user_id")}, inverseJoinColumns = {@JoinColumn(name = "category_id")})
     private List<Category> moderatorCategories;
 
     public Integer getId() {
