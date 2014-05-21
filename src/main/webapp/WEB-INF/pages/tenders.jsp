@@ -14,12 +14,26 @@
 
     <link rel="stylesheet" type="text/css" media="screen" href='<c:url value="../resources/css/bootstrap.min.css"/>'/>
     <link rel="stylesheet" type="text/css" media="screen" href='<c:url value="../resources/css/datepicker.css"/>'/>
+    <link rel="stylesheet" type="text/css" media="screen" href='<c:url value="../resources/css/select2.css"/>'/>
     <link rel="stylesheet" type="text/css" media="screen" href='<c:url value="../resources/css/style.css"/>'/>
 
     <script type='text/javascript' src='<c:url value="../resources/js/jquery-2.1.1.min.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/bootstrap.min.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/bootstrap-datepicker.js"/>'></script>
+    <script type='text/javascript' src='<c:url value="../resources/js/select2.min.js"/>'></script>
 
+    <script>
+        $(document).ready(function() { 
+            $('#startDate, #endDate').datepicker({
+                format: 'mm-dd-yyyy',
+                startDate: '-3d'
+            });
+
+            $("#category_filter").select2({
+                placeholder: "Select a category"
+            });
+        });
+    </script>
 </head>
 <body>
 
@@ -54,11 +68,32 @@
                     <div class="panel-body">
                         <div>
                             <div>Category</div>
-                            <select class="form-control selectpicker">
-                                <option>All</option>
-                                <option>Ketchup</option>
-                                <option>Relish</option>
-                            </select>
+                            <div>
+                                <select id="category_filter" multiple="multiple" class="populate placeholder select2-offscreen category_selector" tabindex="-1">
+                                    <option></option>
+                                    <optgroup label="Alaskan/Hawaiian Time Zone">
+                                        <option value="AK">Alaska</option>
+                                        <option value="HI">Hawaii</option>
+                                    </optgroup>
+                                    <optgroup label="Pacific Time Zone">
+                                       <option value="CA">California</option>
+                                       <option value="NV">Nevada</option>
+                                       <option value="OR">Oregon</option>
+                                       <option value="WA">Washington</option>
+                                   </optgroup>
+                                   <optgroup label="Mountain Time Zone">
+                                       <option value="AZ">Arizona</option>
+                                       <option value="CO">Colorado</option>
+                                       <option value="ID">Idaho</option>
+                                       <option value="MT">Montana</option>
+                                       <option value="NE">Nebraska</option>
+                                       <option value="NM">New Mexico</option>
+                                       <option value="ND">North Dakota</option>
+                                       <option value="UT">Utah</option>
+                                       <option value="WY">Wyoming</option>
+                                   </optgroup>
+                                </select>
+                            </div>
                         </div>
                         <div>
                             <div>Item</div>
@@ -103,14 +138,7 @@
                                     <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                                 </div>
 
-                                <script>
-                                    $(function(){
-                                        $('#startDate, #endDate').datepicker({
-                                            format: 'mm-dd-yyyy',
-                                            startDate: '-3d'
-                                        });
-                                    });
-                                </script>
+
                             </div>
                         </div>
                         <div><br/></div>
@@ -222,6 +250,8 @@
 
     </div>
 </div>
+
+
 
 
 </body>
