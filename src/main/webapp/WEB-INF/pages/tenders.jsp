@@ -20,6 +20,30 @@
 
 </head>
 <body>
+<div class="row col-sm-2">
+    <div class="col-sm-12">
+        <div class="dropdown">
+            <button class="btn btn-default" id="pickButton">
+                Select One...
+            </button>
+            <button class="btn btn-default" data-toggle="dropdown">
+                <span class="caret"></span>
+            </button>
+            <%--<ul class="dropdown-menu" id="reasonDropdown">
+                <c:forEach var="tender" items="${tenders}">
+                    <c:forEach var="unit" items="${tender.units}">
+                        <li><a href="#" tabindex="-1"><c:out value="${unit.item.name}" /></a></li>
+                    </c:forEach>
+                </c:forEach>
+            </ul>--%>
+            <ul class="dropdown-menu" id="reasonDropdown">
+                <c:forEach var="location" items="${locations}">
+                    <li><a href="#" tabindex="-1"><c:out value="${location.name}" /></a></li>
+                </c:forEach>
+            </ul>
+        </div>
+    </div>
+</div>
 <div class="col-sm-12">
         <table class="table table-bordered table-striped">
             <tr>
@@ -47,6 +71,18 @@
         </table>
 </div>
 
+<script type="text/javascript">
+    (function () {
+        "use strict"
+
+        var $pickButton = $("#pickButton");
+
+        $("#reasonDropdown li a").on("click", function () {
+            var reason = $(this).text();
+            $pickButton.text(reason);
+        });
+    })();
+</script>
 
 </body>
 

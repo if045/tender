@@ -27,15 +27,16 @@ public class TenderServiceImpl implements TenderService {
         return tenderRepository.findOne(id);
     }
 
+
     @Transactional
     public List<Tender> findAll() {
         return tenderRepository.findAll();
     }
 
-    @Transactional
-    public List<Location> findByLocation(int id) {
-      return tenderRepository.findByLocation(id) ;
-    }
+    //@Transactional
+    // public List<Location> findByLocation(int id) {
+    //  return tenderRepository.findByLocation(id) ;
+    //}
     @Transactional
     public Tender findOneWithUnits(int id) {
         Tender tender = new Tender();

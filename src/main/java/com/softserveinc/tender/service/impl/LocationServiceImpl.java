@@ -36,4 +36,9 @@ public class LocationServiceImpl implements LocationService {
     public void deleteById(int id) {
         locationRepo.delete(id);
     }
+
+    @Override
+    public List<Location> getTendersLocation() {
+        return locationRepo.tendersLocation();
+    }
 }
