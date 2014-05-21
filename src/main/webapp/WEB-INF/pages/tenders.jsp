@@ -111,13 +111,9 @@
                 <div>Location</div>
                 <div>
                     <select id="location_filter" multiple="multiple" class="populate placeholder select2-offscreen location_selector" tabindex="-1">
-                        <option></option>
-                        <optgroup label="Regions">
                             <c:forEach var="location" items="${locations}">
-                            <option value="{location.id}"><c:out value="${location.name}" /></option>
+                            <option value="${location.id}"><c:out value="${location.name}" /></option>
                             </c:forEach>
-                        </optgroup>
-
                     </select>
                 </div>
             </div>
