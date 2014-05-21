@@ -14,7 +14,7 @@ import java.util.List;
 
 @Service
 @Transactional
-public class TenderServiceImpl implements TenderService{
+public class TenderServiceImpl implements TenderService {
 
     @Autowired
     private TenderRepository tenderRepository;
@@ -41,7 +41,7 @@ public class TenderServiceImpl implements TenderService{
     }
 
     @Override
-    public List<Tender> findTendersByParameters(int tender_status) {
-        return tenderRepository.findTendersByParameters(tender_status);
+    public List<Tender> findByCustomParameters(Double min, Double max, Integer[] status) {
+        return tenderRepository.findByCustomParameters(min, max, status);
     }
 }
