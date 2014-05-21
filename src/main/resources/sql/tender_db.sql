@@ -316,24 +316,13 @@ CREATE TABLE comment (
 
 );
 
-CREATE TABLE deal_bid (
-
-	id INT NOT NULL AUTO_INCREMENT,
-	deal_id INT NOT NULL,
-	bid_id INT NOT NULL,
-
-	FOREIGN KEY (deal_id) REFERENCES deal(id),
-	FOREIGN KEY (bid_id) REFERENCES bid(id),
-	PRIMARY KEY (id)
-);
-
 CREATE TABLE seller_location (
 
 	id INT NOT NULL AUTO_INCREMENT,
 	seller_id INT NOT NULL,
 	location_id INT NOT NULL,
 
-	FOREIGN KEY (seller_id) REFERENCES profile(id),
+	FOREIGN KEY (seller_id) REFERENCES user(id),
 	FOREIGN KEY (location_id) REFERENCES location(id),
 	PRIMARY KEY (id)
 
@@ -345,7 +334,7 @@ CREATE TABLE seller_category (
 	seller_id INT NOT NULL,
 	category_id INT NOT NULL,
 
-	FOREIGN KEY (seller_id) REFERENCES profile(id),
+	FOREIGN KEY (seller_id) REFERENCES user(id),
 	FOREIGN KEY (category_id) REFERENCES location(id),
 	PRIMARY KEY (id)
 
