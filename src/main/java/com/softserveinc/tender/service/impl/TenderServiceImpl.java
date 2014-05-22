@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import sun.management.counter.Units;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -32,7 +34,10 @@ public class TenderServiceImpl implements TenderService {
     public List<Tender> findAll() {
         return tenderRepository.findAll();
     }
-
+     @Transactional
+     public List<Tender> findByLocation(List<Integer> crud){
+        return tenderRepository.findByLocation(crud);
+    }
     //@Transactional
     // public List<Location> findByLocation(int id) {
     //  return tenderRepository.findByLocation(id) ;

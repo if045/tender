@@ -6,11 +6,19 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.Collection;
 import java.util.List;
 
 public interface TenderRepository extends JpaRepository<Tender, Integer> {
     @Query("select t from Tender t where t.suitablePrice between :min and :max")
     List<Tender> findByCustomParameters(@Param("min") double min,
                                         @Param("max") double max);
+
+
+    @Query("select t from Tender t inner join t.locations location where location.id IN (:idn)")
+            List<Tender> findByLocation(@Param("idn") List<Integer>idn);
+   //@Query("select t from Tender t inner join t.locations location where location.id IN (:id1, :id2)")
+   //List<Tender> findByLocation(@Param("id1")int id1,
+    //                          @Param("id2")int id2 );
 
 }
