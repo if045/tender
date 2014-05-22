@@ -21,6 +21,10 @@ public class Unit {
     @JoinColumn(name = "measurement_id", nullable = false)
     private Measurement measurement;
 
+    @ManyToOne
+    @JoinColumn(name = "tender_id", nullable = false)
+    private Tender tender;
+
     @OneToOne
     @JoinColumn(name = "item_id", nullable = false)
     private Item item;
@@ -55,6 +59,14 @@ public class Unit {
 
     public void setItem(Item item) {
         this.item = item;
+    }
+
+    public Tender getTender() {
+        return tender;
+    }
+
+    public void setTender(Tender tender) {
+        this.tender = tender;
     }
 
 }

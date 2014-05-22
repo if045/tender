@@ -1,5 +1,6 @@
 package com.softserveinc.tender.service;
 
+import com.softserveinc.tender.entity.Category;
 import com.softserveinc.tender.entity.Tender;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -10,4 +11,5 @@ public interface TenderService {
     Tender findOne(int id);
     Tender findOneWithUnits(int id);
     List<Tender> findByCustomParameters(Double min, Double max);
+    List<Tender> findByCategory(List<Integer> categories);
 }
