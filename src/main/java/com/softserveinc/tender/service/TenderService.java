@@ -11,6 +11,6 @@ public interface TenderService {
     Tender findOne(int id);
     Tender findOneWithUnits(int id);
 
-    List<Tender> findByCustomParameters(Double min, Double max, Integer[] status);
+    List<Tender> findByCustomParameters(Double min, Double max, List<Integer> status, List<Integer> categories);
     List<Tender> findByCategory(List<Integer> categories);
 }
