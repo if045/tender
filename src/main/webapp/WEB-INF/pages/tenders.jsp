@@ -111,9 +111,28 @@
                 <div>Location</div>
                 <div>
                     <select id="location_filter" multiple="multiple" class="populate placeholder select2-offscreen location_selector" tabindex="-1">
-                        <c:forEach var="location" items="${locations}">
-                            <option value="${location.id}"><c:out value="${location.name}" /></option>
-                        </c:forEach>
+                        <option></option>
+                        <optgroup label="Alaskan/Hawaiian Time Zone">
+                            <option value="AK">Alaska</option>
+                            <option value="HI">Hawaii</option>
+                        </optgroup>
+                        <optgroup label="Pacific Time Zone">
+                            <option value="CA">California</option>
+                            <option value="NV">Nevada</option>
+                            <option value="OR">Oregon</option>
+                            <option value="WA">Washington</option>
+                        </optgroup>
+                        <optgroup label="Mountain Time Zone">
+                            <option value="AZ">Arizona</option>
+                            <option value="CO">Colorado</option>
+                            <option value="ID">Idaho</option>
+                            <option value="MT">Montana</option>
+                            <option value="NE">Nebraska</option>
+                            <option value="NM">New Mexico</option>
+                            <option value="ND">North Dakota</option>
+                            <option value="UT">Utah</option>
+                            <option value="WY">Wyoming</option>
+                        </optgroup>
                     </select>
                 </div>
             </div>
