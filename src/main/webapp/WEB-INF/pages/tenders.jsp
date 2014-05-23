@@ -37,12 +37,10 @@
                 placeholder: "Select a location"
             });
 
-            $("#category_filter").change(function() {
+            $("#category_filter, #location_filter, #item_filter, #status_filter, #price_from, #price_to, #date_from, #date_to").change(function() {
                 enableFilterButtons();
             });
         });
-
-        var isFiltersActive = false;
 
         function clearFilters() {
             disableFilterButtons();
