@@ -23,7 +23,7 @@
     <script type='text/javascript' src='<c:url value="../resources/js/select2.min.js"/>'></script>
 
     <script>
-        $(document).ready(function() { 
+        $(document).ready(function() {
             $('#startDate, #endDate').datepicker({
                 format: 'mm-dd-yyyy',
                 startDate: '-3d'
@@ -283,3 +283,4 @@
 
 
 </html>
+
