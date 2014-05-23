@@ -10,5 +10,5 @@ import java.util.List;
 @Repository
 public interface LocationRepo extends JpaRepository<Location, Integer> {
     @Query("select distinct location from Tender tender inner join tender.locations location ")
-    List<Location> tendersLocation();
+    List<Location> getTendersLocation();
 }

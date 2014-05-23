@@ -34,14 +34,7 @@ public class TenderServiceImpl implements TenderService {
     public List<Tender> findAll() {
         return tenderRepository.findAll();
     }
-     @Transactional
-     public List<Tender> findByLocation(List<Integer> crud){
-        return tenderRepository.findByLocation(crud);
-    }
-    //@Transactional
-    // public List<Location> findByLocation(int id) {
-    //  return tenderRepository.findByLocation(id) ;
-    //}
+
     @Transactional
     public Tender findOneWithUnits(int id) {
         Tender tender = new Tender();
@@ -53,7 +46,7 @@ public class TenderServiceImpl implements TenderService {
     }
 
     @Override
-    public List<Tender> findByCustomParameters(Double min, Double max) {
-        return tenderRepository.findByCustomParameters(min, max);
+    public List<Tender> findByCustomParameters(Double min, Double max, Integer[] status,List<Integer> locations) {
+        return tenderRepository.findByCustomParameters(min, max, status,locations);
     }
 }

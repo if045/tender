@@ -23,24 +23,10 @@ public class TenderController {
     private TenderService tenderService;
 
 
-    @Autowired
-    private LocationService locationService;
-
-
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String showAllTenders(Model model) {
-        //model.addAttribute("tenders", tenderService.findAll());
-        //model.addAttribute("locations", locationService.getTendersLocation());
-        List<Integer> crud= new ArrayList<Integer>();
-        crud.add(2);
-        crud.add(3);
-        crud.add(8);
-        crud.add(5);
-             model.addAttribute("tenders",tenderService.findByLocation(crud));
+        model.addAttribute("tenders",tenderService.findAll());
         return "tenders";
     }
 
 }
-
-
-

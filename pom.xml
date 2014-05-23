@@ -26,6 +26,7 @@
     <junit-version>3.8.1</junit-version>
     <jdbc-driver-version>5.1.6</jdbc-driver-version>
     <c3p0.version>0.9.2.1</c3p0.version>
+    <jackson-mapper-asl-version>1.9.13</jackson-mapper-asl-version>
 
     <!--Plugins version-->
     <maven-compiler-plugin-version>3.0</maven-compiler-plugin-version>
@@ -41,7 +42,13 @@
           <version>${javaee-api-version}</version>
           <scope>provided</scope>
       </dependency>
-
+      <!-- Jackson-->
+      <dependency>
+           <groupId>org.codehaus.jackson</groupId>
+           <artifactId>jackson-mapper-asl</artifactId>
+           <version>${jackson-mapper-asl-version}</version>
+          <scope>provided</scope>
+      </dependency>
       <!-- Spring -->
       <dependency>
           <groupId>org.springframework</groupId>
