@@ -20,5 +20,3 @@ public class TenderController {
         return "tenders";
     }
 }
-
-
