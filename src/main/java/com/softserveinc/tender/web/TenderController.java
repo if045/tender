@@ -2,6 +2,8 @@ package com.softserveinc.tender.web;
 
 
 
+import com.softserveinc.tender.dto.LocationDto;
+import com.softserveinc.tender.facade.LocationServiceFacade;
 import com.softserveinc.tender.service.ItemService;
 import com.softserveinc.tender.service.LocationService;
 
@@ -34,6 +36,8 @@ public class TenderController {
     @Autowired
     private TenderServiceFacade tenderFacade;
 
+    @Autowired
+    private LocationServiceFacade locationFacade;
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String showAllTenders(Model model) {
@@ -45,6 +49,12 @@ public class TenderController {
     @RequestMapping(value = "/statuses", method = RequestMethod.GET)
     public @ResponseBody List<TenderStatusDto> findAllStatuses() {
         return tenderFacade.findTenderStatuses();
+    }
+
+
+    @RequestMapping(value = "/locations", method = RequestMethod.GET)
+    public @ResponseBody List<LocationDto> findLocation() {
+        return locationFacade.findLocation();
     }
 
 }
