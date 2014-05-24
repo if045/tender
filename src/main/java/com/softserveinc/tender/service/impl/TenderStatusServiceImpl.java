@@ -4,6 +4,7 @@ import com.softserveinc.tender.entity.TenderStatus;
 import com.softserveinc.tender.repo.TenderStatusRepository;
 import com.softserveinc.tender.service.TenderStatusService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,7 +19,11 @@ public class TenderStatusServiceImpl implements TenderStatusService{
 
     @Override
     public List<TenderStatus> findAll() {
-        return tenderStatusRepository.findAll();
+        return tenderStatusRepository.findAll(sortByIdAsc());
+    }
+
+    private Sort sortByIdAsc() {
+        return new Sort(Sort.Direction.ASC, "id");
     }
 
     @Override
