@@ -1,5 +1,6 @@
 package com.softserveinc.tender.service;
 
+import com.softserveinc.tender.entity.Category;
 import com.softserveinc.tender.entity.Tender;
 import java.util.List;
 
