@@ -132,18 +132,18 @@
           <artifactId>junit</artifactId>
           <version>${junit-version}</version>
           <scope>test</scope>
-    </dependency>
+      </dependency>
 
-    <dependency>
-      <groupId>mysql</groupId>
-      <artifactId>mysql-connector-java</artifactId>
-      <version>${jdbc-driver-version}</version>
-    </dependency>
-    <dependency>
+      <dependency>
+          <groupId>mysql</groupId>
+          <artifactId>mysql-connector-java</artifactId>
+          <version>${jdbc-driver-version}</version>
+      </dependency>
+      <dependency>
             <groupId>com.mchange</groupId>
             <artifactId>c3p0</artifactId>
             <version>${c3p0.version}</version>
-        </dependency>
+      </dependency>
 
       <!--Jackson-->
       <dependency>
@@ -152,7 +152,12 @@
           <version>${jackson}</version>
       </dependency>
 
-
+      <!--Model Mapper-->
+      <dependency>
+          <groupId>org.modelmapper</groupId>
+          <artifactId>modelmapper</artifactId>
+          <version>0.6.5</version>
+      </dependency>
   </dependencies>
 
   <build>
