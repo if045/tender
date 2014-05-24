@@ -2,7 +2,7 @@ package com.softserveinc.tender.web;
 
 import com.softserveinc.tender.dto.TenderStatusDto;
 import com.softserveinc.tender.entity.TenderStatus;
-import com.softserveinc.tender.facade.TenderFacade;
+import com.softserveinc.tender.facade.TenderServiceFacade;
 import com.softserveinc.tender.service.TenderService;
 import com.softserveinc.tender.service.TenderStatusService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,10 +23,7 @@ public class TenderController {
     private TenderService tenderService;
 
     @Autowired
-    private TenderFacade tenderFacade;
-
-    @Autowired
-    private TenderStatusService tenderStatusService;
+    private TenderServiceFacade tenderFacade;
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String showAllTenders(Model model) {
@@ -36,14 +33,6 @@ public class TenderController {
 
     @RequestMapping(value = "/statuses", method = RequestMethod.GET)
     public @ResponseBody List<TenderStatusDto> findAllStatuses() {
-
-        List<TenderStatusDto> statusesDto = new ArrayList<>();
-        List<TenderStatus> statuses = tenderStatusService.findAll();
-
-        for(TenderStatus tenderStatus: statuses) {
-            statusesDto.add(tenderFacade.map(tenderStatus));
-        }
-
-        return statusesDto;
+        return tenderFacade.findTenderStatuses();
     }
 }

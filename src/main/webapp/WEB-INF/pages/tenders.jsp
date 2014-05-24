@@ -28,7 +28,7 @@
                     $.getJSON('http://localhost:8080/tenders/statuses', {
                         ajax : 'true'
                     }, function(data){
-                        var html = '<option value="">--Select tender status--</option>';
+                        var html = '<option value="">Active statuses</option>';
                         var len = data.length;
                         for (var i = 0; i < len; i++) {
                             html += '<option value="' + data[i].id + '">'
