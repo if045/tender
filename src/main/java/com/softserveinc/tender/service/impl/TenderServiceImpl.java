@@ -1,5 +1,6 @@
 package com.softserveinc.tender.service.impl;
 
+import com.softserveinc.tender.entity.Category;
 import com.softserveinc.tender.entity.Tender;
 import com.softserveinc.tender.entity.Unit;
 import com.softserveinc.tender.repo.TenderRepository;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import sun.management.counter.Units;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -41,7 +43,12 @@ public class TenderServiceImpl implements TenderService {
     }
 
     @Override
-    public List<Tender> findByCustomParameters(Double min, Double max, Integer[] status) {
-        return tenderRepository.findByCustomParameters(min, max, status);
+    public List<Tender> findByCustomParameters(Double min, Double max, List<Integer> status, List<Integer> categories) {
+        return tenderRepository.findByCustomParameters(min, max, status, categories);
+    }
+
+    @Override
+    public List<Tender> findByCategory(List<Integer> categories) {
+        return tenderRepository.findByCategory(categories);
     }
 }
