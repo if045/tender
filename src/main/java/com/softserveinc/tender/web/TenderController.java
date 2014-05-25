@@ -1,5 +1,6 @@
 package com.softserveinc.tender.web;
 
+import com.softserveinc.tender.service.CategoryService;
 import com.softserveinc.tender.dto.TenderStatusDto;
 import com.softserveinc.tender.facade.TenderServiceFacade;
 import com.softserveinc.tender.service.TenderService;
@@ -22,11 +23,15 @@ public class TenderController {
     private TenderService tenderService;
 
     @Autowired
+    private CategoryService categoryService;
+
+    @Autowired
     private TenderServiceFacade tenderFacade;
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String showAllTenders(Model model) {
         model.addAttribute("tenders",tenderService.findAll());
+        model.addAttribute("categories", categoryService.findAllWithCategory());
         return "tenders";
     }
 

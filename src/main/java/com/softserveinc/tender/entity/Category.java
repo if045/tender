@@ -17,7 +17,7 @@ public class Category {
     private String name;
 
     @OneToOne
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "parent")
     private Category parent;
 
 
