@@ -77,6 +77,11 @@
             $("#filter_button").attr("disabled", "disabled");
             $("#clear_button").attr("disabled", "disabled");
         }
+
+        function applyFilters() {
+            disableFilterButtons();
+            //TO:DO apply filters
+        }
     </script>
 </head>
 <body>
@@ -204,7 +209,7 @@
                         </div>
                         <div><br/></div>
                         <div>
-                            <div class="pull-left"><button id="filter_button" type="button" class="btn btn-default" disabled>Filter</button></div>
+                            <div class="pull-left"><button id="filter_button" type="button" class="btn btn-default" onclick="applyFilters();" disabled>Filter</button></div>
                             <div class="pull-right"><button id="clear_button" type="button" class="btn btn-default" onclick="clearFilters();" disabled>Clear filters</button></div>
                         </div>
                     </div>
