@@ -3,16 +3,10 @@ package com.softserveinc.tender.web;
 
 import com.softserveinc.tender.dto.LocationDto;
 import com.softserveinc.tender.facade.LocationServiceFacade;
-import com.softserveinc.tender.service.LocationService;
-
-
 import com.softserveinc.tender.dto.ItemDto;
 import com.softserveinc.tender.service.CategoryService;
-
 import com.softserveinc.tender.dto.TenderStatusDto;
 import com.softserveinc.tender.facade.TenderServiceFacade;
-
-
 import com.softserveinc.tender.service.TenderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
