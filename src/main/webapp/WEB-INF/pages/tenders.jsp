@@ -62,6 +62,10 @@
             $("#price_to").val("");
             $("#date_from").val("");
             $("#date_to").val("");
+            $("#location_filter").select2('val', 'All');
+            $("#category_filter").select2('val', 'All');
+            $('#item_filter option').eq(0).prop('selected', true);
+            $('#status_filter option').eq(0).prop('selected', true);
         }
 
         function enableFilterButtons() {
