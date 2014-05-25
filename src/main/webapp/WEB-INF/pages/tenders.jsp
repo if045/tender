@@ -22,6 +22,27 @@
     <script type='text/javascript' src='<c:url value="../resources/js/bootstrap-datepicker.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/select2.min.js"/>'></script>
 
+    <script type="text/javascript">
+        $(document).ready(
+                function() {
+                    $.getJSON('http://localhost:8080/tenders/statuses', {
+                        ajax : 'true'
+                    }, function(data){
+                        var html = '<option value="">Active statuses</option>';
+                        var len = data.length;
+                        for (var i = 0; i < len; i++) {
+                            html += '<option value="' + data[i].id + '">'
+                                    + data[i].name + '</option>';
+                        }
+                        html += '</option>';
+
+                        $('#statuses').html(html);
+                    });
+
+                });
+
+    </script>
+
     <script>
         $(document).ready(function() {
             $('#startDate, #endDate').datepicker({
@@ -160,11 +181,9 @@
                         </div>
                         <div>
                             <div>Status</div>
-                            <select id="status_filter" class="form-control selectpicker">
-                                <option>Active status</option>
-                                <option>Ketchup</option>
-                                <option>Relish</option>
-                            </select>
+                            <form>
+                                <select class="form-control selectpicker" id="statuses"/>
+                            </form>
                         </div>
                         <div>
                             <div>Suitable price</div>

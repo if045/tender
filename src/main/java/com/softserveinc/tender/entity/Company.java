@@ -21,7 +21,7 @@ public class Company {
     @Column(name = "srn")
     private int srn;
 
-    @Column(name = "email", nullable = false, length = COMPANY_NAME_LENGTH)
+    @Column(name = "email", nullable = false, length = COMPANY_EMAIL_LENGTH)
     private String email;
 
     @Column(name = "logo")
