@@ -12,4 +12,6 @@ public interface CategoryService {
     Category findCategoryById(int id);
 
     void saveCategory(Category category);
+
+    List<Category> findAllWithCategory();
 }

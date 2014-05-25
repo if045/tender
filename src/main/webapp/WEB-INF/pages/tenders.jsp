@@ -22,48 +22,6 @@
     <script type='text/javascript' src='<c:url value="../resources/js/bootstrap-datepicker.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/select2.min.js"/>'></script>
 
-    <script type="text/javascript">
-        $(document).ready(
-                function() {
-                    $.getJSON('http://localhost:8080/tenders/statuses', {
-                        ajax : 'true'
-                    }, function(data){
-                        var html = '<option value="">Active statuses</option>';
-                        var len = data.length;
-                        for (var i = 0; i < len; i++) {
-                            html += '<option value="' + data[i].id + '">'
-                                    + data[i].name + '</option>';
-                        }
-                        html += '</option>';
-
-                        $('#statuses').html(html);
-                    });
-
-                });
-
-    </script>
-
-    <script type="text/javascript">
-        $(document).ready(
-                function() {
-                    $.getJSON('http://localhost:8080/tenders/locations', {
-                        ajax : 'true'
-                    }, function(loc){
-                        var html = ' ';
-                        var len = loc.length;
-                        for (var i = 0; i < len; i++) {
-                            html += '<option value="' + loc[i].id + '">'
-                                    +loc[i].name + '</option>';
-                        }
-                       // html += '</option>';
-
-                        $('#locations').html(html);
-                    });
-
-                });
-
-    </script>
-
     <script>
         $(document).ready(function() {
             $('#startDate, #endDate').datepicker({
@@ -75,10 +33,79 @@
                 placeholder: "Select a category"
             });
 
-            $("#locations").select2({
+            $("#location_filter").select2({
                 placeholder: "Select a location"
             });
+
+            $("#category_filter, #location_filter, #item_filter, #status_filter, #price_from, #price_to, #date_from, #date_to").change(function() {
+                enableFilterButtons();
+            });
+
+            $.getJSON('http://localhost:8080/tenders/statuses', {
+                  ajax : 'true'
+                }, function(data){
+                  var html = '<option value="">Active statuses</option>';
+                  var len = data.length;
+                  for (var i = 0; i < len; i++) {
+                      html += '<option value="' + data[i].id + '">'
+                               + data[i].name + '</option>';
+                  }
+                  html += '</option>';
+
+                  $('#status_filter').html(html);
+            });
+
+            $.getJSON('/tenders/items', function(data){
+                var html = '<option value="">--Please Select One--</option>';
+                var len = data.length;
+                for (var i = 0; i < len; i++) {
+                    html += '<option value="' + data[i].id + '">'
+                            + data[i].name + '</option>';
+                }
+
+                $('#item_filter').html(html);
+            });
+
+            $.getJSON('/tenders/locations', {
+                ajax : 'true'
+            }, function(loc){
+                var html = ' ';
+                var len = loc.length;
+                for (var i = 0; i < len; i++) {
+                    html += '<option value="' + loc[i].id + '">'
+                            +loc[i].name + '</option>';
+                }
+
+                $('#location_filter').html(html);
+            });
         });
+
+        function clearFilters() {
+            disableFilterButtons();
+            $("#price_from").val("");
+            $("#price_to").val("");
+            $("#date_from").val("");
+            $("#date_to").val("");
+            $("#location_filter").select2('val', 'All');
+            $("#category_filter").select2('val', 'All');
+            $('#item_filter option').eq(0).prop('selected', true);
+            $('#status_filter option').eq(0).prop('selected', true);
+        }
+
+        function enableFilterButtons() {
+            $("#filter_button").removeAttr("disabled");
+            $("#clear_button").removeAttr("disabled");
+        }
+
+        function disableFilterButtons() {
+            $("#filter_button").attr("disabled", "disabled");
+            $("#clear_button").attr("disabled", "disabled");
+        }
+
+        function applyFilters() {
+            disableFilterButtons();
+            //TO:DO apply filters
+        }
     </script>
 </head>
 <body>
@@ -116,69 +143,46 @@
                             <div>Category</div>
                             <div>
                                 <select id="category_filter" multiple="multiple" class="populate placeholder select2-offscreen category_selector" tabindex="-1">
-                                    <option></option>
-                                    <optgroup label="Alaskan/Hawaiian Time Zone">
-                                        <option value="AK">Alaska</option>
-                                        <option value="HI">Hawaii</option>
+                                    <optgroup label="All categories">
+                                        <c:forEach var="category" items="${categories}">
+                                            <option value="category.id"><c:out value="${category.name}"></c:out></option>
+                                        </c:forEach>
                                     </optgroup>
-                                    <optgroup label="Pacific Time Zone">
-                                       <option value="CA">California</option>
-                                       <option value="NV">Nevada</option>
-                                       <option value="OR">Oregon</option>
-                                       <option value="WA">Washington</option>
-                                   </optgroup>
-                                   <optgroup label="Mountain Time Zone">
-                                       <option value="AZ">Arizona</option>
-                                       <option value="CO">Colorado</option>
-                                       <option value="ID">Idaho</option>
-                                       <option value="MT">Montana</option>
-                                       <option value="NE">Nebraska</option>
-                                       <option value="NM">New Mexico</option>
-                                       <option value="ND">North Dakota</option>
-                                       <option value="UT">Utah</option>
-                                       <option value="WY">Wyoming</option>
-                                   </optgroup>
                                 </select>
                             </div>
                         </div>
                         <div>
                             <div>Item</div>
-                            <select class="form-control selectpicker">
-                                <c:forEach var="item" items="${items}">
-                                    <option><c:out value="${item.name}"></c:out></option>
-                                </c:forEach>
-                            </select>
+                            <select id="item_filter" class="form-control selectpicker"></select>
                         </div>
                         <div>
                             <div>Location</div>
                             <div>
-                                <select id="locations" multiple="multiple" class="populate placeholder select2-offscreen location_selector" tabindex="-1" >
+                                <select id="location_filter" multiple="multiple" class="populate placeholder select2-offscreen location_selector" tabindex="-1" >
 
                                 </select>
                             </div>
                         </div>
                         <div>
                             <div>Status</div>
-                            <form>
-                                <select class="form-control selectpicker" id="statuses"/>
-                            </form>
+                            <select id="status_filter" class="form-control selectpicker"></select>
                         </div>
                         <div>
                             <div>Suitable price</div>
                             <div>
-                                <input type="price_from" class="pull-left form-control suitable_price" id="price_from" placeholder="From">
-                                <input type="price_to" class="pull-right form-control suitable_price" id="price_to" placeholder="To">
+                                <input id="price_from" type="price_from" class="pull-left form-control suitable_price" placeholder="From">
+                                <input id="price_to" type="price_to" class="pull-right form-control suitable_price" placeholder="To">
                             </div>
                         </div>
                         <div>
                             <div>Active</div>
                             <div class="date_filter">
                                 <div class="input-group date pull-left" id="startDate" data-date="29-03-2013" data-date-format="dd-mm-yyyy">
-                                    <input class="form-control" size="10" type="text" value="29-03-2013">
+                                    <input id="date_from" class="form-control" size="10" type="text" value="">
                                     <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                                 </div>
                                 <div class="input-group date pull-right" id="endDate" data-date="29-03-2013" data-date-format="dd-mm-yyyy">
-                                    <input class="form-control" size="10" type="text" value="29-03-2013">
+                                    <input id="date_to" class="form-control" size="10" type="text" value="">
                                     <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                                 </div>
 
@@ -187,8 +191,8 @@
                         </div>
                         <div><br/></div>
                         <div>
-                            <div class="pull-left"><button type="button" class="btn btn-default" disabled>Filter</button></div>
-                            <div class="pull-right"><button type="button" class="btn btn-default" disabled>Clear filters</button></div>
+                            <div class="pull-left"><button id="filter_button" type="button" class="btn btn-default" onclick="applyFilters();" disabled>Filter</button></div>
+                            <div class="pull-right"><button id="clear_button" type="button" class="btn btn-default" onclick="clearFilters();" disabled>Clear filters</button></div>
                         </div>
                     </div>
                 </div>
@@ -294,7 +298,6 @@
 
     </div>
 </div>
-
 
 
 
