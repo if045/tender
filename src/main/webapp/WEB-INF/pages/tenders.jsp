@@ -54,6 +54,17 @@
 
                   $('#status_filter').html(html);
             });
+
+            $.getJSON('/tenders/items', function(data){
+                var html = '<option value="">--Please Select One--</option>';
+                var len = data.length;
+                for (var i = 0; i < len; i++) {
+                    html += '<option value="' + data[i].id + '">'
+                            + data[i].name + '</option>';
+                }
+
+                $('#item_filter').html(html);
+            });
         });
 
         function clearFilters() {
@@ -129,11 +140,7 @@
                         </div>
                         <div>
                             <div>Item</div>
-                            <select id="item_filter" class="form-control selectpicker">
-                                <c:forEach var="item" items="${items}">
-                                    <option><c:out value="${item.name}"></c:out></option>
-                                </c:forEach>
-                            </select>
+                            <select id="item_filter" class="form-control selectpicker"></select>
                         </div>
                         <div>
                             <div>Location</div>

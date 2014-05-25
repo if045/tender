@@ -21,4 +21,8 @@ public class ItemServiceImpl implements ItemService{
     public List<Item> findAll(){
         return itemRepository.findAll();
     }
+
+    public List<Item> findAllItemsByTenders() {
+        return itemRepository.findAllItemsByTenders();
+    }
 }
