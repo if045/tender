@@ -1,15 +1,12 @@
 package com.softserveinc.tender.service.impl;
 
 import com.softserveinc.tender.entity.Tender;
-import com.softserveinc.tender.entity.Unit;
 import com.softserveinc.tender.repo.TenderRepository;
 import com.softserveinc.tender.repo.UnitRepository;
 import com.softserveinc.tender.service.TenderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import sun.management.counter.Units;
-
 import java.util.List;
 
 @Service
@@ -26,14 +23,16 @@ public class TenderServiceImpl implements TenderService {
         return tenderRepository.findOne(id);
     }
 
+
     @Transactional
-    public List<Tender> findAll(){
+    public List<Tender> findAll() {
         return tenderRepository.findAll();
     }
 
     @Transactional
-    public Tender findOneWithUnits(int id){
-        Tender tender=new Tender();
+    public Tender findOneWithUnits(int id) {
+        Tender tender = new Tender();
+
 
         //дописати
 
@@ -41,7 +40,12 @@ public class TenderServiceImpl implements TenderService {
     }
 
     @Override
-    public List<Tender> findByCustomParameters(Double min, Double max) {
-        return tenderRepository.findByCustomParameters(min, max);
+    public List<Tender> findByCustomParameters(Double min, Double max, List<Integer> status, List<Integer> categories, List<Integer> locations) {
+        return tenderRepository.findByCustomParameters(min, max, status, categories, locations);
+    }
+
+    @Override
+    public List<Tender> findByCategory(List<Integer> categories) {
+        return tenderRepository.findByCategory(categories);
     }
 }

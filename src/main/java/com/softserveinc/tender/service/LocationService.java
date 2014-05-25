@@ -8,4 +8,5 @@ public interface LocationService {
     public Location findById(int id);
     public List<Location> findAll();
     public void deleteById(int id);
+    List<Location> getTendersLocation();
 }
