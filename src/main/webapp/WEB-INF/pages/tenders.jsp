@@ -37,6 +37,11 @@
                 placeholder: "Select a location"
             });
 
+            $("#status_filter").select2({
+                placeholder: "Select a status"
+            });
+
+
             $("#category_filter, #location_filter, #item_filter, #status_filter, #price_from, #price_to, #date_from, #date_to").change(function() {
                 enableFilterButtons();
             });
@@ -44,14 +49,12 @@
             $.getJSON('http://localhost:8080/tenders/statuses', {
                   ajax : 'true'
                 }, function(data){
-                  var html = '<option value="">Active statuses</option>';
+                  var html;
                   var len = data.length;
                   for (var i = 0; i < len; i++) {
                       html += '<option value="' + data[i].id + '">'
                                + data[i].name + '</option>';
                   }
-                  html += '</option>';
-
                   $('#status_filter').html(html);
             });
 
@@ -173,7 +176,7 @@
                         </div>
                         <div>
                             <div>Status</div>
-                            <select id="status_filter" class="form-control selectpicker"></select>
+                                <select id="status_filter" multiple="multiple" class="populate placeholder select2-offscreen location_selector" tabindex="-1"></select>
                         </div>
                         <div>
                             <div>Suitable price</div>
@@ -273,7 +276,7 @@
                                 <li><a href="#">&laquo;</a></li>
                                 <li><a href="#">1</a></li>
                                 <li><a href="#">2</a></li>
-                                <li><a href="#">&raquo;</a></li>
+                                <li><a href="#">&laquo;</a></li>
                             </ul>
                         </div>
                         <div class="pull-right">
