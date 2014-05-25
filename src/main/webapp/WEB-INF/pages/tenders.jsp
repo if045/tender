@@ -23,27 +23,6 @@
     <script type='text/javascript' src='<c:url value="../resources/js/select2.min.js"/>'></script>
 
     <script type="text/javascript">
-        $(document).ready(
-                function() {
-                    $.getJSON('http://localhost:8080/tenders/statuses', {
-                        ajax : 'true'
-                    }, function(data){
-                        var html = '<option value="">Active statuses</option>';
-                        var len = data.length;
-                        for (var i = 0; i < len; i++) {
-                            html += '<option value="' + data[i].id + '">'
-                                    + data[i].name + '</option>';
-                        }
-                        html += '</option>';
-
-                        $('#statuses').html(html);
-                    });
-
-                });
-
-    </script>
-
-    <script>
         $(document).ready(function() {
             $('#startDate, #endDate').datepicker({
                 format: 'mm-dd-yyyy',
@@ -60,6 +39,20 @@
 
             $("#category_filter, #location_filter, #item_filter, #status_filter, #price_from, #price_to, #date_from, #date_to").change(function() {
                 enableFilterButtons();
+            });
+
+            $.getJSON('http://localhost:8080/tenders/statuses', {
+                  ajax : 'true'
+                }, function(data){
+                  var html = '<option value="">Active statuses</option>';
+                  var len = data.length;
+                  for (var i = 0; i < len; i++) {
+                      html += '<option value="' + data[i].id + '">'
+                               + data[i].name + '</option>';
+                  }
+                  html += '</option>';
+
+                  $('#status_filter').html(html);
             });
         });
 
@@ -181,9 +174,7 @@
                         </div>
                         <div>
                             <div>Status</div>
-                            <form>
-                                <select class="form-control selectpicker" id="statuses"/>
-                            </form>
+                            <select id="status_filter" class="form-control selectpicker"></select>
                         </div>
                         <div>
                             <div>Suitable price</div>
