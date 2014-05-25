@@ -22,7 +22,7 @@
     <script type='text/javascript' src='<c:url value="../resources/js/bootstrap-datepicker.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/select2.min.js"/>'></script>
 
-    <script>
+    <script type="text/javascript">
         $(document).ready(function() {
             $('#startDate, #endDate').datepicker({
                 format: 'mm-dd-yyyy',
