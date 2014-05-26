@@ -88,4 +88,16 @@ body {
 	transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
 }
 
+.nav_buttons {
+	margin-left:5px;
+}
+
+.nav_buttons li {
+	margin-left:20px;
+}
+
+.nav_button {
+	margin-top:7px;
+}
+
 
