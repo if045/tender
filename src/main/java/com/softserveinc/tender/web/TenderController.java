@@ -2,7 +2,6 @@ package com.softserveinc.tender.web;
 
 
 import com.softserveinc.tender.dto.LocationDto;
-import com.softserveinc.tender.facade.LocationServiceFacade;
 import com.softserveinc.tender.dto.ItemDto;
 import com.softserveinc.tender.service.CategoryService;
 import com.softserveinc.tender.dto.TenderStatusDto;
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -27,9 +25,6 @@ public class TenderController {
 
     @Autowired
     private TenderService tenderService;
-
-    @Autowired
-    private LocationServiceFacade locationFacade;
 
     @Autowired
     private CategoryService categoryService;
@@ -57,7 +52,7 @@ public class TenderController {
     public
     @ResponseBody
     List<LocationDto> findLocation() {
-        return locationFacade.findLocation();
+        return tenderFacade.findLocation();
     }
 
 

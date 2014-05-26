@@ -1,11 +1,14 @@
 package com.softserveinc.tender.facade.impl;
 
 import com.softserveinc.tender.dto.ItemDto;
+import com.softserveinc.tender.dto.LocationDto;
 import com.softserveinc.tender.dto.TenderStatusDto;
 import com.softserveinc.tender.entity.Item;
+import com.softserveinc.tender.entity.Location;
 import com.softserveinc.tender.entity.TenderStatus;
 import com.softserveinc.tender.facade.TenderServiceFacade;
 import com.softserveinc.tender.service.ItemService;
+import com.softserveinc.tender.service.LocationService;
 import com.softserveinc.tender.service.TenderStatusService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,6 +28,9 @@ public class TenderServiceFacadeImpl  implements TenderServiceFacade{
     @Autowired
     private ItemService itemService;
 
+    @Autowired
+    private LocationService locationService;
+
     public List<TenderStatusDto> findTenderStatuses() {
         List<TenderStatusDto> statusesDto = new ArrayList<>();
         for(TenderStatus tenderStatus: tenderStatusService.findAll()) {
@@ -39,5 +45,13 @@ public class TenderServiceFacadeImpl  implements TenderServiceFacade{
             itemDtos.add(modelMapper.map(item, ItemDto.class));
         }
         return itemDtos;
+    }
+
+    public List<LocationDto> findLocation() {
+        List<LocationDto> locationDto = new ArrayList<>();
+        for (Location location : locationService.getTendersLocation()) {
+            locationDto.add(modelMapper.map(location, LocationDto.class));
+        }
+        return locationDto;
     }
 }
