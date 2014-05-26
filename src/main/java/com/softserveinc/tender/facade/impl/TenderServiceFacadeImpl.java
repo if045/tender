@@ -47,7 +47,7 @@ public class TenderServiceFacadeImpl  implements TenderServiceFacade{
         return itemDtos;
     }
 
-    public List<LocationDto> findLocation() {
+    public List<LocationDto> findLocations() {
         List<LocationDto> locationDto = new ArrayList<>();
         for (Location location : locationService.getTendersLocation()) {
             locationDto.add(modelMapper.map(location, LocationDto.class));

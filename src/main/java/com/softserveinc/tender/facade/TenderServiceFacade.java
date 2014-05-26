@@ -8,5 +8,5 @@ import java.util.List;
 public interface TenderServiceFacade {
     public List<TenderStatusDto> findTenderStatuses();
     public List<ItemDto> findItems();
-    public List<LocationDto> findLocation();
+    public List<LocationDto> findLocations();
 }
