@@ -50,7 +50,7 @@
                 enableFilterButtons();
             });
 
-            $.getJSON('http://localhost:8080/tenders/statuses', {
+            $.getJSON('/tenders/statuses', {
                   ajax : 'true'
                 }, function(data){
                   var html;
@@ -106,8 +106,8 @@
             $("#date_to").val("");
             $("#location_filter").select2('val', 'All');
             $("#category_filter").select2('val', 'All');
-            $('#item_filter option').eq(0).prop('selected', true);
-            $('#status_filter option').eq(0).prop('selected', true);
+            $("#item_filter").select2('val', 'All');
+            $("#status_filter").select2('val', 'All');
         }
 
         function enableFilterButtons() {
@@ -176,7 +176,7 @@
                         </div>
                         <div>
                             <div>Status</div>
-                                <select id="status_filter" multiple="multiple" class="populate placeholder select2-offscreen location_selector" tabindex="-1"></select>
+                            <select id="status_filter" multiple="multiple" class="populate placeholder select2-offscreen location_selector" tabindex="-1"></select>
                         </div>
                         <div>
                             <div>Suitable price</div>
