@@ -1,5 +1,7 @@
 package com.softserveinc.tender.web;
 
+import com.softserveinc.tender.dto.LocationDto;
+import com.softserveinc.tender.dto.CategoryDto;
 import com.softserveinc.tender.dto.ItemDto;
 import com.softserveinc.tender.service.CategoryService;
 import com.softserveinc.tender.dto.TenderStatusDto;
@@ -31,7 +33,7 @@ public class TenderController {
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String showAllTenders(Model model) {
-        model.addAttribute("tenders",tenderService.findAll());
+        model.addAttribute("tenders", tenderService.findAll());
         model.addAttribute("categories", categoryService.findAllWithCategory());
         return "tenders";
     }
@@ -41,8 +43,20 @@ public class TenderController {
         return tenderFacade.findTenderStatuses();
     }
 
+
+    @RequestMapping(value = "/locations", method = RequestMethod.GET)
+    public @ResponseBody List<LocationDto> findLocation() {
+        return tenderFacade.findLocations();
+    }
+
+
     @RequestMapping(value = "/items", method = RequestMethod.GET)
     public @ResponseBody List<ItemDto> findAllItems() {
         return tenderFacade.findItems();
+    }
+
+    @RequestMapping(value = "/categories", method = RequestMethod.GET)
+    public @ResponseBody List<CategoryDto> findAllCategories() {
+        return tenderFacade.findCategories();
     }
 }
