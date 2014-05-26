@@ -65,6 +65,17 @@
 
                 $('#item_filter').html(html);
             });
+
+            $.getJSON('/tenders/categories', function(data){
+                var html = ' ';
+                var len = data.length;
+                for (var i = 0; i < len; i++) {
+                    html += '<option value="' + data[i].id + '">'
+                            + data[i].name + '</option>';
+                }
+
+                $('#category_filter').html(html);
+            });
         });
 
         function clearFilters() {
@@ -129,13 +140,7 @@
                         <div>
                             <div>Category</div>
                             <div>
-                                <select id="category_filter" multiple="multiple" class="populate placeholder select2-offscreen category_selector" tabindex="-1">
-                                    <optgroup label="All categories">
-                                        <c:forEach var="category" items="${categories}">
-                                            <option value="category.id"><c:out value="${category.name}"></c:out></option>
-                                        </c:forEach>
-                                    </optgroup>
-                                </select>
+                                <select id="category_filter" multiple="multiple" class="populate placeholder select2-offscreen location_selector" tabindex="-1"></select>
                             </div>
                         </div>
                         <div>
