@@ -1,7 +1,7 @@
 package com.softserveinc.tender.web;
 
-
 import com.softserveinc.tender.dto.LocationDto;
+import com.softserveinc.tender.dto.CategoryDto;
 import com.softserveinc.tender.dto.ItemDto;
 import com.softserveinc.tender.service.CategoryService;
 import com.softserveinc.tender.dto.TenderStatusDto;
@@ -41,26 +41,26 @@ public class TenderController {
     }
 
     @RequestMapping(value = "/statuses", method = RequestMethod.GET)
-    public
-    @ResponseBody
-    List<TenderStatusDto> findAllStatuses() {
+    public @ResponseBody List<TenderStatusDto> findAllStatuses() {
         return tenderFacade.findTenderStatuses();
     }
 
 
     @RequestMapping(value = "/locations", method = RequestMethod.GET)
-    public
-    @ResponseBody
-    List<LocationDto> findLocation() {
-        return tenderFacade.findLocation();
+    public @ResponseBody List<LocationDto> findLocation() {
+        return tenderFacade.findLocations();
     }
 
 
     @RequestMapping(value = "/items", method = RequestMethod.GET)
-    public
-    @ResponseBody
-    List<ItemDto> findAllItems() {
+    public @ResponseBody List<ItemDto> findAllItems() {
         return tenderFacade.findItems();
+    }
+
+
+    @RequestMapping(value = "/categories", method = RequestMethod.GET)
+    public @ResponseBody List<CategoryDto> findAllCategories() {
+        return tenderFacade.findCategories();
     }
 
 }
