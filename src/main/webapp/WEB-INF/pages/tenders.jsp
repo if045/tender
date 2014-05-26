@@ -33,6 +33,10 @@
                 placeholder: "Select a category"
             });
 
+            $("#item_filter").select2({
+                placeholder: "Select a Items"
+            });
+
             $("#location_filter").select2({
                 placeholder: "Select a location"
             });
@@ -56,7 +60,7 @@
             });
 
             $.getJSON('/tenders/items', function(data){
-                var html = '<option value="">--Please Select One--</option>';
+                var html = '';
                 var len = data.length;
                 for (var i = 0; i < len; i++) {
                     html += '<option value="' + data[i].id + '">'
@@ -140,7 +144,7 @@
                         </div>
                         <div>
                             <div>Item</div>
-                            <select id="item_filter" class="form-control selectpicker"></select>
+                            <select id="item_filter" multiple="multiple" class="populate placeholder select2-offscreen location_selector" tabindex="-1"></select>
                         </div>
                         <div>
                             <div>Location</div>
