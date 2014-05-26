@@ -14,13 +14,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-
 import java.util.List;
-
 
 @Controller
 @RequestMapping("/tenders")
 public class TenderController {
+
 
 
     @Autowired
@@ -31,7 +30,6 @@ public class TenderController {
 
     @Autowired
     private TenderServiceFacade tenderFacade;
-
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String showAllTenders(Model model) {
@@ -57,10 +55,8 @@ public class TenderController {
         return tenderFacade.findItems();
     }
 
-
     @RequestMapping(value = "/categories", method = RequestMethod.GET)
     public @ResponseBody List<CategoryDto> findAllCategories() {
         return tenderFacade.findCategories();
     }
-
 }

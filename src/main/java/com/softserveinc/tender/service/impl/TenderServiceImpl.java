@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-
 import java.sql.Date;
 import java.util.List;
 
@@ -47,9 +46,8 @@ public class TenderServiceImpl implements TenderService {
         return tenderRepository.findByCustomParameters(min, max, status, categories, locations, minDate, maxDate);
     }
 
-
+    @Override
     public List<Tender> findByCategory(List<Integer> categories) {
         return tenderRepository.findByCategory(categories);
-
     }
 }

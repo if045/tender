@@ -38,7 +38,6 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
     @Autowired
     private CategoryService categoryService;
 
-
     public List<TenderStatusDto> findTenderStatuses() {
         List<TenderStatusDto> statusesDto = new ArrayList<>();
         for (TenderStatus tenderStatus : tenderStatusService.findAll()) {
@@ -54,7 +53,6 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
         }
         return itemDtos;
     }
-
 
     public List<LocationDto> findLocations() {
         List<LocationDto> locationDto = new ArrayList<>();

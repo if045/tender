@@ -95,7 +95,6 @@
                 }
 
                 $('#category_filter').html(html);
-
             });
         });
 
@@ -172,7 +171,6 @@
                             <div>Location</div>
                             <div>
                                 <select id="location_filter" multiple="multiple" class="populate placeholder select2-offscreen location_selector" tabindex="-1" >
-
                                 </select>
                             </div>
                         </div>
