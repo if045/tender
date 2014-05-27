@@ -1,10 +1,16 @@
 package com.softserveinc.tender.facade;
 
 import com.softserveinc.tender.dto.ItemDto;
+import com.softserveinc.tender.dto.TenderDto;
 import com.softserveinc.tender.dto.TenderStatusDto;
+import com.softserveinc.tender.entity.Tender;
+import com.softserveinc.tender.repo.TenderFilter;
+
 import java.util.List;
 
 public interface TenderServiceFacade {
-    public List<TenderStatusDto> findTenderStatuses();
-    public List<ItemDto> findItems();
+    List<TenderStatusDto> findTenderStatuses();
+    List<ItemDto> findItems();
+    List<TenderDto> mapTenders(TenderFilter tenderFilter);
+    TenderDto mapTender(Tender tender);
 }

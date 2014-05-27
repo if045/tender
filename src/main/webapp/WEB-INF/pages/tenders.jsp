@@ -45,7 +45,7 @@
                 enableFilterButtons();
             });
 
-            $.getJSON('http://localhost:8080/tenders/statuses', {
+            $.getJSON('/tenders/statuses', {
                   ajax : 'true'
                 }, function(data){
                   var html = '<option value="">Active statuses</option>';
@@ -59,7 +59,12 @@
                   $('#status_filter').html(html);
             });
 
-            $.getJSON('/tenders/items', function(data){
+            itemDropdown();
+            showTenders();
+        });
+
+        function itemDropdown() {
+            $.getJSON('/tenders/items', function (data) {
                 var html = '';
                 var len = data.length;
                 for (var i = 0; i < len; i++) {
@@ -69,7 +74,24 @@
 
                 $('#item_filter').html(html);
             });
-        });
+        }
+
+        function showTenders() {
+            $.getJSON('/tenders', function (data) {
+                var html = '';
+                var len = data.length;
+                for (var i = 0; i < len; i++) {
+                    html += '<tr><td>' + data[i].title + '</td>' +
+                            '<td>' + data[i].authorName + '</td>' +
+                            '<td>' + data[i].categories + '</td>' +
+                            '<td>' + data[i].locations + '</td>' +
+                            '<td>' + data[i].status + '</td>' +
+                            '<td>' + data[i].suitablePrice + '</td>' +
+                            '<td>' + data[i].proposals + '</td></tr>';
+                }
+                $('#tenders').html(html);
+            });
+        };
 
         function clearFilters() {
             disableFilterButtons();
@@ -95,7 +117,42 @@
 
         function applyFilters() {
             disableFilterButtons();
-            //TO:DO apply filters
+            var str='';
+            if($("#price_from").val()!=""){
+                str+="minPrice="+$("#price_from").val();
+            }
+            if($("#price_to").val()!=""){
+                str += (str.length==0)?"maxPrice="+$("#price_to").val():"&maxPrice="+$("#price_to").val();
+            }
+            var array=new Array();
+            array=$('#item_filter').val();
+            if (array!=null){
+                str += (str.length==0)?"items="+array:"&items="+array;
+            }
+            $.ajax({
+                url: "/tenders",
+                type: "GET",
+                data:  str,
+                dataType:'json',
+
+                success: function(data) {
+                    var html = '';
+                    var len = data.length;
+                    for (var i = 0; i < len; i++) {
+                        html += '<tr><td>' + data[i].title + '</td>' +
+                                '<td>' + data[i].authorName + '</td>' +
+                                '<td>' + data[i].categories + '</td>' +
+                                '<td>' + data[i].locations + '</td>' +
+                                '<td>' + data[i].status + '</td>' +
+                                '<td>' + data[i].suitablePrice + '</td>' +
+                                '<td>' + data[i].proposals + '</td></tr>';
+                    }
+                    $('#tenders').html(html);
+                },
+                error:function(){
+                    alert("ERROR");
+                }
+            });
         }
     </script>
 </head>
@@ -123,7 +180,7 @@
         <!--main-->
         <div class="page_body">
             <!-- sidebar -->
-            <div class="col-md-3">
+            <div class="col-md-2">
 
                 <div class="panel panel-default sidebar">
                     <div class="panel-heading">
@@ -213,7 +270,7 @@
             <!-- sidebar -->
 
             <!-- content -->
-            <div class="col-md-9">
+            <div class="col-md-10">
                 <div class="row">
                     <div class="pull-left">
                         <h3>Tenders</h3>
@@ -231,40 +288,18 @@
                 <!-- items -->
                 <div class="row">
                     <table class="table table-bordered table-striped">
+                        <thead>
                         <tr>
-                            <th>Name</th>
+                            <th>Title</th>
                             <th>Author</th>
                             <th>Category</th>
                             <th>Location</th>
-                            <th>Suitable price</th>
+                            <th>SuitablePrice</th>
                             <th>Status</th>
                             <th>Proposals</th>
-                            <th>Action</th>
                         </tr>
-                        <c:forEach var="tender" items="${tenders}">
-                            <tr>
-                                <td align="center">
-                                    <a href="<spring:url value="/tenders/${tender.id}.html" />">
-                                            ${tender.title}
-                                    </a>
-                                </td>
-                                <td align="center"><c:out value="${tender.author.firstName}"></c:out></td>
-                                <td align="center"><c:out value="Build"></c:out></td>
-                                <td align="center"><c:out value="Lviv"></c:out></td>
-                                <td align="center"><c:out value="$${tender.suitablePrice}"></c:out></td>
-                                <td align="center"><c:out value="${tender.status.name}"></c:out></td>
-                                <td align="center"><c:out value="6"></c:out></td>
-                                <td align="center">
-                                    <div class="control-group">
-                                        <select class="form-control items_number_dropdown">
-                                            <option>View</option>
-                                            <option>Delete</option>
-                                            <option>Close</option>
-                                        </select>
-                                    </div>
-                                </td>
-                            </tr>
-                        </c:forEach>
+                        </thead>
+                        <tbody id="tenders"></tbody>
                     </table>
                 </div>
                 <!-- items -->
