@@ -21,6 +21,23 @@
     <script type='text/javascript' src='<c:url value="../resources/js/select2.min.js"/>'></script>
 
 
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $.getJSON('/tenders/locations', {
+                ajax: 'true'
+            }, function (data) {
+                var html = ' ';
+                var len = data.length;
+                for (var i = 0; i < len; i++) {
+                    html += '<option value="' + data[i].id + '">'
+                            + data[i].name + '</option>';
+                }
+
+                $('#location_filter').html(html);
+            });
+
+        })
+    </script>
 </head>
 <body>
 <div class="container">
@@ -68,6 +85,7 @@
                         <th>Quantity</th>
                         <th>Measurement</th>
                         <th>Seller price</th>
+                        <th>Deal</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -81,7 +99,8 @@
                                     <td align="center"><c:out value="${unit.item.category.name}"></c:out></td>
                                     <td align="center"><c:out value="${unit.quantity}"></c:out></td>
                                     <td align="center"><c:out value="${unit.measurement.name}"></c:out></td>
-                                    <td align="center"><c:out value="sdfdsf"></c:out></td>
+                                    <td align="center"><c:out value="   "></c:out></td>
+                                    <td align="center"><c:out value="   "></c:out></td>
                                 </tr>
                             </c:forEach>
                         </tr>
