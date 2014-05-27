@@ -23,4 +23,9 @@ public class UnitServiceImpl implements UnitService{
     public List<Unit> findAll(){
         return unitRepository.findAll();
     }
+
+    @Override
+    public List<Unit>findByTenderID(int id){
+        return unitRepository.findByTenderID(id);
+    }
 }
