@@ -36,7 +36,7 @@ public class TenderController {
         return "tenders";
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/view{id}", method = RequestMethod.GET)
     public String showTender(@PathVariable("id") Integer id) {
         return "tender";
     }
