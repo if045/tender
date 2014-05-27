@@ -14,10 +14,11 @@ public class ProposalDto {
     private Double sum;
     private Double discountPercentage;
     private Double discountCurrency;
+    private String description;
 
     public ProposalDto() {};
 
-    public ProposalDto(Integer id, Integer numberOfBids, String firstName, String lastName, Double sum, Double discountPercentage, Double discountCurrency) {
+    public ProposalDto(Integer id, Integer numberOfBids, String firstName, String lastName, Double sum, Double discountPercentage, Double discountCurrency, String description) {
         this.id = id;
         this.numberOfBids = numberOfBids;
         this.firstName = firstName;
@@ -25,6 +26,7 @@ public class ProposalDto {
         this.sum = sum;
         this.discountPercentage = discountPercentage;
         this.discountCurrency = discountCurrency;
+        this.description = description;
 
         fullName = setFullName();
         totalPrice = setTotalPrice();
@@ -34,6 +36,7 @@ public class ProposalDto {
         if(discountPercentage != null) {
             return sum - (sum * (getDiscountPercentage() / MAX_PERCENTAGE_VALUE));
         } else {
+
             return sum - getDiscountCurrency();
         }
     }
@@ -114,5 +117,13 @@ public class ProposalDto {
 
     public void setDiscountCurrency(Double discountCurrency) {
         this.discountCurrency = discountCurrency;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }
