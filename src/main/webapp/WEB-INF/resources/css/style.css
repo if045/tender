@@ -100,4 +100,32 @@ body {
 	margin-top:7px;
 }
 
+.modal_datepicker {
+	z-index: 1152 !important;
+}
 
+.create_tender_units {
+	display: block;
+	max-height: 150px; 
+    overflow-y: scroll;
+    margin-top: -20px;
+}
+
+/*
+.create_tender_units thead {
+	display: block;
+}
+
+.create_tender_units tbody {
+	display: block;
+	max-height: 150px; 
+    overflow-y: scroll;
+}
+
+.create_tender_units tr {
+	width:100%;
+}
+
+.create_tender_units td {
+	padding: 10px;
+}*/

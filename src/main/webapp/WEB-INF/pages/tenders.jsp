@@ -24,7 +24,7 @@
 
     <script type="text/javascript">
         $(document).ready(function() {
-            $('#startDate, #endDate').datepicker({
+            $('#startDate, #endDate, #create_tender_enddate').datepicker({
                 format: 'mm-dd-yyyy',
                 startDate: '-3d'
             });
@@ -37,7 +37,7 @@
                 placeholder: "Select a Items"
             });
 
-            $("#location_filter").select2({
+            $("#location_filter, #create_tender_location").select2({
                 placeholder: "Select a location"
             });
 
@@ -48,6 +48,27 @@
 
             $("#category_filter, #location_filter, #item_filter, #status_filter, #price_from, #price_to, #date_from, #date_to").change(function() {
                 enableFilterButtons();
+            });
+
+            $('#createTenderWindow').on('shown.bs.modal', function () {
+                $('.datepicker').addClass('modal_datepicker');
+
+                $("#create_tender_unit_category").select2({
+                    placeholder: "Select a category"
+                });
+                
+                $.getJSON('/tenders/locations', {
+                    ajax : 'true'
+                }, function(loc){
+                    var html = ' ';
+                    var len = loc.length;
+                    for (var i = 0; i < len; i++) {
+                        html += '<option value="' + loc[i].id + '">'
+                                +loc[i].name + '</option>';
+                    }
+
+                    $('#create_tender_location').html(html);
+                });
             });
 
             $.getJSON('http://localhost:8080/tenders/statuses', {
@@ -86,6 +107,7 @@
 
                 $('#location_filter').html(html);
             });
+
             $.getJSON('/tenders/categories', function(data){
                 var html = ' ';
                 var len = data.length;
@@ -138,7 +160,7 @@
                         <li><a class="navbar-brand" href="/">UATender</a></li>
                         <li><button type="button" class="btn btn-default nav_button" disabled>My tenders</button></li>
                         <li><button type="button" class="btn btn-default nav_button" disabled>My deals</button></li>
-                        <li><button type="button" class="btn btn-default nav_button">Create tender</button></li>
+                        <li><button type="button" class="btn btn-default nav_button" data-toggle="modal" data-target="#createTenderWindow">Create tender</button></li>
                     </ul>
                 </div>
 
@@ -181,7 +203,7 @@
                         </div>
                         <div>
                             <div>Status</div>
-                                <select id="status_filter" multiple="multiple" class="populate placeholder select2-offscreen location_selector" tabindex="-1"></select>
+                            <select id="status_filter" multiple="multiple" class="populate placeholder select2-offscreen location_selector" tabindex="-1"></select>
                         </div>
                         <div>
                             <div>Suitable price</div>
@@ -315,7 +337,196 @@
     </div>
 </div>
 
+<div id="createTenderWindow" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">New tender</h4>
+      </div>
+      <div class="modal-body">
+        <div>
+            <form class="form-horizontal" role="form">
+                <div class="form-group">
+                    <label for="create_tender_title" class="col-sm-3 control-label">Title*:</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" id="create_tender_title" placeholder="Title of the tender">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="create_tender_price" class="col-sm-3 control-label">Suitable price:</label>
+                    <div class="col-sm-3">
+                      <input type="text" class="form-control" id="create_tender_price" placeholder="Suitable price">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="create_tender_enddate" class="col-sm-3 control-label">End date:</label>
+                    <div class="col-sm-3">
+                        <div class="input-group date pull-left" id="create_tender_enddate" data-date="" data-date-format="dd-mm-yyyy">
+                            <input id="create_tender_enddate_input" class="form-control" size="10" type="text" value="">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="create_tender_location" class="col-sm-3 control-label">Location:</label>
+                    <div class="col-sm-9">
+                        <select id="create_tender_location" multiple="multiple" class="populate placeholder select2-offscreen location_selector" tabindex="-1" ></select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="create_tender_location" class="col-sm-3 control-label">Description:</label>
+                    <div class="col-sm-9">
+                        <textarea id="create_tender_description" class="form-control" rows="5"></textarea>
+                    </div>
+                </div>
 
+                <div class="">
+                    <div><label class="control-label">New unit:</label></div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="col-sm-2">
+                                <div class="form-group">
+                                    <div>Category*:</div>
+                                    <div>
+                                        <select id="create_tender_unit_category" multiple="multiple" class="populate placeholder select2-offscreen category_selector" tabindex="-1" ></select>
+                                    </div>
+                                </div> 
+                            </div>
+                            <div class="col-sm-2">
+                                <div class="form-group btn-group" data-toggle="buttons-radio">
+                                    <div>Type*:</div>
+                                    <div>
+                                        <label><input id="create_tender_unit_type_product" name="create_tender_unit_type" value="" type="radio"/>Product</label>
+                                        <label><input id="create_tender_unit_type_service" name="create_tender_unit_type" value="" type="radio"/>Service</label>
+                                    </div>
+                                </div> 
+                            </div>
+                            <div class="col-sm-2">
+                                <div class="form-group">
+                                    <div>Item*:</div>
+                                    <div>
+                                        <select id="create_tender_unit_item" multiple="multiple" class="populate placeholder select2-offscreen category_selector" tabindex="-1" ></select>
+                                        <input type="text" class="form-control" id="create_tender_unit_newitem" placeholder="New item">
+                                    </div>
+                                </div> 
+                            </div>
+                            <div class="col-sm-2">
+                                <div class="form-group">
+                                    <div>Quantity*:</div>
+                                    <div>
+                                        <input type="text" class="form-control" id="create_tender_unit_quantity" placeholder="0">
+                                    </div>
+                                </div> 
+                            </div>
+                            <div class="col-sm-2">
+                                <div class="form-group">
+                                    <div>Measurement*:</div>
+                                    <div>
+                                        <select id="create_tender_unit_measurement" class="form-control selectpicker">
+                                            <option>All</option>
+                                            <option>Ketchup</option>
+                                            <option>Relish</option>
+                                        </select>
+                                    </div>
+                                </div> 
+                            </div>
+                            <div class="col-sm-1">
+                                <button type="button" class="btn btn-default">Add</button>
+                            </div>
+                        </div>    
+                    </div>   
+                </div>
+
+                <div class="">
+                    <div><label class="control-label">Units:</label></div>
+                    <div>
+                        <table class="table table-bordered table-striped">
+                            <tr>
+                                <td align="center">Name</td>
+                                <td align="center">Type</td>
+                                <td align="center">Category</td>
+                                <td align="center">Quantity</td>
+                                <td align="center">Measurement</td>
+                                <td align="center">Action</td>
+                            </tr>
+                        </table>    
+                    </div>   
+                    <div class="create_tender_units">
+                        <table class="table table-bordered table-striped">
+                            <tbody>
+                                <tr>
+                                    <td align="center">Ivan</td>
+                                    <td align="center">Build</td>
+                                    <td align="center">Lviv</td>
+                                    <td align="center">$1000000.0</td>
+                                    <td align="center">Open</td>
+                                    <td align="center">6</td>
+                                </tr>
+                                <tr>
+                                    <td align="center">Ivan</td>
+                                    <td align="center">Build</td>
+                                    <td align="center">Lviv</td>
+                                    <td align="center">$1000000.0</td>
+                                    <td align="center">Open</td>
+                                    <td align="center">6</td>
+                                </tr>
+                                <tr>
+                                    <td align="center">Ivan</td>
+                                    <td align="center">Build</td>
+                                    <td align="center">Lviv</td>
+                                    <td align="center">$1000000.0</td>
+                                    <td align="center">Open</td>
+                                    <td align="center">6</td>
+                                </tr>
+                                <tr>
+                                    <td align="center">Ivan</td>
+                                    <td align="center">Build</td>
+                                    <td align="center">Lviv</td>
+                                    <td align="center">$1000000.0</td>
+                                    <td align="center">Open</td>
+                                    <td align="center">6</td>
+                                </tr>   
+                                <tr>
+                                    <td align="center">Ivan</td>
+                                    <td align="center">Build</td>
+                                    <td align="center">Lviv</td>
+                                    <td align="center">$1000000.0</td>
+                                    <td align="center">Open</td>
+                                    <td align="center">6</td>
+                                </tr>  
+                                <tr>
+                                    <td align="center">Ivan</td>
+                                    <td align="center">Build</td>
+                                    <td align="center">Lviv</td>
+                                    <td align="center">$1000000.0</td>
+                                    <td align="center">Open</td>
+                                    <td align="center">6</td>
+                                </tr>  
+                                <tr>
+                                    <td align="center">Ivan</td>
+                                    <td align="center">Build</td>
+                                    <td align="center">Lviv</td>
+                                    <td align="center">$1000000.0</td>
+                                    <td align="center">Open</td>
+                                    <td align="center">6</td>
+                                </tr>                                                                                                                     
+                            </tbody>                          
+                        </table>
+                    </div>
+                </div>
+
+
+            </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-primary">Create</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 </body>
 
