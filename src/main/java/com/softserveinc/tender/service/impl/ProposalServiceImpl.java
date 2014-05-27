@@ -5,13 +5,11 @@ import com.softserveinc.tender.repo.ProposalRepository;
 import com.softserveinc.tender.service.ProposalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import java.util.List;
 
 @Service
-@Transactional
 public class ProposalServiceImpl implements ProposalService {
+
     @Autowired
     private ProposalRepository proposalRepository;
 
