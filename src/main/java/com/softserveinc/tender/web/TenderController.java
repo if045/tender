@@ -10,6 +10,7 @@ import com.softserveinc.tender.service.TenderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -19,9 +20,6 @@ import java.util.List;
 @Controller
 @RequestMapping("/tenders")
 public class TenderController {
-
-
-
     @Autowired
     private TenderService tenderService;
 
@@ -38,17 +36,20 @@ public class TenderController {
         return "tenders";
     }
 
+    @RequestMapping(value = "/view{id}", method = RequestMethod.GET)
+    public String showTender(@PathVariable("id") Integer id) {
+        return "tender";
+    }
+
     @RequestMapping(value = "/statuses", method = RequestMethod.GET)
     public @ResponseBody List<TenderStatusDto> findAllStatuses() {
         return tenderFacade.findTenderStatuses();
     }
 
-
     @RequestMapping(value = "/locations", method = RequestMethod.GET)
     public @ResponseBody List<LocationDto> findLocation() {
         return tenderFacade.findLocations();
     }
-
 
     @RequestMapping(value = "/items", method = RequestMethod.GET)
     public @ResponseBody List<ItemDto> findAllItems() {
