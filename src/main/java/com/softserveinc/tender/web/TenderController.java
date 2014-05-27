@@ -17,9 +17,6 @@ import java.util.List;
 @Controller
 @RequestMapping("/tenders")
 public class TenderController {
-
-
-
     @Autowired
     private TenderService tenderService;
 
