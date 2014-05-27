@@ -25,7 +25,7 @@
     <script type="text/javascript">
         $(document).ready(function() {
             $('#startDate, #endDate').datepicker({
-                format: 'mm-dd-yyyy',
+                format: 'yyyy/mm/dd',
                 startDate: '-3d'
             });
 
@@ -41,6 +41,11 @@
                 placeholder: "Select a location"
             });
 
+            $("#status_filter").select2({
+                placeholder: "Select a status"
+            });
+
+
             $("#category_filter, #location_filter, #item_filter, #status_filter, #price_from, #price_to, #date_from, #date_to").change(function() {
                 enableFilterButtons();
             });
@@ -48,17 +53,37 @@
             $.getJSON('/tenders/statuses', {
                   ajax : 'true'
                 }, function(data){
-                  var html = '<option value="">Active statuses</option>';
+                  var html;
                   var len = data.length;
                   for (var i = 0; i < len; i++) {
                       html += '<option value="' + data[i].id + '">'
                                + data[i].name + '</option>';
                   }
-                  html += '</option>';
-
                   $('#status_filter').html(html);
             });
 
+            $.getJSON('/tenders/locations', {
+                ajax : 'true'
+            }, function(loc){
+                var html = ' ';
+                var len = loc.length;
+                for (var i = 0; i < len; i++) {
+                    html += '<option value="' + loc[i].id + '">'
+                            +loc[i].name + '</option>';
+                }
+
+                $('#location_filter').html(html);
+            });
+            $.getJSON('/tenders/categories', function(data){
+                var html = ' ';
+                var len = data.length;
+                for (var i = 0; i < len; i++) {
+                    html += '<option value="' + data[i].id + '">'
+                            + data[i].name + '</option>';
+                }
+
+                $('#category_filter').html(html);
+            });
             itemDropdown();
             showTenders();
         });
@@ -91,7 +116,8 @@
                 }
                 $('#tenders').html(html);
             });
-        };
+        }
+
 
         function clearFilters() {
             disableFilterButtons();
@@ -124,10 +150,31 @@
             if($("#price_to").val()!=""){
                 str += (str.length==0)?"maxPrice="+$("#price_to").val():"&maxPrice="+$("#price_to").val();
             }
-            var array=new Array();
-            array=$('#item_filter').val();
-            if (array!=null){
-                str += (str.length==0)?"items="+array:"&items="+array;
+            var items=new Array();
+            items=$('#item_filter').val();
+            if (items!=null){
+                str += (str.length==0)?"items="+items:"&items="+items;
+            }
+            var categories=new Array();
+            categories=$('#category_filter').val();
+            if (categories!=null){
+                str += (str.length==0)?"categories="+categories:"&categories="+categories;
+            }
+            var locations=new Array();
+            locations=$('#location_filter').val();
+            if (locations!=null){
+                str += (str.length==0)?"locations="+locations:"&locations="+locations;
+            }
+            var statuses=new Array();
+            statuses=$('#status_filter').val();
+            if (statuses!=null){
+                str += (str.length==0)?"statuses="+statuses:"&statuses="+statuses;
+            }
+            if($("#date_from").val()!=""){
+                str += (str.length==0)?"minDate="+$("#date_from").val():"&minDate="+$("#date_from").val();
+            }
+            if($("#date_to").val()!=""){
+                str += (str.length==0)?"maxDate="+$("#date_to").val():"&maxDate="+$("#date_to").val();
             }
             $.ajax({
                 url: "/tenders",
@@ -161,20 +208,7 @@
 <div class="container">
     <div class="row">
         <!--navigation-->
-        <nav class="navbar navbar-default" role="navigation">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <a class="navbar-brand" href="/">UATender</a>
-                </div>
-
-                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><a href="/login">Log in</a></li>
-                        <li><a href="/signup">Sign up</a></li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
+        <jsp:include page="header.jsp"/>
         <!--navigation-->
 
         <!--main-->
@@ -190,13 +224,7 @@
                         <div>
                             <div>Category</div>
                             <div>
-                                <select id="category_filter" multiple="multiple" class="populate placeholder select2-offscreen category_selector" tabindex="-1">
-                                    <optgroup label="All categories">
-                                        <c:forEach var="category" items="${categories}">
-                                            <option value="category.id"><c:out value="${category.name}"></c:out></option>
-                                        </c:forEach>
-                                    </optgroup>
-                                </select>
+                                <select id="category_filter" multiple="multiple" class="populate placeholder select2-offscreen location_selector" tabindex="-1"></select>
                             </div>
                         </div>
                         <div>
@@ -206,35 +234,13 @@
                         <div>
                             <div>Location</div>
                             <div>
-                                <select id="location_filter" multiple="multiple" class="populate placeholder select2-offscreen location_selector" tabindex="-1">
-                                    <option></option>
-                                    <optgroup label="Alaskan/Hawaiian Time Zone">
-                                        <option value="AK">Alaska</option>
-                                        <option value="HI">Hawaii</option>
-                                    </optgroup>
-                                    <optgroup label="Pacific Time Zone">
-                                       <option value="CA">California</option>
-                                       <option value="NV">Nevada</option>
-                                       <option value="OR">Oregon</option>
-                                       <option value="WA">Washington</option>
-                                   </optgroup>
-                                   <optgroup label="Mountain Time Zone">
-                                       <option value="AZ">Arizona</option>
-                                       <option value="CO">Colorado</option>
-                                       <option value="ID">Idaho</option>
-                                       <option value="MT">Montana</option>
-                                       <option value="NE">Nebraska</option>
-                                       <option value="NM">New Mexico</option>
-                                       <option value="ND">North Dakota</option>
-                                       <option value="UT">Utah</option>
-                                       <option value="WY">Wyoming</option>
-                                   </optgroup>
+                                <select id="location_filter" multiple="multiple" class="populate placeholder select2-offscreen location_selector" tabindex="-1" >
                                 </select>
                             </div>
                         </div>
                         <div>
                             <div>Status</div>
-                            <select id="status_filter" class="form-control selectpicker"></select>
+                                <select id="status_filter" multiple="multiple" class="populate placeholder select2-offscreen location_selector" tabindex="-1"></select>
                         </div>
                         <div>
                             <div>Suitable price</div>
@@ -312,7 +318,7 @@
                                 <li><a href="#">&laquo;</a></li>
                                 <li><a href="#">1</a></li>
                                 <li><a href="#">2</a></li>
-                                <li><a href="#">&raquo;</a></li>
+                                <li><a href="#">&laquo;</a></li>
                             </ul>
                         </div>
                         <div class="pull-right">
@@ -336,20 +342,13 @@
         <!--main-->
 
         <!--footer -->
-        <div class="footer">
-            <div class="pull-left">
-                <p>Copyright © UATender 2014
-            </div>
-        </div>
+        <jsp:include page="footer.jsp"/>
         <!-- footer -->
 
     </div>
 </div>
 
-
-
 </body>
-
 
 </html>
 

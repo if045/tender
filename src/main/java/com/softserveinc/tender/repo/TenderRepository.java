@@ -4,7 +4,6 @@ import com.softserveinc.tender.entity.Tender;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-
 import java.util.Date;
 import java.util.List;
 
@@ -30,6 +29,7 @@ public interface TenderRepository extends JpaRepository<Tender, Integer> {
                                         @Param("itemFlag") Integer itemFlag,
                                         @Param("locationFlag") Integer locationFlag,
                                         @Param("statusFlag") Integer statusFlag);
+
 
     @Query("select t from Tender t, Unit u, Item i where t.id = u.tender.id and i.id = u.item.id and i.category.id in (:categories)")
     List<Tender> findByCategory(@Param("categories") List<Integer> categories);
