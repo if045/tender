@@ -1,6 +1,7 @@
 package com.softserveinc.tender.repo;
 
 import com.softserveinc.tender.entity.Tender;
+import com.softserveinc.tender.entity.Unit;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -25,4 +26,5 @@ public interface TenderRepository extends JpaRepository<Tender, Integer> {
 
     @Query("select t from Tender t, Unit u, Item i where t.id = u.tender.id and i.id = u.item.id and i.category.id in (:categories)")
     List<Tender> findByCategory(@Param("categories") List<Integer> categories);
+
 }

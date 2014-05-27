@@ -19,6 +19,25 @@
     <script type='text/javascript' src='<c:url value="../resources/js/bootstrap.min.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/bootstrap-datepicker.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/select2.min.js"/>'></script>
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $.getJSON('/tenders/locations', {
+                ajax: 'true'
+            }, function (data) {
+                var html = ' ';
+                var len = data.length;
+                for (var i = 0; i < len; i++) {
+                    html += '<option value="' + data[i].id + '">'
+                            + data[i].name + '</option>';
+                }
+
+                $('#location_filter').html(html);
+            });
+
+        })
+    </script>
 </head>
 <body>
 <div class="container">
@@ -65,28 +84,26 @@
                         <th>Category</th>
                         <th>Quantity</th>
                         <th>Measurement</th>
-                        <th>Category</th>
                         <th>Seller price</th>
+                        <th>Deal</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <c:forEach var="tender" items="${tenders}">
-                    <tr>
-                        <td align="center">
-                            <a href="<spring:url value="/tenders/${tender.id}.html" />">
-                                    ${tender.title}
-                            </a>
-                        </td>
-                        <td align="center"><c:out value="${tender.author.firstName}"></c:out></td>
-                        <td align="center"><c:out value="Build"></c:out></td>
-                        <td align="center"><c:out value="Lviv"></c:out></td>
-                        <td align="center"><c:out value="$${tender.suitablePrice}"></c:out></td>
-                        <td align="center"><c:out value="${tender.status.name}"></c:out></td>
-                        <td align="center"><c:out value="6"></c:out></td>
-                    </tr>
-                    </c:forEach>
-                    </tr>
+                        <tr>
+                            <c:forEach var="unit" items="${tenderView}">
+                                <tr>
+                                    <td align="center"><input type="checkbox" class="checkbox" />
+                                    </td>
+                                    <td align="center"><c:out value="${unit.item.name}"></c:out></td>
+                                    <td align="center"><c:out value="${unit.item.type}"></c:out></td>
+                                    <td align="center"><c:out value="${unit.item.category.name}"></c:out></td>
+                                    <td align="center"><c:out value="${unit.quantity}"></c:out></td>
+                                    <td align="center"><c:out value="${unit.measurement.name}"></c:out></td>
+                                    <td align="center"><c:out value="   "></c:out></td>
+                                    <td align="center"><c:out value="   "></c:out></td>
+                                </tr>
+                            </c:forEach>
+                        </tr>
                     </tbody>
                 </table>
 
@@ -104,22 +121,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                    </tr>
-                    <tr>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@TwBootstrap</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>@fat</td>
-                    </tr>
+
                     </tbody>
                 </table>
             </div>

@@ -2,6 +2,8 @@ package com.softserveinc.tender.service;
 
 import com.softserveinc.tender.entity.Category;
 import com.softserveinc.tender.entity.Tender;
+import com.softserveinc.tender.entity.Unit;
+import org.springframework.data.repository.query.Param;
 
 import java.sql.Date;
 import java.util.List;
