@@ -7,6 +7,8 @@ import com.softserveinc.tender.service.TenderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.sql.Date;
 import java.util.List;
 
 @Service
@@ -40,8 +42,8 @@ public class TenderServiceImpl implements TenderService {
     }
 
     @Override
-    public List<Tender> findByCustomParameters(Double min, Double max, List<Integer> status, List<Integer> categories, List<Integer> locations) {
-        return tenderRepository.findByCustomParameters(min, max, status, categories, locations);
+    public List<Tender> findByCustomParameters(Double min, Double max, List<Integer> status, List<Integer> categories, List<Integer> locations, Date minDate, Date maxDate) {
+        return tenderRepository.findByCustomParameters(min, max, status, categories, locations, minDate, maxDate);
     }
 
     @Override
