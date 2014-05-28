@@ -120,7 +120,7 @@
                             <th align="center">Author</th>
                             <th align="center">Category</th>
                             <th align="center">Location</th>
-                            <th align="center">SuitablePrice</th>
+                            <th align="center">Suitable Price</th>
                             <th align="center">Status</th>
                             <th align="center">Proposals</th>
                             <th align="center">Action</th>

@@ -91,8 +91,8 @@
                             '<td align="center"><div class="control-group">' +
                             '<select class="form-control items_number_dropdown action_button">' +
                             '<option value="view' + data[i].id + '">View</option>' +
-                            '<option value="delete' + data[i].id + '">Delete</option>' +
                             '<option value="close' + data[i].id + '">Close</option>' +
+                            '<option value="addproposal' + data[i].id + '">Add proposal</option>' +
                             '</select>' +
                             '</div></td></tr>';
                 }
@@ -180,8 +180,8 @@
                                 '<td align="center"><div class="control-group">' +
                                 '<select class="form-control items_number_dropdown action_button">' +
                                 '<option value="view' + data[i].id + '">View</option>' +
-                                '<option value="delete' + data[i].id + '">Delete</option>' +
                                 '<option value="close' + data[i].id + '">Close</option>' +
+                                '<option value="addproposal' + data[i].id + '">Add proposal</option>' +
                                 '</select>' +
                                 '</div></td></tr>';
                     }
