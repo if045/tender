@@ -25,7 +25,7 @@
     <script type="text/javascript">
         $(document).ready(function() {
             $('#startDate, #endDate').datepicker({
-                format: 'mm-dd-yyyy',
+                format: 'yyyy/mm/dd',
                 startDate: '-3d'
             });
 
@@ -50,7 +50,7 @@
                 enableFilterButtons();
             });
 
-            $.getJSON('http://localhost:8080/tenders/statuses', {
+            $.getJSON('/tenders/statuses', {
                   ajax : 'true'
                 }, function(data){
                   var html;
@@ -61,18 +61,6 @@
                   }
                   $('#status_filter').html(html);
             });
-
-            $.getJSON('/tenders/items', function(data){
-                var html = '';
-                var len = data.length;
-                for (var i = 0; i < len; i++) {
-                    html += '<option value="' + data[i].id + '">'
-                            + data[i].name + '</option>';
-                }
-
-                $('#item_filter').html(html);
-            });
-
 
             $.getJSON('/tenders/locations', {
                 ajax : 'true'
@@ -96,7 +84,40 @@
 
                 $('#category_filter').html(html);
             });
+            itemDropdown();
+            showTenders();
         });
+
+        function itemDropdown() {
+            $.getJSON('/tenders/items', function (data) {
+                var html = '';
+                var len = data.length;
+                for (var i = 0; i < len; i++) {
+                    html += '<option value="' + data[i].id + '">'
+                            + data[i].name + '</option>';
+                }
+
+                $('#item_filter').html(html);
+            });
+        }
+
+        function showTenders() {
+            $.getJSON('/tenders', function (data) {
+                var html = '';
+                var len = data.length;
+                for (var i = 0; i < len; i++) {
+                    html += '<tr><td>' + data[i].title + '</td>' +
+                            '<td>' + data[i].authorName + '</td>' +
+                            '<td>' + data[i].categories + '</td>' +
+                            '<td>' + data[i].locations + '</td>' +
+                            '<td>' + data[i].status + '</td>' +
+                            '<td>' + data[i].suitablePrice + '</td>' +
+                            '<td>' + data[i].proposals + '</td></tr>';
+                }
+                $('#tenders').html(html);
+            });
+        }
+
 
         function clearFilters() {
             disableFilterButtons();
@@ -122,7 +143,63 @@
 
         function applyFilters() {
             disableFilterButtons();
-            //TO:DO apply filters
+            var str='';
+            if($("#price_from").val()!=""){
+                str+="minPrice="+$("#price_from").val();
+            }
+            if($("#price_to").val()!=""){
+                str += (str.length==0)?"maxPrice="+$("#price_to").val():"&maxPrice="+$("#price_to").val();
+            }
+            var items=new Array();
+            items=$('#item_filter').val();
+            if (items!=null){
+                str += (str.length==0)?"items="+items:"&items="+items;
+            }
+            var categories=new Array();
+            categories=$('#category_filter').val();
+            if (categories!=null){
+                str += (str.length==0)?"categories="+categories:"&categories="+categories;
+            }
+            var locations=new Array();
+            locations=$('#location_filter').val();
+            if (locations!=null){
+                str += (str.length==0)?"locations="+locations:"&locations="+locations;
+            }
+            var statuses=new Array();
+            statuses=$('#status_filter').val();
+            if (statuses!=null){
+                str += (str.length==0)?"statuses="+statuses:"&statuses="+statuses;
+            }
+            if($("#date_from").val()!=""){
+                str += (str.length==0)?"minDate="+$("#date_from").val():"&minDate="+$("#date_from").val();
+            }
+            if($("#date_to").val()!=""){
+                str += (str.length==0)?"maxDate="+$("#date_to").val():"&maxDate="+$("#date_to").val();
+            }
+            $.ajax({
+                url: "/tenders",
+                type: "GET",
+                data:  str,
+                dataType:'json',
+
+                success: function(data) {
+                    var html = '';
+                    var len = data.length;
+                    for (var i = 0; i < len; i++) {
+                        html += '<tr><td>' + data[i].title + '</td>' +
+                                '<td>' + data[i].authorName + '</td>' +
+                                '<td>' + data[i].categories + '</td>' +
+                                '<td>' + data[i].locations + '</td>' +
+                                '<td>' + data[i].status + '</td>' +
+                                '<td>' + data[i].suitablePrice + '</td>' +
+                                '<td>' + data[i].proposals + '</td></tr>';
+                    }
+                    $('#tenders').html(html);
+                },
+                error:function(){
+                    alert("ERROR");
+                }
+            });
         }
     </script>
 </head>
@@ -131,26 +208,13 @@
 <div class="container">
     <div class="row">
         <!--navigation-->
-        <nav class="navbar navbar-default" role="navigation">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <a class="navbar-brand" href="/">UATender</a>
-                </div>
-
-                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><a href="/login">Log in</a></li>
-                        <li><a href="/signup">Sign up</a></li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
+        <jsp:include page="header.jsp"/>
         <!--navigation-->
 
         <!--main-->
         <div class="page_body">
             <!-- sidebar -->
-            <div class="col-md-3">
+            <div class="col-md-2">
 
                 <div class="panel panel-default sidebar">
                     <div class="panel-heading">
@@ -212,7 +276,7 @@
             <!-- sidebar -->
 
             <!-- content -->
-            <div class="col-md-9">
+            <div class="col-md-10">
                 <div class="row">
                     <div class="pull-left">
                         <h3>Tenders</h3>
@@ -230,40 +294,18 @@
                 <!-- items -->
                 <div class="row">
                     <table class="table table-bordered table-striped">
+                        <thead>
                         <tr>
-                            <th>Name</th>
+                            <th>Title</th>
                             <th>Author</th>
                             <th>Category</th>
                             <th>Location</th>
-                            <th>Suitable price</th>
+                            <th>SuitablePrice</th>
                             <th>Status</th>
                             <th>Proposals</th>
-                            <th>Action</th>
                         </tr>
-                        <c:forEach var="tender" items="${tenders}">
-                            <tr>
-                                <td align="center">
-                                    <a href="<spring:url value="/tenders/${tender.id}.html" />">
-                                            ${tender.title}
-                                    </a>
-                                </td>
-                                <td align="center"><c:out value="${tender.author.firstName}"></c:out></td>
-                                <td align="center"><c:out value="Build"></c:out></td>
-                                <td align="center"><c:out value="Lviv"></c:out></td>
-                                <td align="center"><c:out value="$${tender.suitablePrice}"></c:out></td>
-                                <td align="center"><c:out value="${tender.status.name}"></c:out></td>
-                                <td align="center"><c:out value="6"></c:out></td>
-                                <td align="center">
-                                    <div class="control-group">
-                                        <select class="form-control items_number_dropdown">
-                                            <option>View</option>
-                                            <option>Delete</option>
-                                            <option>Close</option>
-                                        </select>
-                                    </div>
-                                </td>
-                            </tr>
-                        </c:forEach>
+                        </thead>
+                        <tbody id="tenders"></tbody>
                     </table>
                 </div>
                 <!-- items -->
@@ -300,20 +342,13 @@
         <!--main-->
 
         <!--footer -->
-        <div class="footer">
-            <div class="pull-left">
-                <p>Copyright © UATender 2014
-            </div>
-        </div>
+        <jsp:include page="footer.jsp"/>
         <!-- footer -->
 
     </div>
 </div>
 
-
-
 </body>
-
 
 </html>
 
