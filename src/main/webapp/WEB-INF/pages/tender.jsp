@@ -27,7 +27,27 @@
                 format: 'mm-dd-yyyy',
                 startDate: '-3d'
             });
+            showUnit();
         });
+
+        function showUnit() {
+            var tenderId=1;
+            $.getJSON('/tenders/unit'+tenderId, function (data) {
+                var html = '';
+                var len = data.length;
+                for (var i = 0; i < len; i++) {
+                    html += '<tr><td>' +' <input type="checkbox">' + '</td>' +
+                            '<td>' + data[i].unit_name + '</td>' +
+                            '<td>' + data[i].type + '</td>' +
+                            '<td>' + data[i].category_name + '</td>' +
+                            '<td>' + data[i].quantity + '</td>' +
+                            '<td>' + data[i].measurement_name + '</td>' +
+                            '<td>' + data[i].price + '</td>' +
+                            '<td>' + '<button type="submit" class="btn btn-default" disabled>Deal</button>' + '</td></tr>';
+                }
+                $('#unit').html(html);
+            });
+        }
     </script>
 </head>
 <body>
@@ -90,7 +110,7 @@
                 <div class="row">
                     <div class="col-md-7">
                         <table class="table table-bordered table-striped" id="units">
-                            <tr>
+                            <thead>
                                 <th></th>
                                 <th>Name</th>
                                 <th>Type</th>
@@ -99,29 +119,8 @@
                                 <th>Measurement</th>
                                 <th>Seller price</th>
                                 <th>Deal</th>
-                            </tr>
-                            <tr>
-                                <td align="center"><input type="checkbox"></td>
-                                <td align="center">Bricks</td>
-                                <td align="center">P</td>
-                                <td align="center">Building</td>
-                                <td align="center">23</td>
-                                <td align="center">kg</td>
-                                <td align="center"></td>
-                                <td align="center"><button type="submit" class="btn btn-default" disabled>Deal</button></td>
-                            </tr>
-                            <c:forEach var="unit" items="${units}">
-                                <tr>
-                                    <td align="center"><input type="checkbox"></td>
-                                    <td align="center"><c:out value="${unit.name}"/></td>
-                                    <td align="center"><c:out value="${unit.type}"/></td>
-                                    <td align="center"><c:out value="${unit.category}"/></td>
-                                    <td align="center"><c:out value="${unit.quantity}"/></td>
-                                    <td align="center"><c:out value="${unit.measurement}"/></td>
-                                    <td align="center"></td>
-                                    <td align="center"><button type="submit" class="btn btn-default" disabled>Deal</button></td>
-                                </tr>
-                            </c:forEach>
+                            </thead>
+                            <tbody id="unit"></tbody>
                         </table>
                     </div>
                     <div class="col-md-5">

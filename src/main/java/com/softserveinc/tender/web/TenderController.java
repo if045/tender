@@ -4,6 +4,7 @@ import com.softserveinc.tender.dto.LocationDto;
 import com.softserveinc.tender.dto.CategoryDto;
 import com.softserveinc.tender.dto.ItemDto;
 import com.softserveinc.tender.dto.TenderDto;
+import com.softserveinc.tender.dto.UnitDto;
 import com.softserveinc.tender.repo.TenderFilter;
 import com.softserveinc.tender.dto.TenderStatusDto;
 import com.softserveinc.tender.facade.TenderServiceFacade;
@@ -59,12 +60,18 @@ public class TenderController {
     }
 
     @RequestMapping(value = "/tenders/locations", method = RequestMethod.GET)
-    public @ResponseBody List<LocationDto> findLocation() {
+    public @ResponseBody List<LocationDto> findLocations() {
         return tenderFacade.findLocations();
     }
 
     @RequestMapping(value = "/tenders/categories", method = RequestMethod.GET)
     public @ResponseBody List<CategoryDto> findAllCategories() {
         return tenderFacade.findCategories();
+    }
+
+    @RequestMapping(value = "/tenders/unit{unitid}", method = RequestMethod.GET)
+    public @ResponseBody
+    List<UnitDto> mapUnits(@PathVariable("unitid") Integer id) {
+        return tenderFacade.findUnitByTenderId(id);
     }
 }

@@ -34,7 +34,7 @@ public class LocationServiceImpl implements LocationService {
     }
 
     @Override
-    public List<Location> getTendersLocation() {
+    public List<Location> getTendersLocations() {
         return locationRepo.getTendersLocation();
     }
 }

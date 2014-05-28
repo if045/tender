@@ -5,7 +5,9 @@ import com.softserveinc.tender.dto.ItemDto;
 import com.softserveinc.tender.dto.TenderDto;
 import com.softserveinc.tender.dto.LocationDto;
 import com.softserveinc.tender.dto.TenderStatusDto;
+import com.softserveinc.tender.dto.UnitDto;
 import com.softserveinc.tender.entity.Tender;
+import com.softserveinc.tender.entity.Unit;
 import com.softserveinc.tender.repo.TenderFilter;
 import java.util.List;
 
@@ -17,4 +19,5 @@ public interface TenderServiceFacade {
     TenderDto mapTender(Tender tender);
     List<LocationDto> findLocations();
     List<CategoryDto> findCategories();
+    List<UnitDto> findUnitByTenderId(Integer id);
 }
