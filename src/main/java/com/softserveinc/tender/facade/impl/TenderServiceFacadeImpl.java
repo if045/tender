@@ -54,18 +54,22 @@ public class TenderServiceFacadeImpl  implements TenderServiceFacade{
         return statusesDto;
     }
 
-    public List<ItemDto> findItems() {
+    public List<ItemDto> findTendersItems(TenderFilter tenderFilter) {
         List<ItemDto> itemDtos = new ArrayList<>();
-        for (Item item : itemService.findAllItemsByTenders()) {
+        for (Item item : itemService.findAllItemsByTenders(tenderFilter)) {
             itemDtos.add(modelMapper.map(item, ItemDto.class));
         }
         return itemDtos;
     }
 
-    public List<TenderDto> mapTenders(TenderFilter tenderFilter){
+    @Override
+    public List<TenderDto> findByCustomParams(TenderFilter tenderFilter) {
         List<Tender> tenders=tenderService.findByCustomParameters(tenderFilter);
-        List<TenderDto> tenderDtos=new ArrayList<>();
+        return mapTenders(tenders);
+    }
 
+    private List<TenderDto> mapTenders(List<Tender> tenders){
+        List<TenderDto> tenderDtos=new ArrayList<>();
         for(Tender tender:tenders){
             tenderDtos.add(mapTender(tender));
         }
