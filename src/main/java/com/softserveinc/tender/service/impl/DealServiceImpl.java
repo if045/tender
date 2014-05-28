@@ -5,12 +5,9 @@ import com.softserveinc.tender.repo.DealRepository;
 import com.softserveinc.tender.service.DealService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import java.util.List;
 
 @Service
-@Transactional
 public class DealServiceImpl implements DealService {
 
     @Autowired

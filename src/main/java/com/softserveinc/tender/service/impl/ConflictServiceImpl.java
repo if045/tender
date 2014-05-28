@@ -1,15 +1,14 @@
 package com.softserveinc.tender.service.impl;
 
-
-import com.softserveinc.tender.entity.CheckedStatus;
 import com.softserveinc.tender.entity.Conflict;
-import com.softserveinc.tender.entity.ConflictStatus;
 import com.softserveinc.tender.repo.ConflictRepository;
 import com.softserveinc.tender.service.ConflictService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class ConflictServiceImpl implements ConflictService{
 
     @Autowired
