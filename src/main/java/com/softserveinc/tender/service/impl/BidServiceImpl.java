@@ -5,7 +5,6 @@ import com.softserveinc.tender.repo.BidRepository;
 import com.softserveinc.tender.service.BidService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 @Service

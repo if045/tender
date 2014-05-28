@@ -5,7 +5,6 @@ import com.softserveinc.tender.repo.CheckedProfileRepository;
 import com.softserveinc.tender.service.CheckedProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 @Service
