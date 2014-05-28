@@ -1,7 +1,7 @@
         $(document).ready(function() {
             $('#startDate, #endDate').datepicker({
                 format: 'yyyy/mm/dd',
-                startDate: '-3d'
+                startDate: '-5y'
             });
 
             $("#category_filter").select2({
