@@ -9,5 +9,4 @@ public interface TenderService {
     List<Tender> findAll();
     Tender findOne(int id);
     List<Tender> findByCustomParameters(TenderFilter tenderFilter);
-    List<Tender> findByCategory(List<Integer> categories);
 }

@@ -22,186 +22,8 @@
     <script type='text/javascript' src='<c:url value="../resources/js/bootstrap-datepicker.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/select2.min.js"/>'></script>
 
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $('#startDate, #endDate').datepicker({
-                format: 'yyyy/mm/dd',
-                startDate: '-3d'
-            });
+    <script type='text/javascript' src='<c:url value="../resources/js/tenders.js"/>'></script>
 
-            $("#category_filter").select2({
-                placeholder: "Select a category"
-            });
-
-            $("#item_filter").select2({
-                placeholder: "Select a Items"
-            });
-
-            $("#location_filter").select2({
-                placeholder: "Select a location"
-            });
-
-            $("#status_filter").select2({
-                placeholder: "Select a status"
-            });
-
-
-            $("#category_filter, #location_filter, #item_filter, #status_filter, #price_from, #price_to, #date_from, #date_to").change(function() {
-                enableFilterButtons();
-            });
-
-            $.getJSON('/tenders/statuses', {
-                  ajax : 'true'
-                }, function(data){
-                  var html;
-                  var len = data.length;
-                  for (var i = 0; i < len; i++) {
-                      html += '<option value="' + data[i].id + '">'
-                               + data[i].name + '</option>';
-                  }
-                  $('#status_filter').html(html);
-            });
-
-            $.getJSON('/tenders/locations', {
-                ajax : 'true'
-            }, function(loc){
-                var html = ' ';
-                var len = loc.length;
-                for (var i = 0; i < len; i++) {
-                    html += '<option value="' + loc[i].id + '">'
-                            +loc[i].name + '</option>';
-                }
-
-                $('#location_filter').html(html);
-            });
-            $.getJSON('/tenders/categories', function(data){
-                var html = ' ';
-                var len = data.length;
-                for (var i = 0; i < len; i++) {
-                    html += '<option value="' + data[i].id + '">'
-                            + data[i].name + '</option>';
-                }
-
-                $('#category_filter').html(html);
-            });
-            itemDropdown();
-            showTenders();
-        });
-
-        function itemDropdown() {
-            $.getJSON('/tenders/items', function (data) {
-                var html = '';
-                var len = data.length;
-                for (var i = 0; i < len; i++) {
-                    html += '<option value="' + data[i].id + '">'
-                            + data[i].name + '</option>';
-                }
-
-                $('#item_filter').html(html);
-            });
-        }
-
-        function showTenders() {
-            $.getJSON('/tenders', function (data) {
-                var html = '';
-                var len = data.length;
-                for (var i = 0; i < len; i++) {
-                    html += '<tr><td>' + data[i].title + '</td>' +
-                            '<td>' + data[i].authorName + '</td>' +
-                            '<td>' + data[i].categories + '</td>' +
-                            '<td>' + data[i].locations + '</td>' +
-                            '<td>' + data[i].status + '</td>' +
-                            '<td>' + data[i].suitablePrice + '</td>' +
-                            '<td>' + data[i].proposals + '</td></tr>';
-                }
-                $('#tenders').html(html);
-            });
-        }
-
-
-        function clearFilters() {
-            disableFilterButtons();
-            $("#price_from").val("");
-            $("#price_to").val("");
-            $("#date_from").val("");
-            $("#date_to").val("");
-            $("#location_filter").select2('val', 'All');
-            $("#category_filter").select2('val', 'All');
-            $('#item_filter option').eq(0).prop('selected', true);
-            $('#status_filter option').eq(0).prop('selected', true);
-        }
-
-        function enableFilterButtons() {
-            $("#filter_button").removeAttr("disabled");
-            $("#clear_button").removeAttr("disabled");
-        }
-
-        function disableFilterButtons() {
-            $("#filter_button").attr("disabled", "disabled");
-            $("#clear_button").attr("disabled", "disabled");
-        }
-
-        function applyFilters() {
-            disableFilterButtons();
-            var str='';
-            if($("#price_from").val()!=""){
-                str+="minPrice="+$("#price_from").val();
-            }
-            if($("#price_to").val()!=""){
-                str += (str.length==0)?"maxPrice="+$("#price_to").val():"&maxPrice="+$("#price_to").val();
-            }
-            var items=new Array();
-            items=$('#item_filter').val();
-            if (items!=null){
-                str += (str.length==0)?"items="+items:"&items="+items;
-            }
-            var categories=new Array();
-            categories=$('#category_filter').val();
-            if (categories!=null){
-                str += (str.length==0)?"categories="+categories:"&categories="+categories;
-            }
-            var locations=new Array();
-            locations=$('#location_filter').val();
-            if (locations!=null){
-                str += (str.length==0)?"locations="+locations:"&locations="+locations;
-            }
-            var statuses=new Array();
-            statuses=$('#status_filter').val();
-            if (statuses!=null){
-                str += (str.length==0)?"statuses="+statuses:"&statuses="+statuses;
-            }
-            if($("#date_from").val()!=""){
-                str += (str.length==0)?"minDate="+$("#date_from").val():"&minDate="+$("#date_from").val();
-            }
-            if($("#date_to").val()!=""){
-                str += (str.length==0)?"maxDate="+$("#date_to").val():"&maxDate="+$("#date_to").val();
-            }
-            $.ajax({
-                url: "/tenders",
-                type: "GET",
-                data:  str,
-                dataType:'json',
-
-                success: function(data) {
-                    var html = '';
-                    var len = data.length;
-                    for (var i = 0; i < len; i++) {
-                        html += '<tr><td>' + data[i].title + '</td>' +
-                                '<td>' + data[i].authorName + '</td>' +
-                                '<td>' + data[i].categories + '</td>' +
-                                '<td>' + data[i].locations + '</td>' +
-                                '<td>' + data[i].status + '</td>' +
-                                '<td>' + data[i].suitablePrice + '</td>' +
-                                '<td>' + data[i].proposals + '</td></tr>';
-                    }
-                    $('#tenders').html(html);
-                },
-                error:function(){
-                    alert("ERROR");
-                }
-            });
-        }
-    </script>
 </head>
 <body>
 
@@ -214,7 +36,7 @@
         <!--main-->
         <div class="page_body">
             <!-- sidebar -->
-            <div class="col-md-2">
+            <div class="col-md-3">
 
                 <div class="panel panel-default sidebar">
                     <div class="panel-heading">
@@ -240,7 +62,7 @@
                         </div>
                         <div>
                             <div>Status</div>
-                                <select id="status_filter" multiple="multiple" class="populate placeholder select2-offscreen location_selector" tabindex="-1"></select>
+                            <select id="status_filter" multiple="multiple" class="populate placeholder select2-offscreen location_selector" tabindex="-1"></select>
                         </div>
                         <div>
                             <div>Suitable price</div>
@@ -260,8 +82,6 @@
                                     <input id="date_to" class="form-control" size="10" type="text" value="">
                                     <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                                 </div>
-
-
                             </div>
                         </div>
                         <div><br/></div>
@@ -276,7 +96,7 @@
             <!-- sidebar -->
 
             <!-- content -->
-            <div class="col-md-10">
+            <div class="col-md-9">
                 <div class="row">
                     <div class="pull-left">
                         <h3>Tenders</h3>
@@ -296,13 +116,14 @@
                     <table class="table table-bordered table-striped">
                         <thead>
                         <tr>
-                            <th>Title</th>
-                            <th>Author</th>
-                            <th>Category</th>
-                            <th>Location</th>
-                            <th>SuitablePrice</th>
-                            <th>Status</th>
-                            <th>Proposals</th>
+                            <th align="center">Title</th>
+                            <th align="center">Author</th>
+                            <th align="center">Category</th>
+                            <th align="center">Location</th>
+                            <th align="center">Suitable Price</th>
+                            <th align="center">Status</th>
+                            <th align="center">Proposals</th>
+                            <th align="center">Action</th>
                         </tr>
                         </thead>
                         <tbody id="tenders"></tbody>
