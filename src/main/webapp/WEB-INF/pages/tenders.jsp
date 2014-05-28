@@ -106,13 +106,20 @@
                 var html = '';
                 var len = data.length;
                 for (var i = 0; i < len; i++) {
-                    html += '<tr><td>' + data[i].title + '</td>' +
-                            '<td>' + data[i].authorName + '</td>' +
-                            '<td>' + data[i].categories + '</td>' +
-                            '<td>' + data[i].locations + '</td>' +
-                            '<td>' + data[i].suitablePrice + '</td>' +
-                            '<td>' + data[i].status + '</td>' +
-                            '<td>' + data[i].proposals + '</td></tr>';
+                    html += '<tr><td align="center">' + data[i].title + '</td>' +
+                            '<td align="center">' + data[i].authorName + '</td>' +
+                            '<td align="center">' + data[i].categories + '</td>' +
+                            '<td align="center">' + data[i].locations + '</td>' +
+                            '<td align="center">' + data[i].suitablePrice + '</td>' +
+                            '<td align="center">' + data[i].status + '</td>' +
+                            '<td align="center">' + data[i].proposals + '</td>' +
+                            '<td align="center"><div class="control-group">' +
+                            '<select class="form-control items_number_dropdown action_button">' +
+                            '<option value="view' + data[i].id + '">View</option>' +
+                            '<option value="delete' + data[i].id + '">Delete</option>' +
+                            '<option value="close' + data[i].id + '">Close</option>' +
+                            '</select>' +
+                            '</div></td></tr>';
                 }
                 $('#tenders').html(html);
             });
@@ -188,13 +195,20 @@
                     var html = '';
                     var len = data.length;
                     for (var i = 0; i < len; i++) {
-                        html += '<tr><td>' + data[i].title + '</td>' +
-                                '<td>' + data[i].authorName + '</td>' +
-                                '<td>' + data[i].categories + '</td>' +
-                                '<td>' + data[i].locations + '</td>' +
-                                '<td>' + data[i].suitablePrice + '</td>' +
-                                '<td>' + data[i].status + '</td>' +
-                                '<td>' + data[i].proposals + '</td></tr>';
+                        html += '<tr><td align="center">' + data[i].title + '</td>' +
+                                '<td align="center">' + data[i].authorName + '</td>' +
+                                '<td align="center">' + data[i].categories + '</td>' +
+                                '<td align="center">' + data[i].locations + '</td>' +
+                                '<td align="center">' + data[i].suitablePrice + '</td>' +
+                                '<td align="center">' + data[i].status + '</td>' +
+                                '<td align="center">' + data[i].proposals + '</td>'+
+                                '<td align="center"><div class="control-group">' +
+                                '<select class="form-control items_number_dropdown action_button">' +
+                                '<option value="view' + data[i].id + '">View</option>' +
+                                '<option value="delete' + data[i].id + '">Delete</option>' +
+                                '<option value="close' + data[i].id + '">Close</option>' +
+                                '</select>' +
+                                '</div></td></tr>';
                     }
 
                     $('#tenders').html(html);
@@ -265,8 +279,6 @@
                                     <input id="date_to" class="form-control" size="10" type="text" value="">
                                     <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                                 </div>
-
-
                             </div>
                         </div>
                         <div><br/></div>
@@ -301,13 +313,14 @@
                     <table class="table table-bordered table-striped">
                         <thead>
                         <tr>
-                            <th>Title</th>
-                            <th>Author</th>
-                            <th>Category</th>
-                            <th>Location</th>
-                            <th>SuitablePrice</th>
-                            <th>Status</th>
-                            <th>Proposals</th>
+                            <th align="center">Title</th>
+                            <th align="center">Author</th>
+                            <th align="center">Category</th>
+                            <th align="center">Location</th>
+                            <th align="center">SuitablePrice</th>
+                            <th align="center">Status</th>
+                            <th align="center">Proposals</th>
+                            <th align="center">Action</th>
                         </tr>
                         </thead>
                         <tbody id="tenders"></tbody>
