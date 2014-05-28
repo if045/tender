@@ -56,23 +56,27 @@
                                     </div>
                                 </div> 
                             </div>
-                            <div class="col-sm-2 addunit_body_item">
+                            <div class="col-sm-3 addunit_body_item field_group">
                                 <div class="form-group btn-group" data-toggle="buttons-radio">
                                     <div>Type*:</div>
-                                    <div class="radio selectpicker">
-                                        <label><input id="create_tender_unit_type_product" name="create_tender_unit_type" value="" type="radio"/>Product</label>
-                                        <label><input id="create_tender_unit_type_service" name="create_tender_unit_type" value="" type="radio"/>Service</label>
+                                    <div class="btn-group selectpicker" data-toggle="buttons">
+                                      <label class="btn btn-default radio-first-child">
+                                        <input type="radio" name="options" id="option1" value="P">Product
+                                      </label>
+                                      <label class="btn btn-default">
+                                        <input type="radio" name="options" id="option2" value="S">Service
+                                      </label>
                                     </div>
                                 </div> 
                             </div>
-                            <div class="col-sm-3 addunit_body_item">
+                            <div class="col-sm-5 addunit_body_item">
                                 <div class="form-group">
-                                    <div>Item*:</div>
-                                    <div class="selectpicker">
-                                        <div class="pull-left">
+                                    <div class="field_title">Item*:</div>
+                                    <div class="selectpicker col-sm-12">
+                                        <div class="pull-left col-sm-6">
                                         	<select id="create_tender_unit_item" multiple="multiple" class="populate placeholder select2-offscreen category_selector" tabindex="-1" ></select>
                                         </div>
-                                        <div class="pull-left">	
+                                        <div class="pull-left col-sm-6">	
                                         	<input type="text" class="form-control" id="create_tender_unit_newitem" placeholder="New item" disabled>
                                         </div>	
                                     </div>
@@ -80,7 +84,7 @@
                             </div>
                         </div> 
                         <div class="col-sm-12">
-                            <div class="col-sm-1 addunit_body_item">
+                            <div class="col-sm-2 addunit_body_item">
                                 <div class="form-group">
                                     <div>Quantity*:</div>
                                     <div class="selectpicker">
@@ -88,10 +92,10 @@
                                     </div>
                                 </div> 
                             </div>
-                            <div class="col-sm-4 addunit_body_item">
+                            <div class="col-sm-2 addunit_body_item field_group">
                                 <div class="form-group">
                                     <div>Measurement*:</div>
-                                    <div class="row">
+                                    <div>
                                         <select id="create_tender_unit_measurement" class="form-control selectpicker col-sm-6">
                                             <option>All</option>
                                             <option>Ketchup</option>
@@ -100,11 +104,10 @@
                                     </div>
                                 </div> 
                             </div>
-                            <div class="col-sm-1 addunit_body_item">
+                            <div class="col-sm-7 addunit_body_item">
                                 <div class="form-group">
-                                    <div></div>
                                     <div class="selectpicker">
-                                        <button type="button" class="btn btn-primary pull-right col-sm-2">Add</button>
+                                        <button type="button" class="btn btn-primary pull-right addbutton">Add</button>
                                     </div>
                                 </div> 
                             </div>
