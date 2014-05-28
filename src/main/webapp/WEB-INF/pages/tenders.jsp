@@ -110,8 +110,8 @@
                             '<td>' + data[i].authorName + '</td>' +
                             '<td>' + data[i].categories + '</td>' +
                             '<td>' + data[i].locations + '</td>' +
-                            '<td>' + data[i].status + '</td>' +
                             '<td>' + data[i].suitablePrice + '</td>' +
+                            '<td>' + data[i].status + '</td>' +
                             '<td>' + data[i].proposals + '</td></tr>';
                 }
                 $('#tenders').html(html);
@@ -129,6 +129,8 @@
             $("#category_filter").select2('val', 'All');
             $("#item_filter").select2('val', 'All');
             $("#status_filter").select2('val', 'All');
+
+            showTenders();
         }
 
         function enableFilterButtons() {
@@ -190,16 +192,19 @@
                                 '<td>' + data[i].authorName + '</td>' +
                                 '<td>' + data[i].categories + '</td>' +
                                 '<td>' + data[i].locations + '</td>' +
-                                '<td>' + data[i].status + '</td>' +
                                 '<td>' + data[i].suitablePrice + '</td>' +
+                                '<td>' + data[i].status + '</td>' +
                                 '<td>' + data[i].proposals + '</td></tr>';
                     }
+
                     $('#tenders').html(html);
                 },
                 error:function(){
                     alert("ERROR");
                 }
             });
+
+            $("#clear_button").removeAttr("disabled");
         }
     </script>
 </head>
@@ -214,7 +219,7 @@
         <!--main-->
         <div class="page_body">
             <!-- sidebar -->
-            <div class="col-md-2">
+            <div class="col-md-3">
 
                 <div class="panel panel-default sidebar">
                     <div class="panel-heading">
@@ -276,7 +281,7 @@
             <!-- sidebar -->
 
             <!-- content -->
-            <div class="col-md-10">
+            <div class="col-md-9">
                 <div class="row">
                     <div class="pull-left">
                         <h3>Tenders</h3>
