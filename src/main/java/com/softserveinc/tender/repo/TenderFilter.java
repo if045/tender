@@ -1,9 +1,13 @@
 package com.softserveinc.tender.repo;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 public class TenderFilter {
+    private static final Integer OPEN_TENDER_STATUS = 1;
+    private static final Integer IN_PROGRESS_TENDER_STATUS = 1;
+
     private Double minPrice;
     private Double maxPrice;
     private List<Integer> categories;
@@ -41,10 +45,12 @@ public class TenderFilter {
             setItemFlag(0);
         }
         if (statuses==null) {
-            setStatusFlag(1);
+            List<Integer> list = new ArrayList<>();
+            list.add(OPEN_TENDER_STATUS);
+            list.add(IN_PROGRESS_TENDER_STATUS);
+            setStatuses(list);
         }else {
             this.statuses = statuses;
-            setStatusFlag(0);
         }
         this.minDate = (minDate!=null)?minDate:new Date((new Date().getTime())-604800000l);
         this.maxDate = (maxDate!=null)?maxDate:new Date();
