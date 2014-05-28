@@ -42,7 +42,7 @@ public class TenderController {
     }
 
     @RequestMapping(value = "/tenders/statuses", method = RequestMethod.GET)
-    public @ResponseBody List<TenderStatusDto> findAllStatuses() {
+    public @ResponseBody List<TenderStatusDto> findAllTenderStatuses() {
         return tenderFacade.findTenderStatuses();
     }
 

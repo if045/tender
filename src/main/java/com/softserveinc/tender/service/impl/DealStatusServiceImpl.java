@@ -14,12 +14,12 @@ public class DealStatusServiceImpl implements DealStatusService {
     private DealStatusRepository dealStatusRepository;
 
     @Override
-    public List<DealStatus> findAll() {
+    public List<DealStatus> findAllDealStatuses() {
         return dealStatusRepository.findAll();
     }
 
     @Override
-    public DealStatus findDealStatusById(int id) {
+    public DealStatus findDealStatusById(Integer id) {
         return dealStatusRepository.findOne(id);
     }
 }
