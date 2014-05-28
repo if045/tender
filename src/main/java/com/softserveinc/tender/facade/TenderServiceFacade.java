@@ -14,7 +14,6 @@ public interface TenderServiceFacade {
     List<TenderStatusDto> findTenderStatuses();
     List<ItemDto> findItems();
     List<TenderDto> mapTenders(TenderFilter tenderFilter);
-    TenderDto mapTender(Tender tender);
     List<LocationDto> findLocations();
     List<CategoryDto> findCategories();
 }
