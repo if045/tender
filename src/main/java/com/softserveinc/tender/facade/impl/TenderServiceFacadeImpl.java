@@ -78,7 +78,7 @@ public class TenderServiceFacadeImpl  implements TenderServiceFacade{
         return tenderDtos;
     }
 
-    public TenderDto mapTender(Tender tender){
+    private TenderDto mapTender(Tender tender){
         TenderDto tenderDto=new TenderDto();
         List<String> locations=new ArrayList<>();
         List<String> categories=new ArrayList<>();
@@ -120,7 +120,6 @@ public class TenderServiceFacadeImpl  implements TenderServiceFacade{
 
     private List<UnitDto> mapUnits(List<Unit> units){
         List<UnitDto> unitDtos=new ArrayList<>();
-
         for(Unit unit:units){
             unitDtos.add(mapUnit(unit));
         }

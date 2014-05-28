@@ -29,9 +29,4 @@ public class TenderServiceImpl implements TenderService {
         return tenderRepository.findByCustomParameters(tenderFilter.getMinPrice(), tenderFilter.getMaxPrice(), tenderFilter.getStatuses(), tenderFilter.getCategories(), tenderFilter.getLocations(), tenderFilter.getItems(), tenderFilter.getMinDate(), tenderFilter.getMaxDate(), tenderFilter.getCategoryFlag(), tenderFilter.getItemFlag(), tenderFilter.getLocationFlag(), tenderFilter.getStatusFlag());
     }
 
-    @Override
-    public List<Tender> findByCategory(List<Integer> categories) {
-        return tenderRepository.findByCategory(categories);
-    }
-
 }

@@ -9,7 +9,6 @@ import java.util.List;
 
 public interface UnitRepository extends JpaRepository<Unit,Integer>{
     @Query("select u from Unit u where u.tender.id = :id ")
-    //@Query("select u from Unit u where u.id = :id ")
-    List<Unit> findByTenderID(@Param("id")int id);
+     List<Unit> findByTenderID(@Param("id")int id);
 
 }
