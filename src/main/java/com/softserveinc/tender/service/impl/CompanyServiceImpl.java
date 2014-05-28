@@ -1,17 +1,13 @@
 package com.softserveinc.tender.service.impl;
 
 import com.softserveinc.tender.entity.Company;
-import com.softserveinc.tender.service.*;
-import com.softserveinc.tender.repo.*;
+import com.softserveinc.tender.repo.CompanyRepo;
+import com.softserveinc.tender.service.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import javax.annotation.Resource;
 import java.util.List;
 
 @Service
-@Transactional
 public class CompanyServiceImpl implements CompanyService {
 
     @Autowired

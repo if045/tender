@@ -1,16 +1,13 @@
 package com.softserveinc.tender.service.impl;
 
 import com.softserveinc.tender.entity.Address;
-import com.softserveinc.tender.service.*;
-import com.softserveinc.tender.repo.*;
+import com.softserveinc.tender.repo.AddressRepo;
+import com.softserveinc.tender.service.AddressService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import java.util.List;
 
 @Service
-@Transactional
 public class AddressServiceImpl implements AddressService {
 
     @Autowired

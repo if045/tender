@@ -1,9 +1,17 @@
 package com.softserveinc.tender.entity;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-
-import javax.persistence.*;
-import java.sql.Date;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -38,15 +46,23 @@ public class Tender {
     @JoinColumn(name="status_id", nullable = false)
     private TenderStatus status;
 
-    @ManyToMany
-    @JoinTable(name = "tender_unit", joinColumns = {@JoinColumn(name = "tender_id")}, inverseJoinColumns = {@JoinColumn(name = "unit_id")})
+    @OneToMany(mappedBy = "tender")
     private List<Unit> units;
 
     @ManyToMany
     @JoinTable(name = "tender_location", joinColumns = {@JoinColumn(name = "tender_id")}, inverseJoinColumns = {@JoinColumn(name = "location_id")})
     private List<Location> locations;
 
+    @OneToMany(mappedBy = "tender")
+    private List<Proposal> proposals;
 
+    public List<Proposal> getProposals() {
+        return proposals;
+    }
+
+    public void setProposals(List<Proposal> proposals) {
+        this.proposals = proposals;
+    }
 
     public Profile getAuthor() {
         return author;

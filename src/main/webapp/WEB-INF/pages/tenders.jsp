@@ -22,129 +22,15 @@
     <script type='text/javascript' src='<c:url value="../resources/js/bootstrap-datepicker.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/select2.min.js"/>'></script>
 
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $('#startDate, #endDate').datepicker({
-                format: 'mm-dd-yyyy',
-                startDate: '-3d'
-            });
+    <script type='text/javascript' src='<c:url value="../resources/js/tenders.js"/>'></script>
 
-            $("#category_filter").select2({
-                placeholder: "Select a category"
-            });
-
-            $("#item_filter").select2({
-                placeholder: "Select a Items"
-            });
-
-            $("#location_filter").select2({
-                placeholder: "Select a location"
-            });
-
-            $("#status_filter").select2({
-                placeholder: "Select a status"
-            });
-
-
-            $("#category_filter, #location_filter, #item_filter, #status_filter, #price_from, #price_to, #date_from, #date_to").change(function() {
-                enableFilterButtons();
-            });
-
-            $.getJSON('http://localhost:8080/tenders/statuses', {
-                  ajax : 'true'
-                }, function(data){
-                  var html;
-                  var len = data.length;
-                  for (var i = 0; i < len; i++) {
-                      html += '<option value="' + data[i].id + '">'
-                               + data[i].name + '</option>';
-                  }
-                  $('#status_filter').html(html);
-            });
-
-            $.getJSON('/tenders/items', function(data){
-                var html = '';
-                var len = data.length;
-                for (var i = 0; i < len; i++) {
-                    html += '<option value="' + data[i].id + '">'
-                            + data[i].name + '</option>';
-                }
-
-                $('#item_filter').html(html);
-            });
-
-
-            $.getJSON('/tenders/locations', {
-                ajax : 'true'
-            }, function(loc){
-                var html = ' ';
-                var len = loc.length;
-                for (var i = 0; i < len; i++) {
-                    html += '<option value="' + loc[i].id + '">'
-                            +loc[i].name + '</option>';
-                }
-
-                $('#location_filter').html(html);
-            });
-            $.getJSON('/tenders/categories', function(data){
-                var html = ' ';
-                var len = data.length;
-                for (var i = 0; i < len; i++) {
-                    html += '<option value="' + data[i].id + '">'
-                            + data[i].name + '</option>';
-                }
-
-                $('#category_filter').html(html);
-            });
-        });
-
-        function clearFilters() {
-            disableFilterButtons();
-            $("#price_from").val("");
-            $("#price_to").val("");
-            $("#date_from").val("");
-            $("#date_to").val("");
-            $("#location_filter").select2('val', 'All');
-            $("#category_filter").select2('val', 'All');
-            $('#item_filter option').eq(0).prop('selected', true);
-            $('#status_filter option').eq(0).prop('selected', true);
-        }
-
-        function enableFilterButtons() {
-            $("#filter_button").removeAttr("disabled");
-            $("#clear_button").removeAttr("disabled");
-        }
-
-        function disableFilterButtons() {
-            $("#filter_button").attr("disabled", "disabled");
-            $("#clear_button").attr("disabled", "disabled");
-        }
-
-        function applyFilters() {
-            disableFilterButtons();
-            //TO:DO apply filters
-        }
-    </script>
 </head>
 <body>
 
 <div class="container">
     <div class="row">
         <!--navigation-->
-        <nav class="navbar navbar-default" role="navigation">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <a class="navbar-brand" href="/">UATender</a>
-                </div>
-
-                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><a href="/login">Log in</a></li>
-                        <li><a href="/signup">Sign up</a></li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
+        <jsp:include page="header.jsp"/>
         <!--navigation-->
 
         <!--main-->
@@ -176,7 +62,7 @@
                         </div>
                         <div>
                             <div>Status</div>
-                                <select id="status_filter" multiple="multiple" class="populate placeholder select2-offscreen location_selector" tabindex="-1"></select>
+                            <select id="status_filter" multiple="multiple" class="populate placeholder select2-offscreen location_selector" tabindex="-1"></select>
                         </div>
                         <div>
                             <div>Suitable price</div>
@@ -196,8 +82,6 @@
                                     <input id="date_to" class="form-control" size="10" type="text" value="">
                                     <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                                 </div>
-
-
                             </div>
                         </div>
                         <div><br/></div>
@@ -230,40 +114,19 @@
                 <!-- items -->
                 <div class="row">
                     <table class="table table-bordered table-striped">
+                        <thead>
                         <tr>
-                            <th>Name</th>
-                            <th>Author</th>
-                            <th>Category</th>
-                            <th>Location</th>
-                            <th>Suitable price</th>
-                            <th>Status</th>
-                            <th>Proposals</th>
-                            <th>Action</th>
+                            <th align="center">Title</th>
+                            <th align="center">Author</th>
+                            <th align="center">Category</th>
+                            <th align="center">Location</th>
+                            <th align="center">Suitable Price</th>
+                            <th align="center">Status</th>
+                            <th align="center">Proposals</th>
+                            <th align="center">Action</th>
                         </tr>
-                        <c:forEach var="tender" items="${tenders}">
-                            <tr>
-                                <td align="center">
-                                    <a href="<spring:url value="/tenders/${tender.id}.html" />">
-                                            ${tender.title}
-                                    </a>
-                                </td>
-                                <td align="center"><c:out value="${tender.author.firstName}"></c:out></td>
-                                <td align="center"><c:out value="Build"></c:out></td>
-                                <td align="center"><c:out value="Lviv"></c:out></td>
-                                <td align="center"><c:out value="$${tender.suitablePrice}"></c:out></td>
-                                <td align="center"><c:out value="${tender.status.name}"></c:out></td>
-                                <td align="center"><c:out value="6"></c:out></td>
-                                <td align="center">
-                                    <div class="control-group">
-                                        <select class="form-control items_number_dropdown">
-                                            <option>View</option>
-                                            <option>Delete</option>
-                                            <option>Close</option>
-                                        </select>
-                                    </div>
-                                </td>
-                            </tr>
-                        </c:forEach>
+                        </thead>
+                        <tbody id="tenders"></tbody>
                     </table>
                 </div>
                 <!-- items -->
@@ -300,20 +163,13 @@
         <!--main-->
 
         <!--footer -->
-        <div class="footer">
-            <div class="pull-left">
-                <p>Copyright © UATender 2014
-            </div>
-        </div>
+        <jsp:include page="footer.jsp"/>
         <!-- footer -->
 
     </div>
 </div>
 
-
-
 </body>
-
 
 </html>
 
