@@ -6,7 +6,7 @@ import java.util.List;
 
 public class TenderFilter {
     private static final Integer OPEN_TENDER_STATUS = 1;
-    private static final Integer IN_PROGRESS_TENDER_STATUS = 1;
+    private static final Integer IN_PROGRESS_TENDER_STATUS = 2;
 
     private Double minPrice;
     private Double maxPrice;
