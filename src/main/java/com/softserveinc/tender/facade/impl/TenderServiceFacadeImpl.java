@@ -72,7 +72,7 @@ public class TenderServiceFacadeImpl  implements TenderServiceFacade{
         return tenderDtos;
     }
 
-    public TenderDto mapTender(Tender tender){
+    private TenderDto mapTender(Tender tender){
         TenderDto tenderDto=new TenderDto();
         List<String> locations=new ArrayList<>();
         List<String> categories=new ArrayList<>();
