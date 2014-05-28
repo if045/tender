@@ -4,9 +4,11 @@ import com.softserveinc.tender.entity.ConflictStatus;
 import com.softserveinc.tender.repo.ConflictStatusRepository;
 import com.softserveinc.tender.service.ConflictStatusService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class ConflictStatusServiceImpl implements ConflictStatusService{
 
     @Autowired
