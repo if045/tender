@@ -139,21 +139,41 @@ INSERT INTO category (name, parent) VALUES
 ('Product', NULL),
 ('Meat', 7),
 ('Fish', 7),
-('Milk', 7);
+('Milk', 7),
+('Cars', NULL);
 
 
 INSERT INTO tender (author_id, title, create_date, end_date, status_id, suitable_price, description) VALUES
-(1, 'Meal', CURDATE(), CURDATE(), 1, 1000000.00, NULL),
-(2, 'Materials', CURDATE(), CURDATE(), 2, 500000.00, NULL),
-(3, 'Haus Building', CURDATE(), CURDATE(), 3, 1600000.00, NULL),
-(4, 'Cars', CURDATE(), CURDATE(), 2, 9900000.00, NULL),
-(5, 'Animals', CURDATE(), CURDATE(), 1, 19000000.00, NULL),
-(6, 'Tourism', CURDATE(), CURDATE(), 3, 23000000.00, NULL),
-(7, 'Industry', CURDATE(), CURDATE(), 1, 450000.00, NULL),
-(8, 'Products', CURDATE(), CURDATE(), 1, 113000000.00, NULL),
-(4, 'Building Service', CURDATE(), CURDATE(), 2, 14000000.00, NULL),
-(2, 'Furniture', CURDATE(), CURDATE(), 2, 76000000.00, NULL),
-(3, 'All in 0ne', CURDATE(), CURDATE(), 2, 59000000.00, NULL);
+(1, 'Meal', '2014-04-02', '2014-06-04', 1, 1000000.00, NULL),
+(2, 'Materials', '2014-05-04', '2014-06-04', 2, 500000.00, NULL),
+(3, 'Haus Building', '2014-05-13', '2014-05-24', 3, 1600000.00, NULL),
+(4, 'Cars', '2014-05-06', '2014-05-016', 2, 9900000.00, NULL),
+(5, 'Animals', '2014-05-04', '2014-05-14', 1, 19000000.00, NULL),
+(6, 'Tourism', '2014-05-08', '2014-05-24', 3, 23000000.00, NULL),
+(7, 'Industry', '2014-05-04', '2014-07-04', 1, 450000.00, NULL),
+(8, 'Products', '2014-04-04', '2014-05-04', 1, 113000000.00, NULL),
+(4, 'Building Service', '2014-05-01', '2014-06-01', 2, 14000000.00, NULL),
+(2, 'Haus Building', '2014-05-13', '2014-06-26', 2, 76000000.00, NULL),
+(3, 'Haus Building','2014-05-14', '2014-06-14', 2, 24000000.00, NULL),
+(4, 'Meal','2014-05-16', '2014-07-14', 2, 800000.00, NULL),
+(5, 'Haus Building','2014-05-17', '2014-06-17', 2, 600000.00, NULL),
+(4, 'Cars','2014-05-10', '2014-06-20', 2, 1400000.00, NULL),
+(6, 'Animals','2014-05-11', '2014-07-21', 2, 580000.00, NULL),
+(8, 'Animals','2014-04-13', '2014-06-15', 2, 58000.00, NULL),
+(8, 'Haus Building','2014-03-13', '2014-06-10', 2, 8800000.00, NULL),
+(3, 'Haus Building','2014-04-14', '2014-06-14', 2, 270000.00, NULL),
+(4, 'Meal','2014-05-23', '2014-06-10', 2, 560000.00, NULL),
+(7, 'Building Service','2014-05-24', '2014-06-14', 2, 270000.00, NULL),
+(8, 'Cars','2014-05-25', '2014-06-04', 2, 2300000.00, NULL),
+(2, 'Animals','2014-05-18', '2014-06-24', 2, 5100000.00, NULL),
+(4, 'Animals','2014-05-16', '2014-07-26', 2, 820000.00, NULL),
+(7, 'Haus Building','2014-05-14', '2014-07-28', 2, 1000000.00, NULL),
+(6, 'Haus Building','2014-05-11', '2014-06-27', 2, 9600000.00, NULL),
+(4, 'Meal','2014-04-13', '2014-06-17', 2, 3500000.00, NULL),
+(6, 'Haus Building','2014-04-30', '2014-07-07', 2, 410000.00, NULL),
+(3, 'Cars','2014-05-19', '2014-06-29', 2, 6300000.00, NULL),
+(1, 'Cars','2014-04-27', '2014-06-08', 2, 7700000.00, NULL),
+(2, 'Animals','2014-05-13', '2014-07-14', 2, 110000.00, NULL);
 
 
 INSERT INTO proposal (discount_percentage, discount_currency, description, seller_id, tender_id) VALUES
@@ -181,20 +201,41 @@ INSERT INTO item (name, type, category_id) VALUES
 ('Salami', 'S', 8),
 ('Gold fish', 'S', 9),
 ('jogurt', 'S', 10),
-('Dolmantin', 'S', 5);
+('Dolmantin', 'S', 5),
+('Audi-7', 'P', 11);
 
 
 INSERT INTO unit (quantity, measurement_id, item_id, tender_id) VALUES
-(500, 1, 10, 9),
+(500, 1, 1, 9),
 (100, 2, 9, 5),
-(5300, 3, 8, 5),
-(1200, 4, 7, 3),
-(2300, 5, 6, 2),
-(1000, 6, 5, 1),
-(666, 3, 4, 3),
-(999, 1, 3, 4),
-(1023, 4, 2, 10),
-(512, 3, 1, 5);
+(5300, 3, 3, 5),
+(1200, 4, 1, 3),
+(2300, 5, 1, 2),
+(1000, 6, 8, 1),
+(666, 3, 1, 3),
+(999, 5, 12, 4),
+(1023, 4, 1, 9),
+(1200, 4, 1, 10),
+(2300, 5, 1, 11),
+(1000, 6, 8, 12),
+(666, 3, 1, 13),
+(999, 5, 12, 14),
+(1023, 4, 2, 15),
+(512, 3, 3, 16),
+(1200, 4, 1, 17),
+(2300, 5, 1, 18),
+(1000, 6, 8, 19),
+(666, 3, 1, 20),
+(999, 5, 12, 21),
+(1023, 4, 2, 22),
+(512, 3, 3, 23),
+(1200, 4, 1, 24),
+(2300, 5, 1, 25),
+(1000, 6, 8, 26),
+(666, 3, 1, 27),
+(999, 5, 12, 28),
+(999, 5, 12, 29),
+(1023, 4, 2, 30);
 
 
 INSERT INTO checked_profile (profile_id, moderator_id, status_id) VALUES
