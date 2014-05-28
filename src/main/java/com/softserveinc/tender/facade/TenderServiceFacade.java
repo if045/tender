@@ -6,8 +6,6 @@ import com.softserveinc.tender.dto.TenderDto;
 import com.softserveinc.tender.dto.LocationDto;
 import com.softserveinc.tender.dto.TenderStatusDto;
 import com.softserveinc.tender.dto.UnitDto;
-import com.softserveinc.tender.entity.Tender;
-import com.softserveinc.tender.entity.Unit;
 import com.softserveinc.tender.repo.TenderFilter;
 import java.util.List;
 
