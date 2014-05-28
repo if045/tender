@@ -21,13 +21,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.modelmapper.ModelMapper;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.ArrayList;
 import java.util.List;
 
 @Service("tenderServiceFacade")
 @Transactional
-public class TenderServiceFacadeImpl implements TenderServiceFacade {
+public class TenderServiceFacadeImpl  implements TenderServiceFacade{
 
     @Autowired
     private TenderStatusService tenderStatusService;
@@ -63,20 +62,20 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
         return itemDtos;
     }
 
-    public List<TenderDto> mapTenders(TenderFilter tenderFilter) {
-        List<Tender> tenders = tenderService.findByCustomParameters(tenderFilter);
-        List<TenderDto> tenderDtos = new ArrayList<>();
+    public List<TenderDto> mapTenders(TenderFilter tenderFilter){
+        List<Tender> tenders=tenderService.findByCustomParameters(tenderFilter);
+        List<TenderDto> tenderDtos=new ArrayList<>();
 
-        for (Tender tender : tenders) {
+        for(Tender tender:tenders){
             tenderDtos.add(mapTender(tender));
         }
         return tenderDtos;
     }
 
-    private TenderDto mapTender(Tender tender) {
-        TenderDto tenderDto = new TenderDto();
-        List<String> locations = new ArrayList<>();
-        List<String> categories = new ArrayList<>();
+    private TenderDto mapTender(Tender tender){
+        TenderDto tenderDto=new TenderDto();
+        List<String> locations=new ArrayList<>();
+        List<String> categories=new ArrayList<>();
         tenderDto.setId(tender.getId());
         tenderDto.setTitle(tender.getTitle());
         tenderDto.setAuthorName(tender.getAuthor().getFirstName());
@@ -84,12 +83,12 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
         tenderDto.setEndDate(tender.getEndDate());
         tenderDto.setStatus(tender.getStatus().getName());
         tenderDto.setSuitablePrice(tender.getSuitablePrice());
-        for (int i = 0; i < tender.getLocations().size(); i++) {
-            locations.add(i, tender.getLocations().get(i).getName());
+        for(int i=0 ;i<tender.getLocations().size();i++){
+            locations.add(i,tender.getLocations().get(i).getName());
         }
         tenderDto.setLocations(locations);
-        for (int i = 0; i < tender.getUnits().size(); i++) {
-            categories.add(i, tender.getUnits().get(i).getItem().getCategory().getName());
+        for(int i=0 ;i<tender.getUnits().size();i++){
+            categories.add(i,tender.getUnits().get(i).getItem().getCategory().getName());
         }
         tenderDto.setCategories(categories);
         tenderDto.setProposals(tender.getProposals().size());
@@ -105,23 +104,23 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
     }
 
     public List<CategoryDto> findCategories() {
-        List<Category> categories = categoryService.findAllWithCategory();
+        List<Category> categories=categoryService.findAllWithCategory();
         return mapCategories(categories);
     }
 
-    private CategoryDto mapCategory(Category category) {
-        CategoryDto categoryDto = new CategoryDto();
+    private CategoryDto mapCategory (Category category){
+        CategoryDto categoryDto=new CategoryDto();
         categoryDto.setId(category.getId());
         categoryDto.setName(category.getName());
-        if (category.getParent() != null) {
+        if (category.getParent()!=null) {
             categoryDto.setParent(category.getParent().getId());
         }
         return categoryDto;
     }
 
-    private List<CategoryDto> mapCategories(List<Category> categories) {
-        List<CategoryDto> categoryDtos = new ArrayList<>();
-        for (Category category : categories) {
+    private List<CategoryDto> mapCategories(List<Category> categories){
+        List<CategoryDto> categoryDtos=new ArrayList<>();
+        for(Category category:categories){
             categoryDtos.add(mapCategory(category));
         }
         return categoryDtos;
