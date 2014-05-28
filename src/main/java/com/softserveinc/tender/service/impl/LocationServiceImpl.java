@@ -1,17 +1,13 @@
 package com.softserveinc.tender.service.impl;
 
 import com.softserveinc.tender.entity.Location;
-import com.softserveinc.tender.service.*;
-import com.softserveinc.tender.repo.*;
+import com.softserveinc.tender.repo.LocationRepo;
+import com.softserveinc.tender.service.LocationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import javax.annotation.Resource;
 import java.util.List;
 
 @Service
-@Transactional
 public class LocationServiceImpl implements LocationService {
 
     @Autowired
