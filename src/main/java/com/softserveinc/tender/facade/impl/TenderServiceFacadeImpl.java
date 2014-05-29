@@ -48,7 +48,7 @@ public class TenderServiceFacadeImpl  implements TenderServiceFacade{
 
     public List<TenderStatusDto> findTenderStatuses() {
         List<TenderStatusDto> statusesDto = new ArrayList<>();
-        for (TenderStatus tenderStatus : tenderStatusService.findAllTenderStatuses()) {
+        for (TenderStatus tenderStatus : tenderStatusService.getAllTenderStatuses()) {
             statusesDto.add(modelMapper.map(tenderStatus, TenderStatusDto.class));
         }
         return statusesDto;
