@@ -31,5 +31,4 @@ public interface TenderRepository extends JpaRepository<Tender, Integer> {
                                         @Param("locationFlag") Integer locationFlag,
                                         @Param("statusFlag") Integer statusFlag);
 
-
 }
