@@ -20,9 +20,39 @@
                 placeholder: "Select a status"
             });
 
-
-            $("#category_filter, #location_filter, #item_filter, #status_filter, #price_from, #price_to, #date_from, #date_to").change(function() {
+            $("#location_filter, #item_filter, #status_filter, #price_from, #price_to, #date_from, #date_to").change(function() {
                 enableFilterButtons();
+            });
+
+            $("#category_filter").change(function() {
+                enableFilterButtons();
+                $("#item_filter").select2('val', 'All');
+                var str='';
+                var categories=new Array();
+                categories=$('#category_filter').val();
+                if (categories!=null){
+                    str += "categories="+categories;
+                }
+                $.ajax({
+                    url: "/tenders/items",
+                    type: "GET",
+                    data:  str,
+                    dataType:'json',
+
+                    success: function(data) {
+                        var html = '';
+                        var len = data.length;
+                        for (var i = 0; i < len; i++) {
+                            html += '<option value="' + data[i].id + '">'
+                                + data[i].name + '</option>';
+                        }
+
+                        $('#item_filter').html(html);
+                    },
+                    error:function(){
+                        alert("ERROR");
+                    }
+                });
             });
 
             $.getJSON('/tenders/statuses', {
