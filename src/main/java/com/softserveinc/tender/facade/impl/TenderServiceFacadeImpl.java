@@ -106,7 +106,7 @@ public class TenderServiceFacadeImpl  implements TenderServiceFacade{
     }
      @Override
      public List<UnitDto> findUnits(Integer id){
-         List<Unit> units=unitService.findByTenderId(id);
+         List<Unit> units=unitService.findUnits(id);
              return mapUnits(units);
 
      }
