@@ -14,12 +14,12 @@ public class DealServiceImpl implements DealService {
     private DealRepository dealRepository;
 
     @Override
-    public List<Deal> findAll() {
+    public List<Deal> findAllDeals() {
         return dealRepository.findAll();
     }
 
     @Override
-    public Deal findDealById(int id) {
+    public Deal findDealById(Integer id) {
         return dealRepository.findOne(id);
     }
 
@@ -27,6 +27,4 @@ public class DealServiceImpl implements DealService {
     public void saveDeal(Deal deal) {
         dealRepository.save(deal);
     }
-
-
 }

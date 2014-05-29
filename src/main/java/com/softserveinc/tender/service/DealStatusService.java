@@ -5,6 +5,6 @@ import java.util.List;
 
 public interface DealStatusService {
 
-    List<DealStatus> findAll();
-    DealStatus findDealStatusById(int id);
+    List<DealStatus> findAllDealStatuses();
+    DealStatus findDealStatusById(Integer id);
 }

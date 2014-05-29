@@ -14,12 +14,12 @@ public class MeasurementServiceImpl implements MeasurementService {
     private MeasurementRepository measurementRepository;
 
     @Override
-    public List<Measurement> findAll() {
+    public List<Measurement> findAllMeasurements() {
         return measurementRepository.findAll();
     }
 
     @Override
-    public Measurement findMeasurementById(int id) {
+    public Measurement findMeasurementById(Integer id) {
         return measurementRepository.findOne(id);
     }
 
