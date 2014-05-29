@@ -45,7 +45,7 @@
                             '<td>' + data[i].price + '</td>' +
                             '<td>' + '<button type="submit" class="btn btn-default" disabled>Deal</button>' + '</td></tr>';
                 }
-                $('#unit').html(html);
+                $('#unitTender').html(html);
             });
         }
     </script>
@@ -120,7 +120,7 @@
                                 <th>Seller price</th>
                                 <th>Deal</th>
                             </thead>
-                            <tbody id="unit"></tbody>
+                            <tbody id="unitTender"></tbody>
                         </table>
                     </div>
                     <div class="col-md-5">
