@@ -8,5 +8,5 @@ import java.util.List;
 
 public interface UnitRepository extends JpaRepository<Unit,Integer>{
     @Query("select u from Unit u where u.tender.id = :id ")
-     List<Unit> findUnits(@Param("id")int id);
+     List<Unit> findUnitsByTenderId(@Param("id")int id);
 }

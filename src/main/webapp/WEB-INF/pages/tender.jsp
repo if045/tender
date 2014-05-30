@@ -24,18 +24,20 @@
     <script type="text/javascript">
         $(document).ready(function() {
             $('#endDate').datepicker({
-                format: 'mm-dd-yyyy',
+                format: 'yyyy/mm/dd',
                 startDate: '-3d'
             });
             showUnit();
         });
+        var tender;
 
         function showUnit() {
-            var tenderId=1;
-            $.getJSON('/tenders/unit'+tenderId, function (data) {
+
+            $.getJSON('/tenders/view'+tender+'/unit', function (data) {
                 var html = '';
                 var len = data.length;
                 for (var i = 0; i < len; i++) {
+                    tender = data[i].tender_id
                     html += '<tr><td>' +' <input type="checkbox">' + '</td>' +
                             '<td>' + data[i].unit_name + '</td>' +
                             '<td>' + data[i].type + '</td>' +
@@ -45,7 +47,7 @@
                             '<td>' + data[i].price + '</td>' +
                             '<td>' + '<button type="submit" class="btn btn-default" disabled>Deal</button>' + '</td></tr>';
                 }
-                $('#unitTender').html(html);
+                $('#unitTable').html(html);
             });
         }
     </script>
@@ -120,7 +122,7 @@
                                 <th>Seller price</th>
                                 <th>Deal</th>
                             </thead>
-                            <tbody id="unitTender"></tbody>
+                            <tbody id="unitTable"></tbody>
                         </table>
                     </div>
                     <div class="col-md-5">

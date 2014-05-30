@@ -18,7 +18,7 @@ public class UnitServiceImpl implements UnitService{
     }
 
     @Override
-    public List<Unit> findUnits(int id) {
-        return unitRepository.findUnits(id);
+    public List<Unit> findUnitsByTenderId(int id) {
+        return unitRepository.findUnitsByTenderId(id);
     }
 }

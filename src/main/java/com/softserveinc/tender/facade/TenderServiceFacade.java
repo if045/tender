@@ -16,5 +16,5 @@ public interface TenderServiceFacade {
     List<TenderDto> findByCustomParams(TenderFilter tenderFilter);
     List<LocationDto> findLocations();
     List<CategoryDto> findCategories();
-    List<UnitDto> findUnits(Integer id);
+    List<UnitDto> findUnitsByTenderId(Integer id);
 }

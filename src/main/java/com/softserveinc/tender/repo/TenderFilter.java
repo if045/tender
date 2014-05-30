@@ -52,8 +52,8 @@ public class TenderFilter {
         }else {
             this.statuses = statuses;
         }
-        this.minDate = (minDate!=null)?minDate:new Date((new Date().getTime())-604800000l);
-        this.maxDate = (maxDate!=null)?maxDate:new Date();
+        this.minDate = (minDate!=null)?minDate:new Date();
+        this.maxDate = (maxDate!=null)?maxDate:new Date((new Date().getTime())+2419200000l);
     }
 
     public Integer getDataFlag() {

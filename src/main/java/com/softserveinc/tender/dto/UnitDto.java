@@ -1,6 +1,7 @@
 package com.softserveinc.tender.dto;
 
 public class UnitDto {
+    private Integer tender_id;
     private Integer id;
     private String unit_name;
     private Character type;
@@ -8,6 +9,14 @@ public class UnitDto {
     private Double quantity;
     private String measurement_name;
     private Double price;
+
+    public Integer getTender_id() {
+        return tender_id;
+    }
+
+    public void setTender_id(Integer tender_id) {
+        this.tender_id = tender_id;
+    }
 
     public Integer getId() {
         return id;
