@@ -37,7 +37,7 @@ INSERT INTO measurement (name) VALUES
 ('Humen/Hour');
 
 
-INSERT INTO address (city, street, building_number, postcode) VALUES 
+INSERT INTO address (city, street, building_number, postcode) VALUES
 ('Vilnohirsk', 'Stepova', 1, 27500),
 ('Drohobych', 'Khmelnitsky', 5, 29000),
 ('Kiev', 'Moskovska', 21, 01015),
@@ -55,7 +55,7 @@ INSERT INTO address (city, street, building_number, postcode) VALUES
 ('Odessa', 'Bugaevskaya', 3, 25600);
 
 
-INSERT INTO company (name, srn, email, logo, address_id) VALUES 
+INSERT INTO company (name, srn, email, logo, address_id) VALUES
 ('Vilnohirsk Mining Metallurgical Plant', 121345, 'Vilnohirsk@gmail.com', null, 1),
 ('Podolsky Smak', 122345, 'PodolskySmak@gmail.com', null, 2),
 ('Econom-servis Gp CffInfo', 123345, 'EconomservisGp@gmail.com', null, 3),
@@ -84,7 +84,7 @@ INSERT INTO user (login, password, create_date) VALUES
 ('kolja234@qmail.com','vasa567',CURDATE());
 
 
-INSERT INTO profile (icon, first_name, last_name, birthday, telephone, checked, person, user_id, company_id) VALUES 
+INSERT INTO profile (icon, first_name, last_name, birthday, telephone, checked, person, user_id, company_id) VALUES
 (null, 'Ivan', 'Nesamay', '1986-05-28', '55-559-5', false, 'L', 1, 1),
 (null, 'Vasja', 'Pupkin', '1966-02-18', '55-559-5', false, 'L', 2, 2),
 (null, 'Kolja', 'Qwerty', '1996-01-02', '55-559-5', false, 'L', 3, 3),
@@ -95,16 +95,16 @@ INSERT INTO profile (icon, first_name, last_name, birthday, telephone, checked, 
 (null, 'Oksana', 'Sobol', '1983-08-01', '55-559-5', false, 'L', 8, 8);
 
 
-INSERT INTO location (name) VALUES 
+INSERT INTO location (name) VALUES
 ('Autonomous Republic of Crimea'),
 ('Cherkasy Region'),
-('Chernihiv Region'), 
-('Chernivtski Region'), 
-('Dnipropetrovsk Region'), 
+('Chernihiv Region'),
+('Chernivtski Region'),
+('Dnipropetrovsk Region'),
 ('Donetsk Region'),
 ('Ivano-Frankivsk Region'),
 ('Kharkiv Region'),
-('Kherson Region'), 
+('Kherson Region'),
 ('Khmelnytsky Region'),
 ('Kirovograd Region'),
 ('Kyiv Region'),
@@ -123,7 +123,7 @@ INSERT INTO location (name) VALUES
 ('Zhytomyr Region');
 
 
-INSERT INTO deal_status (name) VALUES 
+INSERT INTO deal_status (name) VALUES
 ('open'),
 ('in progress'),
 ('close');
@@ -139,45 +139,21 @@ INSERT INTO category (name, parent) VALUES
 ('Product', NULL),
 ('Meat', 7),
 ('Fish', 7),
-('Milk', 7),
-('Cars', NULL);
+('Milk', 7);
 
 
 INSERT INTO tender (author_id, title, create_date, end_date, status_id, suitable_price, description) VALUES
-(1, 'Meal', '2014-06-10', '2014-07-10', 1, 1000000.00, NULL),
-(2, 'Materials', CURDATE(), '2014-06-03', 2, 500000.00, NULL),
-(3, 'Haus Building', '2014-04-10', CURDATE(), 3, 1600000.00, NULL),
-(4, 'Animals', CURDATE(), '2014-06-04', 2, 9900000.00, NULL),
-(5, 'Animals', '2014-06-08', '2014-06-18', 1, 19000000.00, NULL),
-(6, 'Tourism', '2014-04-12', CURDATE(), 3, 23000000.00, NULL),
-(7, 'Industry', '2014-06-07', '2014-06-28', 1, 450000.00, NULL),
-(8, 'Products', '2014-06-08', '2014-06-17', 1, 113000000.00, NULL),
-(4, 'Products', CURDATE(),'2014-06-15', 2, 14000000.00, NULL),
-(2, 'Products', CURDATE(), '2014-06-18', 2, 76000000.00, NULL),
-(3, 'All in 0ne', CURDATE(), '2014-06-22', 2, 59000000.00, NULL),
-
-(1, 'Products', '2014-06-10', '2014-06-25', 1, 1000000.00, NULL),
-(2, 'Need workers', '2014-05-11', '2014-06-16', 2, 500000.00, NULL),
-(3, 'Haus Building', '2014-04-25', CURDATE(), 3, 1600000.00, NULL),
-(4, 'Cars', CURDATE(), '2014-06-22', 2, 9900000.00, NULL),
-(5, 'Cars', '2014-06-09', '2014-06-19', 1, 19000000.00, NULL),
-(6, 'Haus Building', '2014-04-12', '2014-06-11', 2, 23000000.00, NULL),
-(7, 'Industry', '2014-06-07', '2014-06-28', 1, 450000.00, NULL),
-(8, 'Products', '2014-06-08', '2014-06-17', 1, 113000000.00, NULL),
-(4, 'Products', CURDATE(),'2014-06-15', 2, 14000000.00, NULL),
-(2, 'Products', CURDATE(), '2014-06-18', 2, 76000000.00, NULL),
-
-(1, 'Products', '2014-06-10', '2014-06-25', 1, 1000000.00, NULL),
-(2, 'Need workers', '2014-05-11', '2014-06-16', 2, 500000.00, NULL),
-(3, 'Haus Building', '2014-04-25', CURDATE(), 3, 1600000.00, NULL),
-(4, 'Cars', CURDATE(), '2014-06-22', 2, 9900000.00, NULL),
-(5, 'Cars', '2014-06-09', '2014-06-19', 1, 19000000.00, NULL),
-(6, 'Haus Building', '2014-04-12', '2014-06-11', 2, 23000000.00, NULL),
-(7, 'Industry', '2014-06-07', '2014-06-28', 1, 450000.00, NULL),
-(8, 'Products', '2014-06-08', '2014-06-17', 1, 113000000.00, NULL),
-(4, 'Products', CURDATE(),'2014-06-15', 2, 14000000.00, NULL),
-(2, 'Products', CURDATE(), '2014-06-18', 2, 76000000.00, NULL);
-
+(1, 'Meal', CURDATE(), CURDATE(), 1, 1000000.00, NULL),
+(2, 'Materials', CURDATE(), CURDATE(), 2, 500000.00, NULL),
+(3, 'Haus Building', CURDATE(), CURDATE(), 3, 1600000.00, NULL),
+(4, 'Cars', CURDATE(), CURDATE(), 2, 9900000.00, NULL),
+(5, 'Animals', CURDATE(), CURDATE(), 1, 19000000.00, NULL),
+(6, 'Tourism', CURDATE(), CURDATE(), 3, 23000000.00, NULL),
+(7, 'Industry', CURDATE(), CURDATE(), 1, 450000.00, NULL),
+(8, 'Products', CURDATE(), CURDATE(), 1, 113000000.00, NULL),
+(4, 'Building Service', CURDATE(), CURDATE(), 2, 14000000.00, NULL),
+(2, 'Furniture', CURDATE(), CURDATE(), 2, 76000000.00, NULL),
+(3, 'All in 0ne', CURDATE(), CURDATE(), 2, 59000000.00, NULL);
 
 
 INSERT INTO proposal (discount_percentage, discount_currency, description, seller_id, tender_id) VALUES
@@ -200,54 +176,26 @@ INSERT INTO item (name, type, category_id) VALUES
 ('Cats', 'P', 3),
 ('Puffin', 'P', 4),
 ('Ovcharka', 'P', 5),
-('Penguins', 'P', 6),
-('Juises', 'P', 7),
-('Salami', 'P', 8),
-('Gold fish', 'P', 9),
-('jogurt', 'P', 10),
-('Build team', 'S', 1),
-('Excavator', 'S', 1),
-('Hrejder', 'S', 1),
-('Audi-7', 'P', 11),
-('BMW', 'P', 11),
-('Kia', 'P', 11);
+('Penguins', 'S', 6),
+('Juises', 'S', 7),
+('Salami', 'S', 8),
+('Gold fish', 'S', 9),
+('jogurt', 'S', 10),
+('Dolmantin', 'S', 5);
 
 
 INSERT INTO unit (quantity, measurement_id, item_id, tender_id) VALUES
 (500, 1, 10, 9),
-(100, 5, 6, 5),
-(5300, 5, 11, 5),
-(1200, 6, 1, 3),
-(2300, 5, 1, 2),
-(1000, 1, 8, 1),
-(666, 5, 1, 3),
-(999, 5, 3, 4),
-(1023, 3, 7, 10),
-(512, 5, 2, 5),
+(100, 2, 9, 5),
+(5300, 3, 8, 5),
+(1200, 4, 7, 3),
+(2300, 5, 6, 2),
+(1000, 6, 5, 1),
+(666, 3, 4, 3),
+(999, 1, 3, 4),
+(1023, 4, 2, 10),
+(512, 3, 1, 5);
 
-(500, 8, 12, 11),
-
-(500, 1, 10, 12),
-(100, 8, 11, 13),
-(5300, 8, 12, 14),
-(1200, 5, 14, 15),
-(2300, 5, 16, 16),
-(1000, 8, 11, 17),
-(666, 8, 13, 18),
-(999, 3, 7, 19),
-(1023, 1, 8, 20),
-(512, 1, 9, 21),
-
-(500, 1, 10, 12),
-(100, 8, 11, 13),
-(5300, 8, 12, 14),
-(1200, 5, 14, 15),
-(2300, 5, 16, 16),
-(1000, 8, 11, 17),
-(666, 8, 13, 18),
-(999, 3, 7, 19),
-(1023, 1, 8, 20),
-(512, 1, 9, 21);
 
 INSERT INTO checked_profile (profile_id, moderator_id, status_id) VALUES
 (1,1,1),
@@ -286,19 +234,19 @@ INSERT INTO conflict (moderator_id, bid_id, description, status_id) VALUE
 (2,9,'text9',1);
 
 
-INSERT INTO comment (tender_id, user_id, message, date) VALUES 
-(1, 1, 'This price is too high', CURDATE()), 
+INSERT INTO comment (tender_id, user_id, message, date) VALUES
+(1, 1, 'This price is too high', CURDATE()),
 (1, 2, 'This is my opinion', CURDATE()),
 (2, 1, 'hello', CURDATE()),
 (2, 1, 'This price is too high', CURDATE()),
-(2, 3, 'Some text', '2014-07-10'), 
+(2, 3, 'Some text', '2014-07-10'),
 (1, 1, 'You can buy it much cheaper', CURDATE()),
-(1, 2, 'Ok, i will think about it.', CURDATE()), 
-(2, 1, 'This is too low price.', CURDATE()), 
+(1, 2, 'Ok, i will think about it.', CURDATE()),
+(2, 1, 'This is too low price.', CURDATE()),
 (2, 2, 'I do not think so.', CURDATE());
 
 
-INSERT INTO deal (bid_id, proposal_id, customer_id, seller_id, sum, date, status_id) VALUES 
+INSERT INTO deal (bid_id, proposal_id, customer_id, seller_id, sum, date, status_id) VALUES
 (1, 1, 1, 1, 100000.00, CURDATE(), 1),
 (3, 1, 2, 1, 55000.00, CURDATE(), 1),
 (2, 3, 5, 2, 40000.00, CURDATE(), 1),
@@ -339,25 +287,19 @@ INSERT INTO seller_location (seller_id, location_id) VALUES
 INSERT INTO tender_location (tender_id, location_id) VALUES
 (1, 8),
 (2, 1),
-(3, 2),
-(4, 13),
-(5, 24),
-(6, 7),
-(7, 15),
-(8, 22),
-(9, 4),
-(10, 5),
-(11, 17),
-(12, 18),
-(13, 3),
-(14, 25),
-(15, 6),
-(16, 5),
-(17, 17),
-(18, 18),
-(19, 3),
-(20, 3),
-(21, 25);
+(2, 2),
+(3, 13),
+(4, 24),
+(5, 7),
+(6, 15),
+(6, 22),
+(7, 4),
+(7, 5),
+(8, 17),
+(8, 18),
+(9, 3),
+(10, 25),
+(11, 6);
 
 INSERT INTO user_role (user_id, role_id) VALUES
 (1, 2),
