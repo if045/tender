@@ -5,7 +5,7 @@ import java.util.List;
 
 public interface MeasurementService {
 
-    List<Measurement> findAll();
-    Measurement findMeasurementById(int id);
+    List<Measurement> findAllMeasurements();
+    Measurement findMeasurementById(Integer id);
     void saveMeasurement(Measurement measurement);
 }

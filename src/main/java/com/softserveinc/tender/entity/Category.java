@@ -6,7 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -21,7 +21,7 @@ public class Category {
     @Column(name = "name", nullable = false, length = 30)
     private String name;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "parent")
     private Category parent;
 

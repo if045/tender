@@ -48,24 +48,28 @@ public class TenderServiceFacadeImpl  implements TenderServiceFacade{
 
     public List<TenderStatusDto> findTenderStatuses() {
         List<TenderStatusDto> statusesDto = new ArrayList<>();
-        for (TenderStatus tenderStatus : tenderStatusService.findAll()) {
+        for (TenderStatus tenderStatus : tenderStatusService.findAllTenderStatuses()) {
             statusesDto.add(modelMapper.map(tenderStatus, TenderStatusDto.class));
         }
         return statusesDto;
     }
 
-    public List<ItemDto> findItems() {
+    public List<ItemDto> findTendersItems(TenderFilter tenderFilter) {
         List<ItemDto> itemDtos = new ArrayList<>();
-        for (Item item : itemService.findAllItemsByTenders()) {
+        for (Item item : itemService.findAllItemsByTenders(tenderFilter)) {
             itemDtos.add(modelMapper.map(item, ItemDto.class));
         }
         return itemDtos;
     }
 
-    public List<TenderDto> mapTenders(TenderFilter tenderFilter){
+    @Override
+    public List<TenderDto> findByCustomParams(TenderFilter tenderFilter) {
         List<Tender> tenders=tenderService.findByCustomParameters(tenderFilter);
-        List<TenderDto> tenderDtos=new ArrayList<>();
+        return mapTenders(tenders);
+    }
 
+    private List<TenderDto> mapTenders(List<Tender> tenders){
+        List<TenderDto> tenderDtos=new ArrayList<>();
         for(Tender tender:tenders){
             tenderDtos.add(mapTender(tender));
         }
@@ -104,9 +108,24 @@ public class TenderServiceFacadeImpl  implements TenderServiceFacade{
     }
 
     public List<CategoryDto> findCategories() {
-        List<CategoryDto> categoryDtos = new ArrayList<>();
-        for (Category category : categoryService.findAllWithCategory()) {
-            categoryDtos.add(modelMapper.map(category, CategoryDto.class));
+        List<Category> categories=categoryService.findAllWithCategory();
+        return mapCategories(categories);
+    }
+
+    private CategoryDto mapCategory (Category category){
+        CategoryDto categoryDto=new CategoryDto();
+        categoryDto.setId(category.getId());
+        categoryDto.setName(category.getName());
+        if (category.getParent()!=null) {
+            categoryDto.setParent(category.getParent().getId());
+        }
+        return categoryDto;
+    }
+
+    private List<CategoryDto> mapCategories(List<Category> categories){
+        List<CategoryDto> categoryDtos=new ArrayList<>();
+        for(Category category:categories){
+            categoryDtos.add(mapCategory(category));
         }
         return categoryDtos;
     }

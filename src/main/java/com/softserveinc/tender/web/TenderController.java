@@ -24,12 +24,12 @@ public class TenderController {
     private TenderServiceFacade tenderFacade;
 
     @RequestMapping("")
-    public String init() {
+    public String getAllTenders() {
         return "tenders";
     }
 
-    @RequestMapping(value = "/tenders", method = {RequestMethod.GET,RequestMethod.POST})
-    public @ResponseBody List<TenderDto> showAllTenders(
+    @RequestMapping(value = "/tenders", method = RequestMethod.GET)
+    public @ResponseBody List<TenderDto> findTenders(
             @RequestParam(value = "minPrice", required = false) Double minPrice,
             @RequestParam(value = "maxPrice", required = false) Double maxPrice,
             @RequestParam(value = "items", required = false) List<Integer> items,
@@ -38,11 +38,11 @@ public class TenderController {
             @RequestParam(value = "statuses", required = false) List<Integer> statuses,
             @RequestParam(value = "minDate", required = false) Date createDate,
             @RequestParam(value = "maxDate", required = false) Date endDate) {
-        return tenderFacade.mapTenders(new TenderFilter(minPrice,maxPrice,categories,locations,items,statuses,createDate,endDate));
+        return tenderFacade.findByCustomParams(new TenderFilter(minPrice,maxPrice,categories,locations,items,statuses,createDate,endDate));
     }
 
     @RequestMapping(value = "/tenders/statuses", method = RequestMethod.GET)
-    public @ResponseBody List<TenderStatusDto> findAllStatuses() {
+    public @ResponseBody List<TenderStatusDto> findAllTenderStatuses() {
         return tenderFacade.findTenderStatuses();
     }
 
@@ -52,8 +52,9 @@ public class TenderController {
     }
 
     @RequestMapping(value = "/tenders/items", method = RequestMethod.GET)
-    public @ResponseBody List<ItemDto> findAllItems() {
-        return tenderFacade.findItems();
+    public @ResponseBody List<ItemDto> findTendersItems(
+            @RequestParam(value = "categories", required = false) List<Integer> categories) {
+        return tenderFacade.findTendersItems(new TenderFilter(null, null, categories, null, null, null, null, null));
     }
 
     @RequestMapping(value = "/tenders/locations", method = RequestMethod.GET)
