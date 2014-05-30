@@ -23,7 +23,6 @@
     <script type='text/javascript' src='<c:url value="../resources/js/select2.min.js"/>'></script>
 
     <script type='text/javascript' src='<c:url value="../resources/js/tenders.js"/>'></script>
-
 </head>
 <body>
 
@@ -168,6 +167,10 @@
 
     </div>
 </div>
+
+<!--create tender modal -->
+<jsp:include page="createtender.jsp"/>
+<!--create tender modal -->
 
 </body>
 
