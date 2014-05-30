@@ -167,3 +167,53 @@ body {
 .field_group {
 	padding-left:50px;
 }
+
+.del_button {
+	width: 16px;
+	height: 16px;
+}
+
+.units_table {
+
+}
+
+.units_table .units_table_header_action {
+	width: 40px;
+}
+
+.units_table_body_action {
+	width: 40px;
+}
+
+.units_table .units_table_header_measurement {
+	width: 103px;
+}
+
+.units_table_body_measurement {
+	width: 103px;
+}
+
+.units_table .units_table_header_quantity {
+	width: 150px;
+}
+
+.units_table_body_quantity {
+	width: 150px;
+}
+
+.units_table .units_table_header_type {
+	width: 60px;
+}
+
+.units_table_body_type {
+	width: 60px;
+}
+
+.units_table .units_table_header_category {
+	width: 250px;
+}
+
+.units_table_body_category {
+	width: 250px;
+}
+

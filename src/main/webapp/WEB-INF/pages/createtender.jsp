@@ -1,4 +1,9 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+         pageEncoding="utf8"%>
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
 
 <div id="createTenderWindow" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
@@ -118,14 +123,14 @@
                 <div class="">
                     <div><label class="control-label">Units:</label></div>
                     <div>
-                        <table class="table table-bordered table-striped">
+                        <table class="table table-bordered table-striped units_table">
                             <tr>
-                                <td align="center">Name</td>
-                                <td align="center">Type</td>
-                                <td align="center">Category</td>
-                                <td align="center">Quantity</td>
-                                <td align="center">Measurement</td>
-                                <td align="center">Action</td>
+                                <td align="center" class="units_table_header_name">Name</td>
+                                <td align="center" class="units_table_header_type">Type</td>
+                                <td align="center" class="units_table_header_category">Category</td>
+                                <td align="center" class="units_table_header_quantity">Quantity</td>
+                                <td align="center" class="units_table_header_measurement">Measurement</td>
+                                <td align="center" class="units_table_header_action">Action</td>
                             </tr>
                         </table>    
                     </div>   
@@ -133,61 +138,52 @@
                         <table class="table table-bordered table-striped">
                             <tbody>
                                 <tr>
-                                    <td align="center">Ivan</td>
-                                    <td align="center">Build</td>
-                                    <td align="center">Lviv</td>
-                                    <td align="center">$1000000.0</td>
-                                    <td align="center">Open</td>
-                                    <td align="center"><i class="icon-trash icon-white"></i></td>
+                                    <td align="center">Brick</td>
+                                    <td align="center" class="units_table_body_type">P</td>
+                                    <td align="center" class="units_table_body_category">Build</td>
+                                    <td align="center" class="units_table_body_quantity">1000</td>
+                                    <td align="center" class="units_table_body_measurement">kg</td>
+                                    <td align="center" class="units_table_body_action"><img class="del_button" src='<c:url value="../resources/img/delete.png"/>'/></td>
                                 </tr>
                                 <tr>
-                                    <td align="center">Ivan</td>
-                                    <td align="center">Build</td>
-                                    <td align="center">Lviv</td>
-                                    <td align="center">$1000000.0</td>
-                                    <td align="center">Open</td>
-                                    <td align="center">6</td>
+                                    <td align="center">Brick</td>
+                                    <td align="center" class="units_table_body_type">P</td>
+                                    <td align="center" class="units_table_body_category">Build</td>
+                                    <td align="center" class="units_table_body_quantity">1000</td>
+                                    <td align="center" class="units_table_body_measurement">kg</td>
+                                    <td align="center" class="units_table_body_action"><img class="del_button" src='<c:url value="../resources/img/delete.png"/>'/></td>
                                 </tr>
                                 <tr>
-                                    <td align="center">Ivan</td>
-                                    <td align="center">Build</td>
-                                    <td align="center">Lviv</td>
-                                    <td align="center">$1000000.0</td>
-                                    <td align="center">Open</td>
-                                    <td align="center">6</td>
-                                </tr>
+                                    <td align="center">Brick</td>
+                                    <td align="center" class="units_table_body_type">P</td>
+                                    <td align="center" class="units_table_body_category">Build</td>
+                                    <td align="center" class="units_table_body_quantity">1000</td>
+                                    <td align="center" class="units_table_body_measurement">kg</td>
+                                    <td align="center" class="units_table_body_action"><img class="del_button" src='<c:url value="../resources/img/delete.png"/>'/></td>
+                                </tr> 
                                 <tr>
-                                    <td align="center">Ivan</td>
-                                    <td align="center">Build</td>
-                                    <td align="center">Lviv</td>
-                                    <td align="center">$1000000.0</td>
-                                    <td align="center">Open</td>
-                                    <td align="center">6</td>
+                                    <td align="center">Brick</td>
+                                    <td align="center" class="units_table_body_type">P</td>
+                                    <td align="center" class="units_table_body_category">Build</td>
+                                    <td align="center" class="units_table_body_quantity">1000</td>
+                                    <td align="center" class="units_table_body_measurement">kg</td>
+                                    <td align="center" class="units_table_body_action"><img class="del_button" src='<c:url value="../resources/img/delete.png"/>'/></td>
+                                </tr>                                                                                                                          <tr>
+                                    <td align="center">Brick</td>
+                                    <td align="center" class="units_table_body_type">P</td>
+                                    <td align="center" class="units_table_body_category">Build</td>
+                                    <td align="center" class="units_table_body_quantity">1000</td>
+                                    <td align="center" class="units_table_body_measurement">kg</td>
+                                    <td align="center" class="units_table_body_action"><img class="del_button" src='<c:url value="../resources/img/delete.png"/>'/></td>
                                 </tr>   
                                 <tr>
-                                    <td align="center">Ivan</td>
-                                    <td align="center">Build</td>
-                                    <td align="center">Lviv</td>
-                                    <td align="center">$1000000.0</td>
-                                    <td align="center">Open</td>
-                                    <td align="center">6</td>
-                                </tr>  
-                                <tr>
-                                    <td align="center">Ivan</td>
-                                    <td align="center">Build</td>
-                                    <td align="center">Lviv</td>
-                                    <td align="center">$1000000.0</td>
-                                    <td align="center">Open</td>
-                                    <td align="center">6</td>
-                                </tr>  
-                                <tr>
-                                    <td align="center">Ivan</td>
-                                    <td align="center">Build</td>
-                                    <td align="center">Lviv</td>
-                                    <td align="center">$1000000.0</td>
-                                    <td align="center">Open</td>
-                                    <td align="center">6</td>
-                                </tr>                                                                                                                     
+                                    <td align="center">Brick</td>
+                                    <td align="center" class="units_table_body_type">P</td>
+                                    <td align="center" class="units_table_body_category">Build</td>
+                                    <td align="center" class="units_table_body_quantity">1000</td>
+                                    <td align="center" class="units_table_body_measurement">kg</td>
+                                    <td align="center" class="units_table_body_action"><img class="del_button" src='<c:url value="../resources/img/delete.png"/>'/></td>
+                                </tr>                       
                             </tbody>                          
                         </table>
                     </div>
