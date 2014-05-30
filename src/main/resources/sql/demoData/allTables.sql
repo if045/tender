@@ -37,7 +37,7 @@ INSERT INTO measurement (name) VALUES
 ('Humen/Hour');
 
 
-INSERT INTO address (city, street, building_number, postcode) VALUES
+INSERT INTO address (city, street, building_number, postcode) VALUES 
 ('Vilnohirsk', 'Stepova', 1, 27500),
 ('Drohobych', 'Khmelnitsky', 5, 29000),
 ('Kiev', 'Moskovska', 21, 01015),
@@ -55,7 +55,7 @@ INSERT INTO address (city, street, building_number, postcode) VALUES
 ('Odessa', 'Bugaevskaya', 3, 25600);
 
 
-INSERT INTO company (name, srn, email, logo, address_id) VALUES
+INSERT INTO company (name, srn, email, logo, address_id) VALUES 
 ('Vilnohirsk Mining Metallurgical Plant', 121345, 'Vilnohirsk@gmail.com', null, 1),
 ('Podolsky Smak', 122345, 'PodolskySmak@gmail.com', null, 2),
 ('Econom-servis Gp CffInfo', 123345, 'EconomservisGp@gmail.com', null, 3),
@@ -84,7 +84,7 @@ INSERT INTO user (login, password, create_date) VALUES
 ('kolja234@qmail.com','vasa567',CURDATE());
 
 
-INSERT INTO profile (icon, first_name, last_name, birthday, telephone, checked, person, user_id, company_id) VALUES
+INSERT INTO profile (icon, first_name, last_name, birthday, telephone, checked, person, user_id, company_id) VALUES 
 (null, 'Ivan', 'Nesamay', '1986-05-28', '55-559-5', false, 'L', 1, 1),
 (null, 'Vasja', 'Pupkin', '1966-02-18', '55-559-5', false, 'L', 2, 2),
 (null, 'Kolja', 'Qwerty', '1996-01-02', '55-559-5', false, 'L', 3, 3),
@@ -95,16 +95,16 @@ INSERT INTO profile (icon, first_name, last_name, birthday, telephone, checked, 
 (null, 'Oksana', 'Sobol', '1983-08-01', '55-559-5', false, 'L', 8, 8);
 
 
-INSERT INTO location (name) VALUES
+INSERT INTO location (name) VALUES 
 ('Autonomous Republic of Crimea'),
 ('Cherkasy Region'),
-('Chernihiv Region'),
-('Chernivtski Region'),
-('Dnipropetrovsk Region'),
+('Chernihiv Region'), 
+('Chernivtski Region'), 
+('Dnipropetrovsk Region'), 
 ('Donetsk Region'),
 ('Ivano-Frankivsk Region'),
 ('Kharkiv Region'),
-('Kherson Region'),
+('Kherson Region'), 
 ('Khmelnytsky Region'),
 ('Kirovograd Region'),
 ('Kyiv Region'),
@@ -123,7 +123,7 @@ INSERT INTO location (name) VALUES
 ('Zhytomyr Region');
 
 
-INSERT INTO deal_status (name) VALUES
+INSERT INTO deal_status (name) VALUES 
 ('open'),
 ('in progress'),
 ('close');
@@ -234,19 +234,19 @@ INSERT INTO conflict (moderator_id, bid_id, description, status_id) VALUE
 (2,9,'text9',1);
 
 
-INSERT INTO comment (tender_id, user_id, message, date) VALUES
-(1, 1, 'This price is too high', CURDATE()),
+INSERT INTO comment (tender_id, user_id, message, date) VALUES 
+(1, 1, 'This price is too high', CURDATE()), 
 (1, 2, 'This is my opinion', CURDATE()),
 (2, 1, 'hello', CURDATE()),
 (2, 1, 'This price is too high', CURDATE()),
-(2, 3, 'Some text', '2014-07-10'),
+(2, 3, 'Some text', '2014-07-10'), 
 (1, 1, 'You can buy it much cheaper', CURDATE()),
-(1, 2, 'Ok, i will think about it.', CURDATE()),
-(2, 1, 'This is too low price.', CURDATE()),
+(1, 2, 'Ok, i will think about it.', CURDATE()), 
+(2, 1, 'This is too low price.', CURDATE()), 
 (2, 2, 'I do not think so.', CURDATE());
 
 
-INSERT INTO deal (bid_id, proposal_id, customer_id, seller_id, sum, date, status_id) VALUES
+INSERT INTO deal (bid_id, proposal_id, customer_id, seller_id, sum, date, status_id) VALUES 
 (1, 1, 1, 1, 100000.00, CURDATE(), 1),
 (3, 1, 2, 1, 55000.00, CURDATE(), 1),
 (2, 3, 5, 2, 40000.00, CURDATE(), 1),
