@@ -51,6 +51,11 @@ public class TenderController {
         return "tender";
     }
 
+    @RequestMapping(value = "/deals/", method = RequestMethod.GET)
+    public String showDeals() {
+        return "deals";
+    }
+
     @RequestMapping(value = "/tenders/items", method = RequestMethod.GET)
     public @ResponseBody List<ItemDto> findTendersItems(
             @RequestParam(value = "categories", required = false) List<Integer> categories) {
