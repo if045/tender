@@ -28,16 +28,17 @@
                 startDate: '-3d'
             });
             showUnit();
+
         });
-        var tender;
 
         function showUnit() {
-
+            var str = location.href;
+            var tender1 = str.split("http://localhost:8081/tenders/view");
+            var tender =tender1[tender1.length-1];
             $.getJSON('/tenders/view'+tender+'/unit', function (data) {
                 var html = '';
                 var len = data.length;
                 for (var i = 0; i < len; i++) {
-                    tender = data[i].tender_id
                     html += '<tr><td>' +' <input type="checkbox">' + '</td>' +
                             '<td>' + data[i].unit_name + '</td>' +
                             '<td>' + data[i].type + '</td>' +
