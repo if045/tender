@@ -15,16 +15,16 @@ public class TenderStatusServiceImpl implements TenderStatusService{
     private TenderStatusRepository tenderStatusRepository;
 
     @Override
-    public List<TenderStatus> findAll() {
-        return tenderStatusRepository.findAll(sortByIdAsc());
+    public List<TenderStatus> findAllTenderStatuses() {
+        return tenderStatusRepository.findAll(sortTenderStatusesByIdAsc());
     }
 
-    private Sort sortByIdAsc() {
+    private Sort sortTenderStatusesByIdAsc() {
         return new Sort(Sort.Direction.ASC, "id");
     }
 
     @Override
-    public TenderStatus findDealStatusById(int id) {
+    public TenderStatus findTenderStatusById(Integer id) {
         return tenderStatusRepository.findOne(id);
     }
 }

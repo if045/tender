@@ -1,7 +1,7 @@
 package com.softserveinc.tender.dto;
 
-
 public class LocationDto {
+
     private Integer id;
     private String name;
 
