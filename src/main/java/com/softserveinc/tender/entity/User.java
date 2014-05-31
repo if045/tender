@@ -1,16 +1,6 @@
 package com.softserveinc.tender.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
@@ -19,13 +9,12 @@ import java.util.List;
 public class User {
 
     @Id
-    @GeneratedValue(strategy =GenerationType.AUTO )
+    @GeneratedValue(strategy = GenerationType.AUTO )
     @Column
     private Integer id;
 
     @Column(name = "password", nullable = false, length = 15)
     private String password;
-
 
     @Column(name = "create_date", nullable = false)
     @Temporal(value = TemporalType.DATE)
@@ -49,6 +38,9 @@ public class User {
     @ManyToMany
     @JoinTable(name = "moderator_category", joinColumns = {@JoinColumn(name = "user_id")}, inverseJoinColumns = {@JoinColumn(name = "category_id")})
     private List<Category> moderatorCategories;
+
+    @OneToOne(mappedBy = "user")
+    private Profile profile;
 
     public Integer getId() {
         return id;
@@ -112,6 +104,14 @@ public class User {
 
     public void setModeratorCategories(List<Category> moderatorCategories) {
         this.moderatorCategories = moderatorCategories;
+    }
+
+    public Profile getProfile() {
+        return profile;
+    }
+
+    public void setProfile(Profile profile) {
+        this.profile = profile;
     }
 }
 

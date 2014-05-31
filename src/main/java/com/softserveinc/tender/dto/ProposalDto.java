@@ -1,51 +1,34 @@
 package com.softserveinc.tender.dto;
 
-public class ProposalDto {
+import com.softserveinc.tender.entity.Bid;
+import com.softserveinc.tender.entity.Proposal;
 
-    public static final int MAX_PERCENTAGE_VALUE = 100;
+public class ProposalDto {
 
     private Integer id;
     private String fullName;
     private Double totalPrice;
-
     private Integer numberOfBids;
-    private String firstName;
-    private String lastName;
-    private Double sum;
-    private Double discountPercentage;
-    private Double discountCurrency;
-    private String description;
 
-    public ProposalDto() {};
+    private Double countTotalPrice(Proposal proposal) {
+        Double sum = 0.0;
+        final int MAX_PERCENTAGE_VALUE = 100;
 
-    public ProposalDto(Integer id, Integer numberOfBids, String firstName, String lastName, Double sum, Double discountPercentage, Double discountCurrency, String description) {
-        this.id = id;
-        this.numberOfBids = numberOfBids;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.sum = sum;
-        this.discountPercentage = discountPercentage;
-        this.discountCurrency = discountCurrency;
-        this.description = description;
+        for (Bid bid : proposal.getBids()) {
+            sum += bid.getPrice();
+        }
 
-        fullName = setFullName();
-        totalPrice = setTotalPrice();
-    }
-
-    private Double setTotalPrice() {
-        if(discountPercentage != null) {
-            return sum - (sum * (getDiscountPercentage() / MAX_PERCENTAGE_VALUE));
+        if(proposal.getDiscountPercentage() != null) {
+            return sum - (sum * (proposal.getDiscountPercentage() / MAX_PERCENTAGE_VALUE));
         } else {
-
-            return sum - getDiscountCurrency();
+            return sum - proposal.getDiscountCurrency();
         }
     }
 
-    private String setFullName() {
-        return getFirstName() + " " + getLastName();
+    private String convertIntoFullName(Proposal proposal) {
+        return proposal.getSeller().getProfile().getFirstName() + " " +
+                proposal.getSeller().getProfile().getLastName();
     }
-
-    // Getters and Setters
 
     public Integer getId() {
         return id;
@@ -59,8 +42,8 @@ public class ProposalDto {
         return fullName;
     }
 
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
+    public void setFullName(Proposal proposal) {
+        fullName = convertIntoFullName(proposal);
     }
 
     public Integer getNumberOfBids() {
@@ -75,55 +58,7 @@ public class ProposalDto {
         return totalPrice;
     }
 
-    public void setTotalPrice(Double totalPrice) {
-        this.totalPrice = totalPrice;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public Double getSum() {
-        return sum;
-    }
-
-    public void setSum(Double sum) {
-        this.sum = sum;
-    }
-
-    public Double getDiscountPercentage() {
-        return discountPercentage;
-    }
-
-    public void setDiscountPercentage(Double discountPercentage) {
-        this.discountPercentage = discountPercentage;
-    }
-
-    public Double getDiscountCurrency() {
-        return discountCurrency;
-    }
-
-    public void setDiscountCurrency(Double discountCurrency) {
-        this.discountCurrency = discountCurrency;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
+    public void setTotalPrice(Proposal proposal) {
+        totalPrice = countTotalPrice(proposal);
     }
 }
