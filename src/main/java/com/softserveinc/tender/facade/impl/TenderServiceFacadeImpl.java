@@ -1,22 +1,10 @@
 package com.softserveinc.tender.facade.impl;
 
-import com.softserveinc.tender.dto.CategoryDto;
-import com.softserveinc.tender.dto.ItemDto;
-import com.softserveinc.tender.dto.TenderDto;
-import com.softserveinc.tender.dto.LocationDto;
-import com.softserveinc.tender.dto.TenderStatusDto;
-import com.softserveinc.tender.entity.Category;
-import com.softserveinc.tender.entity.Item;
-import com.softserveinc.tender.entity.Location;
-import com.softserveinc.tender.entity.Tender;
-import com.softserveinc.tender.entity.TenderStatus;
+import com.softserveinc.tender.dto.*;
+import com.softserveinc.tender.entity.*;
 import com.softserveinc.tender.facade.TenderServiceFacade;
 import com.softserveinc.tender.repo.TenderFilter;
-import com.softserveinc.tender.service.ItemService;
-import com.softserveinc.tender.service.TenderService;
-import com.softserveinc.tender.service.CategoryService;
-import com.softserveinc.tender.service.LocationService;
-import com.softserveinc.tender.service.TenderStatusService;
+import com.softserveinc.tender.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.modelmapper.ModelMapper;
@@ -45,6 +33,9 @@ public class TenderServiceFacadeImpl  implements TenderServiceFacade{
 
     @Autowired
     private CategoryService categoryService;
+
+    @Autowired
+    private ProposalService proposalService;
 
     public List<TenderStatusDto> findTenderStatuses() {
         List<TenderStatusDto> statusesDto = new ArrayList<>();
@@ -128,5 +119,25 @@ public class TenderServiceFacadeImpl  implements TenderServiceFacade{
             categoryDtos.add(mapCategory(category));
         }
         return categoryDtos;
+    }
+
+    public List<ProposalDto> findTenderProposals(Integer tenderId) {
+        return mapTenderProposals(tenderId);
+    }
+
+    private List<ProposalDto> mapTenderProposals(Integer tenderId) {
+        List<ProposalDto> proposalDtos = new ArrayList<>();
+
+        for(Proposal proposal : proposalService.findByTender(tenderId)) {
+            ProposalDto proposalDto = new ProposalDto();
+
+            proposalDto.setId(proposal.getId());
+            proposalDto.setFullName(proposal);
+            proposalDto.setNumberOfBids(proposal.getBids().size());
+            proposalDto.setTotalPrice(proposal);
+
+            proposalDtos.add(proposalDto);
+        }
+        return proposalDtos;
     }
 }
