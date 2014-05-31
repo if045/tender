@@ -55,6 +55,25 @@
                 });
             });
 
+            function showProposals() {
+                var URL = location.href;
+                var tenderURI = URL.split("/tenders/view");
+                var tenderId = tenderURI[tenderURI.length - 1];
+                $.getJSON('/tenders/view'+tenderId+'/proposals', function (data) {
+                    var html;
+                    var len = data.length;
+                    for (var i = 0; i < len; i++) {
+                        html += '<tr>' +
+                            '<td align="center">' + data[i].fullName + '</td>' +
+                            '<td align="center">' + data[i].numberOfBids + '</td>' +
+                            '<td align="center">' + data[i].totalPrice + '</td>' +
+                            '<td align="center"><button type="submit" class="btn btn-default" disabled>Deal</button></td>' +
+                            '</tr>';
+                    }
+                    $('#proposals').html(html);
+                });
+            }
+
             $.getJSON('/tenders/statuses', {
                   ajax : 'true'
                 }, function(data){
@@ -89,8 +108,10 @@
 
                 $('#category_filter').html(html);
             });
+
             itemDropdown();
             showTenders();
+            showProposals();
 
             $('#createTenderWindow').on('shown.bs.modal', function () {
                 $('.datepicker').addClass('modal_datepicker');
@@ -184,7 +205,6 @@
                 $('#tenders').html(html);
             });
         }
-
 
         function clearFilters() {
             disableFilterButtons();

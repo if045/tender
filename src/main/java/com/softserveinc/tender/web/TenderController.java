@@ -1,11 +1,12 @@
 package com.softserveinc.tender.web;
 
-import com.softserveinc.tender.dto.LocationDto;
 import com.softserveinc.tender.dto.CategoryDto;
 import com.softserveinc.tender.dto.ItemDto;
+import com.softserveinc.tender.dto.LocationDto;
+import com.softserveinc.tender.dto.ProposalDto;
 import com.softserveinc.tender.dto.TenderDto;
-import com.softserveinc.tender.repo.TenderFilter;
 import com.softserveinc.tender.dto.TenderStatusDto;
+import com.softserveinc.tender.repo.TenderFilter;
 import com.softserveinc.tender.facade.TenderServiceFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -38,7 +39,7 @@ public class TenderController {
             @RequestParam(value = "statuses", required = false) List<Integer> statuses,
             @RequestParam(value = "minDate", required = false) Date createDate,
             @RequestParam(value = "maxDate", required = false) Date endDate) {
-        return tenderFacade.findByCustomParams(new TenderFilter(minPrice,maxPrice,categories,locations,items,statuses,createDate,endDate));
+        return tenderFacade.findByCustomParams(new TenderFilter(minPrice, maxPrice, categories, locations, items, statuses, createDate, endDate));
     }
 
     @RequestMapping(value = "/tenders/statuses", method = RequestMethod.GET)
@@ -65,5 +66,10 @@ public class TenderController {
     @RequestMapping(value = "/tenders/categories", method = RequestMethod.GET)
     public @ResponseBody List<CategoryDto> findAllCategories() {
         return tenderFacade.findCategories();
+    }
+
+    @RequestMapping(value = "/tenders/view{id}/proposals", method = RequestMethod.GET)
+    public @ResponseBody List<ProposalDto> findAllTenderProposals(@PathVariable("id") Integer id) {
+        return tenderFacade.findTenderProposals(id);
     }
 }

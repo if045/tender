@@ -20,6 +20,7 @@
     <script type='text/javascript' src='<c:url value="../resources/js/bootstrap.min.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/bootstrap-datepicker.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/select2.min.js"/>'></script>
+    <script type='text/javascript' src='<c:url value="../resources/js/tenders.js"/>'></script>
 
     <script type="text/javascript">
         $(document).ready(function() {
@@ -125,27 +126,16 @@
                         </table>
                     </div>
                     <div class="col-md-5">
-                        <table class="table table-bordered table-striped" id="proposals">
-                            <tr>
-                                <th>Seller</th>
-                                <th>Number of bids</th>
-                                <th>Total price</th>
-                                <th>Deal</th>
-                            </tr>
-                            <tr>
-                                <td align="center">Bob</td>
-                                <td align="center">2</td>
-                                <td align="center">451</td>
-                                <td align="center"><button type="submit" class="btn btn-default" disabled>Deal</button></td>
-                            </tr>
-                            <c:forEach var="proposal" items="${proposals}">
+                        <table class="table table-bordered table-striped">
+                            <thead>
                                 <tr>
-                                    <td align="center"><c:out value="${unit.sellerName}"/></td>
-                                    <td align="center"><c:out value="${unit.numberOfBids}"/></td>
-                                    <td align="center"><c:out value="${unit.totalPrice}"/></td>
-                                    <td align="center"><button type="submit" class="btn btn-default" disabled>Deal</button></td>
+                                    <th>Seller</th>
+                                    <th>Number of bids</th>
+                                    <th>Total price</th>
+                                    <th>Deal</th>
                                 </tr>
-                            </c:forEach>
+                            </thead>
+                            <tbody id="proposals"/>
                         </table>
                     </div>
                 </div>
