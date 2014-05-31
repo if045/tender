@@ -1,5 +1,5 @@
         $(document).ready(function() {
-            $('#startDate, #endDate').datepicker({
+            $('#startDate, #endDate, #create_tender_enddate').datepicker({
                 format: 'yyyy/mm/dd',
                 startDate: '-5y'
             });
@@ -91,6 +91,61 @@
             });
             itemDropdown();
             showTenders();
+
+            $('#createTenderWindow').on('shown.bs.modal', function () {
+                $('.datepicker').addClass('modal_datepicker');
+
+                $("#create_tender_unit_category").select2({
+                    placeholder: "Select a category"
+                });
+
+                $("#create_tender_unit_item").select2({
+                    placeholder: "Select a item"
+                });
+
+                $("#create_tender_location").select2({
+                    placeholder: "Select a location"
+                });
+
+                $.getJSON('/tenders/locations', {
+                    ajax : 'true'
+                }, function(loc){
+                    var html = ' ';
+                    var len = loc.length;
+                    for (var i = 0; i < len; i++) {
+                        html += '<option value="' + loc[i].id + '">'
+                            +loc[i].name + '</option>';
+                    }
+
+                    $('#create_tender_location').html(html);
+                });
+
+                $.getJSON('/tenders/categories', {
+                    ajax : 'true'
+                }, function(loc){
+                    var html = ' ';
+                    var len = loc.length;
+                    for (var i = 0; i < len; i++) {
+                        html += '<option value="' + loc[i].id + '">'
+                            +loc[i].name + '</option>';
+                    }
+
+                    $('#create_tender_unit_category').html(html);
+                });
+
+                $.getJSON('/tenders/items', {
+                    ajax : 'true'
+                }, function(loc){
+                    var html = ' ';
+                    var len = loc.length;
+                    for (var i = 0; i < len; i++) {
+                        html += '<option value="' + loc[i].id + '">'
+                            +loc[i].name + '</option>';
+                    }
+
+                    $('#create_tender_unit_item').html(html);
+                });
+            });
         });
 
         function itemDropdown() {
