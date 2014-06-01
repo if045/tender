@@ -27,4 +27,9 @@ public class TenderStatusServiceImpl implements TenderStatusService{
     public TenderStatus findTenderStatusById(Integer id) {
         return tenderStatusRepository.findOne(id);
     }
+
+    @Override
+    public List<TenderStatus> getAllTenderStatuses() {
+        return tenderStatusRepository.getAllTenderStatuses();
+    }
 }
