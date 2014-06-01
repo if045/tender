@@ -68,7 +68,7 @@ public class TenderController {
         return tenderFacade.findCategories();
     }
 
-    @RequestMapping(value = "/tenders/view{id}/unit", method = RequestMethod.GET)
+    @RequestMapping(value = "/tenders/view{id}/units", method = RequestMethod.GET)
     public @ResponseBody
     List<UnitDto> mapUnits(@PathVariable("id") Integer id) {return tenderFacade.findUnitsByTenderId(id);
     }

@@ -9,7 +9,7 @@ function showUnit() {
     var str = location.href;
     var tender1 = str.split("http://localhost:8080/tenders/view");
     var tender = tender1[tender1.length - 1];
-    $.getJSON('/tenders/view' + tender + '/unit', function (data) {
+    $.getJSON('/tenders/view' + tender + '/units', function (data) {
         var html = '';
         var len = data.length;
         for (var i = 0; i < len; i++) {
