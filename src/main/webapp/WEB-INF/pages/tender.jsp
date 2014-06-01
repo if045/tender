@@ -21,37 +21,8 @@
     <script type='text/javascript' src='<c:url value="../resources/js/bootstrap-datepicker.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/select2.min.js"/>'></script>
 
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $('#endDate').datepicker({
-                format: 'yyyy/mm/dd',
-                startDate: '-3d'
-            });
-            showUnit();
+    <script type='text/javascript' src='<c:url value="../resources/js/tender.js"/>'></script>
 
-        });
-
-        function showUnit() {
-            var str = location.href;
-            var tender1 = str.split("http://localhost:8081/tenders/view");
-            var tender =tender1[tender1.length-1];
-            $.getJSON('/tenders/view'+tender+'/unit', function (data) {
-                var html = '';
-                var len = data.length;
-                for (var i = 0; i < len; i++) {
-                    html += '<tr><td>' +' <input type="checkbox">' + '</td>' +
-                            '<td>' + data[i].unit_name + '</td>' +
-                            '<td>' + data[i].type + '</td>' +
-                            '<td>' + data[i].category_name + '</td>' +
-                            '<td>' + data[i].quantity + '</td>' +
-                            '<td>' + data[i].measurement_name + '</td>' +
-                            '<td>' + data[i].price + '</td>' +
-                            '<td>' + '<button type="submit" class="btn btn-default" disabled>Deal</button>' + '</td></tr>';
-                }
-                $('#unitTable').html(html);
-            });
-        }
-    </script>
 </head>
 <body>
     <div class="container">
@@ -123,7 +94,7 @@
                                 <th>Seller price</th>
                                 <th>Deal</th>
                             </thead>
-                            <tbody id="unitTable"></tbody>
+                            <tbody id="unitsTable"></tbody>
                         </table>
                     </div>
                     <div class="col-md-5">
