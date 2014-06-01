@@ -172,6 +172,10 @@
 <jsp:include page="createtender.jsp"/>
 <!--create tender modal -->
 
+<!--create proposal modal -->
+<jsp:include page="createProposal.jsp" />
+<!--create proposal modal -->
+
 </body>
 
 </html>
