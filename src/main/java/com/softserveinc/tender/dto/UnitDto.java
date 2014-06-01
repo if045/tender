@@ -1,21 +1,21 @@
 package com.softserveinc.tender.dto;
 
 public class UnitDto {
-    private Integer tender_id;
+    private Integer tenderId;
     private Integer id;
-    private String unit_name;
-    private Character type;
-    private String category_name;
+    private String unitName;
+    private Character itemType;
+    private String categoryName;
     private Double quantity;
-    private String measurement_name;
+    private String measurementName;
     private Double price;
 
-    public Integer getTender_id() {
-        return tender_id;
+    public Integer getTenderId() {
+        return tenderId;
     }
 
-    public void setTender_id(Integer tender_id) {
-        this.tender_id = tender_id;
+    public void setTenderId(Integer tenderId) {
+        this.tenderId = tenderId;
     }
 
     public Integer getId() {
@@ -26,28 +26,28 @@ public class UnitDto {
         this.id = id;
     }
 
-    public String getUnit_name() {
-        return unit_name;
+    public String getUnitName() {
+        return unitName;
     }
 
-    public void setUnit_name(String unit_name) {
-        this.unit_name = unit_name;
+    public void setUnitName(String unitName) {
+        this.unitName = unitName;
     }
 
-    public Character getType() {
-        return type;
+    public Character getItemType() {
+        return itemType;
     }
 
-    public void setType(Character type) {
-        this.type = type;
+    public void setItemType(Character itemType) {
+        this.itemType = itemType;
     }
 
-    public String getCategory_name() {
-        return category_name;
+    public String getCategoryName() {
+        return categoryName;
     }
 
-    public void setCategory_name(String category_name) {
-        this.category_name = category_name;
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
     }
 
     public Double getQuantity() {
@@ -58,12 +58,12 @@ public class UnitDto {
         this.quantity = quantity;
     }
 
-    public String getMeasurement_name() {
-        return measurement_name;
+    public String getMeasurementName() {
+        return measurementName;
     }
 
-    public void setMeasurement_name(String measurement_name) {
-        this.measurement_name = measurement_name;
+    public void setMeasurementName(String measurementName) {
+        this.measurementName = measurementName;
     }
 
     public Double getPrice() {

@@ -113,13 +113,13 @@ public class TenderServiceFacadeImpl  implements TenderServiceFacade{
 
     private UnitDto mapUnit(Unit unit) {
         UnitDto unitDto=new UnitDto();
-        unitDto.setTender_id(unit.getTender().getId());
+        unitDto.setTenderId(unit.getTender().getId());
         unitDto.setId(unit.getId());
-        unitDto.setUnit_name(unit.getItem().getName());
-        unitDto.setType(unit.getItem().getType());
-        unitDto.setCategory_name(unit.getItem().getCategory().getName());
+        unitDto.setUnitName(unit.getItem().getName());
+        unitDto.setItemType(unit.getItem().getType());
+        unitDto.setCategoryName(unit.getItem().getCategory().getName());
         unitDto.setQuantity(unit.getQuantity());
-        unitDto.setMeasurement_name(unit.getMeasurement().getName());
+        unitDto.setMeasurementName(unit.getMeasurement().getName());
         return unitDto;
     }
 
