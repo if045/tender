@@ -40,10 +40,18 @@
             <!--main-->
             <div class="page_body">
                 <!-- content -->
-                <div class="col-md-12">
-                    <div class="row">
+                <div class="row">
+                    <div class="col-sm-12">
                         <div class="pull-left">
                             <h3>Deals</h3>
+                        </div>
+                        <div class="pull-right">
+                            <form class="navbar-form navbar-right" role="search">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="Search...">
+                                </div>
+                                <button type="submit" class="btn btn-default">Search</button>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -58,7 +66,7 @@
                                 <th>Business Partner</th>
                                 <th>Status</th>
                                 <th>Sum</th>
-                                <th>Action</th>
+                                <th class="deal_action_field">Action</th>
                             </tr>
                             <tr>
                                 <td align="center">Cegla</td>
@@ -68,22 +76,43 @@
                                 <td align="center">40000</td>
                                 <td align="center">
                                     <select class="form-control items_number_dropdown action_button">
-                                        <option value="view' + data[i].id + '">View</option>
-                                        <option value="close' + data[i].id + '">Close</option>
-                                        <option value="addproposal' + data[i].id + '">Add proposal</option>
+                                        <option value="">Action</option>
+                                        <option value="done' + data[i].id + '">Done</option>
+                                        <option value="conflict' + data[i].id + '">Conflict</option>
+                                        <option value="feedback' + data[i].id + '">Feedback</option>
                                     </select>
                                 </td>
                             </tr>
-                            <c:forEach var="unit" items="${units}">
-                                <tr>
-                                    <td align="center"><input type="checkbox"></td>
-                                    <td align="center"><c:out value="${unit.name}"/></td>
-                                    <td align="center"><c:out value="${unit.type}"/></td>
-                                    <td align="center"><c:out value="${unit.category}"/></td>
-                                    <td align="center"><c:out value="${unit.quantity}"/></td>
-                                    <td align="center"><button type="submit" class="btn btn-default" disabled>Deal</button></td>
-                                </tr>
-                            </c:forEach>
+                            <tr>
+                                <td align="center">Cegla</td>
+                                <td align="center">03/08/2014</td>
+                                <td align="center">name</td>
+                                <td align="center">Open</td>
+                                <td align="center">40000</td>
+                                <td align="center">
+                                    <select class="form-control items_number_dropdown action_button">
+                                        <option value="">Action</option>
+                                        <option value="done' + data[i].id + '">Done</option>
+                                        <option value="conflict' + data[i].id + '">Conflict</option>
+                                        <option value="feedback' + data[i].id + '">Feedback</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="center">Cegla</td>
+                                <td align="center">03/08/2014</td>
+                                <td align="center">name</td>
+                                <td align="center">Open</td>
+                                <td align="center">40000</td>
+                                <td align="center">
+                                    <select class="form-control items_number_dropdown action_button">
+                                        <option value="">Action</option>
+                                        <option value="done' + data[i].id + '">Done</option>
+                                        <option value="conflict' + data[i].id + '">Conflict</option>
+                                        <option value="feedback' + data[i].id + '">Feedback</option>
+                                    </select>
+                                </td>
+                            </tr>
                         </table>
                     </div>
                 </div>
