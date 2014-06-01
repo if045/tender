@@ -70,7 +70,7 @@
                             </tr>
                             <tr>
                                 <td align="center">Cegla</td>
-                                <td align="center">03/08/2014</td>
+                                <td align="center">03/09/2014</td>
                                 <td align="center">name</td>
                                 <td align="center">Open</td>
                                 <td align="center">40000</td>
@@ -85,10 +85,10 @@
                             </tr>
                             <tr>
                                 <td align="center">Cegla</td>
-                                <td align="center">03/08/2014</td>
+                                <td align="center">03/09/2014</td>
                                 <td align="center">name</td>
                                 <td align="center">Open</td>
-                                <td align="center">40000</td>
+                                <td align="center">60000</td>
                                 <td align="center">
                                     <select class="form-control items_number_dropdown action_button">
                                         <option value="">Action</option>
