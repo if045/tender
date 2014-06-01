@@ -84,9 +84,10 @@ public class TenderServiceFacadeImpl  implements TenderServiceFacade{
     }
 
     private TenderDto mapTender(Tender tender){
-        TenderDto tenderDto=new TenderDto();
-        List<String> locations=new ArrayList<>();
-        List<String> categories=new ArrayList<>();
+        TenderDto tenderDto = new TenderDto();
+        List<String> locations = new ArrayList<>();
+        List<String> categories = new ArrayList<>();
+
         tenderDto.setId(tender.getId());
         tenderDto.setTitle(tender.getTitle());
         tenderDto.setAuthorName(tender.getAuthor().getFirstName());
@@ -94,15 +95,18 @@ public class TenderServiceFacadeImpl  implements TenderServiceFacade{
         tenderDto.setEndDate(tender.getEndDate());
         tenderDto.setStatus(tender.getStatus().getName());
         tenderDto.setSuitablePrice(tender.getSuitablePrice());
+
         for(int i=0 ;i<tender.getLocations().size();i++){
             locations.add(i,tender.getLocations().get(i).getName());
         }
         tenderDto.setLocations(locations);
+
         for(int i=0 ;i<tender.getUnits().size();i++){
             categories.add(i,tender.getUnits().get(i).getItem().getCategory().getName());
         }
         tenderDto.setCategories(categories);
         tenderDto.setProposals(tender.getProposals().size());
+        
         return tenderDto;
     }
 
@@ -145,14 +149,7 @@ public class TenderServiceFacadeImpl  implements TenderServiceFacade{
         List<ProposalDto> proposalDtos = new ArrayList<>();
 
         for(Proposal proposal : proposalService.findByTender(tenderId)) {
-            ProposalDto proposalDto = new ProposalDto();
-
-            proposalDto.setId(proposal.getId());
-            proposalDto.setFullName(proposal);
-            proposalDto.setNumberOfBids(proposal.getBids().size());
-            proposalDto.setTotalPrice(proposal);
-
-            proposalDtos.add(proposalDto);
+            proposalDtos.add(new ProposalDto(proposal));
         }
         return proposalDtos;
     }
