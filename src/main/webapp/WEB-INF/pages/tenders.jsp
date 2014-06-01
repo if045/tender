@@ -172,6 +172,10 @@
 <jsp:include page="createtender.jsp"/>
 <!--create tender modal -->
 
+<!-- close tender modal window -->
+<jsp:include page="modalWindowCloseTender.jsp"/>
+<!-- close tender modal window -->
+
 </body>
 
 </html>

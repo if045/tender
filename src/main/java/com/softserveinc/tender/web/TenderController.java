@@ -66,4 +66,9 @@ public class TenderController {
     public @ResponseBody List<CategoryDto> findAllCategories() {
         return tenderFacade.findCategories();
     }
+
+    /*@RequestMapping(value = "/tenders/{id}/createproposal", method = RequestMethod.GET)
+    public @ResponseBody TenderDto findTender(@PathVariable("id") Integer id) {
+        return
+    }*/
 }
