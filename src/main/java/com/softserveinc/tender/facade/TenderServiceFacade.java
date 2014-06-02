@@ -10,9 +10,9 @@ import java.util.List;
 
 public interface TenderServiceFacade {
 
-    List<TenderStatusDto> findTenderStatuses();
-    List<ItemDto> findTendersItems(TenderFilter tenderFilter);
     List<TenderDto> findByCustomParams(TenderFilter tenderFilter);
-    List<LocationDto> findLocations();
-    List<CategoryDto> findCategories();
+    List<TenderStatusDto> findTendersStatuses();
+    List<ItemDto> findTendersItems(TenderFilter tenderFilter);
+    List<LocationDto> findTendersLocations();
+    List<CategoryDto> findTendersCategories();
 }

@@ -172,6 +172,10 @@
 <jsp:include page="createtender.jsp"/>
 <!--create tender modal -->
 
+<!--create proposal modal -->
+<jsp:include page="createProposal.jsp" />
+<!--create proposal modal -->
+
 <!-- close tender modal window -->
 <div class="modal fade" id="closeTenderModWind" tabindex="-1" role="dialog" hidden="">
     <div class="modal-dialog modal-sm">

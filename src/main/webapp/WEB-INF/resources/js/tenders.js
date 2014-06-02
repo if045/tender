@@ -174,14 +174,14 @@
                             '<td align="center">' + data[i].status + '</td>' +
                             '<td align="center">' + data[i].proposals + '</td>' +
                             '<td align="center">' +
-                            '<div class="btn-group">' +
-                                '<button data-toggle="dropdown" class="btn btn-default dropdown-toggle">Action<span class="caret"></span></button>' +
-                                '<ul class="dropdown-menu">' +
-                                    '<li><a href="/tenders/view' + data[i].id + '">View</a></li>' +
-                                    '<li><a href="#" data-toggle="modal" data-target="#createProposalWindow">Create proposal</a></li>' +
-                                    '<li><a href="#" data-toggle="modal" data-target="#closeTenderModWind">Close</a></li>' +
-                                '</ul>' +
-                            '</div>' +
+                                '<div class="btn-group">' +
+                                    '<button data-toggle="dropdown" class="btn btn-default dropdown-toggle">Action<span class="caret"></span></button>' +
+                                    '<ul class="dropdown-menu">' +
+                                        '<li><a href="/tenderView/' + data[i].id + '">View</a></li>' +
+                                        '<li><a href="#" data-toggle="modal" data-target="#createProposalWindow">Create proposal</a></li>' +
+                                        '<li><a href="#" data-toggle="modal" data-target="#closeTenderModWind">Close</a></li>' +
+                                    '</ul>' +
+                                '</div>' +
                             '</td></tr>';
                 }
                 $('#tenders').html(html);
@@ -258,21 +258,23 @@
                     var html = '';
                     var len = data.length;
                     for (var i = 0; i < len; i++) {
-                        html += '<tr><td align="center"><a href="/tenders/view' + data[i].id + '">' + data[i].title + '</a></td>' +
+                        html += '<tr><td align="center"><a href="/tenderView/' + data[i].id + '">' + data[i].title + '</a></td>' +
                                 '<td align="center">' + data[i].authorName + '</td>' +
                                 '<td align="center">' + data[i].categories + '</td>' +
                                 '<td align="center">' + data[i].locations + '</td>' +
                                 '<td align="center">' + data[i].suitablePrice + '</td>' +
                                 '<td align="center">' + data[i].status + '</td>' +
                                 '<td align="center">' + data[i].proposals + '</td>'+
-                                '<td align="center"><div class="control-group">' +
-                                '<select class="form-control items_number_dropdown action_button" onchange="location.href=this.value">' +
-                                    '<option value="">Action</option>' +
-                                    '<option value="/tenders/view' + data[i].id + '">View</option>' +
-                                    '<option data-toggle="modal" data-target="#closeTenderModWind" value="close' + data[i].id + '">Close</option>' +
-                                    '<option value="addproposal' + data[i].id + '">Add proposal</option>' +
-                                '</select>' +
-                                '</div></td></tr>';
+                                '<td align="center">' +
+                                    '<div class="btn-group">' +
+                                        '<button data-toggle="dropdown" class="btn btn-default dropdown-toggle">Action<span class="caret"></span></button>' +
+                                        '<ul class="dropdown-menu">' +
+                                            '<li><a href="/tenderView/' + data[i].id + '">View</a></li>' +
+                                            '<li><a href="#" data-toggle="modal" data-target="#createProposalWindow">Create proposal</a></li>' +
+                                            '<li><a href="#" data-toggle="modal" data-target="#closeTenderModWind">Close</a></li>' +
+                                        '</ul>' +
+                                    '</div>' +
+                                '</td></tr>';
                     }
 
                     $('#tenders').html(html);
