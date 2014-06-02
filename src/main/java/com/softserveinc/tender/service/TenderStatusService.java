@@ -7,8 +7,6 @@ import java.util.List;
 
 public interface TenderStatusService {
 
-    List<TenderStatus> findAllTenderStatuses();
+    List<TenderStatus> findAllTendersStatuses();
     TenderStatus findTenderStatusById(Integer id);
-    List<TenderStatus> getAllTenderStatuses();
-    List<TenderStatus> findActiveTendersStatuses();
 }

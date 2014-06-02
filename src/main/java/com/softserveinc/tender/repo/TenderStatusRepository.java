@@ -9,7 +9,5 @@ import java.util.List;
 public interface TenderStatusRepository extends JpaRepository<TenderStatus, Integer> {
 
     @Query("select distinct s from Tender t inner join t.status s order by s.id asc")
-    List<TenderStatus> getAllTenderStatuses();
-
-    List<TenderStatus> findByActive(Boolean active);
+    List<TenderStatus> findAllTenderStatuses();
 }
