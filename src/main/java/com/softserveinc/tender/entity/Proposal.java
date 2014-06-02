@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import java.math.BigDecimal;
 
 @Entity
 @Table(name = "proposal")
@@ -27,10 +28,10 @@ public class Proposal {
     private Tender tender;
 
     @Column(name = "discount_percentage")
-    private Double discountPercentage;
+    private Integer discountPercentage;
 
     @Column(name = "discount_currency")
-    private Double discountCurrency;
+    private BigDecimal discountCurrency;
 
     @Column(name = "description")
     private String description;
@@ -59,19 +60,19 @@ public class Proposal {
         this.tender = tender;
     }
 
-    public Double getDiscountPercentage() {
+    public Integer getDiscountPercentage() {
         return discountPercentage;
     }
 
-    public void setDiscountPercentage(Double discountPercentage) {
+    public void setDiscountPercentage(Integer discountPercentage) {
         this.discountPercentage = discountPercentage;
     }
 
-    public Double getDiscountCurrency() {
+    public BigDecimal getDiscountCurrency() {
         return discountCurrency;
     }
 
-    public void setDiscountCurrency(Double discountCurrency) {
+    public void setDiscountCurrency(BigDecimal discountCurrency) {
         this.discountCurrency = discountCurrency;
     }
 
