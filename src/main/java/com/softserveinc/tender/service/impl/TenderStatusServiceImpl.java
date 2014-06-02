@@ -32,4 +32,9 @@ public class TenderStatusServiceImpl implements TenderStatusService{
     public List<TenderStatus> getAllTenderStatuses() {
         return tenderStatusRepository.getAllTenderStatuses();
     }
+
+    @Override
+    public List<TenderStatus> findActiveTendersStatuses() {
+        return tenderStatusRepository.findByActive(true);
+    }
 }
