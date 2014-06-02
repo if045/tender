@@ -1,10 +1,22 @@
 package com.softserveinc.tender.facade.impl;
 
-import com.softserveinc.tender.dto.*;
-import com.softserveinc.tender.entity.*;
+import com.softserveinc.tender.dto.CategoryDto;
+import com.softserveinc.tender.dto.ItemDto;
+import com.softserveinc.tender.dto.LocationDto;
+import com.softserveinc.tender.dto.TenderDto;
+import com.softserveinc.tender.dto.TenderStatusDto;
+import com.softserveinc.tender.entity.Category;
+import com.softserveinc.tender.entity.Item;
+import com.softserveinc.tender.entity.Location;
+import com.softserveinc.tender.entity.Tender;
+import com.softserveinc.tender.entity.Unit;
 import com.softserveinc.tender.facade.TenderServiceFacade;
 import com.softserveinc.tender.repo.TenderFilter;
-import com.softserveinc.tender.service.*;
+import com.softserveinc.tender.service.CategoryService;
+import com.softserveinc.tender.service.ItemService;
+import com.softserveinc.tender.service.LocationService;
+import com.softserveinc.tender.service.TenderService;
+import com.softserveinc.tender.service.TenderStatusService;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,7 +59,7 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
 
     public List<TenderStatusDto> findTendersStatuses() {
         Type targetListType = new TypeToken<List<TenderStatusDto>>(){}.getType();
-        return modelMapper.map(tenderStatusService.getAllTenderStatuses(), targetListType);
+        return modelMapper.map(tenderStatusService.findAllTendersStatuses(), targetListType);
     }
 
     public List<ItemDto> findTendersItems(TenderFilter tenderFilter) {
@@ -70,6 +82,7 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
         TenderDto tenderDto = new TenderDto();
         List<String> locations = new ArrayList<>();
         Set<String> categories = new HashSet<>();
+
         tenderDto.setId(tender.getId());
         tenderDto.setTitle(tender.getTitle());
         tenderDto.setAuthorName(tender.getAuthor().getFirstName());
@@ -77,15 +90,18 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
         tenderDto.setEndDate(tender.getEndDate());
         tenderDto.setStatus(tender.getStatus().getName());
         tenderDto.setSuitablePrice(tender.getSuitablePrice());
+
         for (Location location: tender.getLocations()) {
             locations.add(location.getName());
         }
         tenderDto.setLocations(locations);
+
         for(Unit unit: tender.getUnits()){
             categories.add(unit.getItem().getCategory().getName());
         }
         tenderDto.setCategories(categories);
         tenderDto.setProposals(tender.getProposals().size());
+
         return tenderDto;
     }
 

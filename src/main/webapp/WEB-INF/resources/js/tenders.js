@@ -5,19 +5,19 @@
             });
 
             $("#category_filter").select2({
-                placeholder: "Select a category"
+                placeholder: "All categories"
             });
 
             $("#item_filter").select2({
-                placeholder: "Select a items"
+                placeholder: "All items"
             });
 
             $("#location_filter").select2({
-                placeholder: "Select a location"
+                placeholder: "All locations"
             });
 
             $("#status_filter").select2({
-                placeholder: "Select a status"
+                placeholder: "All active statuses"
             });
 
             $("#location_filter, #item_filter, #status_filter, #price_from, #price_to, #date_from, #date_to").change(function() {
@@ -79,6 +79,7 @@
 
                 $('#location_filter').html(html);
             });
+
             $.getJSON('/tenders/categories', function(data){
                 var html = ' ';
                 var len = data.length;
@@ -89,6 +90,7 @@
 
                 $('#category_filter').html(html);
             });
+
             itemDropdown();
             showTenders();
 
