@@ -17,7 +17,7 @@
             });
 
             $("#status_filter").select2({
-                placeholder: "Active tenders"
+                placeholder: "All active statuses"
             });
 
             $("#location_filter, #item_filter, #status_filter, #price_from, #price_to, #date_from, #date_to").change(function() {
