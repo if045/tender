@@ -14,4 +14,8 @@ public interface ItemRepository extends JpaRepository<Item,Integer>{
             "and (1=:categoryFlag or i.category.id in (:categories))")
     List<Item> findAllItemsByTenders(@Param("categories") List<Integer> categories,
                                      @Param("categoryFlag") Integer categoryFlag);
+
+    List<Item> findByCategoryId(Integer id);
+
+    List<Item> findByCategoryIdAndType(Integer id, Character type);
 }

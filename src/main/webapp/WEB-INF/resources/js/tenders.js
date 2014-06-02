@@ -95,21 +95,52 @@
             $('#createTenderWindow').on('shown.bs.modal', function () {
                 $('.datepicker').addClass('modal_datepicker');
 
-                $("#create_tender_unit_category").select2({
-                    placeholder: "Select a category"
+                $("#radio_group").change(function() {
+                    alert("changed")
                 });
+                $("#create_tender_unit_category").change(function() {
+                    $("#create_tender_unit_item").select('val', 'All');
+                    var str='';
+                    var category=$('#create_tender_unit_category').val();
+                    if (category!=0){
+                        str += "category="+category;
+                    }
+                    /*if($("#price_to").val()!=""){
+                        str += (str.length==0)?"maxPrice="+$("#price_to").val():"&maxPrice="+$("#price_to").val();
+                    }*/
+                    if($("#option2").is(":checked")){
+                        str += "&type="+$("#option2").val();
+                    }
+                    if($("#option3").is(":checked")){
+                        str += "&type="+$("#option3").val();
+                    }
+                    $.ajax({
+                        url: '/tenders/createtender/items',
+                        type: "GET",
+                        data:  str,
+                        dataType:'json',
 
-                $("#create_tender_unit_item").select2({
-                    placeholder: "Select a item"
+                        success: function(loc) {
+                            var html = '<option value="0">--Select One--</option>';
+                            var len = loc.length;
+                            for (var i = 0; i < len; i++) {
+                                html += '<option value="' + loc[i].name + '">'
+                                    +loc[i].name + '</option>';
+                            }
+
+                            $('#create_tender_unit_item').html(html);
+                        },
+                        error:function(){
+                            alert("ERROR");
+                        }
+                    });
                 });
 
                 $("#create_tender_location").select2({
                     placeholder: "Select a location"
                 });
 
-                $.getJSON('/tenders/locations', {
-                    ajax : 'true'
-                }, function(loc){
+                $.getJSON('/tenders/createtender/locations', function(loc){
                     var html = ' ';
                     var len = loc.length;
                     for (var i = 0; i < len; i++) {
@@ -120,33 +151,101 @@
                     $('#create_tender_location').html(html);
                 });
 
-                $.getJSON('/tenders/categories', {
-                    ajax : 'true'
-                }, function(loc){
-                    var html = ' ';
+                $.getJSON('/tenders/createtender/categories', function(loc){
+                    var html = '<option value="0">--Select One--</option>';
                     var len = loc.length;
                     for (var i = 0; i < len; i++) {
-                        html += '<option value="' + loc[i].id + '">'
+                        html += '<option value="' + loc[i].name + '">'
                             +loc[i].name + '</option>';
                     }
 
                     $('#create_tender_unit_category').html(html);
                 });
 
-                $.getJSON('/tenders/items', {
-                    ajax : 'true'
-                }, function(loc){
-                    var html = ' ';
+                $.getJSON('/tenders/createtender/items', function(loc){
+                    var html = '<option value="0">--Select One--</option>';
                     var len = loc.length;
                     for (var i = 0; i < len; i++) {
-                        html += '<option value="' + loc[i].id + '">'
+                        html += '<option value="' + loc[i].name + '">'
                             +loc[i].name + '</option>';
                     }
 
                     $('#create_tender_unit_item').html(html);
                 });
+
+                $.getJSON('/tenders/createtender/measurements', function(loc){
+                    var html = '<option value="0">--Select One--</option>';
+                    var len = loc.length;
+                    for (var i = 0; i < len; i++) {
+                        html += '<option value="' + loc[i].name + '">'
+                            + loc[i].name + '</option>';
+                    }
+
+                    $('#create_tender_unit_measurement').html(html);
+                });
             });
         });
+
+        var newString = '';
+
+        function addUnit() {
+            if (newString==""){
+                newString+='{"UnitList" : [{"quantity":'+'\"'+$('#create_tender_unit_quantity').val()+'\"'+',"categories":'+'\"'+$('#create_tender_unit_category').val()+'\"'+
+                            ',"items":'+'\"'+$('#create_tender_unit_item').val()+'\"'+',"measurment":'+'\"'+$('#create_tender_unit_measurement').val()+'\"'+
+                            ',"unitType":'+'\"'+$("input:radio[name ='options']:checked").val()+'\"'+'}]}';
+            }else{
+                var strf = newString.substring(0,newString.indexOf(']'));
+                var strm = ',{"quantity":'+'\"'+$('#create_tender_unit_quantity').val()+'\"'+',"categories":'+'\"'+$('#create_tender_unit_category').val()+'\"'+
+                    ',"items":'+'\"'+$('#create_tender_unit_item').val()+'\"'+',"measurment":'+'\"'+$('#create_tender_unit_measurement').val()+'\"'+
+                    ',"unitType":'+'\"'+$("input:radio[name ='options']:checked").val()+'\"'+'}';
+                var stre = newString.substring(newString.indexOf(']'));
+                newString = strf+strm+stre;
+            }
+            var newJson=$.parseJSON(newString);
+            var html = '';
+            var len = newJson.UnitList.length;
+            for (var i = 0; i < len; i++) {
+                html += '<tr><td align="center">'+newJson.UnitList[i].items +'</td>' +
+                    '<td align="center" class="units_table_body_type">' + newJson.UnitList[i].unitType + '</td>' +
+                    '<td align="center" class="units_table_body_category">' + newJson.UnitList[i].categories + '</td>' +
+                    '<td align="center" class="units_table_body_quantity">' + newJson.UnitList[i].quantity + '</td>' +
+                    '<td align="center" class="units_table_body_measurement">' + newJson.UnitList[i].measurment + '</td>'+
+                    '<td align="center" class="units_table_body_action">'+
+                            '<span class="glyphicon glyphicon-remove-circle" onclick="delUnit();"></span>'+
+                        '</td></tr>';
+            }
+            $('#create_tender_units_table_body').html(html);
+
+        }
+
+        function delUnit () {
+            if (newString!=""&newString.length>130) {
+                var strf = newString.substring(0, newString.lastIndexOf(',{'));
+                var stre = ']}';
+                newString = strf + stre;
+                var newJson=$.parseJSON(newString);
+                var html = '';
+                var len = newJson.UnitList.length;
+                for (var i = 0; i < len; i++) {
+                    html += '<tr><td align="center">'+newJson.UnitList[i].items +'</td>' +
+                        '<td align="center" class="units_table_body_type">' + newJson.UnitList[i].unitType + '</td>' +
+                        '<td align="center" class="units_table_body_category">' + newJson.UnitList[i].categories + '</td>' +
+                        '<td align="center" class="units_table_body_quantity">' + newJson.UnitList[i].quantity + '</td>' +
+                        '<td align="center" class="units_table_body_measurement">' + newJson.UnitList[i].measurment + '</td>'+
+                        '<td align="center" class="units_table_body_action">'+
+                        '<span class="glyphicon glyphicon-remove-circle" onclick="delUnit();"></span>'+
+                        '</td></tr>';
+                }
+                $('#create_tender_units_table_body').html(html);
+            }else
+            if (newString.length<130) {
+                newString = '';
+                var newJson= '';
+                var html = '';
+                $('#create_tender_units_table_body').html(html);
+            }
+
+        }
 
         function itemDropdown() {
             $.getJSON('/tenders/items', function (data) {
@@ -184,7 +283,6 @@
                 $('#tenders').html(html);
             });
         }
-
 
         function clearFilters() {
             disableFilterButtons();

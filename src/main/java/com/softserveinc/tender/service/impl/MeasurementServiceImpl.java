@@ -14,7 +14,7 @@ public class MeasurementServiceImpl implements MeasurementService {
     private MeasurementRepository measurementRepository;
 
     @Override
-    public List<Measurement> findAllMeasurements() {
+    public List<Measurement> findAll() {
         return measurementRepository.findAll();
     }
 

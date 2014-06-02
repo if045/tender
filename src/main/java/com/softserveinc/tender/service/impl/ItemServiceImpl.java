@@ -21,4 +21,14 @@ public class ItemServiceImpl implements ItemService{
     public List<Item> findAllItemsByTenders(TenderFilter tenderFilter) {
         return itemRepository.findAllItemsByTenders(tenderFilter.getCategories(),tenderFilter.getCategoryFlag());
     }
+
+    @Override
+    public List<Item> findByCategoryId(Integer id) {
+        return itemRepository.findByCategoryId(id);
+    }
+
+    @Override
+    public List<Item> findByCategoryIdAndType(Integer id, Character type) {
+        return itemRepository.findByCategoryIdAndType(id,type);
+    }
 }
