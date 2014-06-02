@@ -174,27 +174,11 @@
                             '<td align="center">' + data[i].status + '</td>' +
                             '<td align="center">' + data[i].proposals + '</td>' +
                             '<td align="center">' +
-                            /*'<div class="control-group">' +
-                            '<select id="actions" class="form-control items_number_dropdown action_button" onchange="location.href=this.value">' +
-                                '<option value="">Action</option>' +
-                                '<option value="/tenders/view' + data[i].id + '">View</option>' +
-                                '<option value="close' + data[i].id + '">Close</option>' +
-                                '<option value="#" data-toggle="modal" data-target="#closeTenderModWind">Close</option>' +
-                                '<option value="addproposal' + data[i].id + '">Add proposal</option>' +
-                            '</select>' +
-                            '</div>' +*/
-
-                            /*'<div class="btn-group">' +
-                                '<button class="btn btn-sm">Action</button>' +
-                                '<button class="btn btn-sm dropdown-toggle" data-toggle="dropdown">' +
-                                    '<span class="caret"></span>' +
-                                '</button>' +
-                                '<ul class="dropdown-menu"></ul>' +
-                            '</div>' +*/
-
                             '<div class="btn-group">' +
                                 '<button data-toggle="dropdown" class="btn btn-default dropdown-toggle">Action<span class="caret"></span></button>' +
                                 '<ul class="dropdown-menu">' +
+                                    '<li><a href="/tenders/view' + data[i].id + '">View</a></li>' +
+                                    '<li><a href="#" data-toggle="modal" data-target="#createProposalWindow">Create proposal</a></li>' +
                                     '<li><a href="#" data-toggle="modal" data-target="#closeTenderModWind">Close</a></li>' +
                                 '</ul>' +
                             '</div>' +
