@@ -2,6 +2,7 @@ package com.softserveinc.tender.dto;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 public class TenderDto {
 
@@ -13,7 +14,7 @@ public class TenderDto {
     private String status;
     private Double suitablePrice;
     private List<String> locations;
-    private List<String> categories;
+    private Set<String> categories;
     private Integer proposals;
 
     public List<String> getLocations() {
@@ -32,11 +33,11 @@ public class TenderDto {
         this.proposals = proposals;
     }
 
-    public List<String> getCategories() {
+    public Set<String> getCategories() {
         return categories;
     }
 
-    public void setCategories(List<String> categories) {
+    public void setCategories(Set<String> categories) {
         this.categories = categories;
     }
 
