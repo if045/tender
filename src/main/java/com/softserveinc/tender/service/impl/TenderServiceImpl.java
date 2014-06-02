@@ -6,6 +6,7 @@ import com.softserveinc.tender.repo.TenderRepository;
 import com.softserveinc.tender.service.TenderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 
 @Service
@@ -20,6 +21,12 @@ public class TenderServiceImpl implements TenderService {
 
     @Override
     public List<Tender> findByCustomParameters(TenderFilter tenderFilter) {
-        return tenderRepository.findByCustomParameters(tenderFilter.getMinPrice(), tenderFilter.getMaxPrice(), tenderFilter.getStatuses(), tenderFilter.getCategories(), tenderFilter.getLocations(), tenderFilter.getItems(), tenderFilter.getMinDate(), tenderFilter.getMaxDate(), tenderFilter.getCategoryFlag(), tenderFilter.getItemFlag(), tenderFilter.getLocationFlag(), tenderFilter.getStatusFlag(),tenderFilter.getPriceFlag());
+        return tenderRepository.findByCustomParameters(tenderFilter.getMinPrice(), tenderFilter.getMaxPrice(),
+                                                       tenderFilter.getStatuses(), tenderFilter.getCategories(),
+                                                       tenderFilter.getLocations(), tenderFilter.getItems(),
+                                                       tenderFilter.getMinDate(), tenderFilter.getMaxDate(),
+                                                       tenderFilter.getCategoryFlag(), tenderFilter.getItemFlag(),
+                                                       tenderFilter.getLocationFlag(), tenderFilter.getStatusFlag(),
+                                                       tenderFilter.getPriceFlag());
     }
 }
