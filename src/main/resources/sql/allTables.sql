@@ -6,25 +6,21 @@ INSERT INTO checked_status (name) VALUES
 ('Checked'),
 ('Denied');
 
-
-INSERT INTO tender_status (name) VALUES
-('Open'),
-('In progress'),
-('Close');
-
+INSERT INTO tender_status (name, active) VALUES
+('Open', true),
+('In progress', true),
+('Close', false);
 
 INSERT INTO conflict_status (name) VALUE
 ('Open'),
 ('In progress'),
 ('resolved');
 
-
 INSERT INTO role (name) VALUES
 ('admin'),
 ('moderator'),
 ('seller'),
 ('customer');
-
 
 INSERT INTO measurement (name) VALUES
 ('Kg'),
@@ -35,7 +31,6 @@ INSERT INTO measurement (name) VALUES
 ('Ton'),
 ('Sm'),
 ('Humen/Hour');
-
 
 INSERT INTO address (city, street, building_number, postcode) VALUES 
 ('Vilnohirsk', 'Stepova', 1, 27500),
@@ -54,7 +49,6 @@ INSERT INTO address (city, street, building_number, postcode) VALUES
 ('Lviv', 'Kravchenko', 2, 26600),
 ('Odessa', 'Bugaevskaya', 3, 25600);
 
-
 INSERT INTO company (name, srn, email, logo, address_id) VALUES 
 ('Vilnohirsk Mining Metallurgical Plant', 121345, 'Vilnohirsk@gmail.com', null, 1),
 ('Podolsky Smak', 122345, 'PodolskySmak@gmail.com', null, 2),
@@ -72,7 +66,6 @@ INSERT INTO company (name, srn, email, logo, address_id) VALUES
 ('Xado Corp', 132345, 'XadoCorp@gmail.com', null, 14),
 ('Garbuz Studio', 142345, 'GarbuzStudio@gmail.com', null, 15);
 
-
 INSERT INTO user (login, password, create_date) VALUES
 ('odin_ogame@ukr.net','arlekin',CURDATE()),
 ('mail4quest@mail.ru','quest',CURDATE()),
@@ -83,7 +76,6 @@ INSERT INTO user (login, password, create_date) VALUES
 ('sanja_ivanow@ukr.net','123qwerty',CURDATE()),
 ('kolja234@qmail.com','vasa567',CURDATE());
 
-
 INSERT INTO profile (icon, first_name, last_name, birthday, telephone, checked, person, user_id, company_id) VALUES 
 (null, 'Ivan', 'Nesamay', '1986-05-28', '55-559-5', false, 'L', 1, 1),
 (null, 'Vasja', 'Pupkin', '1966-02-18', '55-559-5', false, 'L', 2, 2),
@@ -93,7 +85,6 @@ INSERT INTO profile (icon, first_name, last_name, birthday, telephone, checked, 
 (null, 'Nasar', 'Havruliv', '1976-06-08', '55-559-5', false, 'L', 6, 6),
 (null, 'Vasul', 'Sobol', '1989-02-02', '55-559-5', false, 'L', 7, 7),
 (null, 'Oksana', 'Sobol', '1983-08-01', '55-559-5', false, 'L', 8, 8);
-
 
 INSERT INTO location (name) VALUES 
 ('Autonomous Republic of Crimea'),
@@ -122,12 +113,10 @@ INSERT INTO location (name) VALUES
 ('Zaporizhzhya Region'),
 ('Zhytomyr Region');
 
-
 INSERT INTO deal_status (name) VALUES 
 ('open'),
 ('in progress'),
 ('close');
-
 
 INSERT INTO category (name, parent) VALUES
 ('Building', NULL),
@@ -141,7 +130,6 @@ INSERT INTO category (name, parent) VALUES
 ('Fish', 7),
 ('Milk', 7),
 ('Cars', NULL);
-
 
 INSERT INTO tender (author_id, title, create_date, end_date, status_id, suitable_price, description) VALUES
 (1, 'Meal', '2014-06-10', '2014-07-10', 1, 1000000.00, NULL),
@@ -176,8 +164,6 @@ INSERT INTO tender (author_id, title, create_date, end_date, status_id, suitable
 (4, 'Products', CURDATE(),'2014-06-15', 2, 14000000.00, NULL),
 (2, 'Products', CURDATE(), '2014-06-18', 2, 76000000.00, NULL);
 
-
-
 INSERT INTO proposal (discount_percentage, discount_currency, description, seller_id, tender_id) VALUES
 (10, null, 'If you wil take all', 1, 10),
 (20, null, null, 1, 9),
@@ -190,7 +176,6 @@ INSERT INTO proposal (discount_percentage, discount_currency, description, selle
 (null, 1500.00, null, 8, 2),
 (null, 500.00, null, 4, 1),
 (null, 5000.00, null, 1, 7);
-
 
 INSERT INTO item (name, type, category_id) VALUES
 ('Rocks', 'P', 1),
@@ -209,7 +194,6 @@ INSERT INTO item (name, type, category_id) VALUES
 ('Audi-7', 'P', 11),
 ('BMW', 'P', 11),
 ('Kia', 'P', 11);
-
 
 INSERT INTO unit (quantity, measurement_id, item_id, tender_id) VALUES
 (500, 1, 10, 9),
@@ -255,7 +239,6 @@ INSERT INTO checked_profile (profile_id, moderator_id, status_id) VALUES
 (8,2,3),
 (3,2,2);
 
-
 INSERT INTO bid (price, date, proposal_id, unit_id) VALUES
 (1000.00, CURDATE(), 1, 1),
 (60000.00, CURDATE(), 2, 2),
@@ -268,7 +251,6 @@ INSERT INTO bid (price, date, proposal_id, unit_id) VALUES
 (56000.00, CURDATE(), 9, 9),
 (56000.00, CURDATE(), 10, 10);
 
-
 INSERT INTO conflict (moderator_id, bid_id, description, status_id) VALUE
 (1,1,'text1',1),
 (2,2,'text2',2),
@@ -280,7 +262,6 @@ INSERT INTO conflict (moderator_id, bid_id, description, status_id) VALUE
 (3,8,'text8',3),
 (2,9,'text9',1);
 
-
 INSERT INTO comment (tender_id, user_id, message, date) VALUES 
 (1, 1, 'This price is too high', CURDATE()), 
 (1, 2, 'This is my opinion', CURDATE()),
@@ -291,7 +272,6 @@ INSERT INTO comment (tender_id, user_id, message, date) VALUES
 (1, 2, 'Ok, i will think about it.', CURDATE()), 
 (2, 1, 'This is too low price.', CURDATE()), 
 (2, 2, 'I do not think so.', CURDATE());
-
 
 INSERT INTO deal (bid_id, proposal_id, customer_id, seller_id, sum, date, status_id) VALUES 
 (1, 1, 1, 1, 100000.00, CURDATE(), 1),

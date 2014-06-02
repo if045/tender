@@ -1,12 +1,9 @@
 package com.softserveinc.tender.repo;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 public class TenderFilter {
-    private static final Integer OPEN_TENDER_STATUS = 1;
-    private static final Integer IN_PROGRESS_TENDER_STATUS = 2;
 
     private Double minPrice;
     private Double maxPrice;
@@ -25,6 +22,7 @@ public class TenderFilter {
     private Integer priceFlag;
 
     public TenderFilter(Double minPrice, Double maxPrice, List<Integer> categories, List<Integer> locations, List<Integer> items, List<Integer> statuses, Date minDate, Date maxDate) {
+
         if (minPrice==null&maxPrice==null){
             setPriceFlag(1);
         }else {
@@ -34,32 +32,30 @@ public class TenderFilter {
         }
         if (categories==null) {
             setCategoryFlag(1);
-        }else {
-            this.categories =categories;
+        } else {
+            this.categories = categories;
             setCategoryFlag(0);
         }
-        if (locations==null){
+        if (locations == null) {
             setLocationFlag(1);
-        }else {
+        } else {
             this.locations = locations;
             setLocationFlag(0);
         }
-        if (items==null){
+        if (items == null) {
             setItemFlag(1);
-        }else {
+        } else {
             this.items = items;
             setItemFlag(0);
         }
-        if (statuses==null) {
-            List<Integer> list = new ArrayList<>();
-            list.add(OPEN_TENDER_STATUS);
-            list.add(IN_PROGRESS_TENDER_STATUS);
-            setStatuses(list);
-        }else {
+        if (statuses == null) {
+            setStatusFlag(1);
+        } else {
+            setStatusFlag(0);
             this.statuses = statuses;
         }
-        this.minDate = (minDate!=null)?minDate:new Date((new Date().getTime())-604800000l);
-        this.maxDate = (maxDate!=null)?maxDate:new Date();
+        this.minDate = (minDate != null) ? minDate : new Date((new Date().getTime()) - 604800000l);
+        this.maxDate = (maxDate != null) ? maxDate : new Date();
     }
 
     public Integer getPriceFlag() {
