@@ -49,10 +49,10 @@
                 </div>
 
             <!-- information about tender -->
-                <form class="form-horizontal" role="form">
+                <form class="form-horizontal col-md-7" role="form">
                     <div class="form-group">
-                        <label for="endDate" class="col-md-2 control-label">End date</label>
-                        <div class="col-md-4">
+                        <label for="endDate" class="col-md-4 control-label">End date</label>
+                        <div class="col-md-5">
                             <div class="input-group date" id="endDate" data-date="29-03-2013" data-date-format="dd-mm-yyyy">
                                 <input id="date_to" class="form-control" size="10" type="text" value="">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
@@ -60,27 +60,35 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="status" class="col-sm-2 control-label">Status</label>
+                        <label for="status" class="col-md-4 control-label">Status</label>
                         <div class="col-md-2">
                             <select id="status" class="form-control selectpicker"></select>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="suitablePrice" class="col-md-2 control-label">Suitable price</label>
+                        <label for="suitablePrice" class="col-md-4 control-label">Suitable price</label>
                         <p class="form-control-static col-md-2" id="suitablePrice">0000.00</p>
                     </div>
                     <div class="form-group">
-                        <label for="locations" class="col-md-2 control-label">Locations</label>
-                        <p class="form-control-static col-md-2" id="locations">Some locations</p>
+                        <label for="locations" class="col-md-4 control-label">Locations</label>
+                        <p class="form-control-static col-md-4" id="locations">Some locations</p>
                         <button type="submit" class="btn btn-default col-md-1 col-md-offset-1">Save</button>
                     </div>
                     <div class="form-group">
-                        <label for="description" class="col-md-2 control-label">Description</label>
-                        <div class="col-md-4">
+                        <label for="description" class="col-md-4 control-label">Description</label>
+                        <div class="col-md-6">
                             <textarea id="description" class="form-control" rows="3">There is some description</textarea>
                         </div>
                     </div>
                 </form>
+
+                <div class="right" hidden="">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <textarea id="proposalDescription" class="form-control" rows="3" disabled>There is proposal description and some allowance</textarea>
+                        </div>
+                    </div>
+                </div>
 
                 <div class="row">
                     <label for="units" class="col-md-6 col-md-offset-1 control-label"><h4>Units</h4></label>
@@ -157,9 +165,9 @@
                         <label for="message" class="col-md-6 control-label">AuthorName dd/mm/yyyy hh:mm</label>
                         <textarea id="message" class="form-control" rows="3" disabled>Message from this author</textarea>
                     </div>
-                    <div class="col-md-5">
+                    <%--<div class="col-md-5">
                         <textarea id="proposalDescription" class="form-control" rows="3" disabled>There is proposal description and some allowance</textarea>
-                    </div>
+                    </div>--%>
                 </div>
             </div>
             <!--footer -->
