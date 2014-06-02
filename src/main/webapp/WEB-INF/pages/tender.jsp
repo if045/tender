@@ -83,20 +83,21 @@
                 </form>
 
                 <div class="row">
-                    <label for="units" class="col-md-7 control-label">Units</label>
-                    <label for="proposals" class="col-md-5 control-label">Proposals</label>
+                    <label for="units" class="col-md-6 col-md-offset-1 control-label"><h4>Units</h4></label>
+                    <label for="proposals" class="col-md-5 control-label"><h4>Proposals</h4></label>
                 </div>
 
                 <div class="row">
                     <div class="col-md-7">
                         <table class="table table-bordered table-striped" id="units">
                             <tr>
-                                <th></th>
+                                <td align="center"><span class="glyphicon glyphicon-check"></span></td>
                                 <th>Name</th>
                                 <th>Type</th>
                                 <th>Category</th>
                                 <th>Quantity</th>
                                 <th>Measurement</th>
+                                <th>Bids</th>
                                 <th>Seller price</th>
                                 <th>Deal</th>
                             </tr>
@@ -107,6 +108,7 @@
                                 <td align="center">Building</td>
                                 <td align="center">23</td>
                                 <td align="center">kg</td>
+                                <td align="center">4</td>
                                 <td align="center"></td>
                                 <td align="center"><button type="submit" class="btn btn-default" disabled>Deal</button></td>
                             </tr>
