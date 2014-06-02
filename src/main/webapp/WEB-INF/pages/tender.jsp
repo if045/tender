@@ -104,7 +104,6 @@
                                 <th>Type</th>
                                 <th>Category</th>
                                 <th>Quantity</th>
-                                <th>Measurement</th>
                                 <th>Bids</th>
                                 <th>Seller price</th>
                                 <th>Deal</th>
@@ -114,8 +113,7 @@
                                 <td align="center">Bricks</td>
                                 <td align="center">P</td>
                                 <td align="center">Building</td>
-                                <td align="center">23</td>
-                                <td align="center">kg</td>
+                                <td align="center">23 kg</td>
                                 <td align="center">4</td>
                                 <td align="center"></td>
                                 <td align="center"><button type="submit" class="btn btn-default" disabled>Deal</button></td>
@@ -126,19 +124,19 @@
                                     <td align="center"><c:out value="${unit.name}"/></td>
                                     <td align="center"><c:out value="${unit.type}"/></td>
                                     <td align="center"><c:out value="${unit.category}"/></td>
-                                    <td align="center"><c:out value="${unit.quantity}"/></td>
-                                    <td align="center"><c:out value="${unit.measurement}"/></td>
+                                    <td align="center"><c:out value="${unit.quantity} ${unit.measurement}"/></td>
+                                    <td align="center"><c:out value="${unit.bids}"/></td>
                                     <td align="center"></td>
                                     <td align="center"><button type="submit" class="btn btn-default" disabled>Deal</button></td>
                                 </tr>
                             </c:forEach>
                         </table>
                     </div>
-                    <div class="col-md-5">
+                    <div class="col-md-4">
                         <table class="table table-bordered table-striped" id="proposals">
                             <tr>
                                 <th>Seller</th>
-                                <th>Number of bids</th>
+                                <th>Bids</th>
                                 <th>Total price</th>
                                 <th>Deal</th>
                             </tr>
