@@ -8,7 +8,7 @@
                 placeholder: "Select a category"
             });
 
-            $("#item_filter").select2({
+            $("#item_dropdown").select2({
                 placeholder: "Select a items"
             });
 
@@ -20,13 +20,13 @@
                 placeholder: "Select a status"
             });
 
-            $("#location_filter, #item_filter, #status_filter, #price_from, #price_to, #date_from, #date_to").change(function() {
+            $("#location_filter, #item_dropdown, #status_filter, #price_from, #price_to, #date_from, #date_to").change(function() {
                 enableFilterButtons();
             });
 
             $("#category_filter").change(function() {
                 enableFilterButtons();
-                $("#item_filter").select2('val', 'All');
+                $("#item_dropdown").select2('val', 'All');
                 var str='';
                 var categories=new Array();
                 categories=$('#category_filter').val();
@@ -47,7 +47,7 @@
                                 + data[i].name + '</option>';
                         }
 
-                        $('#item_filter').html(html);
+                        $('#item_dropdown').html(html);
                     },
                     error:function(){
                         alert("ERROR");
@@ -89,7 +89,7 @@
 
                 $('#category_filter').html(html);
             });
-            itemDropdown();
+            populateItemDropdown();
             showTenders();
 
             $('#createTenderWindow').on('shown.bs.modal', function () {
@@ -148,7 +148,7 @@
             });
         });
 
-        function itemDropdown() {
+        function populateItemDropdown() {
             $.getJSON('/tenders/items', function (data) {
                 var html = '';
                 var len = data.length;
@@ -157,7 +157,7 @@
                             + data[i].name + '</option>';
                 }
 
-                $('#item_filter').html(html);
+                $('#item_dropdown').html(html);
             });
         }
 
@@ -194,7 +194,7 @@
             $("#date_to").val("");
             $("#location_filter").select2('val', 'All');
             $("#category_filter").select2('val', 'All');
-            $("#item_filter").select2('val', 'All');
+            $("#item_dropdown").select2('val', 'All');
             $("#status_filter").select2('val', 'All');
 
             showTenders();
@@ -220,7 +220,7 @@
                 str += (str.length==0)?"maxPrice="+$("#price_to").val():"&maxPrice="+$("#price_to").val();
             }
             var items=new Array();
-            items=$('#item_filter').val();
+            items=$('#item_dropdown').val();
             if (items!=null){
                 str += (str.length==0)?"items="+items:"&items="+items;
             }
