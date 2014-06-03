@@ -102,12 +102,11 @@
                         <h3>Tenders</h3>
                     </div>
                     <div class="pull-right">
-                        <form class="navbar-form navbar-right" role="search">
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Search...">
-                            </div>
-                            <button type="submit" class="btn btn-default">Search</button>
-                        </form>
+                            <form id="search_form" class="navbar-form navbar-right" role="search">
+                                <div class="form-group">
+                                    <input id="search_input" type="text" class="form-control" placeholder="Search...">
+                                </div>
+                            </form>
                     </div>
                 </div>
 
