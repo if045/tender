@@ -21,22 +21,7 @@
     <script type='text/javascript' src='<c:url value="../resources/js/bootstrap-datepicker.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/select2.min.js"/>'></script>
 
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $('#endDate').datepicker({
-                format: 'mm-dd-yyyy',
-                startDate: '-3d'
-            });
-
-            $('#search_input').keydown(function(event) {
-		        if (event.keyCode == 13) {
-		            //search query
-
-		            return false;
-		        }
-		    });
-        });
-    </script>
+    <script type='text/javascript' src='<c:url value="../resources/js/deals.js"/>'></script>
 </head>
 <body>
     <div class="container">
