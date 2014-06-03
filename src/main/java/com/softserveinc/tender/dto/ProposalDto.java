@@ -4,20 +4,23 @@ import com.softserveinc.tender.entity.Bid;
 import com.softserveinc.tender.entity.Proposal;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 
 public class ProposalDto {
 
     private Integer id;
     private String fullName;
-    private String totalBidsPrice;
+    private Double totalBidsPrice;
     private Integer numberOfBids;
 
-    public String countTotalBidsPrice(Proposal proposal) {
-        BigDecimal totalBidsSum = new BigDecimal(0);
+    public Double countTotalBidsPrice(Proposal proposal) {
+        final Integer START_COUNT_VALUE = 0;
+
+        BigDecimal totalBidsSum = new BigDecimal(START_COUNT_VALUE);
         for (Bid bid : proposal.getBids()) {
             totalBidsSum = totalBidsSum.add(bid.getPrice());
         }
-        return totalBidsSum.toString();
+        return totalBidsSum.doubleValue();
     }
 
     public String convertIntoFullName(Proposal proposal) {
@@ -41,11 +44,11 @@ public class ProposalDto {
         this.fullName = fullName;
     }
 
-    public String getTotalBidsPrice() {
+    public Double getTotalBidsPrice() {
         return totalBidsPrice;
     }
 
-    public void setTotalBidsPrice(String totalBidsPrice) {
+    public void setTotalBidsPrice(Double totalBidsPrice) {
         this.totalBidsPrice = totalBidsPrice;
     }
 
