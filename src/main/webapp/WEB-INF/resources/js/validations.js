@@ -22,7 +22,7 @@ $(document).ready(function () {
             },
 
             description: {
-                maxlength: 30
+                maxlength: 100
             }
         },
 
