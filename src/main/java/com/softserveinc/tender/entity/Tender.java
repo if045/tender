@@ -11,6 +11,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -36,7 +37,7 @@ public class Tender {
     private String description;
 
     @Column(name = "suitable_price", nullable = false)
-    private Double suitablePrice;
+    private BigDecimal suitablePrice;
 
     @OneToOne
     @JoinColumn(name = "author_id", nullable = false)
@@ -112,11 +113,11 @@ public class Tender {
         this.description = description;
     }
 
-    public Double getSuitablePrice() {
+    public BigDecimal getSuitablePrice() {
         return suitablePrice;
     }
 
-    public void setSuitablePrice(Double suitablePrice) {
+    public void setSuitablePrice(BigDecimal suitablePrice) {
         this.suitablePrice = suitablePrice;
     }
 
