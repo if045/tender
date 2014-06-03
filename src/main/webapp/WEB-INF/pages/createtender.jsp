@@ -14,24 +14,24 @@
       </div>
       <div class="modal-body">
         <div>
-            <form class="form-horizontal" role="form">
+            <form class="form-horizontal" role="form" id="create_tender_form_validation">
                 <div class="form-group">
                     <label for="create_tender_title" class="col-sm-2 control-label">Title*:</label>
                     <div class="col-sm-10">
-                      <input type="text" class="form-control" id="create_tender_title" placeholder="Title of the tender">
+                      <input type="text" class="form-control" id="create_tender_title" placeholder="Title of the tender" name="title">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="create_tender_price" class="col-sm-2 control-label">Suitable price:</label>
                     <div class="col-sm-2">
-                      <input type="text" class="form-control" id="create_tender_price" placeholder="Suitable price">
+                      <input type="text" class="form-control" id="create_tender_price" placeholder="Suitable price" name="price">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="create_tender_enddate" class="col-sm-2 control-label">End date:</label>
                     <div class="col-sm-3">
                         <div class="input-group date pull-left" id="create_tender_enddate" data-date="" data-date-format="dd-mm-yyyy">
-                            <input id="create_tender_enddate_input" class="form-control" size="10" type="text" value="">
+                            <input id="create_tender_enddate_input" class="form-control" size="10" type="text" value="" name="date">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                         </div>
                     </div>
@@ -93,7 +93,7 @@
                                 <div class="form-group">
                                     <div>Quantity*:</div>
                                     <div class="selectpicker">
-                                        <input type="text" class="form-control" id="create_tender_unit_quantity" placeholder="0">
+                                        <input type="text" class="form-control" id="create_tender_unit_quantity" placeholder="0" name="quantity">
                                     </div>
                                 </div> 
                             </div>

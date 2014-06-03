@@ -21,6 +21,8 @@
     <script type='text/javascript' src='<c:url value="../resources/js/bootstrap.min.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/bootstrap-datepicker.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/select2.min.js"/>'></script>
+    <script type='text/javascript' src='<c:url value="../resources/js/jquery.validate.min.js"/>'></script>
+    <script type='text/javascript' src='<c:url value="../resources/js/validations.js"/>'></script>
 
     <script type='text/javascript' src='<c:url value="../resources/js/tenders.js"/>'></script>
 </head>
@@ -42,6 +44,7 @@
                         <h3 class="panel-title">Filter</h3>
                     </div>
                     <div class="panel-body">
+
                         <div>
                             <div>Category</div>
                             <div>
@@ -77,7 +80,7 @@
                                     <input id="date_from" class="form-control" size="10" type="text" value="">
                                     <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                                 </div>
-                                <div class="input-group date pull-right" id="endDate" data-date="29-03-2013" data-date-format="dd-mm-yyyy">
+                                <div class="input-group date pull-right" id="endDate" data-date="29-03-2015" data-date-format="dd-mm-yyyy">
                                     <input id="date_to" class="form-control" size="10" type="text" value="">
                                     <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                                 </div>
