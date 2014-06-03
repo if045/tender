@@ -1,7 +1,9 @@
 package com.softserveinc.tender.dto;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 public class TenderDto {
 
@@ -11,9 +13,9 @@ public class TenderDto {
     private Date createDate;
     private Date endDate;
     private String status;
-    private Double suitablePrice;
+    private BigDecimal suitablePrice;
     private List<String> locations;
-    private List<String> categories;
+    private Set<String> categories;
     private Integer proposals;
 
     public List<String> getLocations() {
@@ -32,11 +34,11 @@ public class TenderDto {
         this.proposals = proposals;
     }
 
-    public List<String> getCategories() {
+    public Set<String> getCategories() {
         return categories;
     }
 
-    public void setCategories(List<String> categories) {
+    public void setCategories(Set<String> categories) {
         this.categories = categories;
     }
 
@@ -88,11 +90,11 @@ public class TenderDto {
         this.status = status;
     }
 
-    public Double getSuitablePrice() {
+    public BigDecimal getSuitablePrice() {
         return suitablePrice;
     }
 
-    public void setSuitablePrice(Double suitablePrice) {
+    public void setSuitablePrice(BigDecimal suitablePrice) {
         this.suitablePrice = suitablePrice;
     }
 }

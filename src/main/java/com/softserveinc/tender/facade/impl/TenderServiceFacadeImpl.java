@@ -14,20 +14,22 @@ import com.softserveinc.tender.entity.TenderStatus;
 import com.softserveinc.tender.entity.Unit;
 import com.softserveinc.tender.facade.TenderServiceFacade;
 import com.softserveinc.tender.repo.TenderFilter;
-import com.softserveinc.tender.service.ItemService;
-import com.softserveinc.tender.service.TenderService;
 import com.softserveinc.tender.service.CategoryService;
 import com.softserveinc.tender.service.LocationService;
+import com.softserveinc.tender.service.ItemService;
+import com.softserveinc.tender.service.TenderService;
 import com.softserveinc.tender.service.TenderStatusService;
 import com.softserveinc.tender.service.UnitService;
+import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.modelmapper.ModelMapper;
 import org.springframework.transaction.annotation.Transactional;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service("tenderServiceFacade")
 @Transactional
@@ -82,7 +84,7 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
     private TenderDto mapTender(Tender tender) {
         TenderDto tenderDto = new TenderDto();
         List<String> locations = new ArrayList<>();
-        List<String> categories = new ArrayList<>();
+        Set<String> categories = new HashSet<>();
 
         tenderDto.setId(tender.getId());
         tenderDto.setTitle(tender.getTitle());
@@ -97,8 +99,8 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
         }
         tenderDto.setLocations(locations);
 
-        for (int i = 0; i < tender.getUnits().size(); i++) {
-            categories.add(i, tender.getUnits().get(i).getItem().getCategory().getName());
+        for(Unit unit: tender.getUnits()){
+            categories.add(unit.getItem().getCategory().getName());
         }
         tenderDto.setCategories(categories);
         tenderDto.setProposals(tender.getProposals().size());

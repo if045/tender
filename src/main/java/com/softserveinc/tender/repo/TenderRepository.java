@@ -5,8 +5,11 @@ import com.softserveinc.tender.entity.Unit;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 public interface TenderRepository extends JpaRepository<Tender, Integer> {
 
@@ -18,10 +21,10 @@ public interface TenderRepository extends JpaRepository<Tender, Integer> {
             "and (1=:locationFlag or l.id IN (:locations)) " +
             "and (1=:itemFlag or i.id IN (:items)) " +
             "and t.endDate between :minDate and :maxDate")
-    List<Tender> findByCustomParameters(@Param("min") Double min,
-                                        @Param("max") Double max,
+    List<Tender> findByCustomParameters(@Param("min") BigDecimal min,
+                                        @Param("max") BigDecimal max,
                                         @Param("status") List<Integer> status,
-                                        @Param("categories") List<Integer> categories,
+                                        @Param("categories") Set<Integer> categories,
                                         @Param("locations") List<Integer> locations,
                                         @Param("items") List<Integer> items,
                                         @Param("minDate") Date minDate,

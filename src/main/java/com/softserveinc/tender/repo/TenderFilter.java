@@ -1,13 +1,15 @@
 package com.softserveinc.tender.repo;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 public class TenderFilter {
 
-    private Double minPrice;
-    private Double maxPrice;
-    private List<Integer> categories;
+    private BigDecimal minPrice;
+    private BigDecimal maxPrice;
+    private Set<Integer> categories;
     private List<Integer> locations;
     private List<Integer> items;
     private List<Integer> statuses;
@@ -21,7 +23,7 @@ public class TenderFilter {
     private Integer dataFlag;
     private Integer priceFlag;
 
-    public TenderFilter(Double minPrice, Double maxPrice, List<Integer> categories, List<Integer> locations, List<Integer> items, List<Integer> statuses, Date minDate, Date maxDate) {
+    public TenderFilter(BigDecimal minPrice, BigDecimal maxPrice, Set<Integer> categories, List<Integer> locations, List<Integer> items, List<Integer> statuses, Date minDate, Date maxDate) {
 
         if (minPrice==null&maxPrice==null){
             setPriceFlag(1);
@@ -106,27 +108,27 @@ public class TenderFilter {
         this.statusFlag = statusFlag;
     }
 
-    public Double getMinPrice() {
+    public BigDecimal getMinPrice() {
         return minPrice;
     }
 
-    public void setMinPrice(Double minPrice) {
+    public void setMinPrice(BigDecimal minPrice) {
         this.minPrice = minPrice;
     }
 
-    public Double getMaxPrice() {
+    public BigDecimal getMaxPrice() {
         return maxPrice;
     }
 
-    public void setMaxPrice(Double maxPrice) {
+    public void setMaxPrice(BigDecimal maxPrice) {
         this.maxPrice = maxPrice;
     }
 
-    public List<Integer> getCategories() {
+    public Set<Integer> getCategories() {
         return categories;
     }
 
-    public void setCategories(List<Integer> categories) {
+    public void setCategories(Set<Integer> categories) {
         this.categories = categories;
     }
 
