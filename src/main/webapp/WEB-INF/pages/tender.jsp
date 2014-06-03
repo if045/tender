@@ -54,7 +54,7 @@
                         <label for="endDate" class="col-md-4 control-label">End date</label>
                         <div class="col-md-5">
                             <div class="input-group date" id="endDate" data-date="" data-date-format="dd-mm-yyyy">
-                                <input id="date_to" class="form-control" size="10" type="text" value="">
+                                <input id="date_to" class="form-control custom_datepicker" size="10" type="text" value="">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                             </div>
                         </div>
