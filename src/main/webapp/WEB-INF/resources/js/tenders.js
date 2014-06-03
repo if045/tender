@@ -176,7 +176,7 @@
                 var html = '';
                 var len = data.length;
                 for (var i = 0; i < len; i++) {
-                    html += '<tr><td align="center"><a href="/tenders/view' + data[i].id + '">' + data[i].title + '</a></td>' +
+                    html += '<tr><td align="center"><a href="/tenderView/' + data[i].id + '">' + data[i].title + '</a></td>' +
                             '<td align="center">' + data[i].authorName + '</td>' +
                             '<td align="center">' + data[i].categories + '</td>' +
                             '<td align="center">' + data[i].locations + '</td>' +
