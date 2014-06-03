@@ -53,7 +53,8 @@
                         </div>
                         <div>
                             <div>Item</div>
-                            <select id="item_filter" multiple="multiple" class="populate placeholder select2-offscreen location_selector" tabindex="-1"></select>
+                            <select id="item_dropdown" multiple="multiple" class
+                                    ="populate placeholder select2-offscreen location_selector" tabindex="-1"></select>
                         </div>
                         <div>
                             <div>Location</div>

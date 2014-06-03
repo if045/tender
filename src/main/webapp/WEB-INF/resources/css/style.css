@@ -130,25 +130,6 @@ body {
     margin-top: -20px;
 }
 
-/*
-.create_tender_units thead {
-	display: block;
-}
-
-.create_tender_units tbody {
-	display: block;
-	max-height: 150px; 
-    overflow-y: scroll;
-}
-
-.create_tender_units tr {
-	width:100%;
-}
-
-.create_tender_units td {
-	padding: 10px;
-}*/
-
 .addunit_body {
 	margin-top:8px;
 }
@@ -215,5 +196,13 @@ body {
 
 .units_table_body_category {
 	width: 250px;
+}
+
+.deal_action_field {
+    width: 120px;
+}
+
+textarea {
+    resize: none;
 }
 

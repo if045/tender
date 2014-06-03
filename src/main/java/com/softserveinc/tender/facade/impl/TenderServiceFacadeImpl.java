@@ -2,29 +2,32 @@ package com.softserveinc.tender.facade.impl;
 
 import com.softserveinc.tender.dto.CategoryDto;
 import com.softserveinc.tender.dto.ItemDto;
-import com.softserveinc.tender.dto.TenderDto;
 import com.softserveinc.tender.dto.LocationDto;
+import com.softserveinc.tender.dto.TenderDto;
 import com.softserveinc.tender.dto.TenderStatusDto;
 import com.softserveinc.tender.entity.Category;
 import com.softserveinc.tender.entity.Item;
 import com.softserveinc.tender.entity.Location;
 import com.softserveinc.tender.entity.Tender;
+import com.softserveinc.tender.entity.Unit;
 import com.softserveinc.tender.facade.TenderServiceFacade;
 import com.softserveinc.tender.repo.TenderFilter;
-import com.softserveinc.tender.service.ItemService;
-import com.softserveinc.tender.service.TenderService;
 import com.softserveinc.tender.service.CategoryService;
+import com.softserveinc.tender.service.ItemService;
 import com.softserveinc.tender.service.LocationService;
+import com.softserveinc.tender.service.TenderService;
 import com.softserveinc.tender.service.TenderStatusService;
+import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.modelmapper.ModelMapper;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service("tenderServiceFacade")
 @Transactional
@@ -60,11 +63,8 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
     }
 
     public List<ItemDto> findTendersItems(TenderFilter tenderFilter) {
-        List<ItemDto> itemDtos = new ArrayList<>();
-        for (Item item : itemService.findAllItemsByTenders(tenderFilter)) {
-            itemDtos.add(modelMapper.map(item, ItemDto.class));
-        }
-        return itemDtos;
+        Type targetListType = new TypeToken<List<ItemDto>>(){}.getType();
+        return modelMapper.map(itemService.findAllItemsByTenders(tenderFilter), targetListType);
     }
 
     private List<TenderDto> mapTenders(List<Tender> tenders) {
@@ -78,7 +78,7 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
     private TenderDto mapTender(Tender tender) {
         TenderDto tenderDto = new TenderDto();
         List<String> locations = new ArrayList<>();
-        List<String> categories = new ArrayList<>();
+        Set<String> categories = new HashSet<>();
 
         tenderDto.setId(tender.getId());
         tenderDto.setTitle(tender.getTitle());
@@ -93,8 +93,8 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
         }
         tenderDto.setLocations(locations);
 
-        for (int i = 0; i < tender.getUnits().size(); i++) {
-            categories.add(i, tender.getUnits().get(i).getItem().getCategory().getName());
+        for(Unit unit: tender.getUnits()){
+            categories.add(unit.getItem().getCategory().getName());
         }
         tenderDto.setCategories(categories);
         tenderDto.setProposals(tender.getProposals().size());

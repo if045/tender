@@ -13,8 +13,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 @Controller
 @RequestMapping("/tenders")
@@ -25,15 +28,16 @@ public class TenderController {
 
     @RequestMapping(method = RequestMethod.GET)
     public @ResponseBody List<TenderDto> findTenders(
-            @RequestParam(value = "minPrice", required = false) Double minPrice,
-            @RequestParam(value = "maxPrice", required = false) Double maxPrice,
+            @RequestParam(value = "minPrice", required = false) BigDecimal minPrice,
+            @RequestParam(value = "maxPrice", required = false) BigDecimal maxPrice,
             @RequestParam(value = "items", required = false) List<Integer> items,
             @RequestParam(value = "locations", required = false) List<Integer> locations,
-            @RequestParam(value = "categories", required = false) List<Integer> categories,
+            @RequestParam(value = "categories", required = false) Set<Integer> categories,
             @RequestParam(value = "statuses", required = false) List<Integer> statuses,
             @RequestParam(value = "minDate", required = false) Date createDate,
             @RequestParam(value = "maxDate", required = false) Date endDate) {
-        return tenderFacade.findByCustomParams(new TenderFilter(minPrice, maxPrice, categories, locations, items, statuses, createDate, endDate));
+        return tenderFacade.findByCustomParams(new TenderFilter(minPrice, maxPrice, categories,
+                                                                locations, items, statuses, createDate, endDate));
     }
 
     @RequestMapping(value = "/statuses", method = RequestMethod.GET)
@@ -43,7 +47,7 @@ public class TenderController {
 
     @RequestMapping(value = "/items", method = RequestMethod.GET)
     public @ResponseBody List<ItemDto> findTendersItems(
-            @RequestParam(value = "categories", required = false) List<Integer> categories) {
+            @RequestParam(value = "categories", required = false) Set<Integer> categories) {
         return tenderFacade.findTendersItems(new TenderFilter(null, null, categories, null, null, null, null, null));
     }
 
