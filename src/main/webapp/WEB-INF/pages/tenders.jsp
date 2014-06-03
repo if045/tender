@@ -39,7 +39,7 @@
 
                 <div class="panel panel-default sidebar">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Filter</h3>
+                        <h3 class="panel-title">Tender filter</h3>
                     </div>
                     <div class="panel-body">
                         <div>
@@ -99,7 +99,6 @@
             <div class="col-md-9">
                 <div class="row">
                     <div class="pull-left">
-                        <h3>Tenders</h3>
                     </div>
                     <div class="pull-right">
                             <form id="search_form" class="navbar-form navbar-right" role="search">
