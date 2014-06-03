@@ -31,7 +31,7 @@
                     <label for="create_tender_enddate" class="col-sm-2 control-label">End date:</label>
                     <div class="col-sm-3">
                         <div class="input-group date pull-left" id="create_tender_enddate" data-date="" data-date-format="dd-mm-yyyy">
-                            <input id="create_tender_enddate_input" class="form-control" size="10" type="text" value="" name="date">
+                            <input id="create_tender_enddate_input" class="form-control" size="10" type="text" value="">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                         </div>
                     </div>
@@ -45,7 +45,7 @@
                 <div class="form-group">
                     <label for="create_tender_location" class="col-sm-2 control-label">Description:</label>
                     <div class="col-sm-10">
-                        <textarea id="create_tender_description" class="form-control" rows="5"></textarea>
+                        <textarea id="create_tender_description" class="form-control" rows="5" name="description"></textarea>
                     </div>
                 </div>
 

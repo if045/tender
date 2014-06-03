@@ -18,7 +18,11 @@ $(document).ready(function () {
 
             quantity: {
                 required: true,
-                number: true
+                digits: true
+            },
+
+            description: {
+                maxlength: 30
             }
         },
 
@@ -37,7 +41,11 @@ $(document).ready(function () {
 
             quantity: {
                 required: "Це поле не може бути пустим!",
-                number: "Неправильний формат вводу!"
+                digits: "Неправильний формат вводу!"
+            },
+
+            description: {
+                maxlength: "Максимальна довжина 100 символів"
             }
         }
     });
