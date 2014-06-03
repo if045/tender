@@ -27,6 +27,14 @@
                 format: 'mm-dd-yyyy',
                 startDate: '-3d'
             });
+
+            $('#search_input').keydown(function(event) {
+		        if (event.keyCode == 13) {
+		            //search query
+
+		            return false;
+		        }
+		    });
         });
     </script>
 </head>
@@ -46,11 +54,10 @@
                             <h3>Deals</h3>
                         </div>
                         <div class="pull-right">
-                            <form class="navbar-form navbar-right" role="search">
+                            <form id="search_form" class="navbar-form navbar-right" role="search">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="Search...">
+                                    <input id="search_input" type="text" class="form-control" placeholder="Search...">
                                 </div>
-                                <button type="submit" class="btn btn-default">Search</button>
                             </form>
                         </div>
                     </div>
