@@ -10,6 +10,7 @@ import com.softserveinc.tender.dto.TenderStatusDto;
 import com.softserveinc.tender.facade.TenderServiceFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -34,7 +35,8 @@ public class TenderController {
             @RequestParam(value = "statuses", required = false) List<Integer> statuses,
             @RequestParam(value = "minDate", required = false) Date createDate,
             @RequestParam(value = "maxDate", required = false) Date endDate) {
-        return tenderFacade.findByCustomParams(new TenderFilter(minPrice, maxPrice, categories, locations, items, statuses, createDate, endDate));
+        return tenderFacade.findByCustomParams(new TenderFilter(minPrice, maxPrice, categories,
+                                                                locations, items, statuses, createDate, endDate));
     }
 
     @RequestMapping(value = "/statuses", method = RequestMethod.GET)
@@ -60,7 +62,9 @@ public class TenderController {
 
     @RequestMapping(value = "/tenderView/{tenderId}/units", method = RequestMethod.GET)
     public @ResponseBody
-    List<UnitDto> mapUnits( Integer tenderId) {return tenderFacade.findUnitsByTenderId(tenderId);
+    List<UnitDto> mapUnits(@PathVariable("tenderId") Integer tenderId) {
+         return tenderFacade.findUnitsByTenderId(tenderId);
+       // return tenderFacade.findTendersLocations();
     }
 }
 

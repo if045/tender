@@ -62,17 +62,13 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
     }
 
     public List<TenderStatusDto> findTendersStatuses() {
-        Type targetListType = new TypeToken<List<TenderStatusDto>>() {
-        }.getType();
-        return modelMapper.map(tenderStatusService.getAllTenderStatuses(), targetListType);
+        Type targetListType = new TypeToken<List<TenderStatusDto>>(){}.getType();
+        return modelMapper.map(tenderStatusService.findAllTendersStatuses(), targetListType);
     }
 
     public List<ItemDto> findTendersItems(TenderFilter tenderFilter) {
-        List<ItemDto> itemDtos = new ArrayList<>();
-        for (Item item : itemService.findAllItemsByTenders(tenderFilter)) {
-            itemDtos.add(modelMapper.map(item, ItemDto.class));
-        }
-        return itemDtos;
+        Type targetListType = new TypeToken<List<ItemDto>>(){}.getType();
+        return modelMapper.map(itemService.findAllItemsByTenders(tenderFilter), targetListType);
     }
 
     private List<TenderDto> mapTenders(List<Tender> tenders) {
@@ -87,6 +83,7 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
         TenderDto tenderDto = new TenderDto();
         List<String> locations = new ArrayList<>();
         List<String> categories = new ArrayList<>();
+
         tenderDto.setId(tender.getId());
         tenderDto.setTitle(tender.getTitle());
         tenderDto.setAuthorName(tender.getAuthor().getFirstName());
@@ -94,15 +91,18 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
         tenderDto.setEndDate(tender.getEndDate());
         tenderDto.setStatus(tender.getStatus().getName());
         tenderDto.setSuitablePrice(tender.getSuitablePrice());
+
         for (Location location: tender.getLocations()) {
             locations.add(location.getName());
         }
         tenderDto.setLocations(locations);
+
         for (int i = 0; i < tender.getUnits().size(); i++) {
             categories.add(i, tender.getUnits().get(i).getItem().getCategory().getName());
         }
         tenderDto.setCategories(categories);
         tenderDto.setProposals(tender.getProposals().size());
+
         return tenderDto;
     }
      @Override
