@@ -21,6 +21,9 @@ public class TenderStatus {
     @Column(name = "name", unique = true, nullable = false, length = DEAL_NAME_LENGTH)
     private String name;
 
+    @Column(name = "active", nullable = false)
+    private Boolean active;
+
     public Integer getId() {
         return id;
     }
@@ -35,5 +38,13 @@ public class TenderStatus {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
     }
 }

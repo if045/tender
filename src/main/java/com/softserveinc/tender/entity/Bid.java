@@ -7,6 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import java.math.BigDecimal;
 import java.util.Date;
 
 @Entity
@@ -19,7 +20,7 @@ public class Bid {
     private Integer id;
 
     @Column(name = "price", nullable = false)
-    private Double price;
+    private BigDecimal price;
 
     @Column(name = "date", nullable = false)
     private Date date;
@@ -27,7 +28,6 @@ public class Bid {
     @ManyToOne
     @JoinColumn(name = "unit_id", nullable = false)
     private Unit unit;
-
 
     @ManyToOne
     @JoinColumn(name = "proposal_id")
@@ -41,11 +41,11 @@ public class Bid {
         this.id = id;
     }
 
-    public Double getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(Double price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 

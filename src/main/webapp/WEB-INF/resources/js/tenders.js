@@ -5,28 +5,29 @@
             });
 
             $("#category_filter").select2({
-                placeholder: "Select a category"
+                placeholder: "All categories"
             });
 
-            $("#item_filter").select2({
+            $("#item_dropdown").select2({
                 placeholder: "Select a items"
+
             });
 
             $("#location_filter").select2({
-                placeholder: "Select a location"
+                placeholder: "All locations"
             });
 
             $("#status_filter").select2({
-                placeholder: "Select a status"
+                placeholder: "All active statuses"
             });
 
-            $("#location_filter, #item_filter, #status_filter, #price_from, #price_to, #date_from, #date_to").change(function() {
+            $("#location_filter, #item_dropdown, #status_filter, #price_from, #price_to, #date_from, #date_to").change(function() {
                 enableFilterButtons();
             });
 
             $("#category_filter").change(function() {
                 enableFilterButtons();
-                $("#item_filter").select2('val', 'All');
+                $("#item_dropdown").select2('val', 'All');
                 var str='';
                 var categories=new Array();
                 categories=$('#category_filter').val();
@@ -47,7 +48,7 @@
                                 + data[i].name + '</option>';
                         }
 
-                        $('#item_filter').html(html);
+                        $('#item_dropdown').html(html);
                     },
                     error:function(){
                         alert("ERROR");
@@ -90,6 +91,10 @@
 
                 $('#category_filter').html(html);
             });
+
+            populateItemDropdown();
+            showTenders();
+            showProposals()
 
             $('#createTenderWindow').on('shown.bs.modal', function () {
                 $('.datepicker').addClass('modal_datepicker');
@@ -147,30 +152,7 @@
             });
         });
 
-        itemDropdown();
-        showTenders();
-        showProposals();
-
-        function showProposals() {
-            var URL = location.href;
-            var tenderURI = URL.split("/tenders/view");
-            var tenderId = tenderURI[tenderURI.length - 1];
-            $.getJSON('/tenders/view'+tenderId+'/proposals', function (data) {
-                var html;
-                var len = data.length;
-                for (var i = 0; i < len; i++) {
-                    html += '<tr>' +
-                        '<td align="center">' + data[i].fullName + '</td>' +
-                        '<td align="center">' + data[i].numberOfBids + '</td>' +
-                        '<td align="center">' + data[i].totalPrice + '</td>' +
-                        '<td align="center"><button type="submit" class="btn btn-default" disabled>Deal</button></td>' +
-                        '</tr>';
-                }
-                $('#proposals').html(html);
-            });
-        }
-
-        function itemDropdown() {
+        function populateItemDropdown() {
             $.getJSON('/tenders/items', function (data) {
                 var html = '';
                 var len = data.length;
@@ -179,7 +161,7 @@
                             + data[i].name + '</option>';
                 }
 
-                $('#item_filter').html(html);
+                $('#item_dropdown').html(html);
             });
         }
 
@@ -215,7 +197,7 @@
             $("#date_to").val("");
             $("#location_filter").select2('val', 'All');
             $("#category_filter").select2('val', 'All');
-            $("#item_filter").select2('val', 'All');
+            $("#item_dropdown").select2('val', 'All');
             $("#status_filter").select2('val', 'All');
 
             showTenders();
@@ -241,7 +223,7 @@
                 str += (str.length==0)?"maxPrice="+$("#price_to").val():"&maxPrice="+$("#price_to").val();
             }
             var items=new Array();
-            items=$('#item_filter').val();
+            items=$('#item_dropdown').val();
             if (items!=null){
                 str += (str.length==0)?"items="+items:"&items="+items;
             }
@@ -276,7 +258,7 @@
                     var html = '';
                     var len = data.length;
                     for (var i = 0; i < len; i++) {
-                        html += '<tr><td align="center"><a href="/tenders/view' + data[i].id + '">' + data[i].title + '</a></td>' +
+                        html += '<tr><td align="center"><a href="/tenderView/' + data[i].id + '">' + data[i].title + '</a></td>' +
                                 '<td align="center">' + data[i].authorName + '</td>' +
                                 '<td align="center">' + data[i].categories + '</td>' +
                                 '<td align="center">' + data[i].locations + '</td>' +
@@ -300,4 +282,27 @@
             });
 
             $("#clear_button").removeAttr("disabled");
+        }
+
+        function showDeals() {
+            window.location.href='/deals/';
+        }
+
+        function showProposals() {
+            var URL = location.href;
+            var tenderURI = URL.split("/tenders/view");
+            var tenderId = tenderURI[tenderURI.length - 1];
+            $.getJSON('/tenders/view'+tenderId+'/proposals', function (data) {
+                var html;
+                var len = data.length;
+                for (var i = 0; i < len; i++) {
+                    html += '<tr>' +
+                        '<td align="center">' + data[i].fullName + '</td>' +
+                        '<td align="center">' + data[i].numberOfBids + '</td>' +
+                        '<td align="center">' + data[i].totalPrice + '</td>' +
+                        '<td align="center"><button type="submit" class="btn btn-default" disabled>Deal</button></td>' +
+                        '</tr>';
+                }
+                $('#proposals').html(html);
+            });
         }
