@@ -33,7 +33,8 @@ public class TenderController {
             @RequestParam(value = "statuses", required = false) List<Integer> statuses,
             @RequestParam(value = "minDate", required = false) Date createDate,
             @RequestParam(value = "maxDate", required = false) Date endDate) {
-        return tenderFacade.findByCustomParams(new TenderFilter(minPrice, maxPrice, categories, locations, items, statuses, createDate, endDate));
+        return tenderFacade.findByCustomParams(new TenderFilter(minPrice, maxPrice, categories,
+                                                                locations, items, statuses, createDate, endDate));
     }
 
     @RequestMapping(value = "/statuses", method = RequestMethod.GET)

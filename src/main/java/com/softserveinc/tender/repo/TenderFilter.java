@@ -19,11 +19,18 @@ public class TenderFilter {
     private Integer locationFlag;
     private Integer statusFlag;
     private Integer dataFlag;
+    private Integer priceFlag;
 
     public TenderFilter(Double minPrice, Double maxPrice, List<Integer> categories, List<Integer> locations, List<Integer> items, List<Integer> statuses, Date minDate, Date maxDate) {
-        this.minPrice = (minPrice != null) ? minPrice : 0;
-        this.maxPrice = (maxPrice != null) ? maxPrice : 999999999.99;
-        if (categories == null) {
+
+        if (minPrice==null&maxPrice==null){
+            setPriceFlag(1);
+        }else {
+            this.minPrice=minPrice;
+            this.maxPrice=maxPrice;
+            setPriceFlag(0);
+        }
+        if (categories==null) {
             setCategoryFlag(1);
         } else {
             this.categories = categories;
@@ -49,6 +56,14 @@ public class TenderFilter {
         }
         this.minDate = (minDate != null) ? minDate : new Date((new Date().getTime()) - 604800000l);
         this.maxDate = (maxDate != null) ? maxDate : new Date();
+    }
+
+    public Integer getPriceFlag() {
+        return priceFlag;
+    }
+
+    public void setPriceFlag(Integer priceFlag) {
+        this.priceFlag = priceFlag;
     }
 
     public Integer getDataFlag() {
