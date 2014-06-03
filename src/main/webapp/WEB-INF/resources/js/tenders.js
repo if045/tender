@@ -94,6 +94,14 @@
             populateItemDropdown();
             showTenders();
 
+            $('#search_input').keydown(function(event) {
+                if (event.keyCode == 13) {
+                    //search query
+
+                    return false;
+                }
+            });
+
             $('#createTenderWindow').on('shown.bs.modal', function () {
                 $('.datepicker').addClass('modal_datepicker');
 
