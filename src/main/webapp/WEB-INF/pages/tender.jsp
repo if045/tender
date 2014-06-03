@@ -21,14 +21,7 @@
     <script type='text/javascript' src='<c:url value="../resources/js/bootstrap-datepicker.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/select2.min.js"/>'></script>
 
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $('#endDate').datepicker({
-                format: 'mm-dd-yyyy',
-                startDate: '-3d'
-            });
-        });
-    </script>
+    <script type='text/javascript' src='<c:url value="../resources/js/tenderview.js"/>'></script>
 </head>
 <body>
     <div class="container">

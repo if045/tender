@@ -161,11 +161,12 @@
         </div>
         <!--main-->
 
-        <!--footer -->
-        <jsp:include page="footer.jsp"/>
-        <!-- footer -->
 
     </div>
+    
+    <!--footer -->
+    <jsp:include page="footer.jsp"/>
+    <!-- footer -->
 </div>
 
 <!--create tender modal -->
