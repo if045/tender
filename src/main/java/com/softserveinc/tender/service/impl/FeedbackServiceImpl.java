@@ -1,6 +1,7 @@
 package com.softserveinc.tender.service.impl;
 
 import com.softserveinc.tender.entity.Feedback;
+import com.softserveinc.tender.entity.Profile;
 import com.softserveinc.tender.repo.FeedbackRepository;
 import com.softserveinc.tender.service.FeedbackService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +15,8 @@ public class FeedbackServiceImpl implements FeedbackService {
     private FeedbackRepository feedbackRepository;
 
     @Override
-    public List<Feedback> findByProfile(Integer profileId) {
-        return feedbackRepository.findByProfile(profileId);
+    public List<Feedback> findByProfile(Profile profile) {
+        return feedbackRepository.findByProfile(profile);
     }
 
     @Override
