@@ -173,5 +173,10 @@
             <!-- footer -->
         </div>
     </div>
+
+<!--create tender modal -->
+<jsp:include page="createtender.jsp"/>
+<!--create tender modal -->
+
 </body>
 </html>
