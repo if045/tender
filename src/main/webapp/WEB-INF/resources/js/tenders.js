@@ -204,7 +204,7 @@
                         $('#pagination').hide();
                     }
                 } else {
-                    $('#user_message').html('<h4>By your filter parameters did not match any tender</h4>');
+                    $('#user_message').html('<h4>Your filter parameters did not match any tender</h4>');
                     $('#tender_items').hide();
                     $('#pagination').hide();
                 }
@@ -250,11 +250,31 @@
             if (items!=null){
                 str += (str.length==0)?"items="+items:"&items="+items;
             }
-            var categories=new Array();
-            categories=$('#category_filter').val();
-            if (categories!=null){
-                str += (str.length==0)?"categories="+categories:"&categories="+categories;
+            
+            var categories = new Array();
+            categories = $('#category_filter').val();
+            
+            $.ajax({
+              dataType: "json",
+              url: '/tenders/categories',
+              async: false,
+              success: function(data){
+                    var dataLength = data.length;
+                    var catNumber = categories.length;
+                    for(var z = 0;z<catNumber;z++) {
+                        for (var i = 0; i < dataLength; i++) {
+                            if(categories[z] == data[i].parent) {
+                                categories.push(""+data[i].id);
+                            }
+                        }   
+                    }
+                }
+            });
+
+            if (categories != null){
+                str += (str.length == 0)?"categories="+categories:"&categories="+categories;
             }
+
             var locations=new Array();
             locations=$('#location_filter').val();
             if (locations!=null){
@@ -309,7 +329,7 @@
                             $('#pagination').hide();
                         }
                     } else {
-                        $('#user_message').html('<h4>By your filter parameters did not match any tender</h4>');
+                        $('#user_message').html('<h4>Your filter parameters did not match any tender</h4>');
                         $('#tender_items').hide();
                         $('#pagination').hide();
                     }
