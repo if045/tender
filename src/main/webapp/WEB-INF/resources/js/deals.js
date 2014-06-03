@@ -12,3 +12,7 @@ $(document).ready(function() {
         }
     });
 });
+
+function showDeals() {
+    window.location.href='/deals/';
+}
