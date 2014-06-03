@@ -186,11 +186,12 @@
             <div class="modal-body">
                 <form class="form-horizontal" role="form">
                     <h4>Are you sure you want to close this tender?</h4>
+                    <input id="close_tender_id" type="text" value="" hidden=""/>
                 </form>
             </div>
             <div class="modal-footer">
                 <button class="btn btn-default" type="button" data-dismiss="modal">No</button>
-                <button class="btn btn-primary" type="button">Yes</button>
+                <button class="btn btn-primary" type="button" onclick="closeTender();">Yes</button>
             </div>
         </div>
     </div>

@@ -179,7 +179,7 @@
                                     '<ul class="dropdown-menu">' +
                                         '<li><a href="/tenderView/' + data[i].id + '">View</a></li>' +
                                         '<li><a href="#" data-toggle="modal" data-target="#createProposalWindow">Create proposal</a></li>' +
-                                        '<li><a href="#" data-toggle="modal" data-target="#closeTenderModWind">Close</a></li>' +
+                                        '<li><a href="#" data-toggle="modal" data-target="#closeTenderModWind" onclick="writeCloseTenderId(' + data[i].id + ')">Close</a></li>' +
                                     '</ul>' +
                                 '</div>' +
                             '</td></tr>';
@@ -187,7 +187,6 @@
                 $('#tenders').html(html);
             });
         }
-
 
         function clearFilters() { onchange="location.href=this.value"
             disableFilterButtons();
@@ -271,7 +270,7 @@
                                         '<ul class="dropdown-menu">' +
                                             '<li><a href="/tenderView/' + data[i].id + '">View</a></li>' +
                                             '<li><a href="#" data-toggle="modal" data-target="#createProposalWindow">Create proposal</a></li>' +
-                                            '<li><a href="#" data-toggle="modal" data-target="#closeTenderModWind">Close</a></li>' +
+                                            '<li><a href="#" data-toggle="modal" data-target="#closeTenderModWind" onclick="writeCloseTenderId(' + data[i].id + ')">Close</a></li>' +
                                         '</ul>' +
                                     '</div>' +
                                 '</td></tr>';
@@ -285,4 +284,24 @@
             });
 
             $("#clear_button").removeAttr("disabled");
+        }
+
+        function closeTender() {
+            var str = '';
+            str += "statusName=Close";
+            var dataObject = { 'tenderId': $('#close_tender_id').val(), 'statusName': 'Close' }
+            $.ajax({
+                url: "/tenders/" + $('#close_tender_id').val() + "?"  + str,
+                type: "PUT",
+
+                success: function(data){
+                    alert('Alert')},
+                error: function(){
+                    alert("something wrong")
+                }
+            })
+        }
+
+        function writeCloseTenderId(id) {
+            document.getElementById('close_tender_id').value = id;
         }
