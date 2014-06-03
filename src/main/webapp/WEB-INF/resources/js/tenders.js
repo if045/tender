@@ -290,3 +290,7 @@
 
             $("#clear_button").removeAttr("disabled");
         }
+
+        function showDeals() {
+            window.location.href='/deals/';
+        }
