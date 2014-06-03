@@ -175,23 +175,39 @@
             $.getJSON('/tenders', function (data) {
                 var html = '';
                 var len = data.length;
-                for (var i = 0; i < len; i++) {
-                    html += '<tr><td align="center"><a href="/tenderView/' + data[i].id + '">' + data[i].title + '</a></td>' +
-                            '<td align="center">' + data[i].authorName + '</td>' +
-                            '<td align="center">' + data[i].categories + '</td>' +
-                            '<td align="center">' + data[i].locations + '</td>' +
-                            '<td align="center">' + data[i].suitablePrice + '</td>' +
-                            '<td align="center">' + data[i].status + '</td>' +
-                            '<td align="center">' + data[i].proposals + '</td>' +
-                            '<td align="center"><div class="control-group">' +
-                            '<select class="form-control items_number_dropdown action_button">' +
-                            '<option value="view' + data[i].id + '">View</option>' +
-                            '<option value="close' + data[i].id + '">Close</option>' +
-                            '<option value="addproposal' + data[i].id + '">Add proposal</option>' +
-                            '</select>' +
-                            '</div></td></tr>';
+                if(len > 0) {
+                    for (var i = 0; i < len; i++) {
+                        html += '<tr><td align="center"><a href="/tenderView/' + data[i].id + '">' + data[i].title + '</a></td>' +
+                                '<td align="center">' + data[i].authorName + '</td>' +
+                                '<td align="center">' + data[i].categories + '</td>' +
+                                '<td align="center">' + data[i].locations + '</td>' +
+                                '<td align="center">' + data[i].suitablePrice + '</td>' +
+                                '<td align="center">' + data[i].status + '</td>' +
+                                '<td align="center">' + data[i].proposals + '</td>' +
+                                '<td align="center"><div class="control-group">' +
+                                '<select class="form-control items_number_dropdown action_button">' +
+                                '<option value="view' + data[i].id + '">View</option>' +
+                                '<option value="close' + data[i].id + '">Close</option>' +
+                                '<option value="addproposal' + data[i].id + '">Add proposal</option>' +
+                                '</select>' +
+                                '</div></td></tr>';
+                    }
+
+                    $('#user_message').html('');
+                    $('#tender_items').show();
+                    $('#tenders').html(html);
+
+                    var pageItemsNumber = $('#pagination_itemsnum').val();
+                    if(pageItemsNumber < len) {
+                        $('#pagination').show();
+                    } else {
+                        $('#pagination').hide();
+                    }
+                } else {
+                    $('#user_message').html('<h4>By your filter parameters did not match any tender</h4>');
+                    $('#tender_items').hide();
+                    $('#pagination').hide();
                 }
-                $('#tenders').html(html);
             });
         }
 
@@ -264,24 +280,39 @@
                 success: function(data) {
                     var html = '';
                     var len = data.length;
-                    for (var i = 0; i < len; i++) {
-                        html += '<tr><td align="center"><a href="/tenderView/' + data[i].id + '">' + data[i].title + '</a></td>' +
-                                '<td align="center">' + data[i].authorName + '</td>' +
-                                '<td align="center">' + data[i].categories + '</td>' +
-                                '<td align="center">' + data[i].locations + '</td>' +
-                                '<td align="center">' + data[i].suitablePrice + '</td>' +
-                                '<td align="center">' + data[i].status + '</td>' +
-                                '<td align="center">' + data[i].proposals + '</td>'+
-                                '<td align="center"><div class="control-group">' +
-                                '<select class="form-control items_number_dropdown action_button">' +
-                                '<option value="view' + data[i].id + '">View</option>' +
-                                '<option value="close' + data[i].id + '">Close</option>' +
-                                '<option value="addproposal' + data[i].id + '">Add proposal</option>' +
-                                '</select>' +
-                                '</div></td></tr>';
-                    }
+                    if(len > 0) {
+                        for (var i = 0; i < len; i++) {
+                            html += '<tr><td align="center"><a href="/tenderView/' + data[i].id + '">' + data[i].title + '</a></td>' +
+                                    '<td align="center">' + data[i].authorName + '</td>' +
+                                    '<td align="center">' + data[i].categories + '</td>' +
+                                    '<td align="center">' + data[i].locations + '</td>' +
+                                    '<td align="center">' + data[i].suitablePrice + '</td>' +
+                                    '<td align="center">' + data[i].status + '</td>' +
+                                    '<td align="center">' + data[i].proposals + '</td>'+
+                                    '<td align="center"><div class="control-group">' +
+                                    '<select class="form-control items_number_dropdown action_button">' +
+                                    '<option value="view' + data[i].id + '">View</option>' +
+                                    '<option value="close' + data[i].id + '">Close</option>' +
+                                    '<option value="addproposal' + data[i].id + '">Add proposal</option>' +
+                                    '</select>' +
+                                    '</div></td></tr>';
+                        }
 
-                    $('#tenders').html(html);
+                        $('#user_message').html('');
+                        $('#tender_items').show();
+                        $('#tenders').html(html);
+
+                        var pageItemsNumber = $('#pagination_itemsnum').val();
+                        if(pageItemsNumber < len) {
+                            $('#pagination').show();
+                        } else {
+                            $('#pagination').hide();
+                        }
+                    } else {
+                        $('#user_message').html('<h4>By your filter parameters did not match any tender</h4>');
+                        $('#tender_items').hide();
+                        $('#pagination').hide();
+                    }
                 },
                 error:function(){
                     alert("ERROR");
