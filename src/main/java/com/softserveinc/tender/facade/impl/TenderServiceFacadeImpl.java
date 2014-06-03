@@ -9,7 +9,6 @@ import com.softserveinc.tender.entity.Category;
 import com.softserveinc.tender.entity.Item;
 import com.softserveinc.tender.entity.Location;
 import com.softserveinc.tender.entity.Tender;
-import com.softserveinc.tender.entity.TenderStatus;
 import com.softserveinc.tender.facade.TenderServiceFacade;
 import com.softserveinc.tender.repo.TenderFilter;
 import com.softserveinc.tender.service.ItemService;
@@ -17,16 +16,19 @@ import com.softserveinc.tender.service.TenderService;
 import com.softserveinc.tender.service.CategoryService;
 import com.softserveinc.tender.service.LocationService;
 import com.softserveinc.tender.service.TenderStatusService;
+import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.modelmapper.ModelMapper;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
 @Service("tenderServiceFacade")
 @Transactional
-public class TenderServiceFacadeImpl  implements TenderServiceFacade{
+public class TenderServiceFacadeImpl implements TenderServiceFacade {
 
     @Autowired
     private TenderStatusService tenderStatusService;
@@ -46,40 +48,35 @@ public class TenderServiceFacadeImpl  implements TenderServiceFacade{
     @Autowired
     private CategoryService categoryService;
 
-    public List<TenderStatusDto> findTenderStatuses() {
-        List<TenderStatusDto> statusesDto = new ArrayList<>();
-        for (TenderStatus tenderStatus : tenderStatusService.getAllTenderStatuses()) {
-            statusesDto.add(modelMapper.map(tenderStatus, TenderStatusDto.class));
-        }
-        return statusesDto;
-    }
-
-    public List<ItemDto> findTendersItems(TenderFilter tenderFilter) {
-        List<ItemDto> itemDtos = new ArrayList<>();
-        for (Item item : itemService.findAllItemsByTenders(tenderFilter)) {
-            itemDtos.add(modelMapper.map(item, ItemDto.class));
-        }
-        return itemDtos;
-    }
-
     @Override
     public List<TenderDto> findByCustomParams(TenderFilter tenderFilter) {
-        List<Tender> tenders=tenderService.findByCustomParameters(tenderFilter);
+        List<Tender> tenders = tenderService.findByCustomParameters(tenderFilter);
         return mapTenders(tenders);
     }
 
-    private List<TenderDto> mapTenders(List<Tender> tenders){
-        List<TenderDto> tenderDtos=new ArrayList<>();
-        for(Tender tender:tenders){
+    public List<TenderStatusDto> findTendersStatuses() {
+        Type targetListType = new TypeToken<List<TenderStatusDto>>(){}.getType();
+        return modelMapper.map(tenderStatusService.findAllTendersStatuses(), targetListType);
+    }
+
+    public List<ItemDto> findTendersItems(TenderFilter tenderFilter) {
+        Type targetListType = new TypeToken<List<ItemDto>>(){}.getType();
+        return modelMapper.map(itemService.findAllItemsByTenders(tenderFilter), targetListType);
+    }
+
+    private List<TenderDto> mapTenders(List<Tender> tenders) {
+        List<TenderDto> tenderDtos = new ArrayList<>();
+        for (Tender tender : tenders) {
             tenderDtos.add(mapTender(tender));
         }
         return tenderDtos;
     }
 
-    private TenderDto mapTender(Tender tender){
-        TenderDto tenderDto=new TenderDto();
-        List<String> locations=new ArrayList<>();
-        List<String> categories=new ArrayList<>();
+    private TenderDto mapTender(Tender tender) {
+        TenderDto tenderDto = new TenderDto();
+        List<String> locations = new ArrayList<>();
+        List<String> categories = new ArrayList<>();
+
         tenderDto.setId(tender.getId());
         tenderDto.setTitle(tender.getTitle());
         tenderDto.setAuthorName(tender.getAuthor().getFirstName());
@@ -87,19 +84,22 @@ public class TenderServiceFacadeImpl  implements TenderServiceFacade{
         tenderDto.setEndDate(tender.getEndDate());
         tenderDto.setStatus(tender.getStatus().getName());
         tenderDto.setSuitablePrice(tender.getSuitablePrice());
-        for(int i=0 ;i<tender.getLocations().size();i++){
-            locations.add(i,tender.getLocations().get(i).getName());
+
+        for (Location location: tender.getLocations()) {
+            locations.add(location.getName());
         }
         tenderDto.setLocations(locations);
-        for(int i=0 ;i<tender.getUnits().size();i++){
-            categories.add(i,tender.getUnits().get(i).getItem().getCategory().getName());
+
+        for (int i = 0; i < tender.getUnits().size(); i++) {
+            categories.add(i, tender.getUnits().get(i).getItem().getCategory().getName());
         }
         tenderDto.setCategories(categories);
         tenderDto.setProposals(tender.getProposals().size());
+
         return tenderDto;
     }
 
-    public List<LocationDto> findLocations() {
+    public List<LocationDto> findTendersLocations() {
         List<LocationDto> locationDto = new ArrayList<>();
         for (Location location : locationService.getTendersLocation()) {
             locationDto.add(modelMapper.map(location, LocationDto.class));
@@ -107,24 +107,24 @@ public class TenderServiceFacadeImpl  implements TenderServiceFacade{
         return locationDto;
     }
 
-    public List<CategoryDto> findCategories() {
-        List<Category> categories=categoryService.findAllWithCategory();
+    public List<CategoryDto> findTendersCategories() {
+        List<Category> categories = categoryService.findAllWithCategory();
         return mapCategories(categories);
     }
 
-    private CategoryDto mapCategory (Category category){
-        CategoryDto categoryDto=new CategoryDto();
+    private CategoryDto mapCategory(Category category) {
+        CategoryDto categoryDto = new CategoryDto();
         categoryDto.setId(category.getId());
         categoryDto.setName(category.getName());
-        if (category.getParent()!=null) {
+        if (category.getParent() != null) {
             categoryDto.setParent(category.getParent().getId());
         }
         return categoryDto;
     }
 
-    private List<CategoryDto> mapCategories(List<Category> categories){
-        List<CategoryDto> categoryDtos=new ArrayList<>();
-        for(Category category:categories){
+    private List<CategoryDto> mapCategories(List<Category> categories) {
+        List<CategoryDto> categoryDtos = new ArrayList<>();
+        for (Category category : categories) {
             categoryDtos.add(mapCategory(category));
         }
         return categoryDtos;
