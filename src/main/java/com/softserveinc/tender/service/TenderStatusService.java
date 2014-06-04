@@ -8,4 +8,5 @@ public interface TenderStatusService {
 
     List<TenderStatus> findAllTendersStatuses();
     TenderStatus findTenderStatusById(Integer id);
+    TenderStatus findTenderStatusByName(String name);
 }
