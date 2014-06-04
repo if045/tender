@@ -12,7 +12,7 @@ function showProposals() {
         var html;
         var len = data.length;
         if(len > 0) {
-            document.getElementById("GUSb").setAttribute('hidden','true');
+            document.getElementById("no_proposals_message").setAttribute('hidden','true');
             for (var i = 0; i < len; i++) {
                 html += '<tr>' +
                     '<td align="center">' + data[i].fullName + '</td>' +

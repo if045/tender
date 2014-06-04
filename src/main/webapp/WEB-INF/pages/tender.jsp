@@ -144,7 +144,7 @@
                             </thead>
                             <tbody id="proposals"/>
                         </table>
-                        <div id="GUSb">
+                        <div id="no_proposals_message">
                             <h4>There is no proposals</h4>
                         </div>
                     </div>
