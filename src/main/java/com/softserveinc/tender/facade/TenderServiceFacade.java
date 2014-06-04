@@ -2,8 +2,9 @@ package com.softserveinc.tender.facade;
 
 import com.softserveinc.tender.dto.CategoryDto;
 import com.softserveinc.tender.dto.ItemDto;
-import com.softserveinc.tender.dto.TenderDto;
 import com.softserveinc.tender.dto.LocationDto;
+import com.softserveinc.tender.dto.ProposalDto;
+import com.softserveinc.tender.dto.TenderDto;
 import com.softserveinc.tender.dto.TenderStatusDto;
 import com.softserveinc.tender.repo.TenderFilter;
 import java.util.List;
@@ -16,4 +17,5 @@ public interface TenderServiceFacade {
     List<LocationDto> findTendersLocations();
     List<CategoryDto> findTendersCategories();
     void updateTenderWithStatus(Integer tenderId, String statusName);
+    List<ProposalDto> findTendersProposals(Integer tenderId);
 }
