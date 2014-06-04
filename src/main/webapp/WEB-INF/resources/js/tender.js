@@ -1,13 +1,17 @@
+var formatDate='yyyy/mm/dd';
+var str = location.href;
+var splitValue='/tenderView';
+
 $(document).ready(function () {
     $('#endDate').datepicker({
-        format: 'yyyy/mm/dd',
+        format: formatDate,
         startDate: '-3d'
     });
     showUnit();
 });
 function showUnit() {
-    var str = location.href;
-    var tender1 = str.split("/tenderView");
+
+    var tender1 = str.split(splitValue);
     var tender = tender1[tender1.length - 1];
     $.getJSON('/tenders/' + tender + '/units', function (data) {
         var html = '';
