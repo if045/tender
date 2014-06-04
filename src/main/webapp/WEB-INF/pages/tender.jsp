@@ -135,7 +135,7 @@
                     </div>
 
                     <div class="col-md-4">
-                        <table class="table table-bordered table-striped">
+                        <table class="table table-bordered table-striped" id="head_proposals">
                             <thead>
                                 <th>Seller</th>
                                 <th>Bids</th>
@@ -144,6 +144,9 @@
                             </thead>
                             <tbody id="proposals"/>
                         </table>
+                        <div id="GUSb">
+                            <h4>There is no proposals</h4>
+                        </div>
                     </div>
                 </div>
 
