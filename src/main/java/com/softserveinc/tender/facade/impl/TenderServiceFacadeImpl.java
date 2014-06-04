@@ -3,12 +3,13 @@ package com.softserveinc.tender.facade.impl;
 import com.softserveinc.tender.dto.CategoryDto;
 import com.softserveinc.tender.dto.ItemDto;
 import com.softserveinc.tender.dto.LocationDto;
+import com.softserveinc.tender.dto.ProposalDto;
 import com.softserveinc.tender.dto.TenderDto;
 import com.softserveinc.tender.dto.TenderStatusDto;
 import com.softserveinc.tender.dto.UnitDto;
 import com.softserveinc.tender.entity.Category;
-import com.softserveinc.tender.entity.Item;
 import com.softserveinc.tender.entity.Location;
+import com.softserveinc.tender.entity.Proposal;
 import com.softserveinc.tender.entity.Tender;
 import com.softserveinc.tender.entity.Unit;
 import com.softserveinc.tender.facade.TenderServiceFacade;
@@ -16,6 +17,7 @@ import com.softserveinc.tender.repo.TenderFilter;
 import com.softserveinc.tender.service.CategoryService;
 import com.softserveinc.tender.service.ItemService;
 import com.softserveinc.tender.service.LocationService;
+import com.softserveinc.tender.service.ProposalService;
 import com.softserveinc.tender.service.TenderService;
 import com.softserveinc.tender.service.TenderStatusService;
 import com.softserveinc.tender.service.UnitService;
@@ -52,6 +54,9 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
 
     @Autowired
     private CategoryService categoryService;
+
+    @Autowired
+    private ProposalService proposalService;
 
     @Autowired
     private UnitService unitService;
@@ -93,12 +98,12 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
         tenderDto.setStatus(tender.getStatus().getName());
         tenderDto.setSuitablePrice(tender.getSuitablePrice());
 
-        for (Location location: tender.getLocations()) {
+        for (Location location : tender.getLocations()) {
             locations.add(location.getName());
         }
         tenderDto.setLocations(locations);
 
-        for(Unit unit: tender.getUnits()){
+        for (Unit unit : tender.getUnits()) {
             categories.add(unit.getItem().getCategory().getName());
         }
         tenderDto.setCategories(categories);
@@ -163,5 +168,28 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
             categoryDtos.add(mapCategory(category));
         }
         return categoryDtos;
+    }
+
+    public List<ProposalDto> findTendersProposals(Integer tenderId) {
+        return mapTendersProposals(tenderId);
+    }
+
+    private List<ProposalDto> mapTendersProposals(Integer tenderId) {
+        List<ProposalDto> proposalDtos = new ArrayList<>();
+        for (Proposal proposal : proposalService.findByTenderId(tenderId)) {
+            proposalDtos.add(mapTenderProposal(proposal));
+        }
+        return proposalDtos;
+    }
+
+    private ProposalDto mapTenderProposal(Proposal proposal) {
+        ProposalDto proposalDto = new ProposalDto();
+
+        proposalDto.setId(proposal.getId());
+        proposalDto.setFullName(proposalDto.convertIntoFullName(proposal));
+        proposalDto.setNumberOfBids(proposal.getBids().size());
+        proposalDto.setTotalBidsPrice(proposalDto.countTotalBidsPrice(proposal));
+
+        return proposalDto;
     }
 }

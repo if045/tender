@@ -7,8 +7,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.math.BigDecimal;
+import java.util.List;
 
 @Entity
 @Table(name = "proposal")
@@ -35,6 +37,9 @@ public class Proposal {
 
     @Column(name = "description")
     private String description;
+
+    @OneToMany(mappedBy = "proposal")
+    private List<Bid> bids;
 
     public Integer getId() {
         return id;
@@ -82,5 +87,13 @@ public class Proposal {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public List<Bid> getBids() {
+        return bids;
+    }
+
+    public void setBids(List<Bid> bids) {
+        this.bids = bids;
     }
 }

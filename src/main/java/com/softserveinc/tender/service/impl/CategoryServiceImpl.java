@@ -30,6 +30,6 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public List<Category> findAllWithCategory() {
-        return categoryRepository.findAllWithCategory();
+        return categoryRepository.findCategoriesWithTenders();
     }
 }
