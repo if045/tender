@@ -177,7 +177,7 @@
 <!--create proposal modal -->
 
 <!-- close tender modal window -->
-<div class="modal fade" id="closeTenderModWind" tabindex="-1" role="dialog" hidden="">
+<div class="modal fade" id="close_tender_mod_wind" tabindex="-1" role="dialog" hidden="">
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
             <div class="modal-header"><button class="close" type="button" data-dismiss="modal">&times;</button>

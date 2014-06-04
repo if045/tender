@@ -32,9 +32,8 @@ public class TenderServiceImpl implements TenderService {
     public void updateTenderWithStatus(Integer tenderId, String statusName) {
         Tender tender = tenderRepository.findOne(tenderId);
         TenderStatus tenderStatus = tenderStatusService.findTenderStatusByName(statusName);
-        /*tender.setStatus(tenderStatus);
-        tenderRepository.save(tender);*/
-        System.out.println(tenderStatus.getId());
-        System.out.println(tender.getTitle());
+
+        tender.setStatus(tenderStatus);
+        tenderRepository.save(tender);
     }
 }

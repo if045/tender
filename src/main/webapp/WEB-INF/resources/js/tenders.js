@@ -179,7 +179,7 @@
                                     '<ul class="dropdown-menu">' +
                                         '<li><a href="/tenderView/' + data[i].id + '">View</a></li>' +
                                         '<li><a href="#" data-toggle="modal" data-target="#createProposalWindow">Create proposal</a></li>' +
-                                        '<li><a href="#" data-toggle="modal" data-target="#closeTenderModWind" onclick="writeCloseTenderId(' + data[i].id + ')">Close</a></li>' +
+                                        '<li><a href="#" data-toggle="modal" data-target="#close_tender_mod_wind" onclick="writeCloseTenderId(' + data[i].id + ')">Close</a></li>' +
                                     '</ul>' +
                                 '</div>' +
                             '</td></tr>';
@@ -270,7 +270,7 @@
                                         '<ul class="dropdown-menu">' +
                                             '<li><a href="/tenderView/' + data[i].id + '">View</a></li>' +
                                             '<li><a href="#" data-toggle="modal" data-target="#createProposalWindow">Create proposal</a></li>' +
-                                            '<li><a href="#" data-toggle="modal" data-target="#closeTenderModWind" onclick="writeCloseTenderId(' + data[i].id + ')">Close</a></li>' +
+                                            '<li><a href="#" data-toggle="modal" data-target="#close_tender_mod_wind" onclick="writeCloseTenderId(' + data[i].id + ')">Close</a></li>' +
                                         '</ul>' +
                                     '</div>' +
                                 '</td></tr>';
@@ -295,13 +295,18 @@
                 type: "PUT",
 
                 success: function(data){
-                    alert('Alert')},
+                    closeModalWindow('close_tender_mod_wind');
+                    showTenders()},
                 error: function(){
-                    alert("something wrong")
+                    alert("Something wrong")
                 }
             })
         }
 
         function writeCloseTenderId(id) {
             document.getElementById('close_tender_id').value = id;
+        }
+
+        function closeModalWindow(id) {
+            $('#' + id).modal('hide');
         }
