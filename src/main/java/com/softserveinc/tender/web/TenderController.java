@@ -69,4 +69,3 @@ public class TenderController {
          return tenderFacade.findUnitsByTenderId(tenderId);
     }
 }
-

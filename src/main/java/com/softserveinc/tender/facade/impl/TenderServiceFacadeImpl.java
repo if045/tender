@@ -57,7 +57,7 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
     private UnitService unitService;
 
     @Override
-     public List<TenderDto> findByCustomParams(TenderFilter tenderFilter) {
+    public List<TenderDto> findByCustomParams(TenderFilter tenderFilter) {
         List<Tender> tenders = tenderService.findByCustomParameters(tenderFilter);
         return mapTenders(tenders);
     }
