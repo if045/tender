@@ -94,7 +94,6 @@
 
             populateItemDropdown();
             showTenders();
-            showProposals()
 
             $('#search_input').keydown(function(event) {
                 if (event.keyCode == 13) {
@@ -345,23 +344,4 @@
 
         function showDeals() {
             window.location.href='/deals/';
-        }
-
-        function showProposals() {
-            var URL = location.href;
-            var tenderURI = URL.split("/tenderView");
-            var tenderId = tenderURI[tenderURI.length - 1];
-            $.getJSON('/tenders/'+tenderId+'/proposals', function (data) {
-                var html;
-                var len = data.length;
-                for (var i = 0; i < len; i++) {
-                    html += '<tr>' +
-                        '<td align="center">' + data[i].fullName + '</td>' +
-                        '<td align="center">' + data[i].numberOfBids + '</td>' +
-                        '<td align="center">' + data[i].totalBidsPrice + '</td>' +
-                        '<td align="center"><button type="submit" class="btn btn-default" disabled>Deal</button></td>' +
-                        '</tr>';
-                }
-                $('#proposals').html(html);
-            });
         }
