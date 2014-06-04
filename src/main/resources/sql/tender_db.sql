@@ -43,9 +43,9 @@ CREATE TABLE tender_status (
 
 	id INT NOT NULL AUTO_INCREMENT,
 	name VARCHAR(15) UNIQUE NOT NULL,
+	active BOOLEAN NOT NULL,
 
 	PRIMARY KEY (id)
-
 );
 
 CREATE TABLE category (
@@ -177,7 +177,6 @@ CREATE TABLE moderator_category (
 	PRIMARY KEY (id)
 
 );
-
 
 CREATE TABLE checked_profile (
 
@@ -339,4 +338,3 @@ CREATE TABLE seller_category (
 	PRIMARY KEY (id)
 
 );
-
