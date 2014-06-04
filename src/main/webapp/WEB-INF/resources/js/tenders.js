@@ -344,7 +344,7 @@
         }
 
         function showDeals() {
-            window.location.href='/deals/';
+            window.location.href='/mydeals';
         }
 
         function showProposals() {

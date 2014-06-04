@@ -173,7 +173,7 @@
 </div>
 
 <!--create tender modal -->
-<jsp:include page="createtender.jsp"/>
+<jsp:include page="createTender.jsp"/>
 <!--create tender modal -->
 
 <!--create proposal modal -->
