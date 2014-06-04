@@ -14,7 +14,7 @@ function showDeals() {
         if(len > 0) {
             for (var i = 0; i < len; i++) {
                 html += '<tr><td align="center">' + data[i].title + '</td>' +
-                    '<td align="center">' + data[i].date + '</td>' +
+                    '<td align="center">' + unixTimeConverter(data[i].date) + '</td>' +
                     '<td align="center">' + data[i].businessPartner + '</td>' +
                     '<td align="center">' + data[i].status + '</td>' +
                     '<td align="center">' + data[i].sum + '</td>' +
@@ -44,4 +44,13 @@ function showDeals() {
             $('#pagination').hide();
         }
     });
+}
+
+function unixTimeConverter(timestamp){
+    var date = new Date(timestamp);
+    var year = date.getFullYear();
+    var month = date.getMonth();
+    var day = date.getDate();
+
+    return day + "/" + month + "/" + year;
 }

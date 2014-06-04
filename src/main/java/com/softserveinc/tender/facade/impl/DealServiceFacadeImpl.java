@@ -12,10 +12,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Service("dealServiceFacade")
 @Transactional
@@ -49,8 +47,7 @@ public class DealServiceFacadeImpl implements DealServiceFacade {
         dealDto.setDate(deal.getDate());
         dealDto.setStatus(deal.getStatus().getName());
         dealDto.setSum(deal.getSum());
-
-        //dealDto.setBusinessPartner(deal.);
+        dealDto.setDate(deal.getDate());
 
         return dealDto;
     }
