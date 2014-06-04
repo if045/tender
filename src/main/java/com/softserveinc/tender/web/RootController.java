@@ -18,7 +18,6 @@ public class RootController {
         return "tender";
     }
 
-
     @RequestMapping("/mydeals")
     public String getAllDeals() {
         return "deals";
