@@ -41,7 +41,7 @@
 
                 <div class="panel panel-default sidebar">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Filter</h3>
+                        <h3 class="panel-title">Tender filter</h3>
                     </div>
                     <div class="panel-body">
 
@@ -102,20 +102,19 @@
             <div class="col-md-9">
                 <div class="row">
                     <div class="pull-left">
-                        <h3>Tenders</h3>
                     </div>
                     <div class="pull-right">
-                        <form class="navbar-form navbar-right" role="search">
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Search...">
-                            </div>
-                            <button type="submit" class="btn btn-default">Search</button>
-                        </form>
+                            <form id="search_form" class="navbar-form navbar-right" role="search">
+                                <div class="form-group">
+                                    <input id="search_input" type="text" class="form-control" placeholder="Search...">
+                                </div>
+                            </form>
                     </div>
                 </div>
 
                 <!-- items -->
-                <div class="row">
+                <div id="user_message" class="row"></div>
+                <div id="tender_items" class="row">
                     <table class="table table-bordered table-striped">
                         <thead>
                         <tr>
@@ -135,7 +134,7 @@
                 <!-- items -->
 
                 <!-- pagination -->
-                <div class="row">
+                <div id="pagination" class="row">
                     <div class="col-md-12">
                         <div class="pull-right">
                             <ul class="pagination page_pagination pull-right">
@@ -147,10 +146,10 @@
                         </div>
                         <div class="pull-right">
                             <div class="control-group">
-                                 <select class="form-control pull-right items_number_dropdown">
-                                     <option>10</option>
-                                     <option>15</option>
-                                     <option>20</option>
+                                 <select id="pagination_itemsnum" class="form-control pull-right items_number_dropdown">
+                                     <option value="10">10</option>
+                                     <option value="15">15</option>
+                                     <option value="20">20</option>
                                  </select>
                             </div>
                         </div>
@@ -165,11 +164,12 @@
         </div>
         <!--main-->
 
-        <!--footer -->
-        <jsp:include page="footer.jsp"/>
-        <!-- footer -->
 
     </div>
+    
+    <!--footer -->
+    <jsp:include page="footer.jsp"/>
+    <!-- footer -->
 </div>
 
 <!--create tender modal -->
