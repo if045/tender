@@ -206,3 +206,7 @@ textarea {
     resize: none;
 }
 
+.price_input {
+    width: 100px;
+}
+

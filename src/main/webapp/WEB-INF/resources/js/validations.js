@@ -49,4 +49,54 @@ $(document).ready(function () {
             }
         }
     });
+
+    $("#edit_tender_form").validate({
+       rules: {
+           description: {
+               maxlength: 100
+           }
+       },
+
+        messages: {
+            description: {
+                maxlength: "100 characters - the maximum length you can enter"
+            }
+        }
+    });
+
+    $('#create_proposal_form').validate({
+        rules: {
+            description: {
+                maxlength: 100
+            },
+
+            allowance: {
+                required: true,
+                number: true,
+                minlength: 1,
+                maxlength: 3
+            },
+
+            price: {
+                number: true
+            }
+        },
+
+        messages: {
+            allowance: {
+                required: "This field can not be empty",
+                number: "Input format - numbers",
+                minlength: "The minimum length of 1 character",
+                maxlength: "The maximum length of 3 characters"
+            },
+
+            description: {
+                maxlength: "100 characters - the maximum length you can enter"
+            },
+
+            price: {
+                number: "Input format - numbers"
+            }
+        }
+    });
 });
