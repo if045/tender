@@ -43,7 +43,7 @@
                 </div>
 
             <!-- information about tender -->
-                <form class="form-horizontal col-md-7" role="form" id="tender_form_validation">
+                <form class="form-horizontal col-md-7" role="form">
                     <div class="form-group">
                         <label for="endDate" class="col-md-4 control-label">End date</label>
                         <div class="col-md-5">
@@ -71,7 +71,7 @@
                     <div class="form-group">
                         <label for="description" class="col-md-4 control-label">Description</label>
                         <div class="col-md-6">
-                            <textarea id="description" class="form-control" rows="3" name="description1">There is some description</textarea>
+                            <textarea id="description" class="form-control" rows="3">There is some description</textarea>
                         </div>
                     </div>
                 </form>

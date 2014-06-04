@@ -11,9 +11,9 @@ import java.util.List;
 
 public interface TenderServiceFacade {
 
+    List<TenderDto> findByCustomParams(TenderFilter tenderFilter);
     List<TenderStatusDto> findTendersStatuses();
     List<ItemDto> findTendersItems(TenderFilter tenderFilter);
-    List<TenderDto> findByCustomParams(TenderFilter tenderFilter);
     List<LocationDto> findTendersLocations();
     List<CategoryDto> findTendersCategories();
     List<UnitDto> findUnitsByTenderId(Integer tenderId);

@@ -67,7 +67,6 @@ public class TenderController {
     public @ResponseBody
     List<UnitDto> mapUnits(@PathVariable("tenderId") Integer tenderId) {
          return tenderFacade.findUnitsByTenderId(tenderId);
-       // return tenderFacade.findTendersLocations();
     }
 }
 
