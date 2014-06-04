@@ -123,6 +123,7 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
         unitDto.setCategoryName(unit.getItem().getCategory().getName());
         unitDto.setQuantity(unit.getQuantity());
         unitDto.setMeasurementName(unit.getMeasurement().getName());
+        unitDto.setNumberOfBids(unit.getBids().size());
         return unitDto;
     }
 

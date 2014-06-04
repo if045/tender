@@ -18,7 +18,7 @@ function showUnit() {
                 '<td>' + data[i].itemType + '</td>' +
                 '<td>' + data[i].categoryName + '</td>' +
                 '<td>' + data[i].quantity +' ' +data[i].measurementName+ '</td>' +
-                '<td>' + data[i].id + '</td>' +
+                '<td>' + data[i].numberOfBids + '</td>' +
                 '<td>' + data[i].price + '</td>' +
                 '<td>' + '<button type="submit" class="btn btn-default" disabled>Deal</button>' + '</td></tr>';
         }

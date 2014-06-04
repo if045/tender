@@ -9,6 +9,7 @@ public class UnitDto {
     private Double quantity;
     private String measurementName;
     private Double price;
+    private Integer numberOfBids;
 
     public Integer getTenderId() {
         return tenderId;
@@ -72,5 +73,13 @@ public class UnitDto {
 
     public void setPrice(Double price) {
         this.price = price;
+    }
+
+    public Integer getNumberOfBids() {
+        return numberOfBids;
+    }
+
+    public void setNumberOfBids(Integer numberOfBids) {
+        this.numberOfBids = numberOfBids;
     }
 }
