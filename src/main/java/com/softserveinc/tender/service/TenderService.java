@@ -6,6 +6,6 @@ import java.util.List;
 
 public interface TenderService {
 
-    Tender findOne(int id);
+    Tender findOne(Integer id);
     List<Tender> findByCustomParameters(TenderFilter tenderFilter);
 }

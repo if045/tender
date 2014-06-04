@@ -15,7 +15,7 @@ public class TenderServiceImpl implements TenderService {
     @Autowired
     private TenderRepository tenderRepository;
 
-    public Tender findOne(int id) {
+    public Tender findOne(Integer id) {
         return tenderRepository.findOne(id);
     }
 

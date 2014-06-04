@@ -13,7 +13,7 @@ public class RootController {
         return "tenders";
     }
 
-    @RequestMapping(value = "/tenderView/{tenderId}", method = RequestMethod.GET)
+    @RequestMapping("/tenderView/{tenderId}")
     public String showTender(@PathVariable("tenderId") Integer tenderId) {
         return "tender";
     }

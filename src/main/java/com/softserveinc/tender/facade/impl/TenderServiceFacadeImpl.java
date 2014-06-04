@@ -115,6 +115,11 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
         return mapCategories(categories);
     }
 
+    @Override
+    public TenderDto findById(Integer id) {
+        return mapTender(tenderService.findOne(id));
+    }
+
     private CategoryDto mapCategory(Category category) {
         CategoryDto categoryDto = new CategoryDto();
         categoryDto.setId(category.getId());

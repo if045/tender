@@ -9,6 +9,7 @@ import com.softserveinc.tender.dto.TenderStatusDto;
 import com.softserveinc.tender.facade.TenderServiceFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -59,5 +60,12 @@ public class TenderController {
     @RequestMapping(value = "/categories", method = RequestMethod.GET)
     public @ResponseBody List<CategoryDto> findAllCategories() {
         return tenderFacade.findTendersCategories();
+    }
+
+    @RequestMapping(value = "/{tenderId}", method = RequestMethod.GET)
+    public
+    @ResponseBody
+    TenderDto getTender(@PathVariable("tenderId") Integer tenderId) {
+        return tenderFacade.findById(tenderId);
     }
 }

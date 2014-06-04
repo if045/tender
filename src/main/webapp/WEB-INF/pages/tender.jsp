@@ -20,6 +20,8 @@
     <script type='text/javascript' src='<c:url value="../resources/js/bootstrap.min.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/bootstrap-datepicker.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/select2.min.js"/>'></script>
+    <script type='text/javascript' src='<c:url value="../resources/js/select2.min.js"/>'></script>
+    <script type='text/javascript' src='<c:url value="../resources/js/tender.js"/>'></script>
 
     <script type="text/javascript">
         $(document).ready(function() {
@@ -67,7 +69,7 @@
                     </div>
                     <div class="form-group">
                         <label for="suitablePrice" class="col-md-4 control-label">Suitable price</label>
-                        <p class="form-control-static col-md-2" id="suitablePrice">0000.00</p>
+                        <div id="suitablePrice"></div>
                     </div>
                     <div class="form-group">
                         <label for="locations" class="col-md-4 control-label">Locations</label>
