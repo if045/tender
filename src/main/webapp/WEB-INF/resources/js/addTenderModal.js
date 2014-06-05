@@ -307,8 +307,10 @@ function createTender() {
         contentType: 'application/json',
 
         success: function(data) {
+            alert("Tender Added")
         },
         error:function(){
+            alert("Cant add Tender")
         }
     });
     window.location.href = "/tendersHome";

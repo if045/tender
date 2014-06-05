@@ -23,7 +23,7 @@ public class ItemServiceImpl implements ItemService{
     }
 
     @Override
-    public List<Item> findItems(TenderFilter tenderFilter) {
+    public List<Item> findItemsByCategoryAndType(TenderFilter tenderFilter) {
         return itemRepository.findItems(tenderFilter.getCategoryName(),tenderFilter.getCategoryFlag(),
                 tenderFilter.getType(),tenderFilter.getTypeFlag());
     }

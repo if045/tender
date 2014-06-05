@@ -76,6 +76,8 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
     @Autowired
     private ProposalService proposalService;
 
+    private static final String DATE_FORMAT_FROM_CLIENT="yyyy/MM/dd";
+
     @Override
     public List<TenderDto> findByCustomParams(TenderFilter tenderFilter) {
         List<Tender> tenders = tenderService.findByCustomParameters(tenderFilter);
@@ -186,8 +188,8 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
     }
 
     @Override
-    public void saveTender(TenderSaveDto tenderSaveDto) {
-        String pattern = "yyyy/MM/dd";
+    public TenderDto saveTender(TenderSaveDto tenderSaveDto) {
+        String pattern = DATE_FORMAT_FROM_CLIENT;
         Date date = null;
         SimpleDateFormat formatter;
         formatter = new SimpleDateFormat(pattern);
@@ -204,6 +206,15 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
                 locations = locationService.findAll();
             }
         }
+        /*List<LocationSaveDto> locationSaveDto=tenderSaveDto.getLocations();
+        List<Location> locations = new ArrayList<>();
+        if (locationSaveDto.get(0).getId()==0){
+            locations=locationService.findAll();
+        }else{
+            for(LocationSaveDto temp:locationSaveDto){
+                locations.add(locationService.findById(temp.getId()));
+            }
+        }*/
         Tender tender = new Tender();
         tender.setLocations(locations);
         tender.setStatus(tenderStatusService.findByName("Open"));
@@ -213,7 +224,7 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
         tender.setCreateDate(new Date());
         tender.setEndDate(date);
         tender.setAuthor(profileService.findProfileById(8));
-        Tender tender1 = tenderService.save(tender);
+        Tender savedTender = tenderService.save(tender);
         List<Unit> units = new ArrayList<>();
         for (UnitSaveDto unitSaveDto : tenderSaveDto.getUnits()) {
             Unit unit = new Unit();
@@ -228,12 +239,12 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
                 item.setType(unitSaveDto.getItemType());
                 unit.setItem(itemService.save(item));
             }
-            unit.setTender(tender1);
-
+            unit.setTender(savedTender);
             units.add(unitService.save(unit));
         }
         tender.setUnits(units);
-        tenderService.save(tender);
+        Tender savedTenderWithUnits = tenderService.save(tender);
+        return mapTender(savedTenderWithUnits);
     }
 
     public void updateTenderWithStatus(Integer tenderId, String statusName) {
