@@ -6,6 +6,7 @@ import com.softserveinc.tender.dto.LocationDto;
 import com.softserveinc.tender.dto.ProposalDto;
 import com.softserveinc.tender.dto.TenderDto;
 import com.softserveinc.tender.dto.TenderStatusDto;
+import com.softserveinc.tender.dto.UnitDto;
 import com.softserveinc.tender.entity.Category;
 import com.softserveinc.tender.entity.Location;
 import com.softserveinc.tender.entity.Proposal;
@@ -19,6 +20,7 @@ import com.softserveinc.tender.service.LocationService;
 import com.softserveinc.tender.service.ProposalService;
 import com.softserveinc.tender.service.TenderService;
 import com.softserveinc.tender.service.TenderStatusService;
+import com.softserveinc.tender.service.UnitService;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,6 +57,9 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
 
     @Autowired
     private ProposalService proposalService;
+
+    @Autowired
+    private UnitService unitService;
 
     @Override
     public List<TenderDto> findByCustomParams(TenderFilter tenderFilter) {
@@ -107,9 +112,36 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
         return tenderDto;
     }
 
+    @Override
+    public List<UnitDto> findUnitsByTenderId(Integer tenderId) {
+        List<Unit> units = unitService.findUnitsByTenderId(tenderId);
+        return mapUnits(units);
+    }
+
+    private UnitDto mapUnit(Unit unit) {
+        UnitDto unitDto=new UnitDto();
+        unitDto.setTenderId(unit.getTender().getId());
+        unitDto.setId(unit.getId());
+        unitDto.setUnitName(unit.getItem().getName());
+        unitDto.setItemType(unit.getItem().getType());
+        unitDto.setCategoryName(unit.getItem().getCategory().getName());
+        unitDto.setQuantity(unit.getQuantity());
+        unitDto.setMeasurementName(unit.getMeasurement().getName());
+        unitDto.setNumberOfBids(unit.getBids().size());
+        return unitDto;
+    }
+
+    private List<UnitDto> mapUnits(List<Unit> units){
+        List<UnitDto> unitDtos=new ArrayList<>();
+        for(Unit unit:units){
+            unitDtos.add(mapUnit(unit));
+        }
+        return unitDtos;
+    }
+
     public List<LocationDto> findTendersLocations() {
         List<LocationDto> locationDto = new ArrayList<>();
-        for (Location location : locationService.getTendersLocation()) {
+        for (Location location : locationService.getTendersLocations()) {
             locationDto.add(modelMapper.map(location, LocationDto.class));
         }
         return locationDto;

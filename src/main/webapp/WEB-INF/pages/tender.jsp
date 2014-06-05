@@ -22,8 +22,11 @@
     <script type='text/javascript' src='<c:url value="../resources/js/select2.min.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/tender.js"/>'></script>
 
+    <script type='text/javascript' src='<c:url value="../resources/js/tender.js"/>'></script>
+
     <script type='text/javascript' src='<c:url value="../resources/js/tenderview.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/modalwindows.js"/>'></script>
+
 </head>
 <body>
     <div class="container">
@@ -93,6 +96,8 @@
                 <div class="row">
                     <div class="col-md-7">
                         <table class="table table-bordered table-striped" id="units">
+                            <thead>
+                                <th></th>
                             <tr>
                                 <td align="center"><span class="glyphicon glyphicon-check"></span></td>
                                 <th>Name</th>
@@ -102,29 +107,8 @@
                                 <th>Bids</th>
                                 <th>Seller price</th>
                                 <th>Deal</th>
-                            </tr>
-                            <tr>
-                                <td align="center"><input type="checkbox"></td>
-                                <td align="center">Bricks</td>
-                                <td align="center">P</td>
-                                <td align="center">Building</td>
-                                <td align="center">23 kg</td>
-                                <td align="center">4</td>
-                                <td align="center"></td>
-                                <td align="center"><button type="submit" class="btn btn-default" disabled>Deal</button></td>
-                            </tr>
-                            <c:forEach var="unit" items="${units}">
-                                <tr>
-                                    <td align="center"><input type="checkbox"></td>
-                                    <td align="center"><c:out value="${unit.name}"/></td>
-                                    <td align="center"><c:out value="${unit.type}"/></td>
-                                    <td align="center"><c:out value="${unit.category}"/></td>
-                                    <td align="center"><c:out value="${unit.quantity} ${unit.measurement}"/></td>
-                                    <td align="center"><c:out value="${unit.bids}"/></td>
-                                    <td align="center"></td>
-                                    <td align="center"><button type="submit" class="btn btn-default" disabled>Deal</button></td>
-                                </tr>
-                            </c:forEach>
+                            </thead>
+                            <tbody id="unitsTable"></tbody>
                         </table>
                     </div>
 

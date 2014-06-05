@@ -5,6 +5,8 @@ import com.softserveinc.tender.dto.ItemDto;
 import com.softserveinc.tender.dto.LocationDto;
 import com.softserveinc.tender.dto.ProposalDto;
 import com.softserveinc.tender.dto.TenderDto;
+import com.softserveinc.tender.dto.UnitDto;
+import com.softserveinc.tender.repo.TenderFilter;
 import com.softserveinc.tender.dto.TenderStatusDto;
 import com.softserveinc.tender.repo.TenderFilter;
 import com.softserveinc.tender.facade.TenderServiceFacade;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
@@ -61,6 +64,11 @@ public class TenderController {
     @RequestMapping(value = "/categories", method = RequestMethod.GET)
     public @ResponseBody List<CategoryDto> findAllCategories() {
         return tenderFacade.findTendersCategories();
+    }
+
+    @RequestMapping(value = "/{tenderId}/units", method = RequestMethod.GET)
+    public @ResponseBody List<UnitDto> mapUnits(@PathVariable("tenderId") Integer tenderId) {
+        return tenderFacade.findUnitsByTenderId(tenderId);
     }
 
     @RequestMapping(value = "/{tenderId}", method = RequestMethod.PUT)
