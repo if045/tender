@@ -7,7 +7,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import java.math.BigDecimal;
+import java.util.List;
 
 @Entity
 @Table(name = "proposal")
@@ -27,13 +30,16 @@ public class Proposal {
     private Tender tender;
 
     @Column(name = "discount_percentage")
-    private Double discountPercentage;
+    private BigDecimal discountPercentage;
 
     @Column(name = "discount_currency")
-    private Double discountCurrency;
+    private BigDecimal discountCurrency;
 
     @Column(name = "description")
     private String description;
+
+    @OneToMany(mappedBy = "proposal")
+    private List<Bid> bids;
 
     public Integer getId() {
         return id;
@@ -59,19 +65,19 @@ public class Proposal {
         this.tender = tender;
     }
 
-    public Double getDiscountPercentage() {
+    public BigDecimal getDiscountPercentage() {
         return discountPercentage;
     }
 
-    public void setDiscountPercentage(Double discountPercentage) {
+    public void setDiscountPercentage(BigDecimal discountPercentage) {
         this.discountPercentage = discountPercentage;
     }
 
-    public Double getDiscountCurrency() {
+    public BigDecimal getDiscountCurrency() {
         return discountCurrency;
     }
 
-    public void setDiscountCurrency(Double discountCurrency) {
+    public void setDiscountCurrency(BigDecimal discountCurrency) {
         this.discountCurrency = discountCurrency;
     }
 
@@ -81,5 +87,13 @@ public class Proposal {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public List<Bid> getBids() {
+        return bids;
+    }
+
+    public void setBids(List<Bid> bids) {
+        this.bids = bids;
     }
 }

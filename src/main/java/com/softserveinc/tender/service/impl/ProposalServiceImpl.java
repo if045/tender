@@ -1,10 +1,12 @@
 package com.softserveinc.tender.service.impl;
 
 import com.softserveinc.tender.entity.Proposal;
+import com.softserveinc.tender.entity.User;
 import com.softserveinc.tender.repo.ProposalRepository;
 import com.softserveinc.tender.service.ProposalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 
 @Service
@@ -14,13 +16,13 @@ public class ProposalServiceImpl implements ProposalService {
     private ProposalRepository proposalRepository;
 
     @Override
-    public List<Proposal> findByTender(Integer tenderId) {
-        return proposalRepository.findByTender(tenderId);
+    public List<Proposal> findByTenderId(Integer id) {
+        return proposalRepository.findByTenderId(id);
     }
 
     @Override
-    public List<Proposal> findBySeller(Integer sellerId) {
-        return proposalRepository.findBySeller(sellerId);
+    public List<Proposal> findBySeller(User seller) {
+        return proposalRepository.findBySeller(seller);
     }
 
     @Override

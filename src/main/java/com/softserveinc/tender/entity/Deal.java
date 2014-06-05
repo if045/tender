@@ -9,6 +9,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import java.math.BigDecimal;
 import java.util.Date;
 
 @Entity
@@ -33,7 +34,7 @@ public class Deal {
     private Profile seller;
 
     @Column(name = "sum", nullable = false)
-    private Double sum;
+    private BigDecimal sum;
 
     @Column(name = "date", nullable = false)
     private Date date;
@@ -78,11 +79,11 @@ public class Deal {
         this.seller = seller;
     }
 
-    public Double getSum() {
+    public BigDecimal getSum() {
         return sum;
     }
 
-    public void setSum(Double sum) {
+    public void setSum(BigDecimal sum) {
         this.sum = sum;
     }
 

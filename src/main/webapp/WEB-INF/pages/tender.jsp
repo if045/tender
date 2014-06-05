@@ -20,15 +20,15 @@
     <script type='text/javascript' src='<c:url value="../resources/js/bootstrap.min.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/bootstrap-datepicker.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/select2.min.js"/>'></script>
+    <script type='text/javascript' src='<c:url value="../resources/js/tenders.js"/>'></script>
+    <script type='text/javascript' src='<c:url value="../resources/js/jquery.validate.min.js"/>'></script>
+    <script type='text/javascript' src='<c:url value="../resources/js/validations.js"/>'></script>
+    <script type='text/javascript' src='<c:url value="../resources/js/tender.js"/>'></script>
 
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $('#endDate').datepicker({
-                format: 'mm-dd-yyyy',
-                startDate: '-3d'
-            });
-        });
-    </script>
+    <script type='text/javascript' src='<c:url value="../resources/js/tender.js"/>'></script>
+
+    <script type='text/javascript' src='<c:url value="../resources/js/tenderview.js"/>'></script>
+    <script type='text/javascript' src='<c:url value="../resources/js/addTenderModal.js"/>'></script>
 </head>
 <body>
     <div class="container">
@@ -49,104 +49,82 @@
                 </div>
 
             <!-- information about tender -->
-                <form class="form-horizontal" role="form">
+                <form class="form-horizontal col-md-7" role="form" id="edit_tender_form">
                     <div class="form-group">
-                        <label for="endDate" class="col-md-2 control-label">End date</label>
-                        <div class="col-md-4">
-                            <div class="input-group date" id="endDate" data-date="29-03-2013" data-date-format="dd-mm-yyyy">
-                                <input id="date_to" class="form-control" size="10" type="text" value="">
+                        <label for="endDate" class="col-md-4 control-label">End date</label>
+                        <div class="col-md-5">
+                            <div class="input-group date" id="endDate" data-date="" data-date-format="dd-mm-yyyy">
+                                <input id="date_to" class="form-control custom_datepicker" size="10" type="text" value="">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                             </div>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="status" class="col-sm-2 control-label">Status</label>
+                        <label for="status" class="col-md-4 control-label">Status</label>
                         <div class="col-md-2">
                             <select id="status" class="form-control selectpicker"></select>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="suitablePrice" class="col-md-2 control-label">Suitable price</label>
+                        <label for="suitablePrice" class="col-md-4 control-label">Suitable price</label>
                         <p class="form-control-static col-md-2" id="suitablePrice">0000.00</p>
                     </div>
                     <div class="form-group">
-                        <label for="locations" class="col-md-2 control-label">Locations</label>
-                        <p class="form-control-static col-md-2" id="locations">Some locations</p>
-                        <button type="submit" class="btn btn-default col-md-1 col-md-offset-1">Save</button>
+                        <label for="locations" class="col-md-4 control-label">Locations</label>
+                        <p class="form-control-static col-md-4" id="locations">Some locations</p>
+                        <button type="submit" class="btn btn-default col-md-2 col-md-offset-1">Save</button>
                     </div>
                     <div class="form-group">
-                        <label for="description" class="col-md-2 control-label">Description</label>
-                        <div class="col-md-4">
-                            <textarea id="description" class="form-control" rows="3">There is some description</textarea>
+                        <label for="description" class="col-md-4 control-label">Description</label>
+                        <div class="col-md-6">
+                            <textarea id="description" class="form-control" rows="5" name="description"> There is some description </textarea>
                         </div>
                     </div>
                 </form>
 
+                <div class="right" hidden="">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <textarea id="proposalDescription" class="form-control" rows="3" disabled>There is proposal description and some allowance</textarea>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="row">
-                    <label for="units" class="col-md-7 control-label">Units</label>
-                    <label for="proposals" class="col-md-5 control-label">Proposals</label>
+                    <label for="units" class="col-md-6 col-md-offset-1 control-label"><h4>Units</h4></label>
+                    <label for="proposals" class="col-md-5 control-label"><h4>Proposals</h4></label>
                 </div>
 
                 <div class="row">
                     <div class="col-md-7">
                         <table class="table table-bordered table-striped" id="units">
-                            <tr>
-                                <th></th>
+                            <thead>
+                                <td align="center"><span class="glyphicon glyphicon-check"></span></td>
                                 <th>Name</th>
                                 <th>Type</th>
                                 <th>Category</th>
                                 <th>Quantity</th>
-                                <th>Measurement</th>
+                                <th>Bids</th>
                                 <th>Seller price</th>
                                 <th>Deal</th>
-                            </tr>
-                            <tr>
-                                <td align="center"><input type="checkbox"></td>
-                                <td align="center">Bricks</td>
-                                <td align="center">P</td>
-                                <td align="center">Building</td>
-                                <td align="center">23</td>
-                                <td align="center">kg</td>
-                                <td align="center"></td>
-                                <td align="center"><button type="submit" class="btn btn-default" disabled>Deal</button></td>
-                            </tr>
-                            <c:forEach var="unit" items="${units}">
-                                <tr>
-                                    <td align="center"><input type="checkbox"></td>
-                                    <td align="center"><c:out value="${unit.name}"/></td>
-                                    <td align="center"><c:out value="${unit.type}"/></td>
-                                    <td align="center"><c:out value="${unit.category}"/></td>
-                                    <td align="center"><c:out value="${unit.quantity}"/></td>
-                                    <td align="center"><c:out value="${unit.measurement}"/></td>
-                                    <td align="center"></td>
-                                    <td align="center"><button type="submit" class="btn btn-default" disabled>Deal</button></td>
-                                </tr>
-                            </c:forEach>
+                            </thead>
+                            <tbody id="unitsTable"></tbody>
                         </table>
                     </div>
-                    <div class="col-md-5">
-                        <table class="table table-bordered table-striped" id="proposals">
-                            <tr>
+
+                    <div class="col-md-4">
+                        <table class="table table-bordered table-striped" id="head_proposals">
+                            <thead>
                                 <th>Seller</th>
-                                <th>Number of bids</th>
+                                <th>Bids</th>
                                 <th>Total price</th>
                                 <th>Deal</th>
-                            </tr>
-                            <tr>
-                                <td align="center">Bob</td>
-                                <td align="center">2</td>
-                                <td align="center">451</td>
-                                <td align="center"><button type="submit" class="btn btn-default" disabled>Deal</button></td>
-                            </tr>
-                            <c:forEach var="proposal" items="${proposals}">
-                                <tr>
-                                    <td align="center"><c:out value="${unit.sellerName}"/></td>
-                                    <td align="center"><c:out value="${unit.numberOfBids}"/></td>
-                                    <td align="center"><c:out value="${unit.totalPrice}"/></td>
-                                    <td align="center"><button type="submit" class="btn btn-default" disabled>Deal</button></td>
-                                </tr>
-                            </c:forEach>
+                            </thead>
+                            <tbody id="proposals"/>
                         </table>
+                        <div id="no_proposals_message">
+                            <h4>There is no proposals</h4>
+                        </div>
                     </div>
                 </div>
 
@@ -155,9 +133,6 @@
                         <label for="message" class="col-md-6 control-label">AuthorName dd/mm/yyyy hh:mm</label>
                         <textarea id="message" class="form-control" rows="3" disabled>Message from this author</textarea>
                     </div>
-                    <div class="col-md-5">
-                        <textarea id="proposalDescription" class="form-control" rows="3" disabled>There is proposal description and some allowance</textarea>
-                    </div>
                 </div>
             </div>
             <!--footer -->
@@ -165,5 +140,10 @@
             <!-- footer -->
         </div>
     </div>
+
+<!--create tender modal -->
+<jsp:include page="createTender.jsp"/>
+<!--create tender modal -->
+
 </body>
 </html>

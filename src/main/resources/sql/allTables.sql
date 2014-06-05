@@ -6,25 +6,21 @@ INSERT INTO checked_status (name) VALUES
 ('Checked'),
 ('Denied');
 
-
-INSERT INTO tender_status (name) VALUES
-('Open'),
-('In progress'),
-('Close');
-
+INSERT INTO tender_status (name, active) VALUES
+('Open', true),
+('In progress', true),
+('Close', false);
 
 INSERT INTO conflict_status (name) VALUE
 ('Open'),
 ('In progress'),
 ('resolved');
 
-
 INSERT INTO role (name) VALUES
 ('admin'),
 ('moderator'),
 ('seller'),
 ('customer');
-
 
 INSERT INTO measurement (name) VALUES
 ('Kg'),
@@ -35,7 +31,6 @@ INSERT INTO measurement (name) VALUES
 ('Ton'),
 ('Sm'),
 ('Humen/Hour');
-
 
 INSERT INTO address (city, street, building_number, postcode) VALUES 
 ('Vilnohirsk', 'Stepova', 1, 27500),
@@ -54,7 +49,6 @@ INSERT INTO address (city, street, building_number, postcode) VALUES
 ('Lviv', 'Kravchenko', 2, 26600),
 ('Odessa', 'Bugaevskaya', 3, 25600);
 
-
 INSERT INTO company (name, srn, email, logo, address_id) VALUES 
 ('Vilnohirsk Mining Metallurgical Plant', 121345, 'Vilnohirsk@gmail.com', null, 1),
 ('Podolsky Smak', 122345, 'PodolskySmak@gmail.com', null, 2),
@@ -72,7 +66,6 @@ INSERT INTO company (name, srn, email, logo, address_id) VALUES
 ('Xado Corp', 132345, 'XadoCorp@gmail.com', null, 14),
 ('Garbuz Studio', 142345, 'GarbuzStudio@gmail.com', null, 15);
 
-
 INSERT INTO user (login, password, create_date) VALUES
 ('odin_ogame@ukr.net','arlekin',CURDATE()),
 ('mail4quest@mail.ru','quest',CURDATE()),
@@ -83,7 +76,6 @@ INSERT INTO user (login, password, create_date) VALUES
 ('sanja_ivanow@ukr.net','123qwerty',CURDATE()),
 ('kolja234@qmail.com','vasa567',CURDATE());
 
-
 INSERT INTO profile (icon, first_name, last_name, birthday, telephone, checked, person, user_id, company_id) VALUES 
 (null, 'Ivan', 'Nesamay', '1986-05-28', '55-559-5', false, 'L', 1, 1),
 (null, 'Vasja', 'Pupkin', '1966-02-18', '55-559-5', false, 'L', 2, 2),
@@ -93,7 +85,6 @@ INSERT INTO profile (icon, first_name, last_name, birthday, telephone, checked, 
 (null, 'Nasar', 'Havruliv', '1976-06-08', '55-559-5', false, 'L', 6, 6),
 (null, 'Vasul', 'Sobol', '1989-02-02', '55-559-5', false, 'L', 7, 7),
 (null, 'Oksana', 'Sobol', '1983-08-01', '55-559-5', false, 'L', 8, 8);
-
 
 INSERT INTO location (name) VALUES 
 ('Autonomous Republic of Crimea'),
@@ -122,12 +113,10 @@ INSERT INTO location (name) VALUES
 ('Zaporizhzhya Region'),
 ('Zhytomyr Region');
 
-
 INSERT INTO deal_status (name) VALUES 
 ('open'),
 ('in progress'),
 ('close');
-
 
 INSERT INTO category (name, parent) VALUES
 ('Building', NULL),
@@ -142,41 +131,38 @@ INSERT INTO category (name, parent) VALUES
 ('Milk', 7),
 ('Cars', NULL);
 
-
 INSERT INTO tender (author_id, title, create_date, end_date, status_id, suitable_price, description) VALUES
-(1, 'Meal', '2014-06-10', '2014-07-10', 1, 1000000.00, NULL),
-(2, 'Materials', CURDATE(), '2014-06-03', 2, 500000.00, NULL),
-(3, 'Haus Building', '2014-04-10', CURDATE(), 3, 1600000.00, NULL),
-(4, 'Animals', CURDATE(), '2014-06-04', 2, 9900000.00, NULL),
-(5, 'Animals', '2014-06-08', '2014-06-18', 1, 19000000.00, NULL),
+(1, 'I want buy meal', '2014-06-10', '2014-07-10', 1, 1000000.00, NULL),
+(2, 'Materials', CURDATE(), '2014-06-03', 2, 500000.00, "I want free deliver"),
+(3, 'Haus building', '2014-04-10', CURDATE(), 3, 1600000.00, NULL),
+(4, 'Need animals', CURDATE(), '2014-06-04', 2, 9900000.00, "Need free deliver"),
+(5, 'Animals', '2014-05-28', '2014-06-18', 2, 19000000.00, "I need fast deliver"),
 (6, 'Tourism', '2014-04-12', CURDATE(), 3, 23000000.00, NULL),
 (7, 'Industry', '2014-06-07', '2014-06-28', 1, 450000.00, NULL),
-(8, 'Products', '2014-06-08', '2014-06-17', 1, 113000000.00, NULL),
+(8, 'Need products', '2014-06-08', '2014-06-17', 1, 113000000.00, "I want deliver to some specific place"),
 (4, 'Products', CURDATE(),'2014-06-15', 2, 14000000.00, NULL),
+(2, 'I want buy products', CURDATE(), '2014-06-18', 2, 76000000.00, NULL),
+(3, 'All in one', CURDATE(), '2014-06-22', 2, 59000000.00, NULL),
+(1, 'Products', '2014-06-10', '2014-06-25', 1, 1000000.00, "I want free deliver to some specific place"),
+(2, 'Need workers for build haus', '2014-05-11', '2014-06-16', 2, 500000.00, NULL),
+(3, 'Haus bilding ', '2014-04-25', CURDATE(), 3, 1600000.00, NULL),
+(4, 'Need cars for big firm', CURDATE(), '2014-06-22', 2, 9900000.00, "Firm need fast deliver"),
+(5, 'Cars for my firm', '2014-06-09', '2014-06-19', 1, 19000000.00, NULL),
+(6, 'Haus Building', '2014-04-12', '2014-06-11', 2, 23000000.00, NULL),
+(7, 'Industry and building', '2014-06-07', '2014-06-28', 1, 450000.00, NULL),
+(8, 'Need products', '2014-06-08', '2014-06-17', 1, 113000000.00, NULL),
+(4, 'Need products', CURDATE(),'2014-06-15', 2, 14000000.00, "I want free deliver"),
 (2, 'Products', CURDATE(), '2014-06-18', 2, 76000000.00, NULL),
-(3, 'All in 0ne', CURDATE(), '2014-06-22', 2, 59000000.00, NULL),
 (1, 'Products', '2014-06-10', '2014-06-25', 1, 1000000.00, NULL),
 (2, 'Need workers', '2014-05-11', '2014-06-16', 2, 500000.00, NULL),
-(3, 'Haus Building', '2014-04-25', CURDATE(), 3, 1600000.00, NULL),
-(4, 'Cars', CURDATE(), '2014-06-22', 2, 9900000.00, NULL),
+(3, 'Haus building', '2014-04-25', CURDATE(), 3, 1600000.00, NULL),
+(4, 'I want find cars', CURDATE(), '2014-06-22', 2, 9900000.00, "I want deliver to some specific place"),
 (5, 'Cars', '2014-06-09', '2014-06-19', 1, 19000000.00, NULL),
 (6, 'Haus Building', '2014-04-12', '2014-06-11', 2, 23000000.00, NULL),
 (7, 'Industry', '2014-06-07', '2014-06-28', 1, 450000.00, NULL),
-(8, 'Products', '2014-06-08', '2014-06-17', 1, 113000000.00, NULL),
-(4, 'Products', CURDATE(),'2014-06-15', 2, 14000000.00, NULL),
-(2, 'Products', CURDATE(), '2014-06-18', 2, 76000000.00, NULL),
-(1, 'Products', '2014-06-10', '2014-06-25', 1, 1000000.00, NULL),
-(2, 'Need workers', '2014-05-11', '2014-06-16', 2, 500000.00, NULL),
-(3, 'Haus Building', '2014-04-25', CURDATE(), 3, 1600000.00, NULL),
-(4, 'Cars', CURDATE(), '2014-06-22', 2, 9900000.00, NULL),
-(5, 'Cars', '2014-06-09', '2014-06-19', 1, 19000000.00, NULL),
-(6, 'Haus Building', '2014-04-12', '2014-06-11', 2, 23000000.00, NULL),
-(7, 'Industry', '2014-06-07', '2014-06-28', 1, 450000.00, NULL),
-(8, 'Products', '2014-06-08', '2014-06-17', 1, 113000000.00, NULL),
-(4, 'Products', CURDATE(),'2014-06-15', 2, 14000000.00, NULL),
+(8, 'Products for our firm', '2014-06-08', '2014-06-17', 1, 113000000.00, "I want free deliver to some specific place"),
+(4, 'Products for me', CURDATE(),'2014-06-15', 2, 14000000.00, NULL),
 (2, 'Products', CURDATE(), '2014-06-18', 2, 76000000.00, NULL);
-
-
 
 INSERT INTO proposal (discount_percentage, discount_currency, description, seller_id, tender_id) VALUES
 (10, null, 'If you wil take all', 1, 10),
@@ -190,7 +176,6 @@ INSERT INTO proposal (discount_percentage, discount_currency, description, selle
 (null, 1500.00, null, 8, 2),
 (null, 500.00, null, 4, 1),
 (null, 5000.00, null, 1, 7);
-
 
 INSERT INTO item (name, type, category_id) VALUES
 ('Rocks', 'P', 1),
@@ -209,7 +194,6 @@ INSERT INTO item (name, type, category_id) VALUES
 ('Audi-7', 'P', 11),
 ('BMW', 'P', 11),
 ('Kia', 'P', 11);
-
 
 INSERT INTO unit (quantity, measurement_id, item_id, tender_id) VALUES
 (500, 1, 10, 9),
@@ -255,7 +239,6 @@ INSERT INTO checked_profile (profile_id, moderator_id, status_id) VALUES
 (8,2,3),
 (3,2,2);
 
-
 INSERT INTO bid (price, date, proposal_id, unit_id) VALUES
 (1000.00, CURDATE(), 1, 1),
 (60000.00, CURDATE(), 2, 2),
@@ -268,7 +251,6 @@ INSERT INTO bid (price, date, proposal_id, unit_id) VALUES
 (56000.00, CURDATE(), 9, 9),
 (56000.00, CURDATE(), 10, 10);
 
-
 INSERT INTO conflict (moderator_id, bid_id, description, status_id) VALUE
 (1,1,'text1',1),
 (2,2,'text2',2),
@@ -279,7 +261,6 @@ INSERT INTO conflict (moderator_id, bid_id, description, status_id) VALUE
 (1,7,'text7',1),
 (3,8,'text8',3),
 (2,9,'text9',1);
-
 
 INSERT INTO comment (tender_id, user_id, message, date) VALUES 
 (1, 1, 'This price is too high', CURDATE()), 
@@ -292,14 +273,12 @@ INSERT INTO comment (tender_id, user_id, message, date) VALUES
 (2, 1, 'This is too low price.', CURDATE()), 
 (2, 2, 'I do not think so.', CURDATE());
 
-
 INSERT INTO deal (bid_id, proposal_id, customer_id, seller_id, sum, date, status_id) VALUES 
-(1, 1, 1, 1, 100000.00, CURDATE(), 1),
 (3, 1, 2, 1, 55000.00, CURDATE(), 1),
 (2, 3, 5, 2, 40000.00, CURDATE(), 1),
 (5, 4, 4, 5, 400000.00, CURDATE(), 2),
 (10, 6, 2, 6, 25000.00, CURDATE(), 2),
-(4, 1, 5, 3, 1000.00, CURDATE(), 2),
+(4, 2, 5, 3, 1000.00, CURDATE(), 2),
 (4, 8, 4, 7, 240000.00, CURDATE(), 1),
 (1, 4, 5, 2, 1250500.00, CURDATE(), 1),
 (9, 9, 6, 3, 56000.00, CURDATE(), 3),

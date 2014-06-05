@@ -6,8 +6,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import java.util.List;
 
 @Entity
 @Table(name = "unit")
@@ -32,6 +34,9 @@ public class Unit {
     @OneToOne
     @JoinColumn(name = "item_id", nullable = false)
     private Item item;
+
+    @OneToMany(mappedBy = "unit")
+    private List<Bid> bids;
 
     public Integer getId() {
         return id;
@@ -73,4 +78,11 @@ public class Unit {
         this.tender = tender;
     }
 
+    public List<Bid> getBids() {
+        return bids;
+    }
+
+    public void setBids(List<Bid> bids) {
+        this.bids = bids;
+    }
 }

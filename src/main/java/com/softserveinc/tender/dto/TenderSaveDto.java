@@ -1,12 +1,13 @@
 package com.softserveinc.tender.dto;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public class TenderSaveDto {
 
     private String title;
     private List<LocationSaveDto> locations;
-    private Double suitablePrice;
+    private BigDecimal suitablePrice;
     private String endDate;
     private String description;
     private List<UnitSaveDto> units;
@@ -27,11 +28,11 @@ public class TenderSaveDto {
         this.locations = locations;
     }
 
-    public Double getSuitablePrice() {
+    public BigDecimal getSuitablePrice() {
         return suitablePrice;
     }
 
-    public void setSuitablePrice(Double suitablePrice) {
+    public void setSuitablePrice(BigDecimal suitablePrice) {
         this.suitablePrice = suitablePrice;
     }
 

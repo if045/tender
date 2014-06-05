@@ -21,4 +21,8 @@ public class UnitServiceImpl implements UnitService{
     public Unit save(Unit unit) {
         return unitRepository.saveAndFlush(unit);
     }
+
+    public List<Unit> findUnitsByTenderId(int tenderId) {
+        return unitRepository.findUnitsByTenderId(tenderId);
+    }
 }
