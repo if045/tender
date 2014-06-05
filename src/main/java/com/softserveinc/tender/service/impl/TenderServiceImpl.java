@@ -1,9 +1,11 @@
 package com.softserveinc.tender.service.impl;
 
 import com.softserveinc.tender.entity.Tender;
+import com.softserveinc.tender.entity.TenderStatus;
 import com.softserveinc.tender.repo.TenderFilter;
 import com.softserveinc.tender.repo.TenderRepository;
 import com.softserveinc.tender.service.TenderService;
+import com.softserveinc.tender.service.TenderStatusService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +16,9 @@ public class TenderServiceImpl implements TenderService {
 
     @Autowired
     private TenderRepository tenderRepository;
+
+    @Autowired
+    private TenderStatusService tenderStatusService;
 
     public Tender findOne(int id) {
         return tenderRepository.findOne(id);
@@ -28,5 +33,14 @@ public class TenderServiceImpl implements TenderService {
                                                        tenderFilter.getCategoryFlag(), tenderFilter.getItemFlag(),
                                                        tenderFilter.getLocationFlag(), tenderFilter.getStatusFlag(),
                                                        tenderFilter.getPriceFlag());
+    }
+
+    @Override
+    public void updateTenderWithStatus(Integer tenderId, String statusName) {
+        Tender tender = tenderRepository.findOne(tenderId);
+        TenderStatus tenderStatus = tenderStatusService.findTenderStatusByName(statusName);
+
+        tender.setStatus(tenderStatus);
+        tenderRepository.save(tender);
     }
 }

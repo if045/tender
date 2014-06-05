@@ -23,6 +23,7 @@
     <script type='text/javascript' src='<c:url value="../resources/js/select2.min.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/jquery.validate.min.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/validations.js"/>'></script>
+    <script type='text/javascript' src='<c:url value="../resources/js/constants.js"/>'></script>
 
     <script type='text/javascript' src='<c:url value="../resources/js/tenders.js"/>'></script>
 </head>
@@ -179,6 +180,28 @@
 <!--create proposal modal -->
 <jsp:include page="createProposal.jsp" />
 <!--create proposal modal -->
+
+<!-- close tender modal window -->
+<div class="modal fade" id="close_tender_mod_wind" tabindex="-1" role="dialog" hidden="">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header"><button class="close" type="button" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Attention</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" role="form">
+                    <h4>Are you sure you want to close this tender?</h4>
+                    <input id="close_tender_id" type="text" value="" hidden=""/>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-default" type="button" data-dismiss="modal">No</button>
+                <button class="btn btn-primary" type="button" onclick="closeTender();">Yes</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- close tender modal window -->
 
 </body>
 

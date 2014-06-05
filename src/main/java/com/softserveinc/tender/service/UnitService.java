@@ -5,4 +5,5 @@ import java.util.List;
 
 public interface UnitService {
     List<Unit> findAll();
+    List<Unit> findUnitsByTenderId(int tenderId);
 }

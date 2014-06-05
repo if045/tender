@@ -66,7 +66,7 @@
                                     <div>Type*:</div>
                                     <div class="btn-group selectpicker" data-toggle="buttons">
                                       <label class="btn btn-default radio-first-child">
-                                        <input type="radio" name="options" id="option1" value="P">Product
+                                        <input type="radio" name="options" id="option1" value="P" checked>Product
                                       </label>
                                       <label class="btn btn-default">
                                         <input type="radio" name="options" id="option2" value="S">Service
