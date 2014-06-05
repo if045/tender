@@ -40,14 +40,28 @@ function showUnit() {
         var html = '';
         var len = data.length;
         for (var i = 0; i < len; i++) {
-            html += '<tr><td>' + ' <input type="checkbox">' + '</td>' +
-                '<td>' + data[i].unitName + '</td>' +
-                '<td>' + data[i].itemType + '</td>' +
-                '<td>' + data[i].categoryName + '</td>' +
-                '<td>' + data[i].quantity + ' ' + data[i].measurementName + '</td>' +
-                '<td>' + data[i].numberOfBids + '</td>' +
-                '<td>' + data[i].price + '</td>' +
-                '<td>' + '<button type="submit" class="btn btn-default" disabled>Deal</button>' + '</td></tr>';
+            if (data[i].itemType=='P') {
+                var itemTypes='Product'
+                html += '<tr><td>' + ' <input type="checkbox">' + '</td>' +
+                    '<td>' + data[i].unitName + '</td>' +
+                    '<td>' + itemTypes + '</td>' +
+                    '<td>' + data[i].categoryName + '</td>' +
+                    '<td>' + data[i].quantity + ' ' + data[i].measurementName + '</td>' +
+                    '<td>' + data[i].numberOfBids + '</td>' +
+                    '<td>' + data[i].price + '</td>' +
+                    '<td>' + '<button type="submit" class="btn btn-default" disabled>Deal</button>' + '</td></tr>';
+            }else{
+                var itemTypes='Service';
+                html += '<tr><td>' + ' <input type="checkbox">' + '</td>' +
+                    '<td>' + data[i].unitName + '</td>' +
+                    '<td>' + itemTypes + '</td>' +
+                    '<td>' + data[i].categoryName + '</td>' +
+                    '<td>' + data[i].quantity + ' ' + data[i].measurementName + '</td>' +
+                    '<td>' + data[i].numberOfBids + '</td>' +
+                    '<td>' + data[i].price + '</td>' +
+                    '<td>' + '<button type="submit" class="btn btn-default" disabled>Deal</button>' + '</td></tr>';
+            }
+
         }
         $('#unitsTable').html(html);
     });
