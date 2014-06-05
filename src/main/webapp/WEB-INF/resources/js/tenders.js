@@ -9,7 +9,7 @@
             });
 
             $("#item_dropdown").select2({
-                placeholder: "Select a items"
+                placeholder: "All items"
 
             });
 
