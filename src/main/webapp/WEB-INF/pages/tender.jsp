@@ -20,6 +20,9 @@
     <script type='text/javascript' src='<c:url value="../resources/js/bootstrap.min.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/bootstrap-datepicker.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/select2.min.js"/>'></script>
+    <script type='text/javascript' src='<c:url value="../resources/js/tenders.js"/>'></script>
+    <script type='text/javascript' src='<c:url value="../resources/js/jquery.validate.min.js"/>'></script>
+    <script type='text/javascript' src='<c:url value="../resources/js/validations.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/tender.js"/>'></script>
 
     <script type='text/javascript' src='<c:url value="../resources/js/tender.js"/>'></script>
@@ -47,7 +50,7 @@
                 </div>
 
             <!-- information about tender -->
-                <form class="form-horizontal col-md-7" role="form">
+                <form class="form-horizontal col-md-7" role="form" id="edit_tender_form">
                     <div class="form-group">
                         <label for="endDate" class="col-md-4 control-label">End date</label>
                         <div class="col-md-5">
@@ -75,7 +78,7 @@
                     <div class="form-group">
                         <label for="description" class="col-md-4 control-label">Description</label>
                         <div class="col-md-6">
-                            <textarea id="description" class="form-control" rows="3">There is some description</textarea>
+                            <textarea id="description" class="form-control" rows="5" name="description"> There is some description </textarea>
                         </div>
                     </div>
                 </form>
@@ -133,9 +136,6 @@
                         <label for="message" class="col-md-6 control-label">AuthorName dd/mm/yyyy hh:mm</label>
                         <textarea id="message" class="form-control" rows="3" disabled>Message from this author</textarea>
                     </div>
-                    <%--<div class="col-md-5">
-                        <textarea id="proposalDescription" class="form-control" rows="3" disabled>There is proposal description and some allowance</textarea>
-                    </div>--%>
                 </div>
             </div>
             <!--footer -->

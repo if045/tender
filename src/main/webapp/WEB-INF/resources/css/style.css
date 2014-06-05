@@ -206,6 +206,10 @@ textarea {
     resize: none;
 }
 
+.price_input {
+    width: 100px;
+}
+
 .custom_datepicker {
 	font-size: 13px !important;
 }
