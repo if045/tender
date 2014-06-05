@@ -44,7 +44,6 @@ function showUnit() {
                 var itemTypes = 'Product'
             else if (data[i].itemType == 'S')
                 var itemTypes = 'Service'
-
             html += '<tr><td>' + ' <input type="checkbox">' + '</td>' +
                 '<td>' + data[i].unitName + '</td>' +
                 '<td>' + itemTypes + '</td>' +
