@@ -4,6 +4,8 @@
                 startDate: '-5y'
             });
 
+            initializeDateFilter();
+
             $("#category_filter").select2({
                 placeholder: "All categories"
             });
@@ -376,4 +378,41 @@
 
         function showDeals() {
             window.location.href='/mydeals';
+        }
+
+        function initializeDateFilter() {
+            var currentDate = getCurrentDate();
+            var nextMonthDate = getNextMonthDate();
+
+            $('#startDate').data({date: currentDate});
+            $('#startDate').datepicker('update');
+            $('#startDate').datepicker().children('input').val(currentDate);
+
+            $('#endDate').data({date: nextMonthDate});
+            $('#endDate').datepicker('update');
+            $('#endDate').datepicker().children('input').val(nextMonthDate);
+        }
+
+        function getCurrentDate() {
+            var today = new Date();
+            var day = today.getDate();
+            var month = today.getMonth()+1;
+            var year = today.getFullYear();
+
+            if(day < 10) day = '0' + day;
+            if(month < 10) month = '0' + month;
+
+            return year + '/' + month + '/' + day;
+        }
+
+        function getNextMonthDate() {
+            var today = new Date();
+            var day = today.getDate();
+            var month = today.getMonth()+2;
+            var year = today.getFullYear();
+
+            if(day < 10) day = '0' + day;
+            if(month < 10) month = '0' + month;
+
+            return year + '/' + month + '/' + day;
         }
