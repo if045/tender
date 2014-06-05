@@ -27,4 +27,9 @@ public class MeasurementServiceImpl implements MeasurementService {
     public void saveMeasurement(Measurement measurement) {
         measurementRepository.save(measurement);
     }
+
+    @Override
+    public Measurement findByName(String name) {
+        return measurementRepository.findByName(name);
+    }
 }

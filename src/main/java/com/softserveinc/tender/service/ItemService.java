@@ -9,6 +9,7 @@ public interface ItemService {
 
     List<Item> findAll();
     List<Item> findAllItemsByTenders(TenderFilter tenderFilter);
-    List<Item> findByCategoryId(Integer id);
-    List<Item> findByCategoryIdAndType(Integer id, Character type);
+    List<Item> findItems(TenderFilter tenderFilter);
+    Item findByName(String name);
+    Item save(Item item);
 }

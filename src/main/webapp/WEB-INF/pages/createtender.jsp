@@ -85,7 +85,7 @@
                                         	<select id="create_tender_unit_item" class="form-control selectpicker col-sm-6"></select>
                                         </div>
                                         <div class="pull-left col-sm-6">	
-                                        	<input type="text" class="form-control" id="create_tender_unit_newitem" placeholder="New item" disabled>
+                                        	<input type="text" class="form-control" id="create_tender_unit_newitem" placeholder="New item">
                                         </div>	
                                     </div>
                                 </div> 
@@ -111,7 +111,8 @@
                             <div class="col-sm-7 addunit_body_item">
                                 <div class="form-group">
                                     <div class="selectpicker">
-                                        <button type="button" class="btn btn-primary pull-right addbutton" id="add_unit" onclick="addUnit();">Add</button>
+                                        <button type="button" class="btn btn-primary pull-right addbutton"
+                                                id="add_unit_button" onclick="addUnit();" disabled>Add</button>
                                     </div>
                                 </div> 
                             </div>
@@ -119,7 +120,7 @@
                     </div>   
                 </div>
 
-                <div class="">
+                <div id="create_tender_units_table" class="" style="display: none">
                     <div><label class="control-label">Units:</label></div>
                     <div>
                         <table class="table table-bordered table-striped units_table">
@@ -145,8 +146,9 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-primary">Create</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal" onclick="cleanCreateTenderFields();">Cancel</button>
+        <button type="button" class="btn btn-primary" id="create_tender_button"
+                onclick="createTender();" disabled>Create</button>
       </div>
     </div>
   </div>

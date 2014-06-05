@@ -10,4 +10,5 @@ public interface TenderStatusService {
     List<TenderStatus> findAllTenderStatuses();
     TenderStatus findTenderStatusById(Integer id);
     List<TenderStatus> getAllTenderStatuses();
+    TenderStatus findByName(String name);
 }

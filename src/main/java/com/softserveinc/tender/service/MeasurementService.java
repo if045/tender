@@ -8,4 +8,5 @@ public interface MeasurementService {
     List<Measurement> findAll();
     Measurement findMeasurementById(Integer id);
     void saveMeasurement(Measurement measurement);
+    Measurement findByName(String name);
 }

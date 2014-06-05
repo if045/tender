@@ -23,6 +23,34 @@ public class TenderFilter {
     private Integer statusFlag;
     private Integer dataFlag;
 
+    private String categoryName;
+    private Character type;
+    private Integer typeFlag;
+
+    public TenderFilter(List<Integer> categories) {
+        if (categories==null) {
+            setCategoryFlag(1);
+        }else {
+            this.categories =categories;
+            setCategoryFlag(0);
+        }
+    }
+
+    public TenderFilter(String categoryName, Character type) {
+        if (categoryName==null) {
+            setCategoryFlag(1);
+        }else {
+            this.categoryName = categoryName;;
+            setCategoryFlag(0);
+        }
+        if (type==null) {
+            setTypeFlag(1);
+        }else {
+            this.type = type;
+            setTypeFlag(0);
+        }
+    }
+
     public TenderFilter(Double minPrice, Double maxPrice, List<Integer> categories, List<Integer> locations, List<Integer> items, List<Integer> statuses, Date minDate, Date maxDate) {
         this.minPrice = (minPrice!=null)?minPrice:0;
         this.maxPrice = (maxPrice!=null)?maxPrice:999999999.99;
@@ -54,6 +82,30 @@ public class TenderFilter {
         }
         this.minDate = (minDate!=null)?minDate:new Date();
         this.maxDate = (maxDate!=null)?maxDate:new Date((new Date().getTime())+2419200000l);
+    }
+
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
+    }
+
+    public Character getType() {
+        return type;
+    }
+
+    public void setType(Character type) {
+        this.type = type;
+    }
+
+    public Integer getTypeFlag() {
+        return typeFlag;
+    }
+
+    public void setTypeFlag(Integer typeFlag) {
+        this.typeFlag = typeFlag;
     }
 
     public Integer getDataFlag() {

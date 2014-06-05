@@ -8,4 +8,5 @@ public interface TenderService {
 
     Tender findOne(int id);
     List<Tender> findByCustomParameters(TenderFilter tenderFilter);
+    Tender save(Tender tender);
 }
