@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
@@ -62,6 +61,12 @@ public class TenderController {
     @RequestMapping(value = "/categories", method = RequestMethod.GET)
     public @ResponseBody List<CategoryDto> findAllCategories() {
         return tenderFacade.findTendersCategories();
+    }
+
+    @RequestMapping(value = "/{tenderId}", method = RequestMethod.PUT)
+    public @ResponseBody void updateTenderWithStatus(@PathVariable("tenderId") Integer tenderId,
+                                                     @RequestParam("statusName") String statusName) {
+        tenderFacade.updateTenderWithStatus(tenderId, statusName);
     }
 
     @RequestMapping(value = "/{id}/proposals", method = RequestMethod.GET)

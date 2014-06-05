@@ -23,6 +23,7 @@
     <script type='text/javascript' src='<c:url value="../resources/js/select2.min.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/jquery.validate.min.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/validations.js"/>'></script>
+    <script type='text/javascript' src='<c:url value="../resources/js/constants.js"/>'></script>
 
     <script type='text/javascript' src='<c:url value="../resources/js/tenders.js"/>'></script>
 </head>
@@ -41,7 +42,7 @@
 
                 <div class="panel panel-default sidebar">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Filter</h3>
+                        <h3 class="panel-title">Tender filter</h3>
                     </div>
                     <div class="panel-body">
 
@@ -102,20 +103,19 @@
             <div class="col-md-9">
                 <div class="row">
                     <div class="pull-left">
-                        <h3>Tenders</h3>
                     </div>
                     <div class="pull-right">
-                        <form class="navbar-form navbar-right" role="search">
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Search...">
-                            </div>
-                            <button type="submit" class="btn btn-default">Search</button>
-                        </form>
+                            <form id="search_form" class="navbar-form navbar-right" role="search">
+                                <div class="form-group">
+                                    <input id="search_input" type="text" class="form-control" placeholder="Search...">
+                                </div>
+                            </form>
                     </div>
                 </div>
 
                 <!-- items -->
-                <div class="row">
+                <div id="user_message" class="row"></div>
+                <div id="tender_items" class="row">
                     <table class="table table-bordered table-striped">
                         <thead>
                         <tr>
@@ -135,7 +135,7 @@
                 <!-- items -->
 
                 <!-- pagination -->
-                <div class="row">
+                <div id="pagination" class="row">
                     <div class="col-md-12">
                         <div class="pull-right">
                             <ul class="pagination page_pagination pull-right">
@@ -147,10 +147,10 @@
                         </div>
                         <div class="pull-right">
                             <div class="control-group">
-                                 <select class="form-control pull-right items_number_dropdown">
-                                     <option>10</option>
-                                     <option>15</option>
-                                     <option>20</option>
+                                 <select id="pagination_itemsnum" class="form-control pull-right items_number_dropdown">
+                                     <option value="10">10</option>
+                                     <option value="15">15</option>
+                                     <option value="20">20</option>
                                  </select>
                             </div>
                         </div>
@@ -165,11 +165,12 @@
         </div>
         <!--main-->
 
-        <!--footer -->
-        <jsp:include page="footer.jsp"/>
-        <!-- footer -->
 
     </div>
+    
+    <!--footer -->
+    <jsp:include page="footer.jsp"/>
+    <!-- footer -->
 </div>
 
 <!--create tender modal -->
@@ -179,6 +180,28 @@
 <!--create proposal modal -->
 <jsp:include page="createProposal.jsp" />
 <!--create proposal modal -->
+
+<!-- close tender modal window -->
+<div class="modal fade" id="close_tender_mod_wind" tabindex="-1" role="dialog" hidden="">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header"><button class="close" type="button" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Attention</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" role="form">
+                    <h4>Are you sure you want to close this tender?</h4>
+                    <input id="close_tender_id" type="text" value="" hidden=""/>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-default" type="button" data-dismiss="modal">No</button>
+                <button class="btn btn-primary" type="button" onclick="closeTender();">Yes</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- close tender modal window -->
 
 </body>
 

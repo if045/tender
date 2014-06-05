@@ -10,4 +10,6 @@ public interface TenderStatusRepository extends JpaRepository<TenderStatus, Inte
 
     @Query("select distinct s from Tender t inner join t.status s order by s.id asc")
     List<TenderStatus> findAllTenderStatuses();
+
+    TenderStatus findByName(String name);
 }

@@ -29,23 +29,23 @@ $(document).ready(function () {
         messages: {
 
             title: {
-                required: "Це поле не може бути пустим!",
-                minlength: "Мінімальна довжина 4 символа",
-                maxlength: "Максимальна довжина 30 символів"
+                required: "This field can not be empty!",
+                minlength: "The minimum length of 4 character",
+                maxlength: "The maximum length of 30 characters"
             },
 
             price: {
-                required: "Це поле не може бути пустим!",
-                number: "Неправильний формат вводу!"
+                required: "This field can not be empty!",
+                number: "Input format - numbers!"
             },
 
             quantity: {
-                required: "Це поле не може бути пустим!",
-                digits: "Неправильний формат вводу!"
+                required: "This field can not be empty!",
+                digits: "Input format - digits!"
             },
 
             description: {
-                maxlength: "Максимальна довжина 100 символів"
+                maxlength: "The maximum length of 100 characters"
             }
         }
     });
@@ -99,4 +99,18 @@ $(document).ready(function () {
             }
         }
     });
+
+    function validateDescription(id) {
+        $('#' + id).validate({
+           rules: {
+               description: {
+                   maxlength: 100
+               }
+           } ,
+
+            messages: {
+                description: "The maximum length of 100 characters"
+            }
+        });
+    }
 });

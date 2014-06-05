@@ -23,15 +23,10 @@
     <script type='text/javascript' src='<c:url value="../resources/js/tenders.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/jquery.validate.min.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/validations.js"/>'></script>
+    <script type='text/javascript' src='<c:url value="../resources/js/tender.js"/>'></script>
 
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $('#endDate').datepicker({
-                format: 'mm-dd-yyyy',
-                startDate: '-3d'
-            });
-        });
-    </script>
+    <script type='text/javascript' src='<c:url value="../resources/js/tenderview.js"/>'></script>
+    <script type='text/javascript' src='<c:url value="../resources/js/modalwindows.js"/>'></script>
 </head>
 <body>
     <div class="container">
@@ -56,8 +51,8 @@
                     <div class="form-group">
                         <label for="endDate" class="col-md-4 control-label">End date</label>
                         <div class="col-md-5">
-                            <div class="input-group date" id="endDate" data-date="29-03-2013" data-date-format="dd-mm-yyyy">
-                                <input id="date_to" class="form-control" size="10" type="text" value="">
+                            <div class="input-group date" id="endDate" data-date="" data-date-format="dd-mm-yyyy">
+                                <input id="date_to" class="form-control custom_datepicker" size="10" type="text" value="">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                             </div>
                         </div>
@@ -137,7 +132,7 @@
                     </div>
 
                     <div class="col-md-4">
-                        <table class="table table-bordered table-striped">
+                        <table class="table table-bordered table-striped" id="head_proposals">
                             <thead>
                                 <th>Seller</th>
                                 <th>Bids</th>
@@ -146,6 +141,9 @@
                             </thead>
                             <tbody id="proposals"/>
                         </table>
+                        <div id="no_proposals_message">
+                            <h4>There is no proposals</h4>
+                        </div>
                     </div>
                 </div>
 
@@ -161,5 +159,10 @@
             <!-- footer -->
         </div>
     </div>
+
+<!--create tender modal -->
+<jsp:include page="createtender.jsp"/>
+<!--create tender modal -->
+
 </body>
 </html>

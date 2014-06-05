@@ -210,3 +210,7 @@ textarea {
     width: 100px;
 }
 
+.custom_datepicker {
+	font-size: 13px !important;
+}
+
