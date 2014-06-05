@@ -28,8 +28,7 @@
     <script type='text/javascript' src='<c:url value="../resources/js/tender.js"/>'></script>
 
     <script type='text/javascript' src='<c:url value="../resources/js/tenderview.js"/>'></script>
-    <script type='text/javascript' src='<c:url value="../resources/js/modalwindows.js"/>'></script>
-
+    <script type='text/javascript' src='<c:url value="../resources/js/addTenderModal.js"/>'></script>
 </head>
 <body>
     <div class="container">
@@ -145,7 +144,7 @@
     </div>
 
 <!--create tender modal -->
-<jsp:include page="createtender.jsp"/>
+<jsp:include page="createTender.jsp"/>
 <!--create tender modal -->
 
 </body>

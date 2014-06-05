@@ -17,4 +17,9 @@ public class RootController {
     public String showTender(@PathVariable("tenderId") Integer tenderId) {
         return "tender";
     }
+
+    @RequestMapping("/mydeals")
+    public String getAllDeals() {
+        return "deals";
+    }
 }
