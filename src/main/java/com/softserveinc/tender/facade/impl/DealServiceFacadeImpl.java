@@ -42,12 +42,13 @@ public class DealServiceFacadeImpl implements DealServiceFacade {
 
     private DealDto mapDeal(Deal deal) {
         DealDto dealDto = new DealDto();
-
         dealDto.setId(deal.getId());
         dealDto.setDate(deal.getDate());
         dealDto.setStatus(deal.getStatus().getName());
         dealDto.setSum(deal.getSum());
         dealDto.setDate(deal.getDate());
+        dealDto.setTitle(deal.getProposal().getTender().getTitle());
+        dealDto.setBusinessPartner(deal.getCustomer().getFirstName());
 
         return dealDto;
     }
