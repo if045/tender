@@ -13,10 +13,10 @@ function showProposals() {
     var URL = location.href;
     var tenderURI = URL.split(TENDER_VIEW_URL);
     var tenderId = tenderURI[tenderURI.length - 1];
-    $.getJSON('/tenders/' + tenderId + '/proposals', function (data) {
+    $.getJSON('/tenders/'+tenderId+'/proposals', function (data) {
         var html;
         var len = data.length;
-        if (len > 0) {
+        if(len > 0) {
             document.getElementById("no_proposals_message").setAttribute('hidden', 'true');
             for (var i = 0; i < len; i++) {
                 html += '<tr>' +
@@ -28,7 +28,7 @@ function showProposals() {
             }
             $('#proposals').html(html);
         } else {
-            document.getElementById("head_proposals").setAttribute('hidden', 'true');
+            document.getElementById("head_proposals").setAttribute('hidden','true');
         }
     });
 }
