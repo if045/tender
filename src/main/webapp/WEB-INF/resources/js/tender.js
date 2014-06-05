@@ -53,8 +53,6 @@ function showUnit() {
                 '<td>' + data[i].numberOfBids + '</td>' +
                 '<td>' + data[i].price + '</td>' +
                 '<td>' + '<button type="submit" class="btn btn-default" disabled>Deal</button>' + '</td></tr>';
-
-
         }
         $('#unitsTable').html(html);
     });
