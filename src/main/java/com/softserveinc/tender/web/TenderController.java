@@ -67,16 +67,15 @@ public class TenderController {
     }
 
     @RequestMapping(value = "/{tenderId}/units", method = RequestMethod.GET)
-    public @ResponseBody
-    List<UnitDto> mapUnits(@PathVariable("tenderId") Integer tenderId) {
-         return tenderFacade.findUnitsByTenderId(tenderId);
+    public @ResponseBody List<UnitDto> mapUnits(@PathVariable("tenderId") Integer tenderId) {
+        return tenderFacade.findUnitsByTenderId(tenderId);
     }
 
     @RequestMapping(value = "/{tenderId}", method = RequestMethod.PUT)
     public @ResponseBody void updateTenderWithStatus(@PathVariable("tenderId") Integer tenderId,
                                                      @RequestParam("statusName") String statusName) {
         tenderFacade.updateTenderWithStatus(tenderId, statusName);
-     }
+    }
 
     @RequestMapping(value = "/{id}/proposals", method = RequestMethod.GET)
     public @ResponseBody List<ProposalDto> findTenderProposals(@PathVariable Integer id) {
