@@ -42,59 +42,62 @@
             <div class="col-md-3">
 
                 <div class="panel panel-default sidebar">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Tender filter</h3>
-                    </div>
-                    <div class="panel-body">
+                    <form id="tendersHome_validation">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Tender filter</h3>
+                        </div>
+                        <div class="panel-body">
 
-                        <div>
-                            <div>Category</div>
                             <div>
-                                <select id="category_filter" multiple="multiple" class="populate placeholder select2-offscreen location_selector" tabindex="-1"></select>
-                            </div>
-                        </div>
-                        <div>
-                            <div>Item</div>
-                            <select id="item_dropdown" multiple="multiple" class
-                                    ="populate placeholder select2-offscreen location_selector" tabindex="-1"></select>
-                        </div>
-                        <div>
-                            <div>Location</div>
-                            <div>
-                                <select id="location_filter" multiple="multiple" class="populate placeholder select2-offscreen location_selector" tabindex="-1" >
-                                </select>
-                            </div>
-                        </div>
-                        <div>
-                            <div>Status</div>
-                            <select id="status_filter" multiple="multiple" class="populate placeholder select2-offscreen location_selector" tabindex="-1"></select>
-                        </div>
-                        <div>
-                            <div>Suitable price</div>
-                            <div>
-                                <input id="price_from" type="price_from" class="pull-left form-control suitable_price" placeholder="From">
-                                <input id="price_to" type="price_to" class="pull-right form-control suitable_price" placeholder="To">
-                            </div>
-                        </div>
-                        <div>
-                            <div>Active</div>
-                            <div class="date_filter">
-                                <div class="input-group date pull-left" id="startDate" data-date="29-03-2013" data-date-format="dd-mm-yyyy">
-                                    <input id="date_from" class="form-control" size="10" type="text" value="">
-                                    <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-                                </div>
-                                <div class="input-group date pull-right" id="endDate" data-date="29-03-2015" data-date-format="dd-mm-yyyy">
-                                    <input id="date_to" class="form-control" size="10" type="text" value="">
-                                    <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                <div>Category</div>
+                                <div>
+                                    <select id="category_filter" multiple="multiple" class="populate placeholder select2-offscreen location_selector" tabindex="-1"></select>
                                 </div>
                             </div>
+                            <div>
+                                <div>Item</div>
+                                <select id="item_dropdown" multiple="multiple" class
+                                        ="populate placeholder select2-offscreen location_selector" tabindex="-1"></select>
+                            </div>
+                            <div>
+                                <div>Location</div>
+                                <div>
+                                    <select id="location_filter" multiple="multiple" class="populate placeholder select2-offscreen location_selector" tabindex="-1" >
+                                    </select>
+                                </div>
+                            </div>
+                            <div>
+                                <div>Status</div>
+                                <select id="status_filter" multiple="multiple" class="populate placeholder select2-offscreen location_selector" tabindex="-1"></select>
+                            </div>
+                            <div>
+                                <div>Suitable price</div>
+                                <div>
+                                    <input id="price_from" type="text" class="pull-left form-control suitable_price" placeholder="From" name="price">
+                                    <input id="price_to" type="text" class="pull-right form-control suitable_price" placeholder="To" name="price">
+                                </div>
+                                <div class="error"></div>
+                            </div>
+                            <div>
+                                <div>Active</div>
+                                <div class="date_filter">
+                                    <div class="input-group date pull-left" id="startDate" data-date="29-03-2013" data-date-format="dd-mm-yyyy">
+                                        <input id="date_from" class="form-control" size="10" type="text" value="">
+                                        <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                    </div>
+                                    <div class="input-group date pull-right" id="endDate" data-date="29-03-2015" data-date-format="dd-mm-yyyy">
+                                        <input id="date_to" class="form-control" size="10" type="text" value="">
+                                        <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div><br/></div>
+                            <div>
+                                <div class="pull-left"><button id="filter_button" type="button" class="btn btn-default" onclick="applyFilters();" disabled>Filter</button></div>
+                                <div class="pull-right"><button id="clear_button" type="button" class="btn btn-default" onclick="clearFilters();" disabled>Clear filters</button></div>
+                            </div>
                         </div>
-                        <div><br/></div>
-                        <div>
-                            <div class="pull-left"><button id="filter_button" type="button" class="btn btn-default" onclick="applyFilters();" disabled>Filter</button></div>
-                            <div class="pull-right"><button id="clear_button" type="button" class="btn btn-default" onclick="clearFilters();" disabled>Clear filters</button></div>
-                        </div>
-                    </div>
+                    </form>
                 </div>
 
             </div>
