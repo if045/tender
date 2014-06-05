@@ -24,7 +24,7 @@ public class TenderStatusServiceImpl implements TenderStatusService{
     }
 
     @Override
-    public TenderStatus findTenderStatusByName(String name) {
+    public TenderStatus findByName(String name) {
         return tenderStatusRepository.findByName(name);
     }
 }

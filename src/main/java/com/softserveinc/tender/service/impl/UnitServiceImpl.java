@@ -18,6 +18,10 @@ public class UnitServiceImpl implements UnitService{
     }
 
     @Override
+    public Unit save(Unit unit) {
+        return unitRepository.saveAndFlush(unit);
+    }
+
     public List<Unit> findUnitsByTenderId(int tenderId) {
         return unitRepository.findUnitsByTenderId(tenderId);
     }

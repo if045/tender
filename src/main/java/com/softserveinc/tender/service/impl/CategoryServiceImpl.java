@@ -32,4 +32,10 @@ public class CategoryServiceImpl implements CategoryService {
     public List<Category> findAllWithCategory() {
         return categoryRepository.findCategoriesWithTenders();
     }
+
+    @Override
+    public Category findByName(String name) {
+        return categoryRepository.findByName(name);
+    }
+
 }
