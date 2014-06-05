@@ -72,7 +72,7 @@
                     <div class="form-group">
                         <label for="locations" class="col-md-4 control-label">Locations</label>
                         <p class="form-control-static col-md-4" id="locations">Some locations</p>
-                        <button type="submit" class="btn btn-default col-md-1 col-md-offset-1">Save</button>
+                        <button type="submit" class="btn btn-default col-md-2 col-md-offset-1">Save</button>
                     </div>
                     <div class="form-group">
                         <label for="description" class="col-md-4 control-label">Description</label>
@@ -99,8 +99,6 @@
                     <div class="col-md-7">
                         <table class="table table-bordered table-striped" id="units">
                             <thead>
-                                <th></th>
-                            <tr>
                                 <td align="center"><span class="glyphicon glyphicon-check"></span></td>
                                 <th>Name</th>
                                 <th>Type</th>
