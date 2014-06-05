@@ -170,6 +170,11 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
         return categoryDtos;
     }
 
+    @Override
+    public void updateTenderWithStatus(Integer tenderId, String statusName) {
+        tenderService.updateTenderWithStatus(tenderId, statusName);
+    }
+
     public List<ProposalDto> findTendersProposals(Integer tenderId) {
         return mapTendersProposals(tenderId);
     }

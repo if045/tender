@@ -20,7 +20,7 @@
     <script type='text/javascript' src='<c:url value="../resources/js/bootstrap.min.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/bootstrap-datepicker.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/select2.min.js"/>'></script>
-    <script type='text/javascript' src='<c:url value="../resources/js/tenders.js"/>'></script>
+    <script type='text/javascript' src='<c:url value="../resources/js/tender.js"/>'></script>
 
     <script type='text/javascript' src='<c:url value="../resources/js/tender.js"/>'></script>
 
@@ -113,7 +113,7 @@
                     </div>
 
                     <div class="col-md-4">
-                        <table class="table table-bordered table-striped">
+                        <table class="table table-bordered table-striped" id="head_proposals">
                             <thead>
                                 <th>Seller</th>
                                 <th>Bids</th>
@@ -122,6 +122,9 @@
                             </thead>
                             <tbody id="proposals"/>
                         </table>
+                        <div id="no_proposals_message">
+                            <h4>There is no proposals</h4>
+                        </div>
                     </div>
                 </div>
 
