@@ -13,43 +13,26 @@
             <div class="modal-body">
                 <form class="form-horizontal" role="form">
                     <label for="tenderUnits" class="control-label"><h3>Tender units:</h3></label>
-                    <table class="table table-bordered table-striped" id="tenderUnits">
+                    <table class="table table-bordered table-striped">
                         <thead>
                             <tr>
                                 <th>Name</th>
                                 <th>Type</th>
                                 <th>Category</th>
                                 <th>Quantity</th>
-                                <th>Measurement</th>
                                 <th>Your price</th>
                             </tr>
                         </thead>
-                        <tr>
-                            <td align="center">Bricks</td>
-                            <td align="center">P</td>
-                            <td align="center">Building</td>
-                            <td align="center">23</td>
-                            <td align="center">kg</td>
-                            <td align="center"><input type="text" class="form-control" /></td>
-                        </tr>
-                        <tr>
-                            <td align="center">Calx</td>
-                            <td align="center">P</td>
-                            <td align="center">Building</td>
-                            <td align="center">45</td>
-                            <td align="center">l</td>
-                            <td align="center"><input type="text" class="form-control" /></td>
-                        </tr>
-                        <c:forEach var="unit" items="${units}">
+                        <tbody id="tenderUnits"></tbody>
+                        <%--<c:forEach var="unit" items="${units}">
                             <tr>
                                 <td align="center"><c:out value="${unit.name}"/></td>
                                 <td align="center"><c:out value="${unit.type}"/></td>
                                 <td align="center"><c:out value="${unit.category}"/></td>
                                 <td align="center"><c:out value="${unit.quantity}"/></td>
-                                <td align="center"><c:out value="${unit.measurement}"/></td>
                                 <td align="center"><input type="text" class="form-control" /></td>
                             </tr>
-                        </c:forEach>
+                        </c:forEach>--%>
                     </table>
 
                     <div class="form-group">

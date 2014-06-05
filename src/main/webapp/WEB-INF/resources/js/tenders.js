@@ -191,7 +191,7 @@
                                         '<button data-toggle="dropdown" class="btn btn-default dropdown-toggle">Action<span class="caret"></span></button>' +
                                         '<ul class="dropdown-menu">' +
                                             '<li><a href="/tenderView/' + data[i].id + '">View</a></li>' +
-                                            '<li><a href="#" data-toggle="modal" data-target="#createProposalWindow">Create proposal</a></li>' +
+                                            '<li><a href="#" data-toggle="modal" data-target="#createProposalWindow" onclick="showUnits(' + data[i].id + ')">Create proposal</a></li>' +
                                             '<li><a href="#" data-toggle="modal" data-target="#close_tender_mod_wind" onclick="writeCloseTenderId(' + data[i].id + ')">Close</a></li>' +
                                         '</ul>' +
                                     '</div>' +
@@ -319,7 +319,7 @@
                                             '<button data-toggle="dropdown" class="btn btn-default dropdown-toggle">Action<span class="caret"></span></button>' +
                                             '<ul class="dropdown-menu">' +
                                                 '<li><a href="/tenderView/' + data[i].id + '">View</a></li>' +
-                                                '<li><a href="#" data-toggle="modal" data-target="#createProposalWindow">Create proposal</a></li>' +
+                                                '<li><a href="#" data-toggle="modal" data-target="#createProposalWindow" onclick="showUnits(' + data[i].id + ')">Create proposal</a></li>' +
                                                 '<li><a href="#" data-toggle="modal" data-target="#close_tender_mod_wind" onclick="writeCloseTenderId(' + data[i].id + ')">Close</a></li>' +
                                             '</ul>' +
                                         '</div>' +

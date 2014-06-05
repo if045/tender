@@ -97,8 +97,6 @@
                     <div class="col-md-7">
                         <table class="table table-bordered table-striped" id="units">
                             <thead>
-                                <th></th>
-                            <tr>
                                 <td align="center"><span class="glyphicon glyphicon-check"></span></td>
                                 <th>Name</th>
                                 <th>Type</th>
