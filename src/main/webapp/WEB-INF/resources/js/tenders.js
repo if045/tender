@@ -228,7 +228,8 @@
             $("#category_filter").select2('val', 'All');
             $("#item_dropdown").select2('val', 'All');
             $("#status_filter").select2('val', 'All');
-
+            initializeDateFilter();
+            
             showTenders();
         }
 
