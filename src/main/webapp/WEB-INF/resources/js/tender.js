@@ -42,7 +42,7 @@ function showUnit() {
         for (var i = 0; i < len; i++) {
             if (data[i].itemType == 'P')
                 var itemTypes = 'Product'
-            else
+            else if (data[i].itemType == 'S')
                 var itemTypes = 'Service'
 
             html += '<tr><td>' + ' <input type="checkbox">' + '</td>' +
