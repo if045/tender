@@ -1,9 +1,23 @@
 $(document).ready(function () {
 
-    $("#create_tender_form_validation").validate({
-
+    var validationForTenderHomePrice = {
         rules: {
+            price: {
+                number: true
+            }
+        },
 
+        showErrors: function (errorMap, errorList) {
+            if (errorList.length) {
+                $("div.error").html(errorList[0].message);
+            } else {
+                $("div.error").html("");
+            }
+        }
+    };
+
+    var validationForAllInput = {
+        rules: {
             title: {
                 required: true,
                 minlength: 4,
@@ -13,12 +27,18 @@ $(document).ready(function () {
             price: {
                 required: true,
                 number: true
-
             },
 
             quantity: {
                 required: true,
                 digits: true
+            },
+
+            allowance: {
+                required: true,
+                number: true,
+                minlength: 1,
+                maxlength: 3
             },
 
             description: {
@@ -27,26 +47,37 @@ $(document).ready(function () {
         },
 
         messages: {
-
             title: {
-                required: "Це поле не може бути пустим!",
-                minlength: "Мінімальна довжина 4 символа",
-                maxlength: "Максимальна довжина 30 символів"
+                required: "This field can not be empty!",
+                minlength: "The minimum length of 4 character",
+                maxlength: "The maximum length of 30 characters"
             },
 
             price: {
-                required: "Це поле не може бути пустим!",
-                number: "Неправильний формат вводу!"
+                required: "This field can not be empty!",
+                number: "Input format - numbers!"
             },
 
             quantity: {
-                required: "Це поле не може бути пустим!",
-                digits: "Неправильний формат вводу!"
+                required: "This field can not be empty!",
+                digits: "Input format - digits!"
+            },
+
+            allowance: {
+                required: "This field can not be empty",
+                number: "Input format - numbers",
+                minlength: "The minimum length of 1 character",
+                maxlength: "The maximum length of 3 characters"
             },
 
             description: {
-                maxlength: "Максимальна довжина 100 символів"
+                maxlength: "The maximum length of 100 characters"
             }
         }
-    });
+    };
+
+    jQuery("#create_tender_form_validation").validate(validationForAllInput);
+    jQuery("#edit_tender_form").validate(validationForAllInput);
+    jQuery("#create_proposal_form").validate(validationForAllInput);
+    jQuery("#tendersHome_validation").validate(validationForTenderHomePrice);
 });

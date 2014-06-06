@@ -5,9 +5,9 @@ import java.util.List;
 
 public interface LocationService {
 
-    public Location save(Location location);
-    public Location findById(int id);
-    public List<Location> findAll();
-    public void deleteById(int id);
+    Location save(Location location);
+    Location findById(int id);
+    List<Location> findAll();
+    void deleteById(int id);
     List<Location> getTendersLocations();
 }

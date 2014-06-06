@@ -4,12 +4,14 @@
                 startDate: '-5y'
             });
 
+            initializeDateFilter();
+
             $("#category_filter").select2({
                 placeholder: "All categories"
             });
 
             $("#item_dropdown").select2({
-                placeholder: "Select a items"
+                placeholder: "All items"
 
             });
 
@@ -103,60 +105,7 @@
                 }
             });
 
-            $('#createTenderWindow').on('shown.bs.modal', function () {
-                $('.datepicker').addClass('modal_datepicker');
 
-                $("#create_tender_unit_category").select2({
-                    placeholder: "Select a category"
-                });
-
-                $("#create_tender_unit_item").select2({
-                    placeholder: "Select a item"
-                });
-
-                $("#create_tender_location").select2({
-                    placeholder: "Select a location"
-                });
-
-                $.getJSON('/tenders/locations', {
-                    ajax : 'true'
-                }, function(loc){
-                    var html = ' ';
-                    var len = loc.length;
-                    for (var i = 0; i < len; i++) {
-                        html += '<option value="' + loc[i].id + '">'
-                            +loc[i].name + '</option>';
-                    }
-
-                    $('#create_tender_location').html(html);
-                });
-
-                $.getJSON('/tenders/categories', {
-                    ajax : 'true'
-                }, function(loc){
-                    var html = ' ';
-                    var len = loc.length;
-                    for (var i = 0; i < len; i++) {
-                        html += '<option value="' + loc[i].id + '">'
-                            +loc[i].name + '</option>';
-                    }
-
-                    $('#create_tender_unit_category').html(html);
-                });
-
-                $.getJSON('/tenders/items', {
-                    ajax : 'true'
-                }, function(loc){
-                    var html = ' ';
-                    var len = loc.length;
-                    for (var i = 0; i < len; i++) {
-                        html += '<option value="' + loc[i].id + '">'
-                            +loc[i].name + '</option>';
-                    }
-
-                    $('#create_tender_unit_item').html(html);
-                });
-            });
         });
 
         function populateItemDropdown() {
@@ -226,7 +175,8 @@
             $("#category_filter").select2('val', 'All');
             $("#item_dropdown").select2('val', 'All');
             $("#status_filter").select2('val', 'All');
-
+            initializeDateFilter();
+            
             showTenders();
         }
 
@@ -254,10 +204,10 @@
             if (items!=null){
                 str += (str.length==0)?"items="+items:"&items="+items;
             }
-            
+
             var categories = new Array();
             categories = $('#category_filter').val();
-            
+
             $.ajax({
               dataType: "json",
               url: '/tenders/categories',
@@ -270,7 +220,7 @@
                             if(categories[z] == data[i].parent) {
                                 categories.push(""+data[i].id);
                             }
-                        }   
+                        }
                     }
                 }
             });
@@ -346,7 +296,6 @@
                     alert("ERROR");
                 }
             });
-
             $("#clear_button").removeAttr("disabled");
         }
 
@@ -375,5 +324,42 @@
         }
 
         function showDeals() {
-            window.location.href='/deals/';
+            window.location.href='/mydeals';
+        }
+
+        function initializeDateFilter() {
+            var currentDate = getCurrentDate();
+            var nextMonthDate = getNextMonthDate();
+
+            $('#startDate').data({date: currentDate});
+            $('#startDate').datepicker('update');
+            $('#startDate').datepicker().children('input').val(currentDate);
+
+            $('#endDate').data({date: nextMonthDate});
+            $('#endDate').datepicker('update');
+            $('#endDate').datepicker().children('input').val(nextMonthDate);
+        }
+
+        function getCurrentDate() {
+            var today = new Date();
+            var day = today.getDate();
+            var month = today.getMonth()+1;
+            var year = today.getFullYear();
+
+            if(day < 10) day = '0' + day;
+            if(month < 10) month = '0' + month;
+
+            return year + '/' + month + '/' + day;
+        }
+
+        function getNextMonthDate() {
+            var today = new Date();
+            var day = today.getDate();
+            var month = today.getMonth()+2;
+            var year = today.getFullYear();
+
+            if(day < 10) day = '0' + day;
+            if(month < 10) month = '0' + month;
+
+            return year + '/' + month + '/' + day;
         }

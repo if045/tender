@@ -21,4 +21,20 @@ public class ItemServiceImpl implements ItemService{
     public List<Item> findAllItemsByTenders(TenderFilter tenderFilter) {
         return itemRepository.findAllItemsByTenders(tenderFilter.getCategories(),tenderFilter.getCategoryFlag());
     }
+
+    @Override
+    public List<Item> findItems(TenderFilter tenderFilter) {
+        return itemRepository.findItems(tenderFilter.getCategoryName(),tenderFilter.getCategoryFlag(),
+                tenderFilter.getType(),tenderFilter.getTypeFlag());
+    }
+
+    @Override
+    public Item findByName(String name) {
+        return itemRepository.findByName(name);
+    }
+
+    @Override
+    public Item save(Item item) {
+        return itemRepository.saveAndFlush(item);
+    }
 }

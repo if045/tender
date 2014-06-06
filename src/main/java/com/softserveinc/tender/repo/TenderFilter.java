@@ -23,6 +23,34 @@ public class TenderFilter {
     private Integer dataFlag;
     private Integer priceFlag;
 
+    private String categoryName;
+    private Character type;
+    private Integer typeFlag;
+
+    public TenderFilter(Set<Integer> categories) {
+        if (categories==null) {
+            setCategoryFlag(1);
+        }else {
+            this.categories =categories;
+            setCategoryFlag(0);
+        }
+    }
+
+    public TenderFilter(String categoryName, Character type) {
+        if (categoryName==null) {
+            setCategoryFlag(1);
+        }else {
+            this.categoryName = categoryName;;
+            setCategoryFlag(0);
+        }
+        if (type==null) {
+            setTypeFlag(1);
+        }else {
+            this.type = type;
+            setTypeFlag(0);
+        }
+    }
+
     public TenderFilter(BigDecimal minPrice, BigDecimal maxPrice, Set<Integer> categories, List<Integer> locations, List<Integer> items, List<Integer> statuses, Date minDate, Date maxDate) {
 
         if (minPrice==null&maxPrice==null){
@@ -56,8 +84,32 @@ public class TenderFilter {
             setStatusFlag(0);
             this.statuses = statuses;
         }
-        this.minDate = (minDate != null) ? minDate : new Date((new Date().getTime()) - 604800000l);
-        this.maxDate = (maxDate != null) ? maxDate : new Date();
+        this.minDate = (minDate!=null)?minDate:new Date();
+        this.maxDate = (maxDate!=null)?maxDate:new Date((new Date().getTime())+2419200000l);
+    }
+
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
+    }
+
+    public Character getType() {
+        return type;
+    }
+
+    public void setType(Character type) {
+        this.type = type;
+    }
+
+    public Integer getTypeFlag() {
+        return typeFlag;
+    }
+
+    public void setTypeFlag(Integer typeFlag) {
+        this.typeFlag = typeFlag;
     }
 
     public Integer getPriceFlag() {

@@ -22,7 +22,7 @@
     <script type='text/javascript' src='<c:url value="../resources/js/select2.min.js"/>'></script>
 
     <script type='text/javascript' src='<c:url value="../resources/js/deals.js"/>'></script>
-    <script type='text/javascript' src='<c:url value="../resources/js/modalwindows.js"/>'></script>
+    <script type='text/javascript' src='<c:url value="../resources/js/addTenderModal.js"/>'></script>
 </head>
 <body>
     <div class="container">
@@ -50,67 +50,27 @@
                 </div>
 
                 <!-- information about deals -->
-                <div class="row">
+                <div id="user_message" class="row"></div>
+                <div id="deal_items" class="row">
                     <div class="col-md-12">
                         <table class="table table-bordered table-striped" id="units">
-                            <tr>
-                                <th>Tender title</th>
-                                <th>Date</th>
-                                <th>Business Partner</th>
-                                <th>Status</th>
-                                <th>Sum</th>
-                                <th class="deal_action_field">Action</th>
-                            </tr>
-                            <tr>
-                                <td align="center">Cegla</td>
-                                <td align="center">03/09/2014</td>
-                                <td align="center">name</td>
-                                <td align="center">Open</td>
-                                <td align="center">40000</td>
-                                <td align="center">
-                                    <select class="form-control items_number_dropdown action_button">
-                                        <option value="">Action</option>
-                                        <option value="done' + data[i].id + '">Done</option>
-                                        <option value="conflict' + data[i].id + '">Conflict</option>
-                                        <option value="feedback' + data[i].id + '">Feedback</option>
-                                    </select>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td align="center">Cegla</td>
-                                <td align="center">03/09/2014</td>
-                                <td align="center">name</td>
-                                <td align="center">Open</td>
-                                <td align="center">60000</td>
-                                <td align="center">
-                                    <select class="form-control items_number_dropdown action_button">
-                                        <option value="">Action</option>
-                                        <option value="done' + data[i].id + '">Done</option>
-                                        <option value="conflict' + data[i].id + '">Conflict</option>
-                                        <option value="feedback' + data[i].id + '">Feedback</option>
-                                    </select>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td align="center">Cegla</td>
-                                <td align="center">03/08/2014</td>
-                                <td align="center">name</td>
-                                <td align="center">Open</td>
-                                <td align="center">40000</td>
-                                <td align="center">
-                                    <select class="form-control items_number_dropdown action_button">
-                                        <option value="">Action</option>
-                                        <option value="done' + data[i].id + '">Done</option>
-                                        <option value="conflict' + data[i].id + '">Conflict</option>
-                                        <option value="feedback' + data[i].id + '">Feedback</option>
-                                    </select>
-                                </td>
-                            </tr>
+                            <thead>
+                                <tr>
+                                    <th>Tender title</th>
+                                    <th>Date</th>
+                                    <th>Business Partner</th>
+                                    <th>Status</th>
+                                    <th>Sum</th>
+                                    <th class="deal_action_field">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="deals"></tbody>
                         </table>
                     </div>
                 </div>
+
                 <!-- pagination -->
-                <div class="row">
+                <div id="pagination" class="row">
                     <div class="col-md-12">
                         <div class="pull-right">
                             <ul class="pagination page_pagination pull-right">
@@ -122,7 +82,7 @@
                         </div>
                         <div class="pull-right">
                             <div class="control-group">
-                                <select class="form-control pull-right items_number_dropdown">
+                                <select id="pagination_itemsnum" class="form-control pull-right items_number_dropdown">
                                     <option>10</option>
                                     <option>15</option>
                                     <option>20</option>
@@ -144,7 +104,7 @@
     </div>
 
 <!--create tender modal -->
-<jsp:include page="createtender.jsp"/>
+<jsp:include page="createTender.jsp"/>
 <!--create tender modal -->
 
 </body>

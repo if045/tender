@@ -5,19 +5,19 @@ import com.softserveinc.tender.dto.ItemDto;
 import com.softserveinc.tender.dto.LocationDto;
 import com.softserveinc.tender.dto.ProposalDto;
 import com.softserveinc.tender.dto.TenderDto;
+import com.softserveinc.tender.dto.TenderSaveDto;
 import com.softserveinc.tender.dto.UnitDto;
 import com.softserveinc.tender.repo.TenderFilter;
 import com.softserveinc.tender.dto.TenderStatusDto;
-import com.softserveinc.tender.repo.TenderFilter;
 import com.softserveinc.tender.facade.TenderServiceFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
@@ -53,7 +53,7 @@ public class TenderController {
     @RequestMapping(value = "/items", method = RequestMethod.GET)
     public @ResponseBody List<ItemDto> findTendersItems(
             @RequestParam(value = "categories", required = false) Set<Integer> categories) {
-        return tenderFacade.findTendersItems(new TenderFilter(null, null, categories, null, null, null, null, null));
+        return tenderFacade.findTendersItems(new TenderFilter(categories));
     }
 
     @RequestMapping(value = "/locations", method = RequestMethod.GET)
@@ -80,5 +80,10 @@ public class TenderController {
     @RequestMapping(value = "/{id}/proposals", method = RequestMethod.GET)
     public @ResponseBody List<ProposalDto> findTenderProposals(@PathVariable Integer id) {
          return tenderFacade.findTendersProposals(id);
+    }
+
+    @RequestMapping(value = "", method = RequestMethod.POST, consumes = "application/json")
+    public @ResponseBody void addTender(@RequestBody TenderSaveDto tenderSaveDto) {
+        tenderFacade.saveTender(tenderSaveDto);
     }
 }

@@ -2,23 +2,29 @@ package com.softserveinc.tender.facade.impl;
 
 import com.softserveinc.tender.dto.CategoryDto;
 import com.softserveinc.tender.dto.ItemDto;
-import com.softserveinc.tender.dto.LocationDto;
-import com.softserveinc.tender.dto.ProposalDto;
+import com.softserveinc.tender.dto.LocationSaveDto;
 import com.softserveinc.tender.dto.TenderDto;
+import com.softserveinc.tender.dto.LocationDto;
+import com.softserveinc.tender.dto.TenderSaveDto;
 import com.softserveinc.tender.dto.TenderStatusDto;
+import com.softserveinc.tender.dto.UnitSaveDto;
+import com.softserveinc.tender.dto.ProposalDto;
 import com.softserveinc.tender.dto.UnitDto;
 import com.softserveinc.tender.entity.Category;
+import com.softserveinc.tender.entity.Item;
 import com.softserveinc.tender.entity.Location;
 import com.softserveinc.tender.entity.Proposal;
 import com.softserveinc.tender.entity.Tender;
 import com.softserveinc.tender.entity.Unit;
 import com.softserveinc.tender.facade.TenderServiceFacade;
 import com.softserveinc.tender.repo.TenderFilter;
-import com.softserveinc.tender.service.CategoryService;
 import com.softserveinc.tender.service.ItemService;
+import com.softserveinc.tender.service.MeasurementService;
+import com.softserveinc.tender.service.ProfileService;
+import com.softserveinc.tender.service.TenderService;
+import com.softserveinc.tender.service.CategoryService;
 import com.softserveinc.tender.service.LocationService;
 import com.softserveinc.tender.service.ProposalService;
-import com.softserveinc.tender.service.TenderService;
 import com.softserveinc.tender.service.TenderStatusService;
 import com.softserveinc.tender.service.UnitService;
 import org.modelmapper.ModelMapper;
@@ -27,6 +33,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -56,10 +65,16 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
     private CategoryService categoryService;
 
     @Autowired
-    private ProposalService proposalService;
+    private ProfileService profileService;
+
+    @Autowired
+    private MeasurementService measurementService;
 
     @Autowired
     private UnitService unitService;
+
+    @Autowired
+    private ProposalService proposalService;
 
     @Override
     public List<TenderDto> findByCustomParams(TenderFilter tenderFilter) {
@@ -171,6 +186,56 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
     }
 
     @Override
+    public void saveTender(TenderSaveDto tenderSaveDto) {
+        String pattern = "yyyy/MM/dd";
+        Date date = null;
+        SimpleDateFormat formatter;
+        formatter = new SimpleDateFormat(pattern);
+        try {
+            date = formatter.parse(tenderSaveDto.getEndDate());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        List<Location> locations = new ArrayList<>();
+        for (LocationSaveDto locationSaveDto : tenderSaveDto.getLocations()) {
+            if (locationSaveDto.getId() != 0) {
+                locations.add(locationService.findById(locationSaveDto.getId()));
+            } else {
+                locations = locationService.findAll();
+            }
+        }
+        Tender tender = new Tender();
+        tender.setLocations(locations);
+        tender.setStatus(tenderStatusService.findByName("Open"));
+        tender.setTitle(tenderSaveDto.getTitle());
+        tender.setDescription(tenderSaveDto.getDescription());
+        tender.setSuitablePrice(tenderSaveDto.getSuitablePrice());
+        tender.setCreateDate(new Date());
+        tender.setEndDate(date);
+        tender.setAuthor(profileService.findProfileById(8));
+        Tender tender1 = tenderService.save(tender);
+        List<Unit> units = new ArrayList<>();
+        for (UnitSaveDto unitSaveDto : tenderSaveDto.getUnits()) {
+            Unit unit = new Unit();
+            unit.setQuantity(unitSaveDto.getQuantity());
+            unit.setMeasurement(measurementService.findByName(unitSaveDto.getMeasurment()));
+            if (itemService.findByName(unitSaveDto.getItem()) != null) {
+                unit.setItem(itemService.findByName(unitSaveDto.getItem()));
+            } else {
+                Item item = new Item();
+                item.setName(unitSaveDto.getItem());
+                item.setCategory(categoryService.findByName(unitSaveDto.getCategory()));
+                item.setType(unitSaveDto.getItemType());
+                unit.setItem(itemService.save(item));
+            }
+            unit.setTender(tender1);
+
+            units.add(unitService.save(unit));
+        }
+        tender.setUnits(units);
+        tenderService.save(tender);
+    }
+
     public void updateTenderWithStatus(Integer tenderId, String statusName) {
         tenderService.updateTenderWithStatus(tenderId, statusName);
     }

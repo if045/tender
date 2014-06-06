@@ -57,19 +57,22 @@
                                 <div class="form-group">
                                     <div>Category*:</div>
                                     <div class="selectpicker">
-                                        <select id="create_tender_unit_category" multiple="multiple" class="populate placeholder select2-offscreen category_selector" tabindex="-1" ></select>
+                                        <select id="create_tender_unit_category" class="form-control selectpicker col-sm-6"></select>
                                     </div>
                                 </div> 
                             </div>
                             <div class="col-sm-3 addunit_body_item field_group">
                                 <div class="form-group btn-group" data-toggle="buttons-radio">
                                     <div>Type*:</div>
-                                    <div class="btn-group selectpicker" data-toggle="buttons">
-                                      <label class="btn btn-default radio-first-child">
-                                        <input type="radio" name="options" id="option1" value="P" checked>Product
+                                    <div class="btn-group selectpicker" data-toggle="buttons" id="radio_group">
+                                        <label class="btn btn-default radio-first-child">
+                                            <input type="radio" name="options" id="option1" value="" checked>All
+                                        </label>
+                                      <label class="btn btn-default">
+                                        <input type="radio" name="options" id="option2" value="P">Product
                                       </label>
                                       <label class="btn btn-default">
-                                        <input type="radio" name="options" id="option2" value="S">Service
+                                        <input type="radio" name="options" id="option3" value="S">Service
                                       </label>
                                     </div>
                                 </div> 
@@ -79,10 +82,10 @@
                                     <div class="field_title">Item*:</div>
                                     <div class="selectpicker col-sm-12">
                                         <div class="pull-left col-sm-6">
-                                        	<select id="create_tender_unit_item" multiple="multiple" class="populate placeholder select2-offscreen category_selector" tabindex="-1" ></select>
+                                        	<select id="create_tender_unit_item" class="form-control selectpicker col-sm-6"></select>
                                         </div>
                                         <div class="pull-left col-sm-6">	
-                                        	<input type="text" class="form-control" id="create_tender_unit_newitem" placeholder="New item" disabled>
+                                        	<input type="text" class="form-control" id="create_tender_unit_newitem" placeholder="New item">
                                         </div>	
                                     </div>
                                 </div> 
@@ -101,18 +104,15 @@
                                 <div class="form-group">
                                     <div>Measurement*:</div>
                                     <div>
-                                        <select id="create_tender_unit_measurement" class="form-control selectpicker col-sm-6">
-                                            <option>All</option>
-                                            <option>Ketchup</option>
-                                            <option>Relish</option>
-                                        </select>
+                                        <select id="create_tender_unit_measurement" class="form-control selectpicker col-sm-6"></select>
                                     </div>
                                 </div> 
                             </div>
                             <div class="col-sm-7 addunit_body_item">
                                 <div class="form-group">
                                     <div class="selectpicker">
-                                        <button type="button" class="btn btn-primary pull-right addbutton">Add</button>
+                                        <button type="button" class="btn btn-primary pull-right addbutton"
+                                                id="add_unit_button" onclick="addUnit();" disabled>Add</button>
                                     </div>
                                 </div> 
                             </div>
@@ -120,7 +120,7 @@
                     </div>   
                 </div>
 
-                <div class="">
+                <div id="create_tender_units_table" class="" style="display: none">
                     <div><label class="control-label">Units:</label></div>
                     <div>
                         <table class="table table-bordered table-striped units_table">
@@ -136,55 +136,7 @@
                     </div>   
                     <div class="create_tender_units">
                         <table class="table table-bordered table-striped">
-                            <tbody>
-                                <tr>
-                                    <td align="center">Brick</td>
-                                    <td align="center" class="units_table_body_type">P</td>
-                                    <td align="center" class="units_table_body_category">Build</td>
-                                    <td align="center" class="units_table_body_quantity">1000</td>
-                                    <td align="center" class="units_table_body_measurement">kg</td>
-                                    <td align="center" class="units_table_body_action"><img class="del_button" src='<c:url value="../resources/img/delete.png"/>'/></td>
-                                </tr>
-                                <tr>
-                                    <td align="center">Brick</td>
-                                    <td align="center" class="units_table_body_type">P</td>
-                                    <td align="center" class="units_table_body_category">Build</td>
-                                    <td align="center" class="units_table_body_quantity">1000</td>
-                                    <td align="center" class="units_table_body_measurement">kg</td>
-                                    <td align="center" class="units_table_body_action"><img class="del_button" src='<c:url value="../resources/img/delete.png"/>'/></td>
-                                </tr>
-                                <tr>
-                                    <td align="center">Brick</td>
-                                    <td align="center" class="units_table_body_type">P</td>
-                                    <td align="center" class="units_table_body_category">Build</td>
-                                    <td align="center" class="units_table_body_quantity">1000</td>
-                                    <td align="center" class="units_table_body_measurement">kg</td>
-                                    <td align="center" class="units_table_body_action"><img class="del_button" src='<c:url value="../resources/img/delete.png"/>'/></td>
-                                </tr> 
-                                <tr>
-                                    <td align="center">Brick</td>
-                                    <td align="center" class="units_table_body_type">P</td>
-                                    <td align="center" class="units_table_body_category">Build</td>
-                                    <td align="center" class="units_table_body_quantity">1000</td>
-                                    <td align="center" class="units_table_body_measurement">kg</td>
-                                    <td align="center" class="units_table_body_action"><img class="del_button" src='<c:url value="../resources/img/delete.png"/>'/></td>
-                                </tr>                                                                                                                          <tr>
-                                    <td align="center">Brick</td>
-                                    <td align="center" class="units_table_body_type">P</td>
-                                    <td align="center" class="units_table_body_category">Build</td>
-                                    <td align="center" class="units_table_body_quantity">1000</td>
-                                    <td align="center" class="units_table_body_measurement">kg</td>
-                                    <td align="center" class="units_table_body_action"><img class="del_button" src='<c:url value="../resources/img/delete.png"/>'/></td>
-                                </tr>   
-                                <tr>
-                                    <td align="center">Brick</td>
-                                    <td align="center" class="units_table_body_type">P</td>
-                                    <td align="center" class="units_table_body_category">Build</td>
-                                    <td align="center" class="units_table_body_quantity">1000</td>
-                                    <td align="center" class="units_table_body_measurement">kg</td>
-                                    <td align="center" class="units_table_body_action"><img class="del_button" src='<c:url value="../resources/img/delete.png"/>'/></td>
-                                </tr>                       
-                            </tbody>                          
+                            <tbody id="create_tender_units_table_body"></tbody>
                         </table>
                     </div>
                 </div>
@@ -194,8 +146,9 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-primary">Create</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal" onclick="cleanCreateTenderFields();">Cancel</button>
+        <button type="button" class="btn btn-primary" id="create_tender_button"
+                onclick="createTender();" disabled>Create</button>
       </div>
     </div>
   </div>

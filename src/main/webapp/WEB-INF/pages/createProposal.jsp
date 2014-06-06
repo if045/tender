@@ -5,13 +5,13 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
 
 <div class="modal fade" id="createProposalWindow" tabindex="-1" role="dialog">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header"><button class="close" type="button" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title" id="proposalModalLabel">Create proposal</h4>
             </div>
             <div class="modal-body">
-                <form class="form-horizontal" role="form">
+                <form class="form-horizontal" role="form" id="create_proposal_form">
                     <label for="tenderUnits" class="control-label"><h3>Tender units:</h3></label>
                     <table class="table table-bordered table-striped">
                         <thead>
@@ -30,7 +30,7 @@
                                 <td align="center"><c:out value="${unit.type}"/></td>
                                 <td align="center"><c:out value="${unit.category}"/></td>
                                 <td align="center"><c:out value="${unit.quantity}"/></td>
-                                <td align="center"><input type="text" class="form-control" /></td>
+                                <td align="center"><input type="text" class="form-control price_input" /></td>
                             </tr>
                         </c:forEach>--%>
                     </table>
@@ -38,7 +38,7 @@
                     <div class="form-group">
                         <label for="description" class="col-md-2 control-label">Description</label>
                         <div class="col-md-6">
-                            <textarea id="description" class="form-control" rows="3"></textarea>
+                            <textarea id="description" class="form-control" rows="3" name="description"></textarea>
                         </div>
                     </div>
 
@@ -64,7 +64,7 @@
                             </label>
                         </div>
                         <div class="col-md-2">
-                            <input type="text" class="form-control" id="allowance" disabled/>
+                            <input type="text" class="form-control" id="allowance" name="allowance" disabled/>
                         </div>
                      </div>
                 </form>

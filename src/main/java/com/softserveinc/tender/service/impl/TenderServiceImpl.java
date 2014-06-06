@@ -38,9 +38,14 @@ public class TenderServiceImpl implements TenderService {
     @Override
     public void updateTenderWithStatus(Integer tenderId, String statusName) {
         Tender tender = tenderRepository.findOne(tenderId);
-        TenderStatus tenderStatus = tenderStatusService.findTenderStatusByName(statusName);
+        TenderStatus tenderStatus = tenderStatusService.findByName(statusName);
 
         tender.setStatus(tenderStatus);
         tenderRepository.save(tender);
+    }
+
+    @Override
+    public Tender save(Tender tender) {
+        return tenderRepository.saveAndFlush(tender);
     }
 }
