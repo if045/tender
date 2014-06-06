@@ -24,15 +24,7 @@
                             </tr>
                         </thead>
                         <tbody id="tenderUnits"></tbody>
-                        <%--<c:forEach var="unit" items="${units}">
-                            <tr>
-                                <td align="center"><c:out value="${unit.name}"/></td>
-                                <td align="center"><c:out value="${unit.type}"/></td>
-                                <td align="center"><c:out value="${unit.category}"/></td>
-                                <td align="center"><c:out value="${unit.quantity}"/></td>
-                                <td align="center"><input type="text" class="form-control price_input" /></td>
-                            </tr>
-                        </c:forEach>--%>
+
                     </table>
 
                     <div class="form-group">
@@ -45,23 +37,25 @@
                     <div class="form-group">
                         <div class="checkbox col-md-3 col-md-offset-2">
                             <label>
-                                <input type="checkbox"> Make allowance
+                                <input type="checkbox" id="make_allowance" onclick="enableAllowance()"> Make allowance
                             </label>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <div class="radio col-md-1 col-md-offset-2">
-                            <label>
-                                <input type="radio" name="optionsRadios" id="optRadSum" value="sum" disabled>
-                                Sum
-                            </label>
-                        </div>
-                        <div class="radio col-md-1">
-                            <label>
-                                <input type="radio" name="optionsRadios" id="optRadPercent" value="percent" checked disabled>
-                                Percent
-                            </label>
+                        <div id="radio_buttons">
+                            <div class="radio col-md-1 col-md-offset-2">
+                                <label>
+                                    <input type="radio" name="optionsRadios" id="optRadSum" value="sum" disabled>
+                                    Sum
+                                </label>
+                            </div>
+                            <div class="radio col-md-1">
+                                <label>
+                                    <input type="radio" name="optionsRadios" id="optRadPercent" value="percent" checked disabled>
+                                    Percent
+                                </label>
+                            </div>
                         </div>
                         <div class="col-md-2">
                             <input type="text" class="form-control" id="allowance" name="allowance" disabled/>
@@ -71,7 +65,7 @@
             </div>
             <div class="modal-footer">
                 <button class="btn btn-default" type="button" data-dismiss="modal">Cancel</button>
-                <button class="btn btn-primary" type="button">Create</button>
+                <button class="btn btn-primary" type="button" disabled id="create_proposal_button">Create</button>
             </div>
         </div>
     </div>
