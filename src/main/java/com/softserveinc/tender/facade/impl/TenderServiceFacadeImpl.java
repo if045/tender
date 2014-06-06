@@ -188,7 +188,7 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
     }
 
     @Override
-    public TenderDto saveTender(TenderSaveDto tenderSaveDto) {
+    public void saveTender(TenderSaveDto tenderSaveDto) {
         String pattern = DATE_FORMAT_FROM_CLIENT;
         Date date = null;
         SimpleDateFormat formatter;
@@ -198,15 +198,15 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        List<Location> locations = new ArrayList<>();
+        /*List<Location> locations = new ArrayList<>();
         for (LocationSaveDto locationSaveDto : tenderSaveDto.getLocations()) {
             if (locationSaveDto.getId() != 0) {
                 locations.add(locationService.findById(locationSaveDto.getId()));
             } else {
                 locations = locationService.findAll();
             }
-        }
-        /*List<LocationSaveDto> locationSaveDto=tenderSaveDto.getLocations();
+        }*/
+        List<LocationSaveDto> locationSaveDto=tenderSaveDto.getLocations();
         List<Location> locations = new ArrayList<>();
         if (locationSaveDto.get(0).getId()==0){
             locations=locationService.findAll();
@@ -214,7 +214,7 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
             for(LocationSaveDto temp:locationSaveDto){
                 locations.add(locationService.findById(temp.getId()));
             }
-        }*/
+        }
         Tender tender = new Tender();
         tender.setLocations(locations);
         tender.setStatus(tenderStatusService.findByName("Open"));
@@ -244,7 +244,7 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
         }
         tender.setUnits(units);
         Tender savedTenderWithUnits = tenderService.save(tender);
-        return mapTender(savedTenderWithUnits);
+        /*return mapTender(savedTenderWithUnits);*/
     }
 
     public void updateTenderWithStatus(Integer tenderId, String statusName) {

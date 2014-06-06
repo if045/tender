@@ -83,7 +83,8 @@ public class TenderController {
     }
 
     @RequestMapping(value = "", method = RequestMethod.POST, consumes = "application/json")
-    public @ResponseBody TenderDto addTender(@RequestBody TenderSaveDto tenderSaveDto) {
-        return tenderFacade.saveTender(tenderSaveDto);
+    public @ResponseBody void addTender(@RequestBody TenderSaveDto tenderSaveDto) {
+        /*TenderDto tenderDto = */tenderFacade.saveTender(tenderSaveDto);
+/*        return tenderDto;*/
     }
 }
