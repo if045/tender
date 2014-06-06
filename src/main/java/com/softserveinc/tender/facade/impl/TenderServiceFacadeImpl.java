@@ -124,8 +124,7 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
             categories.add(unit.getItem().getCategory().getName());
         }
         tenderDto.setCategories(categories);
-        tenderDto.setProposals(tender.getProposals().size());
-
+        if (tender.getProposals()!=null){tenderDto.setProposals(tender.getProposals().size());}
         return tenderDto;
     }
 
@@ -188,7 +187,7 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
     }
 
     @Override
-    public void saveTender(TenderSaveDto tenderSaveDto) {
+    public TenderDto saveTender(TenderSaveDto tenderSaveDto) {
         String pattern = DATE_FORMAT_FROM_CLIENT;
         Date date = null;
         SimpleDateFormat formatter;
@@ -206,13 +205,19 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
                 locations = locationService.findAll();
             }
         }*/
-        List<LocationSaveDto> locationSaveDto=tenderSaveDto.getLocations();
+        /*List<LocationSaveDto> locationSaveDto=tenderSaveDto.getLocations();
         List<Location> locations = new ArrayList<>();
         if (locationSaveDto.get(0).getId()==0){
             locations=locationService.findAll();
         }else{
             for(LocationSaveDto temp:locationSaveDto){
                 locations.add(locationService.findById(temp.getId()));
+            }
+        }*/
+        List<Location> locations = new ArrayList<>();
+        for (LocationSaveDto locationSaveDto:tenderSaveDto.getLocations()){
+            for (Location location:locationService.findById(locationSaveDto.getId())){
+                locations.add(location);
             }
         }
         Tender tender = new Tender();
@@ -242,9 +247,9 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
             unit.setTender(savedTender);
             units.add(unitService.save(unit));
         }
-        tender.setUnits(units);
-        Tender savedTenderWithUnits = tenderService.save(tender);
-        /*return mapTender(savedTenderWithUnits);*/
+        savedTender.setUnits(units);
+        Tender savedTenderWithUnits = tenderService.save(savedTender);
+        return mapTender(savedTenderWithUnits);
     }
 
     public void updateTenderWithStatus(Integer tenderId, String statusName) {

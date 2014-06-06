@@ -5,6 +5,8 @@ import com.softserveinc.tender.repo.LocationRepo;
 import com.softserveinc.tender.service.LocationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.LinkedList;
 import java.util.List;
 
 @Service
@@ -19,8 +21,14 @@ public class LocationServiceImpl implements LocationService {
     }
 
     @Override
-    public Location findById(int id) {
-        return locationRepo.findOne(id);
+    public List<Location> findById(int id) {
+        List<Location> locations = new LinkedList<>();
+        if (id == 0) {
+            locations.addAll(locationRepo.findAll());
+        } else {
+            locations.add(locationRepo.findOne(id));
+        }
+        return locations;
     }
 
     @Override
