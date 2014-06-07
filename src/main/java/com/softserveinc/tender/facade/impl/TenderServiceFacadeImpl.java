@@ -2,7 +2,6 @@ package com.softserveinc.tender.facade.impl;
 
 import com.softserveinc.tender.dto.CategoryDto;
 import com.softserveinc.tender.dto.ItemDto;
-import com.softserveinc.tender.dto.LocationSaveDto;
 import com.softserveinc.tender.dto.TenderDto;
 import com.softserveinc.tender.dto.LocationDto;
 import com.softserveinc.tender.dto.TenderSaveDto;
@@ -197,34 +196,21 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        /*List<Location> locations = new ArrayList<>();
-        for (LocationSaveDto locationSaveDto : tenderSaveDto.getLocations()) {
-            if (locationSaveDto.getId() != 0) {
-                locations.add(locationService.findById(locationSaveDto.getId()));
-            } else {
-                locations = locationService.findAll();
-            }
-        }*/
-        /*List<LocationSaveDto> locationSaveDto=tenderSaveDto.getLocations();
-        List<Location> locations = new ArrayList<>();
-        if (locationSaveDto.get(0).getId()==0){
-            locations=locationService.findAll();
-        }else{
-            for(LocationSaveDto temp:locationSaveDto){
-                locations.add(locationService.findById(temp.getId()));
-            }
-        }*/
-        List<Location> locations = new ArrayList<>();
-        for (LocationSaveDto locationSaveDto:tenderSaveDto.getLocations()){
-            for (Location location:locationService.findById(locationSaveDto.getId())){
-                locations.add(location);
-            }
-        }
         Tender tender = new Tender();
-        tender.setLocations(locations);
+        if (tenderSaveDto.getLocationsIds()==null){
+            tender.setLocations(locationService.findAll());
+        }else{
+            List<Integer> locationsIds=new ArrayList<>();
+            for(String s:tenderSaveDto.getLocationsIds().split(",")){
+                locationsIds.add(Integer.parseInt(s));
+            }
+            tender.setLocations(locationService.getLocationsByIds(locationsIds));
+        }
         tender.setStatus(tenderStatusService.findByName("Open"));
         tender.setTitle(tenderSaveDto.getTitle());
-        tender.setDescription(tenderSaveDto.getDescription());
+        if (tenderSaveDto.getDescription()!=null){
+            tender.setDescription(tenderSaveDto.getDescription());
+        }
         tender.setSuitablePrice(tenderSaveDto.getSuitablePrice());
         tender.setCreateDate(new Date());
         tender.setEndDate(date);
@@ -240,7 +226,7 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
             } else {
                 Item item = new Item();
                 item.setName(unitSaveDto.getItem());
-                item.setCategory(categoryService.findByName(unitSaveDto.getCategory()));
+                item.setCategory(categoryService.findCategoryById(Integer.parseInt(unitSaveDto.getCategory())));
                 item.setType(unitSaveDto.getItemType());
                 unit.setItem(itemService.save(item));
             }

@@ -21,14 +21,8 @@ public class LocationServiceImpl implements LocationService {
     }
 
     @Override
-    public List<Location> findById(int id) {
-        List<Location> locations = new LinkedList<>();
-        if (id == 0) {
-            locations.addAll(locationRepo.findAll());
-        } else {
-            locations.add(locationRepo.findOne(id));
-        }
-        return locations;
+    public Location findById(int id) {
+        return locationRepo.findOne(id);
     }
 
     @Override
@@ -44,5 +38,10 @@ public class LocationServiceImpl implements LocationService {
     @Override
     public List<Location> getTendersLocations() {
         return locationRepo.getTendersLocation();
+    }
+
+    @Override
+    public List<Location> getLocationsByIds(List<Integer> locations) {
+        return locationRepo.getLocationsByIds(locations);
     }
 }

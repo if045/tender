@@ -23,7 +23,7 @@ public class TenderFilter {
     private Integer dataFlag;
     private Integer priceFlag;
 
-    private String categoryName;
+    private Integer categoryId;
     private Character type;
     private Integer typeFlag;
 
@@ -36,11 +36,11 @@ public class TenderFilter {
         }
     }
 
-    public TenderFilter(String categoryName, Character type) {
-        if (categoryName==null) {
+    public TenderFilter(Integer categoryId, Character type) {
+        if (categoryId==null) {
             setCategoryFlag(1);
         }else {
-            this.categoryName = categoryName;;
+            this.categoryId = categoryId;
             setCategoryFlag(0);
         }
         if (type==null) {
@@ -88,12 +88,12 @@ public class TenderFilter {
         this.maxDate = (maxDate!=null)?maxDate:new Date((new Date().getTime())+2419200000l);
     }
 
-    public String getCategoryName() {
-        return categoryName;
+    public Integer getCategoryId() {
+        return categoryId;
     }
 
-    public void setCategoryName(String categoryName) {
-        this.categoryName = categoryName;
+    public void setCategoryId(Integer categoryId) {
+        this.categoryId = categoryId;
     }
 
     public Character getType() {

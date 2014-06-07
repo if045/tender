@@ -107,5 +107,9 @@
 <jsp:include page="createTender.jsp"/>
 <!--create tender modal -->
 
+<!-- new tender modal window -->
+<jsp:include page="newTenderCreated.jsp"/>
+<!-- new tender modal window -->
+
 </body>
 </html>

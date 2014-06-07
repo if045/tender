@@ -22,7 +22,7 @@ public class ItemController {
     @RequestMapping(value = "", method = RequestMethod.GET)
     public @ResponseBody
     List<ItemDto> findItemsByCategoryAndType(
-            @RequestParam(value = "category", required = false) String category,
+            @RequestParam(value = "category", required = false) Integer category,
             @RequestParam(value = "type", required = false) Character type) {
         return itemServiceFacade.findItemsByCategoryAndType(new TenderFilter(category,type));
     }
