@@ -1,5 +1,4 @@
 var unitsQuantity;
-var flag = false;
 
 $(document).ready(function() {
     $("#radio_buttons").change(function() {
@@ -39,15 +38,18 @@ function enableAllowance() {
 }
 
 function enableCreateButton() {
+    var flag = false;
     for (var i = 0; i < unitsQuantity; i++) {
-       // str += '$("#"' + i + ').val() != ""'
-        if ($("#"+i).val() != ""){
-            alert("A");
+        var value = $.trim($("#" + i).val());
+        if (value.length != 0) {
             flag = true;
-            $("#create_proposal_button").removeAttr("disabled");
-        } else if (flag = false) {
-            $("#create_proposal_button").attr("disabled", "disabled");
+            break;
         }
+    }
+    if (flag) {
+        $("#create_proposal_button").removeAttr("disabled");
+    } else {
+        $("#create_proposal_button").attr("disabled", "disabled");
     }
 }
 
