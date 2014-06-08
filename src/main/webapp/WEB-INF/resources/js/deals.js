@@ -19,12 +19,14 @@ function showDeals() {
                     '<td align="center">' + data[i].status + '</td>' +
                     '<td align="center">' + data[i].sum + '</td>' +
                     '<td align="center">' +
-                        '<select class="form-control items_number_dropdown action_button">'+
-                            '<option value="">Action</option>'+
-                            '<option value="done' + data[i].id + '">Done</option>'+
-                            '<option value="conflict' + data[i].id + '">Conflict</option>'+
-                            '<option value="feedback' + data[i].id + '">Feedback</option>'+
-                        '</select>'+
+                        '<div class="btn-group">' +
+                            '<button data-toggle="dropdown" class="btn btn-default dropdown-toggle">Action<span class="caret"></span></button>' +
+                            '<ul class="dropdown-menu">' +
+                                '<li><a href="#">Feedback</a></li>' +
+                                '<li><a href="#">Conflict</a></li>' +
+                                '<li><a href="#" data-toggle="modal" data-target="" onclick="">Close</a></li>' +
+                            '</ul>' +
+                        '</div>' +
                     '</td></tr>';
             }
 

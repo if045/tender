@@ -23,6 +23,8 @@
 
     <script type='text/javascript' src='<c:url value="../resources/js/deals.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/addTenderModal.js"/>'></script>
+    <script type='text/javascript' src='<c:url value="../resources/js/tenders.js"/>'></script>
+    <script type='text/javascript' src='<c:url value="../resources/js/constants.js"/>'></script>
 </head>
 <body>
     <div class="container">
