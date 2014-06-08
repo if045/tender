@@ -1,4 +1,5 @@
 var unitsQuantity;
+var tenderId;
 
 $(document).ready(function() {
     $("#radio_buttons").change(function() {
@@ -7,6 +8,7 @@ $(document).ready(function() {
 });
 
 function showUnits(id) {
+    tenderId = id;
     $.getJSON(TENDERS_URL + id + '/units', function(data) {
         var html='';
         var len = data.length;
@@ -14,7 +16,7 @@ function showUnits(id) {
 
         for (var i = 0; i < len; i++) {
             html += '<tr>' +
-                '<td>' + data[i].unitName + '</td>' +
+                '<td>' + data[i].unitName + '<input  hidden="" type="text" value="' + data[i].id +'" id="unit_id_' + i + '"/>' + '</td>' +
                 '<td>' + data[i].itemType + '</td>' +
                 '<td>' + data[i].categoryName + '</td>' +
                 '<td>' + data[i].quantity + ' ' + data[i].measurementName + '</td>' +
@@ -53,5 +55,42 @@ function enableCreateButton() {
     }
 }
 
+function createProposal() {
+    var str = '';
+    str += '{"bids" : [';
+
+    for (var i = 0; i < unitsQuantity; i++) {
+        var value = $.trim($("#" + i).val());
+        if (value.length != 0) {
+           str += '{"unitId":' + '\"' + $('#unit_id_' + i).val() + '\"' + ', "price":' + '\"' + $("#" + i).val() + '\"}';
+        }
+    }
+    str += ']';
+    if ($("#make_allowance").is(":checked")) {
+        str += ', ';
+        if ($("#optRadSum").is(":checked")) {
+            str += '"discountCurrency"';
+        } else if ($("#optRadPercent").is(":checked")) {
+            str += '"discountPercentage"';
+        }
+        str += ': ' + '\"' + $("#allowance").val() + '\"';
+    }
+    str += ', "description": ' + '\"' + $('#proposal_description').val()+'\"' +
+            ', "tenderId": ' + '\"' + tenderId + '\"}';
+
+    var newJson = $.parseJSON(str);
+    $.ajax({
+        url: TENDERS_URL + tenderId + "/proposals",
+        type: "POST",
+        data: JSON.stringify(newJson),
+        dataType: 'json',
+        contentType: 'application/json',
+
+        success: function(data) {},
+        error: function() {}
+    });
+
+    $('#createProposalWindow').modal('hide');
+}
 
 

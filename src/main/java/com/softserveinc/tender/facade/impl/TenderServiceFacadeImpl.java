@@ -1,8 +1,10 @@
 package com.softserveinc.tender.facade.impl;
 
+import com.softserveinc.tender.dto.BidSaveDto;
 import com.softserveinc.tender.dto.CategoryDto;
 import com.softserveinc.tender.dto.ItemDto;
 import com.softserveinc.tender.dto.LocationSaveDto;
+import com.softserveinc.tender.dto.ProposalSaveDto;
 import com.softserveinc.tender.dto.TenderDto;
 import com.softserveinc.tender.dto.LocationDto;
 import com.softserveinc.tender.dto.TenderSaveDto;
@@ -10,6 +12,7 @@ import com.softserveinc.tender.dto.TenderStatusDto;
 import com.softserveinc.tender.dto.UnitSaveDto;
 import com.softserveinc.tender.dto.ProposalDto;
 import com.softserveinc.tender.dto.UnitDto;
+import com.softserveinc.tender.entity.Bid;
 import com.softserveinc.tender.entity.Category;
 import com.softserveinc.tender.entity.Item;
 import com.softserveinc.tender.entity.Location;
@@ -27,6 +30,7 @@ import com.softserveinc.tender.service.LocationService;
 import com.softserveinc.tender.service.ProposalService;
 import com.softserveinc.tender.service.TenderStatusService;
 import com.softserveinc.tender.service.UnitService;
+import com.softserveinc.tender.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,6 +79,9 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
 
     @Autowired
     private ProposalService proposalService;
+
+    @Autowired
+    private UserService userService;
 
     @Override
     public List<TenderDto> findByCustomParams(TenderFilter tenderFilter) {
@@ -261,5 +268,29 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
         proposalDto.setTotalBidsPrice(proposalDto.countTotalBidsPrice(proposal));
 
         return proposalDto;
+    }
+
+    @Override
+    public ProposalDto saveProposal(ProposalSaveDto proposalSaveDto) {
+        Proposal proposal = new Proposal();
+        proposal.setSeller(userService.findUserById(7));
+        proposal.setTender(tenderService.findOne(proposalSaveDto.getTenderId()));
+        proposal.setDiscountCurrency(proposalSaveDto.getDiscountCurrency());
+        proposal.setDiscountPercentage(proposalSaveDto.getDiscountPercentage());
+        proposal.setDescription(proposalSaveDto.getDescription());
+        Proposal savedProposal = proposalService.save(proposal);
+
+        List<Bid> bids = new ArrayList<>();
+        for (BidSaveDto bidSaveDto: proposalSaveDto.getBidSaveDtos()) {
+            Bid bid = new Bid();
+            bid.setPrice(bidSaveDto.getPrice());
+            bid.setDate(new Date());
+            bid.setUnit(unitService.findById(bidSaveDto.getUnitId()));
+            bid.setProposal(savedProposal);
+            bids.add(bid);
+        }
+        savedProposal.setBids(bids);
+        Proposal savedProposalWithBids = proposalService.save(savedProposal);
+        return mapTenderProposal(savedProposalWithBids);
     }
 }

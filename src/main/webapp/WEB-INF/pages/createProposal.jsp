@@ -28,9 +28,9 @@
                     </table>
 
                     <div class="form-group">
-                        <label for="description" class="col-md-2 control-label">Description</label>
+                        <label for="proposal_description" class="col-md-2 control-label">Description</label>
                         <div class="col-md-6">
-                            <textarea id="description" class="form-control" rows="3" name="description"></textarea>
+                            <textarea id="proposal_description" class="form-control" rows="3" name="description"></textarea>
                         </div>
                     </div>
 
@@ -65,7 +65,7 @@
             </div>
             <div class="modal-footer">
                 <button class="btn btn-default" type="button" data-dismiss="modal">Cancel</button>
-                <button class="btn btn-primary" type="button" disabled id="create_proposal_button">Create</button>
+                <button class="btn btn-primary" type="button" disabled id="create_proposal_button" onclick="createProposal();">Create</button>
             </div>
         </div>
     </div>
