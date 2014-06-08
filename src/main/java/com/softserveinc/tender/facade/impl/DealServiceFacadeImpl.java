@@ -31,6 +31,11 @@ public class DealServiceFacadeImpl implements DealServiceFacade {
         return mapDeals(deals);
     }
 
+    @Override
+    public void updateDealWithStatus(Integer dealId, String statusName) {
+        dealService.updateDealWithStatus(dealId, statusName);
+    }
+
     private List<DealDto> mapDeals(List<Deal> deals) {
         List<DealDto> dealDtos = new ArrayList<>();
         for (Deal deal : deals) {
