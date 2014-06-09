@@ -22,6 +22,7 @@
     <script type='text/javascript' src='<c:url value="../resources/js/select2.min.js"/>'></script>
 
     <script type='text/javascript' src='<c:url value="../resources/js/deals.js"/>'></script>
+    <script type='text/javascript' src='<c:url value="../resources/js/feedback.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/addTenderModal.js"/>'></script>
 </head>
 <body>
@@ -30,6 +31,10 @@
             <!--navigation-->
             <jsp:include page="header.jsp"/>
             <!--navigation-->
+
+            <!--action button feedback-->
+            <jsp:include page="feedback.jsp"/>
+            <!--action button feedback-->
 
             <!--main-->
             <div class="page_body">
