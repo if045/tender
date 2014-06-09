@@ -9,11 +9,13 @@ import com.softserveinc.tender.dto.TenderDto;
 import com.softserveinc.tender.dto.TenderStatusDto;
 import com.softserveinc.tender.dto.UnitDto;
 import com.softserveinc.tender.repo.TenderFilter;
+import org.springframework.data.domain.Pageable;
+
 import java.util.List;
 
 public interface TenderServiceFacade {
 
-    List<TenderDto> findByCustomParams(TenderFilter tenderFilter);
+    List<TenderDto> findByCustomParams(TenderFilter tenderFilter, Pageable pageable);
     void saveTender(TenderSaveDto tenderSaveDto);
     List<TenderStatusDto> findTendersStatuses();
     List<ItemDto> findTendersItems(TenderFilter tenderFilter);

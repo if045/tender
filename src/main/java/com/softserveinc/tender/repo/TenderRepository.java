@@ -1,6 +1,7 @@
 package com.softserveinc.tender.repo;
 
 import com.softserveinc.tender.entity.Tender;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -33,5 +34,6 @@ public interface TenderRepository extends JpaRepository<Tender, Integer> {
                                         @Param("itemFlag") Integer itemFlag,
                                         @Param("locationFlag") Integer locationFlag,
                                         @Param("statusFlag") Integer statusFlag,
-                                        @Param("priceFlag") Integer priceFlag);
+                                        @Param("priceFlag") Integer priceFlag,
+                                        Pageable pageable);
 }

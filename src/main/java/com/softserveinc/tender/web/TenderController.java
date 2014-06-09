@@ -11,6 +11,8 @@ import com.softserveinc.tender.repo.TenderFilter;
 import com.softserveinc.tender.dto.TenderStatusDto;
 import com.softserveinc.tender.facade.TenderServiceFacade;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -30,6 +32,9 @@ public class TenderController {
     @Autowired
     private TenderServiceFacade tenderFacade;
 
+    private static final String DEFAULT_PAGE_NUMBER = "0";
+    private static final String DEFAULT_PAGE_SIZE = "10";
+
     @RequestMapping(method = RequestMethod.GET)
     public @ResponseBody List<TenderDto> findTenders(
             @RequestParam(value = "minPrice", required = false) BigDecimal minPrice,
@@ -39,10 +44,13 @@ public class TenderController {
             @RequestParam(value = "categories", required = false) Set<Integer> categories,
             @RequestParam(value = "statuses", required = false) List<Integer> statuses,
             @RequestParam(value = "minDate", required = false) Date createDate,
-            @RequestParam(value = "maxDate", required = false) Date endDate) {
+            @RequestParam(value = "maxDate", required = false) Date endDate,
+            @RequestParam(value = "pageNumber", required = false, defaultValue = DEFAULT_PAGE_NUMBER) Integer pageNumber,
+            @RequestParam(value = "pageSize", required = false, defaultValue = DEFAULT_PAGE_SIZE) Integer pageSize){
 
-        return tenderFacade.findByCustomParams(new TenderFilter(minPrice, maxPrice, categories,
-                                                                locations, items, statuses, createDate, endDate));
+        return tenderFacade.findByCustomParams(new TenderFilter(minPrice, maxPrice, categories, locations, items,
+                                                                statuses, createDate, endDate),
+                                               new PageRequest(pageNumber, pageSize));
     }
 
     @RequestMapping(value = "/statuses", method = RequestMethod.GET)
