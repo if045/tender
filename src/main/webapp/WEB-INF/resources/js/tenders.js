@@ -208,24 +208,23 @@
             var categories = new Array();
             categories = $('#category_filter').val();
 
-            $.ajax({
-              dataType: "json",
-              url: '/tenders/categories',
-              async: false,
-              success: function(data){
-                    var dataLength = data.length;
-                    var catNumber = categories.length;
-                    for(var z = 0;z<catNumber;z++) {
-                        for (var i = 0; i < dataLength; i++) {
-                            if(categories[z] == data[i].parent) {
-                                categories.push(""+data[i].id);
+            if (categories != null){
+                $.ajax({
+                    dataType: "json",
+                    url: '/tenders/categories',
+                    async: false,
+                    success: function(data){
+                        var dataLength = data.length;
+                        var catNumber = categories.length;
+                        for(var z = 0;z<catNumber;z++) {
+                            for (var i = 0; i < dataLength; i++) {
+                                if(categories[z] == data[i].parent) {
+                                    categories.push(""+data[i].id);
+                                }
                             }
                         }
                     }
-                }
-            });
-
-            if (categories != null){
+                });
                 str += (str.length == 0)?"categories="+categories:"&categories="+categories;
             }
 

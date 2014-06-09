@@ -64,7 +64,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-default" type="button" data-dismiss="modal">Cancel</button>
+                <button class="btn btn-default" type="button" data-dismiss="modal" onclick="cleanCreateProposalFields();">Cancel</button>
                 <button class="btn btn-primary" type="button" disabled id="create_proposal_button" onclick="createProposal();">Create</button>
             </div>
         </div>

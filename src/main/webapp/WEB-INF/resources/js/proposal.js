@@ -62,9 +62,10 @@ function createProposal() {
     for (var i = 0; i < unitsQuantity; i++) {
         var value = $.trim($("#" + i).val());
         if (value.length != 0) {
-           str += '{"unitId":' + '\"' + $('#unit_id_' + i).val() + '\"' + ', "price":' + '\"' + $("#" + i).val() + '\"}';
+           str += '{"unitId":' + '\"' + $('#unit_id_' + i).val() + '\"' + ', "price":' + '\"' + $("#" + i).val() + '\"}, ';
         }
     }
+    str = str.substr(0,str.lastIndexOf(','));
     str += ']';
     if ($("#make_allowance").is(":checked")) {
         str += ', ';
@@ -86,11 +87,28 @@ function createProposal() {
         dataType: 'json',
         contentType: 'application/json',
 
-        success: function(data) {},
+        success: function(data) {
+        },
         error: function() {}
     });
-
+    var delay=100;
+    setTimeout(function(){
+        cleanCreateProposalFields();
+    },delay);
     $('#createProposalWindow').modal('hide');
+
+}
+
+function cleanCreateProposalFields() {
+    for (var i = 0; i < unitsQuantity; i++) {
+        $("#" + i).val("");
+    }
+    $("#proposal_description").val("");
+    $("#make_allowance").attr("checked", false);
+    $("#optRadSum").attr("disabled", "disabled");
+    $("#optRadPercent").attr("disabled", "disabled");
+    $("#allowance").val("");
+    showTenders();
 }
 
 

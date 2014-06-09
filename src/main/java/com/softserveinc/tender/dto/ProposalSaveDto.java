@@ -8,7 +8,7 @@ public class ProposalSaveDto {
     private String description;
     private BigDecimal discountPercentage;
     private BigDecimal discountCurrency;
-    private List<BidSaveDto> bidSaveDtos;
+    private List<BidSaveDto> bids;
 
     public Integer getTenderId() {
         return tenderId;
@@ -42,11 +42,11 @@ public class ProposalSaveDto {
         this.discountCurrency = discountCurrency;
     }
 
-    public List<BidSaveDto> getBidSaveDtos() {
-        return bidSaveDtos;
+    public List<BidSaveDto> getBids() {
+        return bids;
     }
 
-    public void setBidSaveDtos(List<BidSaveDto> bidSaveDtos) {
-        this.bidSaveDtos = bidSaveDtos;
+    public void setBids(List<BidSaveDto> bids) {
+        this.bids = bids;
     }
 }

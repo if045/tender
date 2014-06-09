@@ -21,6 +21,7 @@ import com.softserveinc.tender.entity.Tender;
 import com.softserveinc.tender.entity.Unit;
 import com.softserveinc.tender.facade.TenderServiceFacade;
 import com.softserveinc.tender.repo.TenderFilter;
+import com.softserveinc.tender.service.BidService;
 import com.softserveinc.tender.service.ItemService;
 import com.softserveinc.tender.service.MeasurementService;
 import com.softserveinc.tender.service.ProfileService;
@@ -82,6 +83,9 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private BidService bidService;
 
     @Override
     public List<TenderDto> findByCustomParams(TenderFilter tenderFilter) {
@@ -271,26 +275,33 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
     }
 
     @Override
-    public ProposalDto saveProposal(ProposalSaveDto proposalSaveDto) {
+    public boolean saveProposal(ProposalSaveDto proposalSaveDto) {
         Proposal proposal = new Proposal();
         proposal.setSeller(userService.findUserById(7));
         proposal.setTender(tenderService.findOne(proposalSaveDto.getTenderId()));
-        proposal.setDiscountCurrency(proposalSaveDto.getDiscountCurrency());
-        proposal.setDiscountPercentage(proposalSaveDto.getDiscountPercentage());
-        proposal.setDescription(proposalSaveDto.getDescription());
+        if (proposalSaveDto.getDiscountCurrency() != null) {
+            proposal.setDiscountCurrency(proposalSaveDto.getDiscountCurrency());
+        }
+        if (proposalSaveDto.getDiscountPercentage() != null){
+            proposal.setDiscountPercentage(proposalSaveDto.getDiscountPercentage());
+        }
+        if (proposalSaveDto.getDescription() != null){
+            proposal.setDescription(proposalSaveDto.getDescription());
+        }
         Proposal savedProposal = proposalService.save(proposal);
 
         List<Bid> bids = new ArrayList<>();
-        for (BidSaveDto bidSaveDto: proposalSaveDto.getBidSaveDtos()) {
+        for (BidSaveDto bidSaveDto: proposalSaveDto.getBids()) {
             Bid bid = new Bid();
             bid.setPrice(bidSaveDto.getPrice());
             bid.setDate(new Date());
             bid.setUnit(unitService.findById(bidSaveDto.getUnitId()));
             bid.setProposal(savedProposal);
-            bids.add(bid);
+            Bid savedBid = bidService.save(bid);
+            bids.add(savedBid);
         }
         savedProposal.setBids(bids);
         Proposal savedProposalWithBids = proposalService.save(savedProposal);
-        return mapTenderProposal(savedProposalWithBids);
+        return savedProposalWithBids != null;
     }
 }
