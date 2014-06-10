@@ -122,7 +122,7 @@
                         <textarea id="message" class="form-control" rows="3" disabled>Message from this author</textarea>
                     </div>
                     <div class="col-md-5">
-                        <label for="proposalDescription" class="col-md-6 control-label">Proposals description</label>
+                        <label for="proposalDescription" class="col-md-6 control-label">Proposal description</label>
                         <textarea id="proposalDescription" class="form-control" rows="3" disabled>There is proposal description and some allowance</textarea>
                     </div>
                 </div>
