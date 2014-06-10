@@ -1,6 +1,16 @@
 package com.softserveinc.tender.facade.impl;
 
-import com.softserveinc.tender.dto.*;
+import com.softserveinc.tender.dto.CategoryDto;
+import com.softserveinc.tender.dto.ItemDto;
+import com.softserveinc.tender.dto.LocationSaveDto;
+import com.softserveinc.tender.dto.TenderDto;
+import com.softserveinc.tender.dto.LocationDto;
+import com.softserveinc.tender.dto.TenderSaveDto;
+import com.softserveinc.tender.dto.TenderStatusDto;
+import com.softserveinc.tender.dto.UnitSaveDto;
+import com.softserveinc.tender.dto.ProposalDto;
+import com.softserveinc.tender.dto.UnitDto;
+import com.softserveinc.tender.dto.TendersNumberDto;
 import com.softserveinc.tender.entity.Category;
 import com.softserveinc.tender.entity.Item;
 import com.softserveinc.tender.entity.Location;

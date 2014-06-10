@@ -1,6 +1,14 @@
 package com.softserveinc.tender.web;
 
-import com.softserveinc.tender.dto.*;
+import com.softserveinc.tender.dto.CategoryDto;
+import com.softserveinc.tender.dto.ItemDto;
+import com.softserveinc.tender.dto.LocationDto;
+import com.softserveinc.tender.dto.ProposalDto;
+import com.softserveinc.tender.dto.TenderDto;
+import com.softserveinc.tender.dto.TenderSaveDto;
+import com.softserveinc.tender.dto.UnitDto;
+import com.softserveinc.tender.dto.TendersNumberDto;
+import com.softserveinc.tender.dto.TenderStatusDto;
 import com.softserveinc.tender.repo.TenderFilter;
 import com.softserveinc.tender.facade.TenderServiceFacade;
 import org.springframework.beans.factory.annotation.Autowired;
