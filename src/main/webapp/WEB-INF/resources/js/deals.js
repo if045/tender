@@ -19,12 +19,14 @@ function showDeals() {
                     '<td align="center">' + data[i].status + '</td>' +
                     '<td align="center">' + data[i].sum + '</td>' +
                     '<td align="center">' +
-                        '<select class="form-control items_number_dropdown action_button">'+
-                            '<option value="">Action</option>'+
-                            '<option value="done' + data[i].id + '">Done</option>'+
-                            '<option value="conflict' + data[i].id + '">Conflict</option>'+
-                            '<option value="feedback' + data[i].id + '">Feedback</option>'+
-                        '</select>'+
+                        '<div class="btn-group">' +
+                            '<button data-toggle="dropdown" class="btn btn-default dropdown-toggle">Action<span class="caret"></span></button>' +
+                            '<ul class="dropdown-menu">' +
+                                '<li><a href="#">Feedback</a></li>' +
+                                '<li><a href="#">Conflict</a></li>' +
+                                '<li><a href="#" data-toggle="modal" data-target="#close_deal_mod_wind" onclick="writeCloseDealId(' + data[i].id + ')">Close</a></li>' +
+                            '</ul>' +
+                        '</div>' +
                     '</td></tr>';
             }
 
@@ -56,4 +58,28 @@ function unixTimeConverter(timestamp){
     if(month <= 9) month = "0" + month;
 
     return day + "/" + month + "/" + year;
+}
+
+function closeDeal() {
+    var str = '';
+    str += "statusName=" + "close";
+    $.ajax({
+        url: "/deals/" + $('#close_deal_id').val() + "?"  + str,
+        type: "PUT",
+
+        success: function(data){
+            closeDealModalWindow('close_deal_mod_wind');
+            showDeals()},
+        error: function(){
+            alert("Can't close this deal")
+        }
+    })
+}
+
+function writeCloseDealId(id) {
+    document.getElementById('close_deal_id').value = id;
+}
+
+function closeDealModalWindow(id) {
+    $('#' + id).modal('hide');
 }

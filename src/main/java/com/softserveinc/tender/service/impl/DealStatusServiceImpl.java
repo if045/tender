@@ -22,4 +22,9 @@ public class DealStatusServiceImpl implements DealStatusService {
     public DealStatus findDealStatusById(Integer id) {
         return dealStatusRepository.findOne(id);
     }
+
+    @Override
+    public DealStatus findByName(String name) {
+        return dealStatusRepository.findByName(name);
+    }
 }

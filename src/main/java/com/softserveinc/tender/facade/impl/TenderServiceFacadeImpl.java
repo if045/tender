@@ -2,7 +2,6 @@ package com.softserveinc.tender.facade.impl;
 
 import com.softserveinc.tender.dto.CategoryDto;
 import com.softserveinc.tender.dto.ItemDto;
-import com.softserveinc.tender.dto.LocationSaveDto;
 import com.softserveinc.tender.dto.TenderDto;
 import com.softserveinc.tender.dto.LocationDto;
 import com.softserveinc.tender.dto.TenderSaveDto;
@@ -80,6 +79,8 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
     @Autowired
     private ProposalService proposalService;
 
+    private static final String DATE_FORMAT_FROM_CLIENT="yyyy/MM/dd";
+
     @Override
     public List<TenderDto> findByCustomParams(TenderFilter tenderFilter, Pageable pageable) {
         List<Tender> tenders = tenderService.findByCustomParameters(tenderFilter, pageable);
@@ -135,8 +136,7 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
             categories.add(unit.getItem().getCategory().getName());
         }
         tenderDto.setCategories(categories);
-        tenderDto.setProposals(tender.getProposals().size());
-
+        if (tender.getProposals()!=null){tenderDto.setProposals(tender.getProposals().size());}
         return tenderDto;
     }
 
@@ -189,8 +189,8 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
     }
 
     @Override
-    public void saveTender(TenderSaveDto tenderSaveDto) {
-        String pattern = "yyyy/MM/dd";
+    public TenderDto saveTender(TenderSaveDto tenderSaveDto) {
+        String pattern = DATE_FORMAT_FROM_CLIENT;
         Date date = null;
         SimpleDateFormat formatter;
         formatter = new SimpleDateFormat(pattern);
@@ -199,24 +199,26 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        List<Location> locations = new ArrayList<>();
-        for (LocationSaveDto locationSaveDto : tenderSaveDto.getLocations()) {
-            if (locationSaveDto.getId() != 0) {
-                locations.add(locationService.findById(locationSaveDto.getId()));
-            } else {
-                locations = locationService.findAll();
-            }
-        }
         Tender tender = new Tender();
-        tender.setLocations(locations);
+        if (tenderSaveDto.getLocationsIds()==null){
+            tender.setLocations(locationService.findAll());
+        }else{
+            List<Integer> locationsIds=new ArrayList<>();
+            for(String s:tenderSaveDto.getLocationsIds().split(",")){
+                locationsIds.add(Integer.parseInt(s));
+            }
+            tender.setLocations(locationService.getLocationsByIds(locationsIds));
+        }
         tender.setStatus(tenderStatusService.findByName("Open"));
         tender.setTitle(tenderSaveDto.getTitle());
-        tender.setDescription(tenderSaveDto.getDescription());
+        if (tenderSaveDto.getDescription()!=null){
+            tender.setDescription(tenderSaveDto.getDescription());
+        }
         tender.setSuitablePrice(tenderSaveDto.getSuitablePrice());
         tender.setCreateDate(new Date());
         tender.setEndDate(date);
         tender.setAuthor(profileService.findProfileById(8));
-        Tender tender1 = tenderService.save(tender);
+        Tender savedTender = tenderService.save(tender);
         List<Unit> units = new ArrayList<>();
         for (UnitSaveDto unitSaveDto : tenderSaveDto.getUnits()) {
             Unit unit = new Unit();
@@ -227,16 +229,16 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
             } else {
                 Item item = new Item();
                 item.setName(unitSaveDto.getItem());
-                item.setCategory(categoryService.findByName(unitSaveDto.getCategory()));
+                item.setCategory(categoryService.findCategoryById(Integer.parseInt(unitSaveDto.getCategory())));
                 item.setType(unitSaveDto.getItemType());
                 unit.setItem(itemService.save(item));
             }
-            unit.setTender(tender1);
-
+            unit.setTender(savedTender);
             units.add(unitService.save(unit));
         }
-        tender.setUnits(units);
-        tenderService.save(tender);
+        savedTender.setUnits(units);
+        Tender savedTenderWithUnits = tenderService.save(savedTender);
+        return mapTender(savedTenderWithUnits);
     }
 
     public void updateTenderWithStatus(Integer tenderId, String statusName) {
