@@ -79,6 +79,68 @@
                     </div>
                 </div>
                 <!-- User's log in data -->
+
+                <!-- Company data -->
+                <div class="col-md-8">
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Company data</h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="panel-group">
+                                <div class="row backdown">
+                                    <div class="col-md-12">
+                                        <div class="input-group">
+                                            <span class="input-group-addon glyphicon glyphicon-pencil"></span>
+                                            <input type="text" class="form-control" placeholder="Name">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row backdown">
+                                    <div class="col-md-12">
+                                        <div class="input-group">
+                                            <span class="input-group-addon glyphicon glyphicon-home"></span>
+                                            <input type="text" class="form-control" placeholder="City">
+                                            <span class="input-group-addon"></span>
+                                            <input type="text" class="form-control" placeholder="Street">
+                                            <span class="input-group-addon"></span>
+                                            <input type="text" class="form-control" placeholder="Building number">
+                                            <span class="input-group-addon"></span>
+                                            <input type="text" class="form-control" placeholder="Postcode">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row backdown">
+                                    <div class="col-md-12">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">@</span>
+                                            <input type="text" class="form-control" placeholder="Email">
+                                            <span class="input-group-addon"></span>
+                                            <input type="text" class="form-control" placeholder="SRN number">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row backdown">
+                                    <div class="col-md-12">
+                                        <div class="input-group">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-primary" type="button">Choose logotype</button>
+                                        </span>
+                                            <input type="text" class="form-control" placeholder="Path">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Panel group -->
+                        </div>
+                        <!-- Panel body -->
+                    </div>
+                    <!-- Panel -->
+                </div>
+                <!-- Company data -->
             </div>
         </div>
     </div>
