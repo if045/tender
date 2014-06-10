@@ -1,10 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<html>
-<head>
-    <title></title>
-</head>
-<body>
 <!-- show feedback modal window -->
 <div class="modal fade bs-example-modal-sm" id="feedback_mod_wind" tabindex="-1" role="dialog" hidden="">
     <div class="modal-dialog modal-sm">
@@ -15,8 +10,7 @@
             <div class="modal-body">
                 <form class="form-horizontal" role="form">
                     <div class="form-group">
-                       <%-- <label for="create_comunication_rating" class="col-sm-4 control-label">Communication</label>--%>
-                           <h4 for="create_communication_rating1" class="col-sm-4 control-label">Communication</h4>
+                        <h4 for="create_communication_rating1" class="col-sm-4 control-label">Communication</h4>
                         <div class="col-sm-2">
                             <input type="number" class="rating" id="create_communication_rating" min="0" max="5" step="1" data-size="xs" data-show-clear="false" data-show-caption="false">
                         </div>
@@ -46,7 +40,7 @@
             </div>
             <div class="modal-footer">
                 <button class="btn btn-primary" type="button" data-dismiss="modal" onclick="cleanFeedback();">Cancel</button>
-                <button class="btn btn-primary" type="button" onclick="sendFeedback();">Send</button>
+                <button class="btn btn-primary" type="button" onclick="createFeedback();">Send</button>
             </div>
         </div>
     </div>

@@ -2,7 +2,7 @@ $(document).ready(function() {
 
 });
 
-function showFeedback() {
+function createFeedback() {
     var str = '';
     //str += "statusName=" + CLOSE_STATUS_NAME;
     $.ajax({
@@ -25,8 +25,8 @@ function writeFeedbackId(id) {
     document.getElementById('feedback_id').value = id;
 }
 function cleanFeedback() {
-    $("#create_communication_rating").val('0');
-    $("#create_speed_rating").val('0');
-    $("#create_logistic_rating").val('0');
+    $("#create_communication_rating").rating('update', 0);
+    $("#create_speed_rating").rating('update', 0);
+    $("#create_logistic_rating").rating('update', 0);
     $("#feedback_comment").val("");
 }

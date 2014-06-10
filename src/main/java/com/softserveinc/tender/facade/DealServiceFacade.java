@@ -12,6 +12,6 @@ import com.softserveinc.tender.repo.TenderFilter;
 import java.util.List;
 
 public interface DealServiceFacade {
-    void saveFeedback(FeedbackSaveDto feedbackSaveDto);
+    FeedbackSaveDto saveFeedback(FeedbackSaveDto feedbackSaveDto);
     List<DealDto> findAllDeals();
 }

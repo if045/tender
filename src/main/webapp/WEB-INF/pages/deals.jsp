@@ -34,10 +34,6 @@
             <jsp:include page="header.jsp"/>
             <!--navigation-->
 
-            <!--action button feedback-->
-            <jsp:include page="feedback.jsp"/>
-            <!--action button feedback-->
-
             <!--main-->
             <div class="page_body">
                 <!-- content -->
@@ -113,6 +109,10 @@
 <!--create tender modal -->
 <jsp:include page="createTender.jsp"/>
 <!--create tender modal -->
+
+<!--action button feedback-->
+<jsp:include page="feedback.jsp"/>
+<!--action button feedback-->
 
 </body>
 </html>
