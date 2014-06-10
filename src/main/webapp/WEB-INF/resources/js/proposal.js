@@ -88,15 +88,14 @@ function createProposal() {
         contentType: 'application/json',
 
         success: function(data) {
+            cleanCreateProposalFields();
         },
-        error: function() {}
+        error: function() {
+            alert("Some error!");
+        }
     });
-    var delay=100;
-    setTimeout(function(){
-        cleanCreateProposalFields();
-    },delay);
-    $('#createProposalWindow').modal('hide');
 
+    $('#createProposalWindow').modal('hide');
 }
 
 function cleanCreateProposalFields() {

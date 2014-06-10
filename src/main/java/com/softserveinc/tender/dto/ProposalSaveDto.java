@@ -1,12 +1,13 @@
 package com.softserveinc.tender.dto;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public class ProposalSaveDto {
     private Integer tenderId;
     private String description;
-    private Double discountPercentage;
-    private Double discountCurrency;
+    private BigDecimal discountPercentage;
+    private BigDecimal discountCurrency;
     private List<BidSaveDto> bids;
 
     public Integer getTenderId() {
@@ -25,19 +26,19 @@ public class ProposalSaveDto {
         this.description = description;
     }
 
-    public Double getDiscountPercentage() {
+    public BigDecimal getDiscountPercentage() {
         return discountPercentage;
     }
 
-    public void setDiscountPercentage(Double discountPercentage) {
+    public void setDiscountPercentage(BigDecimal discountPercentage) {
         this.discountPercentage = discountPercentage;
     }
 
-    public Double getDiscountCurrency() {
+    public BigDecimal getDiscountCurrency() {
         return discountCurrency;
     }
 
-    public void setDiscountCurrency(Double discountCurrency) {
+    public void setDiscountCurrency(BigDecimal discountCurrency) {
         this.discountCurrency = discountCurrency;
     }
 
