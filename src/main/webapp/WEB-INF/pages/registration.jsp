@@ -258,6 +258,26 @@
                     <!-- Panel -->
                 </div>
                 <!-- Trade sphere data -->
+
+                <!-- Agreement and confirm -->
+                <div class="col-md-8">
+                    <div class="panel">
+                        <div class="panel-body">
+                            <div class="panel-group">
+                                <div class="row">
+                                    <h3>Accept website <a href="">policy</a>  <input type="checkbox"></h3>
+                                </div>
+                                <div class="row">
+                                    <button class="btn btn-success" type="button" disabled>Confirm</button>
+                                </div>
+                            </div>
+                            <!-- Panel group -->
+                        </div>
+                        <!-- Panel body -->
+                    </div>
+                    <!-- Panel -->
+                </div>
+                <!-- Agreement and confirm -->
             </div>
         </div>
     </div>
