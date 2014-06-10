@@ -21,7 +21,7 @@ public class DealController {
     private DealServiceFacade dealFacade;
 
     @RequestMapping(method = RequestMethod.GET)
-    public @ResponseBody List<DealDto> findDeals() {
+      public @ResponseBody List<DealDto> findDeals() {
         return dealFacade.findAllDeals();
     }
 }

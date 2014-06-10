@@ -24,3 +24,9 @@ function closeFeedbackModalWindow(id) {
 function writeFeedbackId(id) {
     document.getElementById('feedback_id').value = id;
 }
+function cleanFeedback() {
+    $("#create_communication_rating").val('0');
+    $("#create_speed_rating").val('0');
+    $("#create_logistic_rating").val('0');
+    $("#feedback_comment").val("");
+}

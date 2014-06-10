@@ -1,7 +1,9 @@
 package com.softserveinc.tender.facade.impl;
 
 import com.softserveinc.tender.dto.DealDto;
+import com.softserveinc.tender.dto.FeedbackSaveDto;
 import com.softserveinc.tender.entity.Deal;
+import com.softserveinc.tender.entity.Feedback;
 import com.softserveinc.tender.entity.Tender;
 import com.softserveinc.tender.facade.DealServiceFacade;
 import com.softserveinc.tender.service.*;
@@ -21,6 +23,9 @@ public class DealServiceFacadeImpl implements DealServiceFacade {
 
     @Autowired
     private DealService dealService;
+
+    @Autowired
+    private FeedbackService feedbackService;
 
     @Autowired
     private ModelMapper modelMapper;
@@ -52,4 +57,15 @@ public class DealServiceFacadeImpl implements DealServiceFacade {
 
         return dealDto;
     }
+
+    @Override
+    public void saveFeedback(FeedbackSaveDto feedbackSaveDto) {
+        Feedback feedback = new Feedback();
+
+        feedback.setCommunication(feedbackSaveDto.getCommunication());
+        feedback.setSpeed(feedbackSaveDto.getSpeed());
+        feedback.setLogistic(feedbackSaveDto.getLogistic());
+        feedback.setComment(feedbackSaveDto.getComment());
+    }
+
 }

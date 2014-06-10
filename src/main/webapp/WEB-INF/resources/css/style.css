@@ -217,4 +217,6 @@ textarea {
 #create_tender_enddate {
     width:75%;
 }
-
+#feedback_mod_wind .modal-dialog{
+    width: 500px;
+}
