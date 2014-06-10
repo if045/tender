@@ -1,15 +1,6 @@
 package com.softserveinc.tender.facade.impl;
 
-import com.softserveinc.tender.dto.CategoryDto;
-import com.softserveinc.tender.dto.ItemDto;
-import com.softserveinc.tender.dto.LocationSaveDto;
-import com.softserveinc.tender.dto.TenderDto;
-import com.softserveinc.tender.dto.LocationDto;
-import com.softserveinc.tender.dto.TenderSaveDto;
-import com.softserveinc.tender.dto.TenderStatusDto;
-import com.softserveinc.tender.dto.UnitSaveDto;
-import com.softserveinc.tender.dto.ProposalDto;
-import com.softserveinc.tender.dto.UnitDto;
+import com.softserveinc.tender.dto.*;
 import com.softserveinc.tender.entity.Category;
 import com.softserveinc.tender.entity.Item;
 import com.softserveinc.tender.entity.Location;
@@ -83,6 +74,15 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
     public List<TenderDto> findByCustomParams(TenderFilter tenderFilter, Pageable pageable) {
         List<Tender> tenders = tenderService.findByCustomParameters(tenderFilter, pageable);
         return mapTenders(tenders);
+    }
+
+    @Override
+    public TendersNumberDto findByCustomParamsResultSize(TenderFilter tenderFilter) {
+        Long tendersNumber = tenderService.findByCustomParametersResultSize(tenderFilter);
+        TendersNumberDto tendersNumberDto = new TendersNumberDto();
+        tendersNumberDto.setTendersNumber(tendersNumber);
+
+        return tendersNumberDto;
     }
 
     public List<TenderStatusDto> findTendersStatuses() {

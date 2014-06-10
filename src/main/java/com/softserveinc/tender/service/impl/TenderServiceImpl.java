@@ -38,6 +38,17 @@ public class TenderServiceImpl implements TenderService {
     }
 
     @Override
+    public Long findByCustomParametersResultSize(TenderFilter tenderFilter) {
+        return tenderRepository.findByCustomParametersResultSize(tenderFilter.getMinPrice(), tenderFilter.getMaxPrice(),
+                tenderFilter.getStatuses(), tenderFilter.getCategories(),
+                tenderFilter.getLocations(), tenderFilter.getItems(),
+                tenderFilter.getMinDate(), tenderFilter.getMaxDate(),
+                tenderFilter.getCategoryFlag(), tenderFilter.getItemFlag(),
+                tenderFilter.getLocationFlag(), tenderFilter.getStatusFlag(),
+                tenderFilter.getPriceFlag());
+    }
+
+    @Override
     public void updateTenderWithStatus(Integer tenderId, String statusName) {
         Tender tender = tenderRepository.findOne(tenderId);
         TenderStatus tenderStatus = tenderStatusService.findByName(statusName);

@@ -1,14 +1,7 @@
 package com.softserveinc.tender.web;
 
-import com.softserveinc.tender.dto.CategoryDto;
-import com.softserveinc.tender.dto.ItemDto;
-import com.softserveinc.tender.dto.LocationDto;
-import com.softserveinc.tender.dto.ProposalDto;
-import com.softserveinc.tender.dto.TenderDto;
-import com.softserveinc.tender.dto.TenderSaveDto;
-import com.softserveinc.tender.dto.UnitDto;
+import com.softserveinc.tender.dto.*;
 import com.softserveinc.tender.repo.TenderFilter;
-import com.softserveinc.tender.dto.TenderStatusDto;
 import com.softserveinc.tender.facade.TenderServiceFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -32,9 +25,6 @@ public class TenderController {
     @Autowired
     private TenderServiceFacade tenderFacade;
 
-    private static final String DEFAULT_PAGE_NUMBER = "0";
-    private static final String DEFAULT_PAGE_SIZE = "10";
-
     @RequestMapping(method = RequestMethod.GET)
     public @ResponseBody List<TenderDto> findTenders(
             @RequestParam(value = "minPrice", required = false) BigDecimal minPrice,
@@ -45,12 +35,27 @@ public class TenderController {
             @RequestParam(value = "statuses", required = false) List<Integer> statuses,
             @RequestParam(value = "minDate", required = false) Date createDate,
             @RequestParam(value = "maxDate", required = false) Date endDate,
-            @RequestParam(value = "pageNumber", required = false, defaultValue = DEFAULT_PAGE_NUMBER) Integer pageNumber,
-            @RequestParam(value = "pageSize", required = false, defaultValue = DEFAULT_PAGE_SIZE) Integer pageSize){
+            @RequestParam(value = "pageNumber", required = true) Integer pageNumber,
+            @RequestParam(value = "pageSize", required = true) Integer pageSize) {
 
         return tenderFacade.findByCustomParams(new TenderFilter(minPrice, maxPrice, categories, locations, items,
                                                                 statuses, createDate, endDate),
                                                new PageRequest(pageNumber, pageSize));
+    }
+
+    @RequestMapping(value = "/number", method = RequestMethod.GET)
+    public @ResponseBody TendersNumberDto getTendersNumber(
+            @RequestParam(value = "minPrice", required = false) BigDecimal minPrice,
+            @RequestParam(value = "maxPrice", required = false) BigDecimal maxPrice,
+            @RequestParam(value = "items", required = false) List<Integer> items,
+            @RequestParam(value = "locations", required = false) List<Integer> locations,
+            @RequestParam(value = "categories", required = false) Set<Integer> categories,
+            @RequestParam(value = "statuses", required = false) List<Integer> statuses,
+            @RequestParam(value = "minDate", required = false) Date createDate,
+            @RequestParam(value = "maxDate", required = false) Date endDate) {
+
+        return tenderFacade.findByCustomParamsResultSize(new TenderFilter(minPrice, maxPrice, categories, locations,
+                                                                                items, statuses, createDate, endDate));
     }
 
     @RequestMapping(value = "/statuses", method = RequestMethod.GET)
