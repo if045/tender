@@ -3,6 +3,7 @@ package com.softserveinc.tender.facade;
 import com.softserveinc.tender.dto.CategoryDto;
 import com.softserveinc.tender.dto.ItemDto;
 import com.softserveinc.tender.dto.LocationDto;
+import com.softserveinc.tender.dto.ProposalSaveDto;
 import com.softserveinc.tender.dto.TenderSaveDto;
 import com.softserveinc.tender.dto.ProposalDto;
 import com.softserveinc.tender.dto.TenderDto;
@@ -22,4 +23,5 @@ public interface TenderServiceFacade {
     List<UnitDto> findUnitsByTenderId(Integer tenderId);
     void updateTenderWithStatus(Integer tenderId, String statusName);
     List<ProposalDto> findTendersProposals(Integer tenderId);
+    ProposalDto saveProposal(ProposalSaveDto proposalSaveDto);
 }

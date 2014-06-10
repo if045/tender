@@ -1,7 +1,9 @@
 package com.softserveinc.tender.facade.impl;
 
+import com.softserveinc.tender.dto.BidSaveDto;
 import com.softserveinc.tender.dto.CategoryDto;
 import com.softserveinc.tender.dto.ItemDto;
+import com.softserveinc.tender.dto.ProposalSaveDto;
 import com.softserveinc.tender.dto.TenderDto;
 import com.softserveinc.tender.dto.LocationDto;
 import com.softserveinc.tender.dto.TenderSaveDto;
@@ -9,6 +11,7 @@ import com.softserveinc.tender.dto.TenderStatusDto;
 import com.softserveinc.tender.dto.UnitSaveDto;
 import com.softserveinc.tender.dto.ProposalDto;
 import com.softserveinc.tender.dto.UnitDto;
+import com.softserveinc.tender.entity.Bid;
 import com.softserveinc.tender.entity.Category;
 import com.softserveinc.tender.entity.Item;
 import com.softserveinc.tender.entity.Location;
@@ -17,6 +20,7 @@ import com.softserveinc.tender.entity.Tender;
 import com.softserveinc.tender.entity.Unit;
 import com.softserveinc.tender.facade.TenderServiceFacade;
 import com.softserveinc.tender.repo.TenderFilter;
+import com.softserveinc.tender.service.BidService;
 import com.softserveinc.tender.service.ItemService;
 import com.softserveinc.tender.service.MeasurementService;
 import com.softserveinc.tender.service.ProfileService;
@@ -26,6 +30,7 @@ import com.softserveinc.tender.service.LocationService;
 import com.softserveinc.tender.service.ProposalService;
 import com.softserveinc.tender.service.TenderStatusService;
 import com.softserveinc.tender.service.UnitService;
+import com.softserveinc.tender.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,6 +79,12 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
 
     @Autowired
     private ProposalService proposalService;
+
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private BidService bidService;
 
     private static final String DATE_FORMAT_FROM_CLIENT="yyyy/MM/dd";
 
@@ -253,5 +264,36 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
         proposalDto.setTotalBidsPrice(proposalDto.countTotalBidsPrice(proposal));
 
         return proposalDto;
+    }
+
+    @Override
+    public ProposalDto saveProposal(ProposalSaveDto proposalSaveDto) {
+        Proposal proposal = new Proposal();
+        proposal.setSeller(userService.findUserById(7));
+        proposal.setTender(tenderService.findOne(proposalSaveDto.getTenderId()));
+        if (proposalSaveDto.getDiscountCurrency() != null) {
+            proposal.setDiscountCurrency(proposalSaveDto.getDiscountCurrency());
+        }
+        if (proposalSaveDto.getDiscountPercentage() != null){
+            proposal.setDiscountPercentage(proposalSaveDto.getDiscountPercentage());
+        }
+        if (proposalSaveDto.getDescription() != null){
+            proposal.setDescription(proposalSaveDto.getDescription());
+        }
+        Proposal savedProposal = proposalService.save(proposal);
+
+        List<Bid> bids = new ArrayList<>();
+        for (BidSaveDto bidSaveDto: proposalSaveDto.getBids()) {
+            Bid bid = new Bid();
+            bid.setPrice(bidSaveDto.getPrice());
+            bid.setDate(new Date());
+            bid.setUnit(unitService.findById(bidSaveDto.getUnitId()));
+            bid.setProposal(savedProposal);
+            Bid savedBid = bidService.save(bid);
+            bids.add(savedBid);
+        }
+        savedProposal.setBids(bids);
+        Proposal savedProposalWithBids = proposalService.save(savedProposal);
+        return mapTenderProposal(savedProposalWithBids);
     }
 }
