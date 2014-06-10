@@ -12,4 +12,6 @@ public interface ItemService {
     List<Item> findItemsByCategoryAndType(TenderFilter tenderFilter);
     Item findByName(String name);
     Item save(Item item);
+    Item findOne(Integer id);
+    Item findOneByCategoryIdAndName(String name,Integer categoryId);
 }

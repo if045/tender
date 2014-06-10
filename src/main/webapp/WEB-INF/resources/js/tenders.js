@@ -303,7 +303,7 @@
             var str = '';
             str += "statusName=" + CLOSE_STATUS_NAME;
             $.ajax({
-                url: TENDERS_URL + $('#close_tender_id').val() + "?"  + str,
+                url: TENDERS_URL + "/" + $('#close_tender_id').val() + "?"  + str,
                 type: "PUT",
 
                 success: function(data){
