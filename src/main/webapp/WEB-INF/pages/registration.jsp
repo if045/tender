@@ -142,6 +142,91 @@
                 </div>
                 <!-- Company data -->
             </div>
+
+            <div class="row">
+                <!-- User's data -->
+                <div class="col-md-4">
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">User's data</h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="panel-group">
+                                <div class="row backdown">
+                                    <div class="col-md-12">
+                                        <select id="users_role_select" multiple="multiple"
+                                                class="populate placeholder select2-offscreen location_selector"
+                                                tabindex="-1">
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="row backdown">
+                                    <div class="col-md-12">
+                                        <div class="input-group">
+                                            <span class="input-group-addon glyphicon glyphicon-pencil"></span>
+                                            <input type="text" class="form-control" placeholder="First name">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row backdown">
+                                    <div class="col-md-12">
+                                        <div class="input-group">
+                                            <span class="input-group-addon glyphicon glyphicon-pencil"></span>
+                                            <input type="text" class="form-control" placeholder="Last name">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row backdown">
+                                    <div class="col-md-12">
+                                        <div class="input-group">
+                                            <span class="input-group-addon glyphicon glyphicon-earphone"></span>
+                                            <input type="tel" class="form-control" placeholder="Telephone">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row backdown">
+                                    <div class="col-md-12">
+                                        <div class="input-group">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-primary" type="button">Choose photo</button>
+                                        </span>
+                                            <input type="text" class="form-control" placeholder="Path">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row backdown">
+                                    <div class="col-md-9">
+                                        <div class="input-group date pull-left" id="startDate"
+                                             data-date-format="dd-mm-yyyy">
+                                            <input class="form-control" size="10" type="text" value="">
+                                            <span class="input-group-addon"><i
+                                                    class="fa glyphicon glyphicon-calendar"></i></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row backdown">
+                                    <div class="col-md-4">
+                                        <input type="radio" name="person" value="legal">Legal person<br>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <input type="radio" name="person" value="physical">Physical person<br>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Panel group -->
+                        </div>
+                        <!-- Panel body -->
+                    </div>
+                    <!-- Panel -->
+                </div>
+                <!-- User's data -->
+            </div>
         </div>
     </div>
     <!--footer -->
