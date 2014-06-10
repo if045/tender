@@ -38,6 +38,48 @@
             <div class="panel-heading">
                 <h1 class="panel-title">Sign up</h1>
             </div>
+
+            <div class="row">
+                <!-- User's log in data -->
+                <div class="col-md-4">
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Creds</h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="panel-group">
+                                <div class="row backdown">
+                                    <div class="col-md-12">
+                                        <div class="input-group">
+                                            <span class="input-group-addon glyphicon glyphicon-user"></span>
+                                            <input type="text" class="form-control" placeholder="User name (email)">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row backdown">
+                                    <div class="col-md-12">
+                                        <div class="input-group">
+                                            <span class="input-group-addon glyphicon glyphicon-wrench"></span>
+                                            <input type="text" class="form-control" placeholder="Password">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row backdown">
+                                    <div class="col-md-12">
+                                        <div class="input-group">
+                                            <span class="input-group-addon glyphicon glyphicon-wrench"></span>
+                                            <input type="text" class="form-control" placeholder="Confirm password">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- User's log in data -->
+            </div>
         </div>
     </div>
     <!--footer -->
