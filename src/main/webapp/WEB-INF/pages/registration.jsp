@@ -226,6 +226,38 @@
                     <!-- Panel -->
                 </div>
                 <!-- User's data -->
+
+                <!-- Trade sphere data -->
+                <div class="col-md-8">
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Trade sphere</h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="panel-group">
+                                <div class="row backdown">
+                                    <div class="col-md-12">
+                                        <select id="categories_select" multiple="multiple"
+                                                class="populate placeholder select2-offscreen location_selector" tabindex="-1">
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="row backdown">
+                                    <div class="col-md-12">
+                                        <select id="locations_select" multiple="multiple"
+                                                class="populate placeholder select2-offscreen location_selector" tabindex="-1">
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Panel group -->
+                        </div>
+                        <!-- Panel body -->
+                    </div>
+                    <!-- Panel -->
+                </div>
+                <!-- Trade sphere data -->
             </div>
         </div>
     </div>
