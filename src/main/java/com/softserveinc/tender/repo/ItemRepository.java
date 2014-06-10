@@ -16,9 +16,9 @@ public interface ItemRepository extends JpaRepository<Item,Integer>{
                                      @Param("categoryFlag") Integer categoryFlag);
 
     @Query("select distinct i from Item i " +
-            "where (1=:categoryFlag or i.category.id = (SELECT c.id FROM Category c where c.name=:category))"+
+            "where (1=:categoryFlag or i.category.id = (SELECT c.id FROM Category c where c.id=:category))"+
             "and (1=:typeFlag or i.type=:type)")
-    List<Item> findItems(@Param("category") String category,
+    List<Item> findItems(@Param("category") Integer category,
                          @Param("categoryFlag") Integer categoryFlag,
                          @Param("type") Character type,
                          @Param("typeFlag") Integer typeFlag);

@@ -5,6 +5,8 @@ import com.softserveinc.tender.repo.LocationRepo;
 import com.softserveinc.tender.service.LocationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.LinkedList;
 import java.util.List;
 
 @Service
@@ -36,5 +38,10 @@ public class LocationServiceImpl implements LocationService {
     @Override
     public List<Location> getTendersLocations() {
         return locationRepo.getTendersLocation();
+    }
+
+    @Override
+    public List<Location> getLocationsByIds(List<Integer> locations) {
+        return locationRepo.getLocationsByIds(locations);
     }
 }
