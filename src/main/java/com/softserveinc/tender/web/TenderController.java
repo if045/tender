@@ -89,7 +89,7 @@ public class TenderController {
     }
 
     @RequestMapping(value = "/{id}/proposals", method = RequestMethod.POST, consumes = "application/json")
-    public @ResponseBody void addProposal(@RequestBody ProposalSaveDto proposalSaveDto) {
-        tenderFacade.saveProposal(proposalSaveDto);
+    public @ResponseBody ProposalDto addProposal(@RequestBody ProposalSaveDto proposalSaveDto) {
+        return tenderFacade.saveProposal(proposalSaveDto);
     }
 }

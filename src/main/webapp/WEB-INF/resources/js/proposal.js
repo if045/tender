@@ -9,7 +9,7 @@ $(document).ready(function() {
 
 function showUnits(id) {
     tenderId = id;
-    $.getJSON(TENDERS_URL + id + '/units', function(data) {
+    $.getJSON(TENDERS_URL + id + UNITS, function(data) {
         var html='';
         var len = data.length;
         unitsQuantity = data.length;
@@ -81,7 +81,7 @@ function createProposal() {
 
     var newJson = $.parseJSON(str);
     $.ajax({
-        url: TENDERS_URL + tenderId + "/proposals",
+        url: TENDERS_URL + tenderId + PROPOSALS,
         type: "POST",
         data: JSON.stringify(newJson),
         dataType: 'json',

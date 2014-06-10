@@ -265,7 +265,7 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
     }
 
     @Override
-    public boolean saveProposal(ProposalSaveDto proposalSaveDto) {
+    public ProposalDto saveProposal(ProposalSaveDto proposalSaveDto) {
         Proposal proposal = new Proposal();
         proposal.setSeller(userService.findUserById(7));
         proposal.setTender(tenderService.findOne(proposalSaveDto.getTenderId()));
@@ -292,6 +292,6 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
         }
         savedProposal.setBids(bids);
         Proposal savedProposalWithBids = proposalService.save(savedProposal);
-        return savedProposalWithBids != null;
+        return mapTenderProposal(savedProposalWithBids);
     }
 }
