@@ -21,9 +21,9 @@ public class ItemController {
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public @ResponseBody
-    List<ItemDto> findItems(
-            @RequestParam(value = "category", required = false) String category,
+    List<ItemDto> findItemsByCategoryAndType(
+            @RequestParam(value = "category", required = false) Integer category,
             @RequestParam(value = "type", required = false) Character type) {
-        return itemServiceFacade.findItems(new TenderFilter(category,type));
+        return itemServiceFacade.findItemsByCategoryAndType(new TenderFilter(category,type));
     }
 }

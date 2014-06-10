@@ -7,4 +7,5 @@ public interface DealStatusService {
 
     List<DealStatus> findAllDealStatuses();
     DealStatus findDealStatusById(Integer id);
+    DealStatus findByName(String name);
 }

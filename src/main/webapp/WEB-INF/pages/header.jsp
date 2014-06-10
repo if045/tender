@@ -6,7 +6,8 @@
             <ul class="nav navbar-nav navbar-left nav_buttons">
                 <li><a class="navbar-brand" href="/tendersHome">UATender</a></li>
                 <li><button type="button" class="btn btn-default nav_button" disabled>My tenders</button></li>
-                <li><button type="button" class="btn btn-default nav_button" onclick="showDeals();">My deals</button></li>
+                <li><button type="button" class="btn btn-default nav_button" onclick="showDealsPage();">My
+                    deals</button></li>
                 <li><button type="button" class="btn btn-default nav_button" data-toggle="modal" data-target="#createTenderWindow">Create tender</button></li>
             </ul>
         </div>

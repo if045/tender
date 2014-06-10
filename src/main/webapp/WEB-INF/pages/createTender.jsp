@@ -64,18 +64,18 @@
                             <div class="col-sm-3 addunit_body_item field_group">
                                 <div class="form-group btn-group" data-toggle="buttons-radio">
                                     <div>Type*:</div>
-                                    <div class="btn-group selectpicker" data-toggle="buttons" id="radio_group">
-                                        <label class="btn btn-default radio-first-child">
-                                            <input type="radio" name="options" id="option1" value="" checked>All
+                                    <div class="btn-group" data-toggle="buttons" id="radio_group">
+                                        <label class="btn btn-default" >
+                                            <input type="radio" name="options" id="option1" value="">All
                                         </label>
-                                      <label class="btn btn-default">
-                                        <input type="radio" name="options" id="option2" value="P">Product
-                                      </label>
-                                      <label class="btn btn-default">
-                                        <input type="radio" name="options" id="option3" value="S">Service
-                                      </label>
+                                        <label class="btn btn-default">
+                                            <input type="radio" name="options" id="option2" value="P">Product
+                                        </label>
+                                        <label class="btn btn-default">
+                                            <input type="radio" name="options" id="option3" value="S">Service
+                                        </label>
                                     </div>
-                                </div> 
+                                </div>
                             </div>
                             <div class="col-sm-5 addunit_body_item">
                                 <div class="form-group">
