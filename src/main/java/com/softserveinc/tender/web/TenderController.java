@@ -8,6 +8,7 @@ import com.softserveinc.tender.dto.ProposalSaveDto;
 import com.softserveinc.tender.dto.TenderDto;
 import com.softserveinc.tender.dto.TenderSaveDto;
 import com.softserveinc.tender.dto.UnitDto;
+import com.softserveinc.tender.dto.UnitSaveDto;
 import com.softserveinc.tender.repo.TenderFilter;
 import com.softserveinc.tender.dto.TenderStatusDto;
 import com.softserveinc.tender.facade.TenderServiceFacade;
@@ -84,8 +85,8 @@ public class TenderController {
     }
 
     @RequestMapping(value = "", method = RequestMethod.POST, consumes = "application/json")
-    public @ResponseBody void addTender(@RequestBody TenderSaveDto tenderSaveDto) {
-        tenderFacade.saveTender(tenderSaveDto);
+    public @ResponseBody TenderDto addTender(@RequestBody TenderSaveDto tenderSaveDto) {
+        return  tenderFacade.saveTender(tenderSaveDto);
     }
 
     @RequestMapping(value = "/{id}/proposals", method = RequestMethod.POST, consumes = "application/json")

@@ -6,7 +6,7 @@ import java.util.List;
 public class TenderSaveDto {
 
     private String title;
-    private List<LocationSaveDto> locations;
+    private String locationsIds;
     private BigDecimal suitablePrice;
     private String endDate;
     private String description;
@@ -20,12 +20,12 @@ public class TenderSaveDto {
         this.title = title;
     }
 
-    public List<LocationSaveDto> getLocations() {
-        return locations;
+    public String getLocationsIds() {
+        return locationsIds;
     }
 
-    public void setLocations(List<LocationSaveDto> locations) {
-        this.locations = locations;
+    public void setLocationsIds(String locationsIds) {
+        this.locationsIds = locationsIds;
     }
 
     public BigDecimal getSuitablePrice() {

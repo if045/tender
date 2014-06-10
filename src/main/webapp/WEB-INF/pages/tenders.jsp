@@ -208,6 +208,10 @@
 </div>
 <!-- close tender modal window -->
 
+<!-- new tender modal window -->
+<jsp:include page="newTenderCreated.jsp"/>
+<!-- new tender modal window -->
+
 </body>
 
 </html>

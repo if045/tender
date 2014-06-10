@@ -1,8 +1,10 @@
 package com.softserveinc.tender.service.impl;
 
 import com.softserveinc.tender.entity.Deal;
+import com.softserveinc.tender.entity.DealStatus;
 import com.softserveinc.tender.repo.DealRepository;
 import com.softserveinc.tender.service.DealService;
+import com.softserveinc.tender.service.DealStatusService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -12,6 +14,9 @@ public class DealServiceImpl implements DealService {
 
     @Autowired
     private DealRepository dealRepository;
+
+    @Autowired
+    private DealStatusService dealStatusService;
 
     @Override
     public List<Deal> findAllDeals() {
@@ -25,6 +30,14 @@ public class DealServiceImpl implements DealService {
 
     @Override
     public void saveDeal(Deal deal) {
+        dealRepository.save(deal);
+    }
+
+    @Override
+    public void updateDealWithStatus(Integer dealId, String statusName) {
+        Deal deal = dealRepository.findOne(dealId);
+        DealStatus dealStatus = dealStatusService.findByName(statusName);
+        deal.setStatus(dealStatus);
         dealRepository.save(deal);
     }
 }

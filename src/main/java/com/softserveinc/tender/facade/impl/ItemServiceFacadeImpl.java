@@ -24,8 +24,8 @@ public class ItemServiceFacadeImpl implements ItemServiceFacade{
     private ItemService itemService;
 
     @Override
-    public List<ItemDto> findItems(TenderFilter tenderFilter) {
+    public List<ItemDto> findItemsByCategoryAndType(TenderFilter tenderFilter) {
         Type targetListType = new TypeToken<List<ItemDto>>(){}.getType();
-        return modelMapper.map(itemService.findItems(tenderFilter), targetListType);
+        return modelMapper.map(itemService.findItemsByCategoryAndType(tenderFilter), targetListType);
     }
 }

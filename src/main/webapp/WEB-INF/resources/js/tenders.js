@@ -322,7 +322,7 @@
             $('#' + id).modal('hide');
         }
 
-        function showDeals() {
+        function showDealsPage() {
             window.location.href='/mydeals';
         }
 
