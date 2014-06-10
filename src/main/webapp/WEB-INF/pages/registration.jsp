@@ -200,12 +200,11 @@
                                 </div>
 
                                 <div class="row backdown">
-                                    <div class="col-md-9">
-                                        <div class="input-group date pull-left" id="startDate"
+                                    <div class="col-md-6">
+                                        <div class="input-group date pull-left" id="birth_date"
                                              data-date-format="dd-mm-yyyy">
-                                            <input class="form-control" size="10" type="text" value="">
-                                            <span class="input-group-addon"><i
-                                                    class="fa glyphicon glyphicon-calendar"></i></span>
+                                            <span class="input-group-addon fa glyphicon glyphicon-calendar"></span>
+                                            <input class="form-control" type="text" value="" placeholder="Birth date">
                                         </div>
                                     </div>
                                 </div>
