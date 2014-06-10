@@ -6,7 +6,7 @@ import java.util.List;
 public class ProposalSaveDto {
     private Integer tenderId;
     private String description;
-    private BigDecimal discountPercentage;
+    private Double discountPercentage;
     private BigDecimal discountCurrency;
     private List<BidSaveDto> bids;
 
@@ -26,11 +26,11 @@ public class ProposalSaveDto {
         this.description = description;
     }
 
-    public BigDecimal getDiscountPercentage() {
+    public Double getDiscountPercentage() {
         return discountPercentage;
     }
 
-    public void setDiscountPercentage(BigDecimal discountPercentage) {
+    public void setDiscountPercentage(Double discountPercentage) {
         this.discountPercentage = discountPercentage;
     }
 
