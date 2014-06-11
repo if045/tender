@@ -269,17 +269,11 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
     @Override
     public ProposalDto saveProposal(ProposalSaveDto proposalSaveDto) {
         Proposal proposal = new Proposal();
-        proposal.setSeller(userService.findUserById(7));
+        proposal.setSeller(userService.findUserById(7));  //TO DO: put current user
         proposal.setTender(tenderService.findOne(proposalSaveDto.getTenderId()));
-        if (proposalSaveDto.getDiscountCurrency() != null) {
-            proposal.setDiscountCurrency(proposalSaveDto.getDiscountCurrency());
-        }
-        if (proposalSaveDto.getDiscountPercentage() != null){
-            proposal.setDiscountPercentage(proposalSaveDto.getDiscountPercentage());
-        }
-        if (proposalSaveDto.getDescription() != null){
-            proposal.setDescription(proposalSaveDto.getDescription());
-        }
+        proposal.setDiscountCurrency(proposalSaveDto.getDiscountCurrency());
+        proposal.setDiscountPercentage(proposalSaveDto.getDiscountPercentage());
+        proposal.setDescription(proposalSaveDto.getDescription());
         Proposal savedProposal = proposalService.save(proposal);
 
         List<Bid> bids = new ArrayList<>();
@@ -293,7 +287,6 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
             bids.add(savedBid);
         }
         savedProposal.setBids(bids);
-        Proposal savedProposalWithBids = proposalService.save(savedProposal);
-        return mapTenderProposal(savedProposalWithBids);
+        return mapTenderProposal(savedProposal);
     }
 }
