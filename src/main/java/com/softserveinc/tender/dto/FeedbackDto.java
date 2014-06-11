@@ -1,12 +1,41 @@
 package com.softserveinc.tender.dto;
 
+import com.softserveinc.tender.entity.Profile;
+import com.softserveinc.tender.entity.User;
 
-public class FeedbackSaveDto {
+public class FeedbackDto {
+
+    private Integer id;
+    private Integer userId;
+    private Integer profileId;
     private Integer communication;
     private Integer speed;
     private Integer logistic;
     private String comment;
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+
+    public Integer getProfileId() {
+        return profileId;
+    }
+
+    public void setProfileId(Integer profileId) {
+        this.profileId = profileId;
+    }
 
     public Integer getCommunication() {
         return communication;
@@ -40,3 +69,5 @@ public class FeedbackSaveDto {
         this.comment = comment;
     }
 }
+
+

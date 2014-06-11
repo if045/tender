@@ -4,14 +4,22 @@ $(document).ready(function() {
 
 function createFeedback() {
     var str = '';
-    //str += "statusName=" + CLOSE_STATUS_NAME;
+    str += '{"communication": ' + '\"' + $('#create_communication_rating').val() + '\"' +
+        ', "speed": ' + '\"' + $('#create_speed_rating').val()+ '\"' +
+        ', "logistic": ' + '\"' + $('#create_logistic_rating').val()+ '\"' +
+        ', "comment": ' + '\"' + $('#feedback_comment').val()+ '\"}';
+    var newJson = $.parseJSON(str);
     $.ajax({
-        url: TENDERS_URL + $('#feedback_id').val() + "?"  + str,
+        url: "/deals/" + 1 + "/feedback",
         type: "POST",
+        data: JSON.stringify(newJson),
+        dataType: 'json',
+        contentType: 'application/json',
 
         success: function(data){
             closeFeedbackModalWindow('feedback_mod_wind');
-            },
+            cleanFeedback();
+        },
         error: function(){
             alert("Something wrong")
         }

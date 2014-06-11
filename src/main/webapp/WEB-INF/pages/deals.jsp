@@ -143,7 +143,6 @@
     </div>
 </div>
 <!-- close deal modal window -->
->>>>>>> develop
 
 </body>
 </html>

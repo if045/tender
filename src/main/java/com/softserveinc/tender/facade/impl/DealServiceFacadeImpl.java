@@ -1,6 +1,7 @@
 package com.softserveinc.tender.facade.impl;
 
 import com.softserveinc.tender.dto.DealDto;
+import com.softserveinc.tender.dto.FeedbackDto;
 import com.softserveinc.tender.dto.FeedbackSaveDto;
 import com.softserveinc.tender.entity.Deal;
 import com.softserveinc.tender.entity.Feedback;
@@ -62,5 +63,27 @@ public class DealServiceFacadeImpl implements DealServiceFacade {
 
         return dealDto;
     }
+    private FeedbackDto mapFeedback(Feedback feedback) {
+        FeedbackDto feedbackDto = new FeedbackDto();
 
-}
+        feedbackDto.setId(feedback.getId());
+/*      feedbackDto.setProfileId(feedback.getProfile().getId());*/
+/*      feedbackDto.setUserId(feedback.getUser().getId());*/
+        feedbackDto.setCommunication(feedback.getCommunication());
+        feedbackDto.setSpeed(feedback.getSpeed());
+        feedbackDto.setLogistic(feedback.getLogistic());
+        feedbackDto.setComment(feedback.getComment());
+        return feedbackDto;
+    }
+    @Override
+     public FeedbackDto saveFeedback(FeedbackSaveDto feedbackSaveDto) {
+        Feedback feedback = new Feedback();
+        feedback.setCommunication(feedbackSaveDto.getCommunication());
+        feedback.setSpeed(feedbackSaveDto.getSpeed());
+        feedback.setLogistic(feedbackSaveDto.getLogistic());
+        feedback.setComment(feedbackSaveDto.getComment());
+
+        Feedback savedFeedback = feedbackService.save(feedback);
+        return mapFeedback(savedFeedback);
+     }
+    }
