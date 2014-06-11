@@ -12,7 +12,7 @@ $(document).ready(function () {
 function showProposals() {
     var URL = location.href;
     var tenderURI = URL.split(TENDER_VIEW_URL);
-    var tenderId = tenderURI[tenderURI.length - 1];
+    tenderId = tenderURI[tenderURI.length - 1];
     $.getJSON('/tenders/'+tenderId+'/proposals', function (data) {
         var html;
         var len = data.length;
@@ -23,7 +23,7 @@ function showProposals() {
                     '<td align="center">' + data[i].fullName + '</td>' +
                     '<td align="center">' + data[i].numberOfBids + '</td>' +
                     '<td align="center">' + data[i].totalBidsPrice + '</td>' +
-                    '<td align="center"><button type="submit" class="btn btn-default" disabled>Deal</button></td>' +
+                    '<td align="center"><button type="submit" class="btn btn-default" onclick="createProposalDeal(' + data[i].id + ')">Deal</button></td>' +
                     '</tr>';
             }
             $('#proposals').html(html);
@@ -51,9 +51,29 @@ function showUnit() {
                 '<td>' + data[i].quantity + ' ' + data[i].measurementName + '</td>' +
                 '<td>' + data[i].numberOfBids + '</td>' +
                 '<td>' + data[i].price + '</td>' +
-                '<td>' + '<button type="submit" class="btn btn-default" disabled>Deal</button>' + '</td></tr>';
+                '<td>' + '<button type="submit" class="btn btn-default" onclick="createUnitDeal();" disabled>Deal</button>' + '</td></tr>';
         }
         $('#unitsTable').html(html);
     });
+}
+
+function createProposalDeal(proposalId) {
+    $.ajax({
+        url: TENDERS_URL + tenderId.substring(1) + PROPOSALS + "/" + proposalId + DEALS_URL,
+        type: "POST",
+        dataType: 'json',
+        contentType: 'application/json',
+
+        success: function(data) {
+            alert("Success");
+        },
+        error: function() {
+            alert("Some error!");
+        }
+    });
+}
+
+function createUnitDeal() {
+
 }
 

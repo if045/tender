@@ -2,6 +2,7 @@ package com.softserveinc.tender.facade.impl;
 
 import com.softserveinc.tender.dto.BidSaveDto;
 import com.softserveinc.tender.dto.CategoryDto;
+import com.softserveinc.tender.dto.DealDto;
 import com.softserveinc.tender.dto.ItemDto;
 import com.softserveinc.tender.dto.ProposalSaveDto;
 import com.softserveinc.tender.dto.TenderDto;
@@ -13,14 +14,18 @@ import com.softserveinc.tender.dto.ProposalDto;
 import com.softserveinc.tender.dto.UnitDto;
 import com.softserveinc.tender.entity.Bid;
 import com.softserveinc.tender.entity.Category;
+import com.softserveinc.tender.entity.Deal;
 import com.softserveinc.tender.entity.Item;
 import com.softserveinc.tender.entity.Location;
 import com.softserveinc.tender.entity.Proposal;
 import com.softserveinc.tender.entity.Tender;
 import com.softserveinc.tender.entity.Unit;
+import com.softserveinc.tender.facade.DealServiceFacade;
 import com.softserveinc.tender.facade.TenderServiceFacade;
 import com.softserveinc.tender.repo.TenderFilter;
 import com.softserveinc.tender.service.BidService;
+import com.softserveinc.tender.service.DealService;
+import com.softserveinc.tender.service.DealStatusService;
 import com.softserveinc.tender.service.ItemService;
 import com.softserveinc.tender.service.MeasurementService;
 import com.softserveinc.tender.service.ProfileService;
@@ -86,7 +91,17 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
     @Autowired
     private BidService bidService;
 
+    @Autowired
+    private DealStatusService dealStatusService;
+
+    @Autowired
+    private DealService dealService;
+
+    @Autowired
+    private DealServiceFacade dealServiceFacade;
+
     private static final String DATE_FORMAT_FROM_CLIENT="yyyy/MM/dd";
+    private static final String DEAL_CREATE_STATUS = "in progress";
 
     @Override
     public List<TenderDto> findByCustomParams(TenderFilter tenderFilter) {
@@ -296,4 +311,29 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
         Proposal savedProposalWithBids = proposalService.save(savedProposal);
         return mapTenderProposal(savedProposalWithBids);
     }
+
+    @Override
+    public List<DealDto> saveDeal(Integer tenderId, Integer proposalId) {
+        Proposal proposal = proposalService.findById(proposalId);
+        Tender tender = tenderService.findOne(tenderId);
+
+        List<Bid> bids = proposal.getBids();
+        List<Deal> deals = new ArrayList<>();
+        for (Bid bid: bids) {
+            Deal deal = new Deal();
+            deal.setBid(bid);
+            deal.setCustomer(tender.getAuthor());
+            deal.setSeller(proposal.getSeller().getProfile());
+            deal.setSum(bid.getPrice());
+            deal.setDate(new Date());
+            deal.setStatus(dealStatusService.findByName(DEAL_CREATE_STATUS));
+            deal.setProposal(proposal);
+
+            Deal savedDeal = dealService.saveDeal(deal);
+            deals.add(savedDeal);
+        }
+        return dealServiceFacade.mapDeals(deals);
+    }
+
+
 }

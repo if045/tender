@@ -1,6 +1,7 @@
 package com.softserveinc.tender.facade;
 
 import com.softserveinc.tender.dto.CategoryDto;
+import com.softserveinc.tender.dto.DealDto;
 import com.softserveinc.tender.dto.ItemDto;
 import com.softserveinc.tender.dto.LocationDto;
 import com.softserveinc.tender.dto.ProposalSaveDto;
@@ -24,4 +25,5 @@ public interface TenderServiceFacade {
     void updateTenderWithStatus(Integer tenderId, String statusName);
     List<ProposalDto> findTendersProposals(Integer tenderId);
     ProposalDto saveProposal(ProposalSaveDto proposalSaveDto);
+    List<DealDto> saveDeal(Integer tenderId, Integer proposalId);
 }
