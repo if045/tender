@@ -26,6 +26,10 @@
     <script type='text/javascript' src='<c:url value="../resources/js/feedback.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/addTenderModal.js"/>'></script>
     <script type="text/javascript" src='<c:url value="../resources/js/star-rating.min.js"/>'></script>
+
+    <script type='text/javascript' src='<c:url value="../resources/js/tenders.js"/>'></script>
+    <script type='text/javascript' src='<c:url value="../resources/js/constants.js"/>'></script>
+
 </head>
 <body>
     <div class="container">
@@ -113,6 +117,33 @@
 <!--action button feedback-->
 <jsp:include page="feedback.jsp"/>
 <!--action button feedback-->
+
+<!-- new tender modal window -->
+<jsp:include page="newTenderCreated.jsp"/>
+<!-- new tender modal window -->
+
+<!-- close deal modal window -->
+<div class="modal fade" id="close_deal_mod_wind" tabindex="-1" role="dialog" hidden="">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header"><button class="close" type="button" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Attention</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" role="form">
+                    <h4>Are you sure you want to close this deal?</h4>
+                    <input id="close_deal_id" type="text" value="" hidden=""/>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" type="button" onclick="closeDeal();">Yes</button>
+                <button class="btn btn-default" type="button" data-dismiss="modal">No</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- close deal modal window -->
+>>>>>>> develop
 
 </body>
 </html>

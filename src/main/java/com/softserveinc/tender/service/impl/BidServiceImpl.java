@@ -22,4 +22,9 @@ public class BidServiceImpl implements BidService{
     public Bid findById(int id) {
         return bidRepository.findOne(id);
     }
+
+    @Override
+    public Bid save(Bid bid) {
+        return bidRepository.save(bid);
+    }
 }

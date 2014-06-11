@@ -13,4 +13,5 @@ import java.util.List;
 
 public interface DealServiceFacade {
     List<DealDto> findAllDeals();
+    void updateDealWithStatus(Integer dealId, String statusName);
 }

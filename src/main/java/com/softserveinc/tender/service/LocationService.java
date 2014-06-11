@@ -10,4 +10,5 @@ public interface LocationService {
     List<Location> findAll();
     void deleteById(int id);
     List<Location> getTendersLocations();
+    List<Location> getLocationsByIds(List<Integer> locations);
 }

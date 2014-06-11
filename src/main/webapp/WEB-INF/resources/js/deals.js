@@ -25,7 +25,7 @@ function showDeals() {
                     '<ul class="dropdown-menu">' +
                     '<li><a href="#" data-toggle="modal" data-target="#feedback_mod_wind" onclick="closeFeedbackModalWindow(' + data[i].id + ')">Feedback</a></li>' +
                     '<li><a href="#">Conflict</a></li>' +
-                    '<li><a href="#">Close</a></li>' +
+                    '<li><a href="#" data-toggle="modal" data-target="#close_deal_mod_wind" onclick="writeCloseDealId(' + data[i].id + ')">Close</a></li>' +
                     '</ul>' +
                     '</div>' +
                     '</td></tr>';
@@ -59,4 +59,28 @@ function unixTimeConverter(timestamp){
     if(month <= 9) month = "0" + month;
 
     return day + "/" + month + "/" + year;
+}
+
+function closeDeal() {
+    var str = '';
+    str += "statusName=" + "close";
+    $.ajax({
+        url: "/deals/" + $('#close_deal_id').val() + "?"  + str,
+        type: "PUT",
+
+        success: function(data){
+            closeDealModalWindow('close_deal_mod_wind');
+            showDeals()},
+        error: function(){
+            alert("Can't close this deal")
+        }
+    })
+}
+
+function writeCloseDealId(id) {
+    document.getElementById('close_deal_id').value = id;
+}
+
+function closeDealModalWindow(id) {
+    $('#' + id).modal('hide');
 }

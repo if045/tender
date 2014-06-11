@@ -4,6 +4,15 @@ public class ItemDto {
 
     private Integer id;
     private String name;
+    private Character type;
+
+    public Character getType() {
+        return type;
+    }
+
+    public void setType(Character type) {
+        this.type = type;
+    }
 
     public Integer getId() {
         return id;
