@@ -74,9 +74,11 @@ public class TenderController {
     }
 
     @RequestMapping(value = "/{tenderId}", method = RequestMethod.PUT)
-    public @ResponseBody void updateTenderWithStatus(@PathVariable("tenderId") Integer tenderId,
-                                                     @RequestParam("statusName") String statusName) {
-        tenderFacade.updateTenderWithStatus(tenderId, statusName);
+    public @ResponseBody TenderDto updateTender(@PathVariable("tenderId") Integer tenderId,
+                                                          @RequestParam("statusName") String statusName,
+                                                          @RequestParam(value = "endDate", required = false) String endDate,
+                                                          @RequestParam(value = "description", required = false) String description) {
+        return tenderFacade.updateTender(tenderId, statusName, endDate, description);
     }
 
     @RequestMapping(value = "/{id}/proposals", method = RequestMethod.GET)
@@ -92,5 +94,10 @@ public class TenderController {
     @RequestMapping(value = "/{id}/proposals", method = RequestMethod.POST, consumes = "application/json")
     public @ResponseBody ProposalDto addProposal(@RequestBody ProposalSaveDto proposalSaveDto) {
         return tenderFacade.saveProposal(proposalSaveDto);
+    }
+
+    @RequestMapping(value = "/{tenderId}", method = RequestMethod.GET)
+    public @ResponseBody TenderDto getTenderInfo(@PathVariable("tenderId") Integer tenderId){
+        return tenderFacade.findOneById(tenderId);
     }
 }
