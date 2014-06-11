@@ -22,10 +22,4 @@ public class DealController {
       public @ResponseBody List<DealDto> findDeals() {
         return dealFacade.findAllDeals();
     }
-
-    @RequestMapping(value = "/{id}/feedback", method = RequestMethod.POST, consumes = "application/json")
-    public @ResponseBody
-    FeedbackSaveDto addFeedback(@RequestBody FeedbackSaveDto feedbackSaveDto) {
-        return dealFacade.saveFeedback(feedbackSaveDto);
-    }
 }
