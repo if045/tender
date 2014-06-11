@@ -13,5 +13,5 @@ public interface ItemService {
     Item findByName(String name);
     Item save(Item item);
     Item findOne(Integer id);
-    Item findOneByCategoryIdAndName(String name,Integer categoryId);
+    Item findOneByCategoryIdAndName(String name, Integer categoryId);
 }

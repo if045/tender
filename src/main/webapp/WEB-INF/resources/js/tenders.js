@@ -140,7 +140,7 @@
                                         '<button data-toggle="dropdown" class="btn btn-default dropdown-toggle">Action<span class="caret"></span></button>' +
                                         '<ul class="dropdown-menu">' +
                                             '<li><a href="/tenderView/' + data[i].id + '">View</a></li>' +
-                                            '<li><a href="#" data-toggle="modal" data-target="#createProposalWindow">Create proposal</a></li>' +
+                                            '<li><a href="#" data-toggle="modal" data-target="#createProposalWindow" onclick="showUnits(' + data[i].id + ')">Create proposal</a></li>' +
                                             '<li><a href="#" data-toggle="modal" data-target="#close_tender_mod_wind" onclick="writeCloseTenderId(' + data[i].id + ')">Close</a></li>' +
                                         '</ul>' +
                                     '</div>' +
@@ -208,24 +208,23 @@
             var categories = new Array();
             categories = $('#category_filter').val();
 
-            $.ajax({
-              dataType: "json",
-              url: '/tenders/categories',
-              async: false,
-              success: function(data){
-                    var dataLength = data.length;
-                    var catNumber = categories.length;
-                    for(var z = 0;z<catNumber;z++) {
-                        for (var i = 0; i < dataLength; i++) {
-                            if(categories[z] == data[i].parent) {
-                                categories.push(""+data[i].id);
+            if (categories != null){
+                $.ajax({
+                    dataType: "json",
+                    url: '/tenders/categories',
+                    async: false,
+                    success: function(data){
+                        var dataLength = data.length;
+                        var catNumber = categories.length;
+                        for(var z = 0;z<catNumber;z++) {
+                            for (var i = 0; i < dataLength; i++) {
+                                if(categories[z] == data[i].parent) {
+                                    categories.push(""+data[i].id);
+                                }
                             }
                         }
                     }
-                }
-            });
-
-            if (categories != null){
+                });
                 str += (str.length == 0)?"categories="+categories:"&categories="+categories;
             }
 
@@ -269,7 +268,7 @@
                                             '<button data-toggle="dropdown" class="btn btn-default dropdown-toggle">Action<span class="caret"></span></button>' +
                                             '<ul class="dropdown-menu">' +
                                                 '<li><a href="/tenderView/' + data[i].id + '">View</a></li>' +
-                                                '<li><a href="#" data-toggle="modal" data-target="#createProposalWindow">Create proposal</a></li>' +
+                                                '<li><a href="#" data-toggle="modal" data-target="#createProposalWindow" onclick="showUnits(' + data[i].id + ')">Create proposal</a></li>' +
                                                 '<li><a href="#" data-toggle="modal" data-target="#close_tender_mod_wind" onclick="writeCloseTenderId(' + data[i].id + ')">Close</a></li>' +
                                             '</ul>' +
                                         '</div>' +
@@ -301,7 +300,7 @@
 
         function closeTender() {
             var str = '';
-            str += "statusName=" + CLOSE_STATUS_NAME;
+            str += "statusName=" + CLOSE_TENDER_STATUS_NAME;
             $.ajax({
                 url: TENDERS_URL + "/" + $('#close_tender_id').val() + "?"  + str,
                 type: "PUT",

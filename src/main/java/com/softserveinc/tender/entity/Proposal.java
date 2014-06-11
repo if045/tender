@@ -30,7 +30,7 @@ public class Proposal {
     private Tender tender;
 
     @Column(name = "discount_percentage")
-    private BigDecimal discountPercentage;
+    private Double discountPercentage;
 
     @Column(name = "discount_currency")
     private BigDecimal discountCurrency;
@@ -65,11 +65,11 @@ public class Proposal {
         this.tender = tender;
     }
 
-    public BigDecimal getDiscountPercentage() {
+    public Double getDiscountPercentage() {
         return discountPercentage;
     }
 
-    public void setDiscountPercentage(BigDecimal discountPercentage) {
+    public void setDiscountPercentage(Double discountPercentage) {
         this.discountPercentage = discountPercentage;
     }
 
