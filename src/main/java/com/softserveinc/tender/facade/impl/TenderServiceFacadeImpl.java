@@ -241,8 +241,7 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
             units.add(unitService.save(unit));
         }
         savedTender.setUnits(units);
-        Tender savedTenderWithUnits = tenderService.save(savedTender);
-        return mapTender(savedTenderWithUnits);
+        return mapTender(savedTender);
     }
 
     public void updateTenderWithStatus(Integer tenderId, String statusName) {
