@@ -93,4 +93,9 @@ public class TenderController {
     public @ResponseBody ProposalDto addProposal(@RequestBody ProposalSaveDto proposalSaveDto) {
         return tenderFacade.saveProposal(proposalSaveDto);
     }
+
+    @RequestMapping(value = "/search/{title}", method = RequestMethod.GET)
+    public @ResponseBody List<TenderDto> search(@PathVariable("title") String title){
+        return tenderFacade.findBySearchParam(title);
+    }
 }

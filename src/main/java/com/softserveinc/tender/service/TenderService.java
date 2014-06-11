@@ -10,4 +10,5 @@ public interface TenderService {
     List<Tender> findByCustomParameters(TenderFilter tenderFilter);
     Tender save(Tender tender);
     void updateTenderWithStatus(Integer tenderId, String statusName);
+    List<Tender> findBySearchParam(String title);
 }

@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import javax.persistence.EntityManager;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
@@ -34,4 +35,6 @@ public interface TenderRepository extends JpaRepository<Tender, Integer> {
                                         @Param("locationFlag") Integer locationFlag,
                                         @Param("statusFlag") Integer statusFlag,
                                         @Param("priceFlag") Integer priceFlag);
+
+    List<Tender> findByTitleStartingWith(String title);
 }

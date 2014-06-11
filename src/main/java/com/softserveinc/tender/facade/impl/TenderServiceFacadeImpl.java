@@ -296,4 +296,10 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
         Proposal savedProposalWithBids = proposalService.save(savedProposal);
         return mapTenderProposal(savedProposalWithBids);
     }
+
+    @Override
+    public List<TenderDto> findBySearchParam(String title) {
+        List<Tender> tenders = tenderService.findBySearchParam(title.toLowerCase());
+        return mapTenders(tenders);
+    }
 }

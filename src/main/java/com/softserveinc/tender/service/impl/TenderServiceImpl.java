@@ -45,6 +45,11 @@ public class TenderServiceImpl implements TenderService {
     }
 
     @Override
+    public List<Tender> findBySearchParam(String title) {
+        return tenderRepository.findByTitleStartingWith(title);
+    }
+
+    @Override
     public Tender save(Tender tender) {
         return tenderRepository.saveAndFlush(tender);
     }

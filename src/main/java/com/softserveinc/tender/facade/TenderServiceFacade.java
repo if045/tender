@@ -24,4 +24,5 @@ public interface TenderServiceFacade {
     void updateTenderWithStatus(Integer tenderId, String statusName);
     List<ProposalDto> findTendersProposals(Integer tenderId);
     ProposalDto saveProposal(ProposalSaveDto proposalSaveDto);
+    List<TenderDto> findBySearchParam(String title);
 }
