@@ -22,4 +22,9 @@ public class RootController {
     public String getAllDeals() {
         return "deals";
     }
+
+    @RequestMapping(value = "/registration")
+    public String registration() {
+        return "registration";
+    }
 }
