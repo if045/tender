@@ -67,7 +67,6 @@ public class DealServiceFacadeImpl implements DealServiceFacade {
     }
     private FeedbackDto mapFeedback(Feedback feedback) {
         FeedbackDto feedbackDto = new FeedbackDto();
-
         feedbackDto.setId(feedback.getId());
         feedbackDto.setProfileId(feedback.getProfile().getId());
         feedbackDto.setUserId(feedback.getUser().getId());
