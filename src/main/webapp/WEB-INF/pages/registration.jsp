@@ -44,7 +44,7 @@
                 <div class="col-md-4">
                     <div class="panel panel-info">
                         <div class="panel-heading">
-                            <h3 class="panel-title">Creds</h3>
+                            <h3 class="panel-title">Credentials</h3>
                         </div>
                         <div class="panel-body">
                             <div class="panel-group">
@@ -183,7 +183,7 @@
                                     <div class="col-md-12">
                                         <div class="input-group">
                                             <span class="input-group-addon glyphicon glyphicon-earphone"></span>
-                                            <input type="tel" class="form-control" placeholder="Telephone">
+                                            <input type="tel" class="form-control" placeholder="Phone number">
                                         </div>
                                     </div>
                                 </div>
@@ -211,10 +211,10 @@
 
                                 <div class="row backdown">
                                     <div class="col-md-4">
-                                        <input type="radio" name="person" value="legal">Legal person<br>
+                                        <input type="radio" name="person" value="legal"> Legal person<br>
                                     </div>
                                     <div class="col-md-5">
-                                        <input type="radio" name="person" value="physical">Physical person<br>
+                                        <input type="radio" name="person" value="private"> Private person<br>
                                     </div>
                                 </div>
                             </div>
