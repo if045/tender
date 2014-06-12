@@ -105,7 +105,7 @@
                         <table class="table table-bordered table-striped" id="head_proposals">
                             <thead>
                                 <th>Seller</th>
-                                <th>Bids</th>
+                                <th>Units</th>
                                 <th>Total price</th>
                                 <th>Deal</th>
                             </thead>

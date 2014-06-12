@@ -1,8 +1,8 @@
 var TENDER_VIEW_URL = "/tenderView";
 var FORMAT_DATE = 'yyyy/mm/dd';
 var locs = '';
-var Units = new Array();
-var Proposals = new Array();
+var Units = [];
+var Proposals = [];
 
 $(document).ready(function () {
     $('#endDate').datepicker({
@@ -36,23 +36,8 @@ function showProposals() {
     var tenderURI = URL.split(TENDER_VIEW_URL);
     var tenderId = tenderURI[tenderURI.length - 1];
     $.getJSON('/tenders/'+tenderId+'/proposals', function (data) {
-        var html;
-        var len = data.length;
-        Proposals = data;
-        if(len > 0) {
-            document.getElementById("no_proposals_message").setAttribute('hidden','true');
-            for (var i = 0; i < len; i++) {
-                html += '<tr>' +
-                    '<td align="center">' + data[i].fullName + '</td>' +
-                    '<td align="center">' + data[i].numberOfBids + '</td>' +
-                    '<td align="center">' + data[i].totalBidsPrice + '</td>' +
-                    '<td align="center"><button type="submit" class="btn btn-default" disabled>Deal</button></td>' +
-                    '</tr>';
-            }
-            $('#proposals').html(html);
-        } else {
-            document.getElementById("head_proposals").setAttribute('hidden','true');
-        }
+        Proposals = data.slice(0);
+        showProposalsTable(Proposals);
     });
 }
 function showUnit() {
@@ -62,13 +47,14 @@ function showUnit() {
     $.getJSON('/tenders/' + tender + '/units', function (data) {
         var html = '';
         var len = data.length;
-        Units = data;
+        Units = data.slice(0);
         for (var i = 0; i < len; i++) {
             if (data[i].itemType == 'P')
                 var itemTypes = 'Product'
             else if (data[i].itemType == 'S')
                 var itemTypes = 'Service'
-            html += '<tr><td>' + '<input type="checkbox" onchange="" id="ch_box_' + i + '"></td>' +
+            html += '<tr><td>' + '<input type="checkbox" onchange="showSpecificProposals()" id="ch_box_' + i + '">' +
+                '<input  hidden="" type="text" value="' + data[i].id +'" id="unit_id_' + i + '"/></td>' +
                 '<td>' + data[i].unitName + '</td>' +
                 '<td>' + itemTypes + '</td>' +
                 '<td>' + data[i].categoryName + '</td>' +
@@ -154,9 +140,53 @@ function enableSaveTenderButton(){
 }
 
 function showSpecificProposals() {
-    var selectedUnits = new Array();
-    for (var i = 0; i < Units.length; i++) {
+    var selectedUnitsId = [];
+    for (var i = 0; i < Units.length; i++) if ($("#ch_box_" + i).is(":checked")) {
+        selectedUnitsId.push($("#unit_id_" + i).val());
+    }
+    showProposalsTable(Proposals, selectedUnitsId);
+}
 
+function showProposalsTable(propsArray, unitsArray) {
+    var html = '';
+    var len = propsArray.length;
+    if(len > 0) {
+        document.getElementById("no_proposals_message").setAttribute('hidden','true');
+        for (var i = 0; i < len; i++) {
+            if (unitsArray == null || checkBids(propsArray[i].bidDtos, unitsArray)) {
+                html += '<tr>' +
+                    '<td align="center">' + propsArray[i].fullName + '</td>' +
+                    '<td align="center">' + propsArray[i].numberOfBids + '</td>' +
+                    '<td align="center">' + propsArray[i].totalBidsPrice + '</td>' +
+                    '<td align="center"><button type="submit" class="btn btn-default" disabled>Deal</button></td>' +
+                    '</tr>';
+            } 
+        }
+        $('#proposals').html(html);
+    } else {
+        document.getElementById("head_proposals").setAttribute('hidden','true');
+    }
+}
+
+function checkBids(bidsArray, unitsArray) {
+    var proposalsUnits = [];
+    for (var i = 0; i < bidsArray.length; i++) {        //write unitId, that covers proposal
+        proposalsUnits.push(bidsArray[i].unitId);
+    }
+    proposalsUnits = $.unique(proposalsUnits);
+
+    var count = 0;
+    var unitsCount = unitsArray.length;
+    for (var j = 0; j < unitsCount; j++) {               //test proposal the capacity of all selected units
+        if (proposalsUnits.indexOf(parseInt(unitsArray[j])) > -1) {
+            count++;
+        }
+    }
+
+    if (count == unitsCount) {
+        return true;
+    } else {
+        return false;
     }
 }
 
