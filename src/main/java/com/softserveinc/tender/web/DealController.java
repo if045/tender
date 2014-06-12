@@ -27,7 +27,7 @@ public class DealController {
     }
 
     @RequestMapping(value = "/{dealId}", method = RequestMethod.PUT)
-    public @ResponseBody void updateTenderWithStatus(@PathVariable("dealId") Integer dealId,
+    public @ResponseBody void updateDealWithStatus(@PathVariable("dealId") Integer dealId,
                                                      @RequestParam("statusName") String statusName) {
         dealFacade.updateDealWithStatus(dealId, statusName);
     }

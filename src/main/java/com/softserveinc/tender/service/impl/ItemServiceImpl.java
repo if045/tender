@@ -37,4 +37,14 @@ public class ItemServiceImpl implements ItemService{
     public Item save(Item item) {
         return itemRepository.saveAndFlush(item);
     }
+
+    @Override
+    public Item findOne(Integer id) {
+        return itemRepository.findOne(id);
+    }
+
+    @Override
+    public Item findOneByCategoryIdAndName(String name, Integer categoryId) {
+        return itemRepository.findByNameAndCategoryId(name,categoryId);
+    }
 }

@@ -221,22 +221,27 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
         for (UnitSaveDto unitSaveDto : tenderSaveDto.getUnits()) {
             Unit unit = new Unit();
             unit.setQuantity(unitSaveDto.getQuantity());
-            unit.setMeasurement(measurementService.findByName(unitSaveDto.getMeasurment()));
-            if (itemService.findByName(unitSaveDto.getItem()) != null) {
-                unit.setItem(itemService.findByName(unitSaveDto.getItem()));
-            } else {
-                Item item = new Item();
-                item.setName(unitSaveDto.getItem());
-                item.setCategory(categoryService.findCategoryById(Integer.parseInt(unitSaveDto.getCategory())));
-                item.setType(unitSaveDto.getItemType());
-                unit.setItem(itemService.save(item));
+            unit.setMeasurement(measurementService.findMeasurementById(Integer.parseInt(unitSaveDto.getMeasurment())));
+            if (unitSaveDto.getItem().split("\\D+").length==1){
+                unit.setItem(itemService.findOne(Integer.parseInt(unitSaveDto.getItem().split("\\D+")[0])));
+            }else{
+                if (itemService.findOneByCategoryIdAndName(unitSaveDto.getItem(),
+                        Integer.parseInt(unitSaveDto.getCategory()))!=null){
+                    unit.setItem(itemService.findOneByCategoryIdAndName(unitSaveDto.getItem(),
+                            Integer.parseInt(unitSaveDto.getCategory())));
+                }else {
+                    Item item = new Item();
+                    item.setName(unitSaveDto.getItem());
+                    item.setCategory(categoryService.findCategoryById(Integer.parseInt(unitSaveDto.getCategory())));
+                    item.setType(unitSaveDto.getItemType());
+                    unit.setItem(itemService.save(item));
+                }
             }
             unit.setTender(savedTender);
             units.add(unitService.save(unit));
         }
         savedTender.setUnits(units);
-        Tender savedTenderWithUnits = tenderService.save(savedTender);
-        return mapTender(savedTenderWithUnits);
+        return mapTender(savedTender);
     }
 
     public void updateTenderWithStatus(Integer tenderId, String statusName) {
