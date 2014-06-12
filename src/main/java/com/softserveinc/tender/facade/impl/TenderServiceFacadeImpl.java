@@ -221,7 +221,7 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
         tender.setSuitablePrice(tenderSaveDto.getSuitablePrice());
         tender.setCreateDate(new Date());
         tender.setEndDate(date);
-        tender.setAuthor(profileService.findProfileById(8));
+        tender.setAuthor(profileService.findProfileById(8)); //TO DO: put current user
         Tender savedTender = tenderService.save(tender);
         List<Unit> units = new ArrayList<>();
         for (UnitSaveDto unitSaveDto : tenderSaveDto.getUnits()) {
