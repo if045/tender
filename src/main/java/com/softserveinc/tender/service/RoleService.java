@@ -8,4 +8,5 @@ public interface RoleService {
     List<Role> findAll();
     Role findRoleById(int id);
     void saveRole(Role role);
+    List<Role> findUsersRoles();
 }

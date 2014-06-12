@@ -19,3 +19,4 @@ var DEAL_STATUS = "close";
 var PROPOSALS_URL = "/proposals";
 var UNITS_URL = '/units';
 
+var ROLES_URL = '/usersRoles';

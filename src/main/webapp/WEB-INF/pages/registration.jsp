@@ -154,7 +154,7 @@
                             <div class="panel-group">
                                 <div class="row backdown">
                                     <div class="col-md-12">
-                                        <select id="users_role_select" multiple="multiple"
+                                        <select id="populate_roles_dropdown" multiple="multiple"
                                                 class="populate placeholder select2-offscreen location_selector"
                                                 tabindex="-1">
                                         </select>
@@ -236,7 +236,7 @@
                             <div class="panel-group">
                                 <div class="row backdown">
                                     <div class="col-md-12">
-                                        <select id="categories_select" multiple="multiple"
+                                        <select id="populate_categories_dropdown" multiple="multiple"
                                                 class="populate placeholder select2-offscreen location_selector" tabindex="-1">
                                         </select>
                                     </div>
@@ -244,7 +244,7 @@
 
                                 <div class="row backdown">
                                     <div class="col-md-12">
-                                        <select id="locations_select" multiple="multiple"
+                                        <select id="populate_locations_dropdown" multiple="multiple"
                                                 class="populate placeholder select2-offscreen location_selector" tabindex="-1">
                                         </select>
                                     </div>
