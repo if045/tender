@@ -17,6 +17,7 @@ import com.softserveinc.tender.entity.Item;
 import com.softserveinc.tender.entity.Location;
 import com.softserveinc.tender.entity.Proposal;
 import com.softserveinc.tender.entity.Tender;
+import com.softserveinc.tender.entity.TenderStatus;
 import com.softserveinc.tender.entity.Unit;
 import com.softserveinc.tender.facade.TenderServiceFacade;
 import com.softserveinc.tender.repo.TenderFilter;
@@ -87,6 +88,7 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
     private BidService bidService;
 
     private static final String DATE_FORMAT_FROM_CLIENT="yyyy/MM/dd";
+    private static final String TENDER_STATUS_IN_PROGRESS = "In progress";
 
     @Override
     public List<TenderDto> findByCustomParams(TenderFilter tenderFilter) {
@@ -273,18 +275,17 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
 
     @Override
     public ProposalDto saveProposal(ProposalSaveDto proposalSaveDto) {
+        Tender tender = tenderService.findOne(proposalSaveDto.getTenderId());
+        TenderStatus tenderStatus = tenderStatusService.findByName(TENDER_STATUS_IN_PROGRESS);
+        tender.setStatus(tenderStatus);
+        Tender updatedTender = tenderService.save(tender);
+
         Proposal proposal = new Proposal();
-        proposal.setSeller(userService.findUserById(7));
-        proposal.setTender(tenderService.findOne(proposalSaveDto.getTenderId()));
-        if (proposalSaveDto.getDiscountCurrency() != null) {
-            proposal.setDiscountCurrency(proposalSaveDto.getDiscountCurrency());
-        }
-        if (proposalSaveDto.getDiscountPercentage() != null){
-            proposal.setDiscountPercentage(proposalSaveDto.getDiscountPercentage());
-        }
-        if (proposalSaveDto.getDescription() != null){
-            proposal.setDescription(proposalSaveDto.getDescription());
-        }
+        proposal.setSeller(userService.findUserById(7));  //TO DO: put current user
+        proposal.setTender(updatedTender);
+        proposal.setDiscountCurrency(proposalSaveDto.getDiscountCurrency());
+        proposal.setDiscountPercentage(proposalSaveDto.getDiscountPercentage());
+        proposal.setDescription(proposalSaveDto.getDescription());
         Proposal savedProposal = proposalService.save(proposal);
 
         List<Bid> bids = new ArrayList<>();
@@ -298,7 +299,6 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
             bids.add(savedBid);
         }
         savedProposal.setBids(bids);
-        Proposal savedProposalWithBids = proposalService.save(savedProposal);
-        return mapTenderProposal(savedProposalWithBids);
+        return mapTenderProposal(savedProposal);
     }
 }
