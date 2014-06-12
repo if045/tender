@@ -19,11 +19,11 @@ public class Feedback {
     private Integer id;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable = true)
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "profile_id", nullable = true)
+    @JoinColumn(name = "profile_id", nullable = false)
     private Profile profile;
 
     @Column(name = "communication")

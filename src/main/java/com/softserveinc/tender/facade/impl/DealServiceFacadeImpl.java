@@ -77,8 +77,9 @@ public class DealServiceFacadeImpl implements DealServiceFacade {
         feedbackDto.setComment(feedback.getComment());
         return feedbackDto;
     }
+
     @Override
-     public FeedbackDto saveFeedback(FeedbackSaveDto feedbackSaveDto) {
+    public FeedbackDto saveFeedback(FeedbackSaveDto feedbackSaveDto) {
         Feedback feedback = new Feedback();
         feedback.setCommunication(feedbackSaveDto.getCommunication());
         feedback.setSpeed(feedbackSaveDto.getSpeed());
@@ -94,5 +95,5 @@ public class DealServiceFacadeImpl implements DealServiceFacade {
 
         Feedback savedFeedback = feedbackService.save(feedback);
         return mapFeedback(savedFeedback);
-     }
     }
+}

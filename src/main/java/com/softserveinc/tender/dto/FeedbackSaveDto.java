@@ -2,12 +2,12 @@ package com.softserveinc.tender.dto;
 
 
 public class FeedbackSaveDto {
+    private Integer userId;
+    private Integer profileId;
     private Integer communication;
     private Integer speed;
     private Integer logistic;
     private String comment;
-    private Integer userId;
-    private Integer profileId;
 
     public Integer getUserId() {
         return userId;
