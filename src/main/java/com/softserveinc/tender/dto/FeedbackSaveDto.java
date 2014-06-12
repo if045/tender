@@ -6,7 +6,24 @@ public class FeedbackSaveDto {
     private Integer speed;
     private Integer logistic;
     private String comment;
+    private Integer userId;
+    private Integer profileId;
 
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+
+    public Integer getProfileId() {
+        return profileId;
+    }
+
+    public void setProfileId(Integer profileId) {
+        this.profileId = profileId;
+    }
 
     public Integer getCommunication() {
         return communication;

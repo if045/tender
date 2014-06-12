@@ -23,7 +23,7 @@ function showDeals() {
                     '<div class="btn-group">' +
                     '<button data-toggle="dropdown" class="btn btn-default dropdown-toggle">Action<span class="caret"></span></button>' +
                     '<ul class="dropdown-menu">' +
-                    '<li><a href="#" data-toggle="modal" data-target="#feedback_mod_wind" onclick="closeFeedbackModalWindow(' + data[i].id + ')">Feedback</a></li>' +
+                    '<li><a href="#" data-toggle="modal" data-target="#feedback_mod_wind" onclick="writeFeedbackId(' + data[i].id + ')">Feedback</a></li>' +
                     '<li><a href="#">Conflict</a></li>' +
                     '<li><a href="#" data-toggle="modal" data-target="#close_deal_mod_wind" onclick="writeCloseDealId(' + data[i].id + ')">Close</a></li>' +
                     '</ul>' +

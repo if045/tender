@@ -5,7 +5,9 @@ import com.softserveinc.tender.dto.FeedbackDto;
 import com.softserveinc.tender.dto.FeedbackSaveDto;
 import com.softserveinc.tender.entity.Deal;
 import com.softserveinc.tender.entity.Feedback;
+import com.softserveinc.tender.entity.Profile;
 import com.softserveinc.tender.entity.Tender;
+import com.softserveinc.tender.entity.User;
 import com.softserveinc.tender.facade.DealServiceFacade;
 import com.softserveinc.tender.service.*;
 import org.modelmapper.ModelMapper;
@@ -67,8 +69,8 @@ public class DealServiceFacadeImpl implements DealServiceFacade {
         FeedbackDto feedbackDto = new FeedbackDto();
 
         feedbackDto.setId(feedback.getId());
-/*      feedbackDto.setProfileId(feedback.getProfile().getId());*/
-/*      feedbackDto.setUserId(feedback.getUser().getId());*/
+        feedbackDto.setProfileId(feedback.getProfile().getId());
+        feedbackDto.setUserId(feedback.getUser().getId());
         feedbackDto.setCommunication(feedback.getCommunication());
         feedbackDto.setSpeed(feedback.getSpeed());
         feedbackDto.setLogistic(feedback.getLogistic());
@@ -82,6 +84,13 @@ public class DealServiceFacadeImpl implements DealServiceFacade {
         feedback.setSpeed(feedbackSaveDto.getSpeed());
         feedback.setLogistic(feedbackSaveDto.getLogistic());
         feedback.setComment(feedbackSaveDto.getComment());
+        Profile profile = new Profile();
+        profile.setId(dealService.findDealById(feedbackSaveDto.getProfileId()).getCustomer().getId());
+        feedback.setProfile(profile);
+        //TODO: change user id after finish security
+        User user = new User();
+        user.setId(1);
+        feedback.setUser(user);
 
         Feedback savedFeedback = feedbackService.save(feedback);
         return mapFeedback(savedFeedback);

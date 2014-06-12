@@ -5,12 +5,13 @@ $(document).ready(function() {
 function createFeedback() {
     var str = '';
     str += '{"communication": ' + '\"' + $('#create_communication_rating').val() + '\"' +
+        ', "profileId": ' + '\"' + $('#feedback_id').val()+ '\"' +
         ', "speed": ' + '\"' + $('#create_speed_rating').val()+ '\"' +
         ', "logistic": ' + '\"' + $('#create_logistic_rating').val()+ '\"' +
         ', "comment": ' + '\"' + $('#feedback_comment').val()+ '\"}';
     var newJson = $.parseJSON(str);
     $.ajax({
-        url: "/deals/" + 1 + "/feedback",
+        url: "/deals/" + $('#feedback_id').val() + "/feedback",
         type: "POST",
         data: JSON.stringify(newJson),
         dataType: 'json',
