@@ -81,7 +81,7 @@ function showInfo(){
     var str = location.href;
     var tender1 = str.split(TENDER_VIEW_URL);
     var tender = tender1[tender1.length - 1];
-    $.getJSON(TENDERS_URL+tender.substring(1), function(data){
+    $.getJSON(TENDERS_URL+'/'+tender.substring(1), function(data){
         var statusHtml = '';
         statusHtml += '<option value="'+ data.status + '">' + data.status + '</option>';
         statusHtml += '<option value="Close">Close</option>';
@@ -136,7 +136,7 @@ function saveTenderAfterUpdate(){
         str +="&description="+$('#description').val();
     }
     $.ajax({
-        url: TENDERS_URL + tender.substring(1) + "?"  + str,
+        url: TENDERS_URL + '/' + tender.substring(1) + "?"  + str,
         type: "PUT",
         success: function(data){
             alert("Success")
