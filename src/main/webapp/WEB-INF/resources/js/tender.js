@@ -139,10 +139,8 @@ function saveTenderAfterUpdate(){
         url: TENDERS_URL + '/' + tender.substring(1) + "?"  + str,
         type: "PUT",
         success: function(data){
-            alert("Success")
         },
         error: function(){
-            alert("Something wrong")
         }
     })
 }
