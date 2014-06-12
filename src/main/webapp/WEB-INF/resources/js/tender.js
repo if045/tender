@@ -1,6 +1,8 @@
 var TENDER_VIEW_URL = "/tenderView";
 var FORMAT_DATE = 'yyyy/mm/dd';
 var locs = '';
+var Units = new Array();
+var Proposals = new Array();
 
 $(document).ready(function () {
     $('#endDate').datepicker({
@@ -36,6 +38,7 @@ function showProposals() {
     $.getJSON('/tenders/'+tenderId+'/proposals', function (data) {
         var html;
         var len = data.length;
+        Proposals = data;
         if(len > 0) {
             document.getElementById("no_proposals_message").setAttribute('hidden','true');
             for (var i = 0; i < len; i++) {
@@ -59,19 +62,20 @@ function showUnit() {
     $.getJSON('/tenders/' + tender + '/units', function (data) {
         var html = '';
         var len = data.length;
+        Units = data;
         for (var i = 0; i < len; i++) {
             if (data[i].itemType == 'P')
                 var itemTypes = 'Product'
             else if (data[i].itemType == 'S')
                 var itemTypes = 'Service'
-            html += '<tr><td>' + ' <input type="checkbox">' + '</td>' +
+            html += '<tr><td>' + '<input type="checkbox" onchange="" id="' + i + '"></td>' +
                 '<td>' + data[i].unitName + '</td>' +
                 '<td>' + itemTypes + '</td>' +
                 '<td>' + data[i].categoryName + '</td>' +
                 '<td>' + data[i].quantity + ' ' + data[i].measurementName + '</td>' +
                 '<td>' + data[i].numberOfBids + '</td>' +
                 '<td>' + data[i].price + '</td>' +
-                '<td>' + '<button type="submit" class="btn btn-default" disabled>Deal</button>' + '</td></tr>';
+                '<td align="center">' + '<button type="submit" class="btn btn-default" disabled>Deal</button>' + '</td></tr>';
         }
         $('#unitsTable').html(html);
     });
@@ -149,5 +153,9 @@ function saveTenderAfterUpdate(){
 
 function enableSaveTenderButton(){
     $("#save_tender_button").removeAttr("disabled");
+}
+
+function showSpecificProposals() {
+
 }
 
