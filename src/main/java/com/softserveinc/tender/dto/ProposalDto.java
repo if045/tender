@@ -5,6 +5,7 @@ import com.softserveinc.tender.entity.Proposal;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.List;
 
 public class ProposalDto {
 
@@ -12,6 +13,7 @@ public class ProposalDto {
     private String fullName;
     private Double totalBidsPrice;
     private Integer numberOfBids;
+    private List<BidDto> bidDtos;
 
     public Double countTotalBidsPrice(Proposal proposal) {
         final Integer START_COUNT_VALUE = 0;
@@ -58,5 +60,13 @@ public class ProposalDto {
 
     public void setNumberOfBids(Integer numberOfBids) {
         this.numberOfBids = numberOfBids;
+    }
+
+    public List<BidDto> getBidDtos() {
+        return bidDtos;
+    }
+
+    public void setBidDtos(List<BidDto> bidDtos) {
+        this.bidDtos = bidDtos;
     }
 }

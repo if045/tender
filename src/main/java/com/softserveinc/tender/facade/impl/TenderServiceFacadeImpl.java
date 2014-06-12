@@ -1,5 +1,6 @@
 package com.softserveinc.tender.facade.impl;
 
+import com.softserveinc.tender.dto.BidDto;
 import com.softserveinc.tender.dto.BidSaveDto;
 import com.softserveinc.tender.dto.CategoryDto;
 import com.softserveinc.tender.dto.ItemDto;
@@ -283,6 +284,15 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
         proposalDto.setFullName(proposalDto.convertIntoFullName(proposal));
         proposalDto.setNumberOfBids(proposal.getBids().size());
         proposalDto.setTotalBidsPrice(proposalDto.countTotalBidsPrice(proposal));
+
+        List<BidDto> bidDtos = new ArrayList<>();
+        for (Bid bid : proposal.getBids()) {
+            BidDto bidDto = new BidDto();
+            bidDto.setBidId(bid.getId());
+            bidDto.setUnitId(bid.getUnit().getId());
+            bidDtos.add(bidDto);
+        }
+        proposalDto.setBidDtos(bidDtos);
 
         return proposalDto;
     }

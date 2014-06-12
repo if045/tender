@@ -68,7 +68,7 @@ function showUnit() {
                 var itemTypes = 'Product'
             else if (data[i].itemType == 'S')
                 var itemTypes = 'Service'
-            html += '<tr><td>' + '<input type="checkbox" onchange="" id="' + i + '"></td>' +
+            html += '<tr><td>' + '<input type="checkbox" onchange="" id="ch_box_' + i + '"></td>' +
                 '<td>' + data[i].unitName + '</td>' +
                 '<td>' + itemTypes + '</td>' +
                 '<td>' + data[i].categoryName + '</td>' +
@@ -156,6 +156,9 @@ function enableSaveTenderButton(){
 }
 
 function showSpecificProposals() {
+    var selectedUnits = new Array();
+    for (var i = 0; i < Units.length; i++) {
 
+    }
 }
 
