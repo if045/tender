@@ -137,6 +137,9 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
         }
         tenderDto.setCategories(categories);
         if (tender.getProposals()!=null){tenderDto.setProposals(tender.getProposals().size());}
+        if (tender.getDescription()!=null){
+            tenderDto.setDescription(tender.getDescription());
+        }
         return tenderDto;
     }
 
@@ -246,8 +249,19 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
         return mapTender(savedTender);
     }
 
-    public void updateTenderWithStatus(Integer tenderId, String statusName) {
-        tenderService.updateTenderWithStatus(tenderId, statusName);
+    public TenderDto updateTender(Integer tenderId, String statusName, String endDate, String description) {
+        String pattern = DATE_FORMAT_FROM_CLIENT;
+        Date date = null;
+        SimpleDateFormat formatter;
+        formatter = new SimpleDateFormat(pattern);
+        if (endDate!=null) {
+            try {
+                date = formatter.parse(endDate);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+        return mapTender(tenderService.updateTender(tenderId, statusName, date, description));
     }
 
     public List<ProposalDto> findTendersProposals(Integer tenderId) {
@@ -300,5 +314,10 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
         }
         savedProposal.setBids(bids);
         return mapTenderProposal(savedProposal);
+    }
+
+    @Override
+    public TenderDto findOneById(Integer id) {
+        return mapTender(tenderService.findOne(id));
     }
 }
