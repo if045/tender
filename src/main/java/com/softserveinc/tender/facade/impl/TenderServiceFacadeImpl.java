@@ -290,6 +290,7 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
             BidDto bidDto = new BidDto();
             bidDto.setBidId(bid.getId());
             bidDto.setUnitId(bid.getUnit().getId());
+            bidDto.setPrice(bid.getPrice());
             bidDtos.add(bidDto);
         }
         proposalDto.setBidDtos(bidDtos);

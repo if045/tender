@@ -53,14 +53,14 @@ function showUnit() {
                 var itemTypes = 'Product'
             else if (data[i].itemType == 'S')
                 var itemTypes = 'Service'
-            html += '<tr><td>' + '<input type="checkbox" onchange="showSpecificProposals()" id="ch_box_' + i + '">' +
+            html += '<tr class="js-unitRow" id="unit_row_' + data[i].id + '"><td align="center">' + '<input type="checkbox" onchange="showSpecificProposals()" id="ch_box_' + i + '">' +
                 '<input  hidden="" type="text" value="' + data[i].id +'" id="unit_id_' + i + '"/></td>' +
                 '<td>' + data[i].unitName + '</td>' +
                 '<td>' + itemTypes + '</td>' +
                 '<td>' + data[i].categoryName + '</td>' +
                 '<td>' + data[i].quantity + ' ' + data[i].measurementName + '</td>' +
                 '<td>' + data[i].numberOfBids + '</td>' +
-                '<td>' + data[i].price + '</td>' +
+                '<td class="js-sellerPrice" id="seller_price_' + data[i].id + '">' + 0.00 + '</td>' +
                 '<td align="center">' + '<button type="submit" class="btn btn-default" disabled>Deal</button>' + '</td></tr>';
         }
         $('#unitsTable').html(html);
@@ -144,6 +144,8 @@ function showSpecificProposals() {
     for (var i = 0; i < Units.length; i++) if ($("#ch_box_" + i).is(":checked")) {
         selectedUnitsId.push($("#unit_id_" + i).val());
     }
+    resetRowsStyle();
+    cleanSellerPriceColumn();
     showProposalsTable(Proposals, selectedUnitsId);
 }
 
@@ -154,10 +156,10 @@ function showProposalsTable(propsArray, unitsArray) {
         document.getElementById("no_proposals_message").setAttribute('hidden','true');
         for (var i = 0; i < len; i++) {
             if (unitsArray == null || checkBids(propsArray[i].bidDtos, unitsArray)) {
-                html += '<tr>' +
-                    '<td align="center">' + propsArray[i].fullName + '</td>' +
-                    '<td align="center">' + propsArray[i].numberOfBids + '</td>' +
-                    '<td align="center">' + propsArray[i].totalBidsPrice + '</td>' +
+                html += '<tr class="js-proposalRow" id="proposal_row_' + propsArray[i].id + '">' +
+                    '<td class="js-highlightUnits" propId="' + propsArray[i].id +'">' + propsArray[i].fullName + '</td>' +
+                    '<td class="js-highlightUnits" propId="' + propsArray[i].id +'">' + propsArray[i].numberOfBids + '</td>' +
+                    '<td class="js-highlightUnits" propId="' + propsArray[i].id +'">' + propsArray[i].totalBidsPrice + '</td>' +
                     '<td align="center"><button type="submit" class="btn btn-default" disabled>Deal</button></td>' +
                     '</tr>';
             } 
@@ -166,6 +168,9 @@ function showProposalsTable(propsArray, unitsArray) {
     } else {
         document.getElementById("head_proposals").setAttribute('hidden','true');
     }
+    $('.js-highlightUnits').click(function(){
+        showUnitSellerPrice(this.getAttribute("propId"));
+    });
 }
 
 function checkBids(bidsArray, unitsArray) {
@@ -188,5 +193,34 @@ function checkBids(bidsArray, unitsArray) {
     } else {
         return false;
     }
+}
+
+function showUnitSellerPrice(proposalId) {
+    resetRowsStyle();
+
+    $("#proposal_row_" + proposalId).addClass('info');
+    var proposal;
+    for (var i = 0; i < Proposals.length; i++) {        //find custom proposal
+        if (Proposals[i].id == proposalId) {
+            proposal = Proposals[i];
+            break;
+        }
+    }
+
+    var bidsArr = proposal.bidDtos;
+    for (var i = 0; i < bidsArr.length; i++) {          //show seller price of unit
+        $("#unit_row_" + bidsArr[i].unitId).addClass('info');
+        $("#seller_price_" + bidsArr[i].unitId).html(bidsArr[i].price);
+    }
+
+}
+
+function cleanSellerPriceColumn() {
+    $('.js-sellerPrice').html('0.00');
+}
+
+function resetRowsStyle() {
+    $('.js-unitRow').removeClass('info');
+    $('.js-proposalRow').removeClass('info');
 }
 
