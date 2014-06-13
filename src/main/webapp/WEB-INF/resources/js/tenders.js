@@ -362,3 +362,7 @@
 
             return year + '/' + month + '/' + day;
         }
+
+        function goToRegistrationPage() {
+            window.location.href = '/registration';
+        }
