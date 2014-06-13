@@ -14,6 +14,9 @@ public class ProposalDto {
     private Double totalBidsPrice;
     private Integer numberOfBids;
     private List<BidDto> bidDtos;
+    private String description;
+    private Double discountPercentage;
+    private BigDecimal discountCurrency;
 
     public Double countTotalBidsPrice(Proposal proposal) {
         final Integer START_COUNT_VALUE = 0;
@@ -68,5 +71,29 @@ public class ProposalDto {
 
     public void setBidDtos(List<BidDto> bidDtos) {
         this.bidDtos = bidDtos;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Double getDiscountPercentage() {
+        return discountPercentage;
+    }
+
+    public void setDiscountPercentage(Double discountPercentage) {
+        this.discountPercentage = discountPercentage;
+    }
+
+    public BigDecimal getDiscountCurrency() {
+        return discountCurrency;
+    }
+
+    public void setDiscountCurrency(BigDecimal discountCurrency) {
+        this.discountCurrency = discountCurrency;
     }
 }

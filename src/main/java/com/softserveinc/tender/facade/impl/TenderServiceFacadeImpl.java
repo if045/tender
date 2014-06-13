@@ -284,6 +284,9 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
         proposalDto.setFullName(proposalDto.convertIntoFullName(proposal));
         proposalDto.setNumberOfBids(proposal.getBids().size());
         proposalDto.setTotalBidsPrice(proposalDto.countTotalBidsPrice(proposal));
+        proposalDto.setDescription(proposal.getDescription());
+        proposalDto.setDiscountCurrency(proposal.getDiscountCurrency());
+        proposalDto.setDiscountPercentage(proposal.getDiscountPercentage());
 
         List<BidDto> bidDtos = new ArrayList<>();
         for (Bid bid : proposal.getBids()) {

@@ -197,6 +197,7 @@ function checkBids(bidsArray, unitsArray) {
 
 function showUnitSellerPrice(proposalId) {
     resetRowsStyle();
+    cleanSellerPriceColumn();
 
     $("#proposal_row_" + proposalId).addClass('info');
     var proposal;
@@ -213,6 +214,18 @@ function showUnitSellerPrice(proposalId) {
         $("#seller_price_" + bidsArr[i].unitId).html(bidsArr[i].price);
     }
 
+    var str = '';
+    if (proposal.description.length != 0) {
+        str += proposal.description + "\n";
+    }
+    if (proposal.discountCurrency != null) {
+        str += "Discount currency: " + proposal.discountCurrency + "\n";
+    }
+    if (proposal.discountPercentage != null) {
+        str += "Discount percentage: " + proposal.discountPercentage;
+    }
+
+    $("#proposalDescription").html(str);
 }
 
 function cleanSellerPriceColumn() {
