@@ -1,5 +1,6 @@
 package com.softserveinc.tender.facade.impl;
 
+import com.softserveinc.tender.dto.BidDto;
 import com.softserveinc.tender.dto.BidSaveDto;
 import com.softserveinc.tender.dto.CategoryDto;
 import com.softserveinc.tender.dto.DealDto;
@@ -19,6 +20,7 @@ import com.softserveinc.tender.entity.Item;
 import com.softserveinc.tender.entity.Location;
 import com.softserveinc.tender.entity.Proposal;
 import com.softserveinc.tender.entity.Tender;
+import com.softserveinc.tender.entity.TenderStatus;
 import com.softserveinc.tender.entity.Unit;
 import com.softserveinc.tender.facade.DealServiceFacade;
 import com.softserveinc.tender.facade.TenderServiceFacade;
@@ -102,6 +104,7 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
 
     private static final String DATE_FORMAT_FROM_CLIENT="yyyy/MM/dd";
     private static final String DEAL_CREATE_STATUS = "in progress";
+    private static final String TENDER_STATUS_IN_PROGRESS = "In progress";
 
     @Override
     public List<TenderDto> findByCustomParams(TenderFilter tenderFilter) {
@@ -150,6 +153,9 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
         }
         tenderDto.setCategories(categories);
         if (tender.getProposals()!=null){tenderDto.setProposals(tender.getProposals().size());}
+        if (tender.getDescription()!=null){
+            tenderDto.setDescription(tender.getDescription());
+        }
         return tenderDto;
     }
 
@@ -230,32 +236,48 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
         tender.setSuitablePrice(tenderSaveDto.getSuitablePrice());
         tender.setCreateDate(new Date());
         tender.setEndDate(date);
-        tender.setAuthor(profileService.findProfileById(8));
+        tender.setAuthor(profileService.findProfileById(8)); //TO DO: put current user
         Tender savedTender = tenderService.save(tender);
         List<Unit> units = new ArrayList<>();
         for (UnitSaveDto unitSaveDto : tenderSaveDto.getUnits()) {
             Unit unit = new Unit();
             unit.setQuantity(unitSaveDto.getQuantity());
-            unit.setMeasurement(measurementService.findByName(unitSaveDto.getMeasurment()));
-            if (itemService.findByName(unitSaveDto.getItem()) != null) {
-                unit.setItem(itemService.findByName(unitSaveDto.getItem()));
-            } else {
-                Item item = new Item();
-                item.setName(unitSaveDto.getItem());
-                item.setCategory(categoryService.findCategoryById(Integer.parseInt(unitSaveDto.getCategory())));
-                item.setType(unitSaveDto.getItemType());
-                unit.setItem(itemService.save(item));
+            unit.setMeasurement(measurementService.findMeasurementById(Integer.parseInt(unitSaveDto.getMeasurment())));
+            if (unitSaveDto.getItem().split("\\D+").length==1){
+                unit.setItem(itemService.findOne(Integer.parseInt(unitSaveDto.getItem().split("\\D+")[0])));
+            }else{
+                if (itemService.findOneByCategoryIdAndName(unitSaveDto.getItem(),
+                        Integer.parseInt(unitSaveDto.getCategory()))!=null){
+                    unit.setItem(itemService.findOneByCategoryIdAndName(unitSaveDto.getItem(),
+                            Integer.parseInt(unitSaveDto.getCategory())));
+                }else {
+                    Item item = new Item();
+                    item.setName(unitSaveDto.getItem());
+                    item.setCategory(categoryService.findCategoryById(Integer.parseInt(unitSaveDto.getCategory())));
+                    item.setType(unitSaveDto.getItemType());
+                    unit.setItem(itemService.save(item));
+                }
             }
             unit.setTender(savedTender);
             units.add(unitService.save(unit));
         }
         savedTender.setUnits(units);
-        Tender savedTenderWithUnits = tenderService.save(savedTender);
-        return mapTender(savedTenderWithUnits);
+        return mapTender(savedTender);
     }
 
-    public void updateTenderWithStatus(Integer tenderId, String statusName) {
-        tenderService.updateTenderWithStatus(tenderId, statusName);
+    public TenderDto updateTender(Integer tenderId, String statusName, String endDate, String description) {
+        String pattern = DATE_FORMAT_FROM_CLIENT;
+        Date date = null;
+        SimpleDateFormat formatter;
+        formatter = new SimpleDateFormat(pattern);
+        if (endDate!=null) {
+            try {
+                date = formatter.parse(endDate);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+        return mapTender(tenderService.updateTender(tenderId, statusName, date, description));
     }
 
     public List<ProposalDto> findTendersProposals(Integer tenderId) {
@@ -277,24 +299,36 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
         proposalDto.setFullName(proposalDto.convertIntoFullName(proposal));
         proposalDto.setNumberOfBids(proposal.getBids().size());
         proposalDto.setTotalBidsPrice(proposalDto.countTotalBidsPrice(proposal));
+        proposalDto.setDescription(proposal.getDescription());
+        proposalDto.setDiscountCurrency(proposal.getDiscountCurrency());
+        proposalDto.setDiscountPercentage(proposal.getDiscountPercentage());
+
+        List<BidDto> bidDtos = new ArrayList<>();
+        for (Bid bid : proposal.getBids()) {
+            BidDto bidDto = new BidDto();
+            bidDto.setBidId(bid.getId());
+            bidDto.setUnitId(bid.getUnit().getId());
+            bidDto.setPrice(bid.getPrice());
+            bidDtos.add(bidDto);
+        }
+        proposalDto.setBidDtos(bidDtos);
 
         return proposalDto;
     }
 
     @Override
     public ProposalDto saveProposal(ProposalSaveDto proposalSaveDto) {
+        Tender tender = tenderService.findOne(proposalSaveDto.getTenderId());
+        TenderStatus tenderStatus = tenderStatusService.findByName(TENDER_STATUS_IN_PROGRESS);
+        tender.setStatus(tenderStatus);
+        Tender updatedTender = tenderService.save(tender);
+
         Proposal proposal = new Proposal();
-        proposal.setSeller(userService.findUserById(7));
-        proposal.setTender(tenderService.findOne(proposalSaveDto.getTenderId()));
-        if (proposalSaveDto.getDiscountCurrency() != null) {
-            proposal.setDiscountCurrency(proposalSaveDto.getDiscountCurrency());
-        }
-        if (proposalSaveDto.getDiscountPercentage() != null){
-            proposal.setDiscountPercentage(proposalSaveDto.getDiscountPercentage());
-        }
-        if (proposalSaveDto.getDescription() != null){
-            proposal.setDescription(proposalSaveDto.getDescription());
-        }
+        proposal.setSeller(userService.findUserById(7));  //TO DO: put current user
+        proposal.setTender(updatedTender);
+        proposal.setDiscountCurrency(proposalSaveDto.getDiscountCurrency());
+        proposal.setDiscountPercentage(proposalSaveDto.getDiscountPercentage());
+        proposal.setDescription(proposalSaveDto.getDescription());
         Proposal savedProposal = proposalService.save(proposal);
 
         List<Bid> bids = new ArrayList<>();
@@ -308,8 +342,12 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
             bids.add(savedBid);
         }
         savedProposal.setBids(bids);
-        Proposal savedProposalWithBids = proposalService.save(savedProposal);
-        return mapTenderProposal(savedProposalWithBids);
+        return mapTenderProposal(savedProposal);
+    }
+
+    @Override
+    public TenderDto findOneById(Integer id) {
+        return mapTender(tenderService.findOne(id));
     }
 
     @Override

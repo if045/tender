@@ -300,9 +300,9 @@
 
         function closeTender() {
             var str = '';
-            str += "statusName=" + CLOSE_STATUS_NAME;
+            str += "statusName=" + CLOSE_TENDER_STATUS_NAME;
             $.ajax({
-                url: TENDERS_URL + $('#close_tender_id').val() + "?"  + str,
+                url: TENDERS_URL + "/" + $('#close_tender_id').val() + "?"  + str,
                 type: "PUT",
 
                 success: function(data){
@@ -361,4 +361,8 @@
             if(month < 10) month = '0' + month;
 
             return year + '/' + month + '/' + day;
+        }
+
+        function goToRegistrationPage() {
+            window.location.href = '/registration';
         }

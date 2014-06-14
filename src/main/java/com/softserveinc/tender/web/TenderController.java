@@ -9,7 +9,6 @@ import com.softserveinc.tender.dto.ProposalSaveDto;
 import com.softserveinc.tender.dto.TenderDto;
 import com.softserveinc.tender.dto.TenderSaveDto;
 import com.softserveinc.tender.dto.UnitDto;
-import com.softserveinc.tender.dto.UnitSaveDto;
 import com.softserveinc.tender.repo.TenderFilter;
 import com.softserveinc.tender.dto.TenderStatusDto;
 import com.softserveinc.tender.facade.TenderServiceFacade;
@@ -75,9 +74,11 @@ public class TenderController {
     }
 
     @RequestMapping(value = "/{tenderId}", method = RequestMethod.PUT)
-    public @ResponseBody void updateTenderWithStatus(@PathVariable("tenderId") Integer tenderId,
-                                                     @RequestParam("statusName") String statusName) {
-        tenderFacade.updateTenderWithStatus(tenderId, statusName);
+    public @ResponseBody TenderDto updateTender(@PathVariable("tenderId") Integer tenderId,
+                                                @RequestParam("statusName") String statusName,
+                                                @RequestParam(value = "endDate", required = false) String endDate,
+                                                @RequestParam(value = "description", required = false) String description) {
+        return tenderFacade.updateTender(tenderId, statusName, endDate, description);
     }
 
     @RequestMapping(value = "/{id}/proposals", method = RequestMethod.GET)
@@ -87,7 +88,7 @@ public class TenderController {
 
     @RequestMapping(value = "", method = RequestMethod.POST, consumes = "application/json")
     public @ResponseBody TenderDto addTender(@RequestBody TenderSaveDto tenderSaveDto) {
-        return  tenderFacade.saveTender(tenderSaveDto);
+        return tenderFacade.saveTender(tenderSaveDto);
     }
 
     @RequestMapping(value = "/{id}/proposals", method = RequestMethod.POST, consumes = "application/json")
@@ -99,5 +100,10 @@ public class TenderController {
     public @ResponseBody List<DealDto> createDeal(@PathVariable("tenderId") Integer tenderId,
                                                   @PathVariable("proposalId") Integer proposalId) {
         return tenderFacade.saveDeal(tenderId, proposalId);
+    }
+
+    @RequestMapping(value = "/{tenderId}", method = RequestMethod.GET)
+    public @ResponseBody TenderDto getTenderInfo(@PathVariable("tenderId") Integer tenderId){
+        return tenderFacade.findOneById(tenderId);
     }
 }
