@@ -134,6 +134,26 @@
         </div>
     </div>
 
+    <!-- success create deal modal window -->
+    <div class="modal fade" id="success_create_deal" tabindex="-1" role="dialog" hidden="">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header"><button class="close" type="button" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Success</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" role="form">
+                        <h5>You have successfully signed an agreement!</h5>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" type="button" data-dismiss="modal">Good</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- success create deal modal window -->
+
 <!--create tender modal -->
 <jsp:include page="createTender.jsp"/>
 <!--create tender modal -->

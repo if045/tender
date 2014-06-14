@@ -69,13 +69,13 @@ function showUnit() {
 
 function createProposalDeal(proposalId) {
     $.ajax({
-        url: TENDERS_URL + tenderId.substring(1) + PROPOSALS + "/" + proposalId + DEALS_URL,
+        url: TENDERS_URL + "/" + tenderId.substring(1) + PROPOSALS_URL + "/" + proposalId + DEALS_URL,
         type: "POST",
         dataType: 'json',
         contentType: 'application/json',
 
         success: function(data) {
-            alert("Success");
+            $("#success_create_deal").modal('show');
         },
         error: function() {
             alert("Some error!");
@@ -178,7 +178,8 @@ function showProposalsTable(propsArray, unitsArray) {
                     '<td class="js-highlightUnits" propId="' + propsArray[i].id +'">' + propsArray[i].fullName + '</td>' +
                     '<td class="js-highlightUnits" propId="' + propsArray[i].id +'">' + propsArray[i].numberOfBids + '</td>' +
                     '<td class="js-highlightUnits" propId="' + propsArray[i].id +'">' + propsArray[i].totalBidsPrice + '</td>' +
-                    '<td align="center"><button type="submit" class="btn btn-default" disabled>Deal</button></td>' +
+                    //This button should only be available to the customer
+                    '<td align="center"><button type="submit" class="btn btn-info" onclick="createProposalDeal(' + propsArray[i].id + ')">Deal</button></td>' +
                     '</tr>';
             } 
         }
