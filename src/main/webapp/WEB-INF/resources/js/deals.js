@@ -8,7 +8,7 @@ $(document).ready(function() {
 });
 
 function showDeals() {
-    $.getJSON('/deals', function (data) {
+    $.getJSON(DEALS_URL, function (data) {
         var html = '';
         var len = data.length;
         if(len > 0) {
@@ -62,9 +62,9 @@ function unixTimeConverter(timestamp){
 
 function closeDeal() {
     var str = '';
-    str += "statusName=" + "close";
+    str += "statusName=" + DEAL_STATUS;
     $.ajax({
-        url: "/deals/" + $('#close_deal_id').val() + "?"  + str,
+        url: DEALS_URL+"/" + $('#close_deal_id').val() + "?"  + str,
         type: "PUT",
 
         success: function(data){

@@ -24,4 +24,7 @@ public interface ItemRepository extends JpaRepository<Item,Integer>{
                          @Param("typeFlag") Integer typeFlag);
 
     Item findByName(String name);
+
+    @Query("select distinct i from Item i where i.category.id=:categoryId and i.name=:name")
+    Item findByNameAndCategoryId(@Param("name") String name,@Param("categoryId") Integer categoryId);
 }
