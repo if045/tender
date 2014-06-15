@@ -1,3 +1,6 @@
+        var pageSize = DEFAULT_PAGE_SIZE;
+        var currPageNumber = 0;
+
         $(document).ready(function() {
             $('#startDate, #endDate, #create_tender_enddate').datepicker({
                 format: 'yyyy/mm/dd',
@@ -12,7 +15,6 @@
 
             $("#item_dropdown").select2({
                 placeholder: "All items"
-
             });
 
             $("#location_filter").select2({
@@ -122,47 +124,53 @@
         }
 
         function showTenders() {
-            $.getJSON('/tenders', function (data) {
-                var html = '';
-                var len = data.length;
+            var queryParams = "pageSize="+pageSize+"&pageNumber="+currPageNumber;
 
-                if(len > 0) {
-                    for (var i = 0; i < len; i++) {
-                        html += '<tr><td align="center"><a href="/tenderView/' + data[i].id + '">' + data[i].title + '</a></td>' +
+            $.ajax({
+                url: "/tenders",
+                type: "GET",
+                data:  queryParams,
+                dataType:'json',
+
+                success: function(data) {
+                    var html = '';
+                    var dataSize = data.length;
+
+                    if(dataSize > 0) {
+                        for (var i = 0; i < dataSize; i++) {
+                            html += '<tr><td align="center"><a href="/tenderView/' + data[i].id + '">' + data[i].title + '</a></td>' +
                                 '<td align="center">' + data[i].authorName + '</td>' +
                                 '<td align="center">' + data[i].categories + '</td>' +
                                 '<td align="center">' + data[i].locations + '</td>' +
                                 '<td align="center">' + data[i].suitablePrice + '</td>' +
                                 '<td align="center">' + data[i].status + '</td>' +
-                                '<td align="center">' + data[i].proposals + '</td>' +
+                                '<td align="center">' + data[i].proposals + '</td>'+
                                 '<td align="center">' +
-                                    '<div class="btn-group">' +
-                                        '<button data-toggle="dropdown" class="btn btn-default dropdown-toggle">Action<span class="caret"></span></button>' +
-                                        '<ul class="dropdown-menu">' +
-                                            '<li><a href="/tenderView/' + data[i].id + '">View</a></li>' +
-                                            '<li><a href="#" data-toggle="modal" data-target="#createProposalWindow" onclick="showUnits(' + data[i].id + ')">Create proposal</a></li>' +
-                                            '<li><a href="#" data-toggle="modal" data-target="#close_tender_mod_wind" onclick="writeCloseTenderId(' + data[i].id + ')">Close</a></li>' +
-                                        '</ul>' +
-                                    '</div>' +
+                                '<div class="btn-group">' +
+                                '<button data-toggle="dropdown" class="btn btn-default dropdown-toggle">Action<span class="caret"></span></button>' +
+                                '<ul class="dropdown-menu">' +
+                                '<li><a href="/tenderView/' + data[i].id + '">View</a></li>' +
+                                '<li><a href="#" data-toggle="modal" data-target="#createProposalWindow">Create proposal</a></li>' +
+                                '<li><a href="#" data-toggle="modal" data-target="#close_tender_mod_wind" onclick="writeCloseTenderId(' + data[i].id + ')">Close</a></li>' +
+                                '</ul>' +
+                                '</div>' +
                                 '</td></tr>';
-                    }
+                        }
 
-                    $('#user_message').html('');
-                    $('#tender_items').show();
-                    $('#tenders').html(html);
-
-                    var pageItemsNumber = $('#pagination_itemsnum').val();
-                    if(pageItemsNumber < len) {
-                        $('#pagination').show();
+                        $('#user_message').html('');
+                        $('#tender_items').show();
+                        $('#tenders').html(html);
                     } else {
-                        $('#pagination').hide();
+                        $('#user_message').html('<h4>Your filter parameters did not match any tender</h4>');
+                        $('#tender_items').hide();
                     }
-                } else {
-                    $('#user_message').html('<h4>Your filter parameters did not match any tender</h4>');
-                    $('#tender_items').hide();
-                    $('#pagination').hide();
+                },
+                error:function(){
+                    alert("ERROR");
                 }
             });
+
+            //showPagination(queryParams);
         }
 
         function clearFilters() {
@@ -244,6 +252,10 @@
             if($("#date_to").val()!=""){
                 str += (str.length==0)?"maxDate="+$("#date_to").val():"&maxDate="+$("#date_to").val();
             }
+
+            str += (str.length==0)?"pageSize="+pageSize:"&pageSize="+pageSize;
+            str += "&pageNumber="+currPageNumber;
+
             $.ajax({
                 url: "/tenders",
                 type: "GET",
@@ -252,49 +264,44 @@
 
                 success: function(data) {
                     var html = '';
-                    var len = data.length;
+                    var dataSize = data.length;
 
-                    if(len > 0) {
-                        for (var i = 0; i < len; i++) {
+                    if(dataSize > 0) {
+                        for (var i = 0; i < dataSize; i++) {
                             html += '<tr><td align="center"><a href="/tenderView/' + data[i].id + '">' + data[i].title + '</a></td>' +
-                                    '<td align="center">' + data[i].authorName + '</td>' +
-                                    '<td align="center">' + data[i].categories + '</td>' +
-                                    '<td align="center">' + data[i].locations + '</td>' +
-                                    '<td align="center">' + data[i].suitablePrice + '</td>' +
-                                    '<td align="center">' + data[i].status + '</td>' +
-                                    '<td align="center">' + data[i].proposals + '</td>'+
-                                    '<td align="center">' +
-                                        '<div class="btn-group">' +
-                                            '<button data-toggle="dropdown" class="btn btn-default dropdown-toggle">Action<span class="caret"></span></button>' +
-                                            '<ul class="dropdown-menu">' +
-                                                '<li><a href="/tenderView/' + data[i].id + '">View</a></li>' +
-                                                '<li><a href="#" data-toggle="modal" data-target="#createProposalWindow" onclick="showUnits(' + data[i].id + ')">Create proposal</a></li>' +
-                                                '<li><a href="#" data-toggle="modal" data-target="#close_tender_mod_wind" onclick="writeCloseTenderId(' + data[i].id + ')">Close</a></li>' +
-                                            '</ul>' +
-                                        '</div>' +
-                                    '</td></tr>';
+                                '<td align="center">' + data[i].authorName + '</td>' +
+                                '<td align="center">' + data[i].categories + '</td>' +
+                                '<td align="center">' + data[i].locations + '</td>' +
+                                '<td align="center">' + data[i].suitablePrice + '</td>' +
+                                '<td align="center">' + data[i].status + '</td>' +
+                                '<td align="center">' + data[i].proposals + '</td>'+
+                                '<td align="center">' +
+                                '<div class="btn-group">' +
+                                '<button data-toggle="dropdown" class="btn btn-default dropdown-toggle">Action<span class="caret"></span></button>' +
+                                '<ul class="dropdown-menu">' +
+                                '<li><a href="/tenderView/' + data[i].id + '">View</a></li>' +
+                                '<li><a href="#" data-toggle="modal" data-target="#createProposalWindow">Create proposal</a></li>' +
+                                '<li><a href="#" data-toggle="modal" data-target="#close_tender_mod_wind" onclick="writeCloseTenderId(' + data[i].id + ')">Close</a></li>' +
+                                '</ul>' +
+                                '</div>' +
+                                '</td></tr>';
                         }
 
                         $('#user_message').html('');
                         $('#tender_items').show();
                         $('#tenders').html(html);
-
-                        var pageItemsNumber = $('#pagination_itemsnum').val();
-                        if(pageItemsNumber < len) {
-                            $('#pagination').show();
-                        } else {
-                            $('#pagination').hide();
-                        }
                     } else {
                         $('#user_message').html('<h4>Your filter parameters did not match any tender</h4>');
                         $('#tender_items').hide();
-                        $('#pagination').hide();
                     }
                 },
                 error:function(){
                     alert("ERROR");
                 }
             });
+
+            //showPagination(str);
+
             $("#clear_button").removeAttr("disabled");
         }
 

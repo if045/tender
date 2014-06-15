@@ -102,7 +102,7 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
     }
 
     @Override
-    public TendersNumberDto findByCustomParamsResultSize(TenderFilter tenderFilter) {
+    public TendersNumberDto getTendersNumber(TenderFilter tenderFilter) {
         Long tendersNumber = tenderService.findByCustomParametersResultSize(tenderFilter);
         TendersNumberDto tendersNumberDto = new TendersNumberDto();
         tendersNumberDto.setTendersNumber(tendersNumber);
