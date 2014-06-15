@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -49,12 +50,14 @@ public class TenderServiceImpl implements TenderService {
     }
 
     @Override
-    public void updateTenderWithStatus(Integer tenderId, String statusName) {
+    public Tender updateTender(Integer tenderId, String statusName, Date endDate, String description) {
         Tender tender = tenderRepository.findOne(tenderId);
         TenderStatus tenderStatus = tenderStatusService.findByName(statusName);
 
         tender.setStatus(tenderStatus);
-        tenderRepository.save(tender);
+        if (endDate!=null)tender.setEndDate(endDate);
+        tender.setDescription(description);
+        return tenderRepository.save(tender);
     }
 
     @Override

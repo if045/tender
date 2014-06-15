@@ -17,6 +17,15 @@ public class TenderDto {
     private List<String> locations;
     private Set<String> categories;
     private Integer proposals;
+    private String description;
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
     public List<String> getLocations() {
         return locations;

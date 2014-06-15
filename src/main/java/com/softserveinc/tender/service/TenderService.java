@@ -3,7 +3,7 @@ package com.softserveinc.tender.service;
 import com.softserveinc.tender.entity.Tender;
 import com.softserveinc.tender.repo.TenderFilter;
 import org.springframework.data.domain.Pageable;
-
+import java.util.Date;
 import java.util.List;
 
 public interface TenderService {
@@ -12,5 +12,5 @@ public interface TenderService {
     List<Tender> findByCustomParameters(TenderFilter tenderFilter, Pageable pageable);
     Long findByCustomParametersResultSize(TenderFilter tenderFilter);
     Tender save(Tender tender);
-    void updateTenderWithStatus(Integer tenderId, String statusName);
+    Tender updateTender(Integer tenderId, String statusName, Date endDate, String description);
 }

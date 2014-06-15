@@ -13,7 +13,7 @@ public interface ProposalService {
 
     Proposal findById(Integer id);
 
-    void save(Proposal proposal);
+    Proposal save(Proposal proposal);
 
     void deleteById(Integer id);
 }

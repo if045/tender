@@ -25,7 +25,7 @@
     <script type='text/javascript' src='<c:url value="../resources/js/validations.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/tender.js"/>'></script>
 
-    <script type='text/javascript' src='<c:url value="../resources/js/tender.js"/>'></script>
+    <script type='text/javascript' src='<c:url value="../resources/js/constants.js"/>'></script>
 
     <script type='text/javascript' src='<c:url value="../resources/js/tenderview.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/addTenderModal.js"/>'></script>
@@ -40,54 +40,43 @@
             <!--main-->
             <div class="page_body">
                 <!-- content -->
-                <div class="col-md-12">
-                    <div class="row">
-                        <div class="pull-left">
-                            <h3>Tender title</h3>
-                        </div>
-                    </div>
+                <div class="row col-md-12 pull-left">
+                    <h4>Tender title</h4>
                 </div>
 
-            <!-- information about tender -->
-                <form class="form-horizontal col-md-7" role="form" id="edit_tender_form">
-                    <div class="form-group">
-                        <label for="endDate" class="col-md-4 control-label">End date</label>
-                        <div class="col-md-5">
-                            <div class="input-group date" id="endDate" data-date="" data-date-format="dd-mm-yyyy">
-                                <input id="date_to" class="form-control custom_datepicker" size="10" type="text" value="">
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-                            </div>
+                <!-- information about tender -->
+                <form class="form-horizontal" role="form" id="edit_tender_form">
+                    <div class="form-group col-md-3">
+                        <label for="endDate" class="control-label col-md-5">End date</label>
+                        <div class="input-group date col-md-7" id="endDate" data-date="" data-date-format="dd-mm-yyyy">
+                            <input id="date_to" class="form-control custom_datepicker" size="10" type="text" value="">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                         </div>
+                        <label for="suitablePrice" class="control-label col-md-5">Suitable price</label>
+                        <div id="suitablePrice"></div>
                     </div>
-                    <div class="form-group">
-                        <label for="status" class="col-md-4 control-label">Status</label>
-                        <div class="col-md-2">
-                            <select id="status" class="form-control selectpicker"></select>
+
+                    <div class="form-group col-md-3">
+                        <label for="status" class="control-label col-md-3">Status</label>
+                        <div class="col-md-8">
+                            <select id="status" class="form-control"></select>
                         </div>
+                        <label for="locations" class="control-label col-md-3">Locations</label>
+                        <div id="locations"></div>
                     </div>
-                    <div class="form-group">
-                        <label for="suitablePrice" class="col-md-4 control-label">Suitable price</label>
-                        <p class="form-control-static col-md-2" id="suitablePrice">0000.00</p>
-                    </div>
-                    <div class="form-group">
-                        <label for="locations" class="col-md-4 control-label">Locations</label>
-                        <p class="form-control-static col-md-4" id="locations">Some locations</p>
-                        <button type="submit" class="btn btn-default col-md-2 col-md-offset-1">Save</button>
-                    </div>
-                    <div class="form-group">
-                        <label for="description" class="col-md-4 control-label">Description</label>
-                        <div class="col-md-6">
-                            <textarea id="description" class="form-control" rows="5" name="description"> There is some description </textarea>
+
+                    <div class="form-group col-md-6">
+                        <label for="description" class="control-label col-md-2">Description</label>
+                        <div class="col-md-10">
+                            <textarea id="description" class="form-control" rows="2" name="description"></textarea>
                         </div>
                     </div>
                 </form>
+                <!-- information about tender -->
 
-                <div class="right" hidden="">
-                    <div class="row">
-                        <div class="col-md-5">
-                            <textarea id="proposalDescription" class="form-control" rows="3" disabled>There is proposal description and some allowance</textarea>
-                        </div>
-                    </div>
+                <div class="row col-md-12">
+                    <button type="submit" class="btn btn-primary col-md-1 col-md-offset-10"
+                            id="save_tender_button" onclick="saveTenderAfterUpdate();" disabled>Save</button>
                 </div>
 
                 <div class="row">
@@ -116,7 +105,7 @@
                         <table class="table table-bordered table-striped" id="head_proposals">
                             <thead>
                                 <th>Seller</th>
-                                <th>Bids</th>
+                                <th>Units</th>
                                 <th>Total price</th>
                                 <th>Deal</th>
                             </thead>
@@ -133,7 +122,12 @@
                         <label for="message" class="col-md-6 control-label">AuthorName dd/mm/yyyy hh:mm</label>
                         <textarea id="message" class="form-control" rows="3" disabled>Message from this author</textarea>
                     </div>
+                    <div class="col-md-5">
+                        <label for="proposalDescription" class="col-md-6 control-label">Proposal description</label>
+                        <textarea id="proposalDescription" class="form-control" rows="3" disabled>There is proposal description and some allowance</textarea>
+                    </div>
                 </div>
+                <!--main-->
             </div>
             <!--footer -->
             <jsp:include page="footer.jsp"/>
@@ -149,5 +143,9 @@
 <jsp:include page="newTenderCreated.jsp"/>
 <!-- new tender modal window -->
 
+<%--<div class="tooltip fade bottom in" style="top: 38px; left: 144px; display: block;">
+    <div class="tooltip-arrow"></div>
+    <div class="tooltip-inner">dasdad</div>
+</div>--%>
 </body>
 </html>

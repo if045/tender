@@ -7,4 +7,5 @@ public interface BidService {
 
     List<Bid> findAll();
     Bid findById(int id);
+    Bid save(Bid bid);
 }
