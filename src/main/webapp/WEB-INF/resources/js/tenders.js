@@ -384,26 +384,35 @@
                     var dataSize = data.tendersNumber;
                     var pageNumber = Math.ceil(dataSize / pageSize);
 
-                     if(dataSize > 0) {
-                         if(pageSize < dataSize) {
-                             var html = '';
-                             html += '<li><a href="#">&laquo;</a></li>';
-                             for(var z=1;z<=pageNumber;z++) {
-                                html += '<li><a href="#">'+z+'</a></li>';
-                             }
-                             html += '<li><a href="#">&raquo;</a></li>';
-
-                             $('.page_pagination').html(html);
-                             $('#pagination').show();
-                         } else {
-                            $('#pagination').hide();
+                    if(dataSize > 0 && pageSize < dataSize) {
+                         var html = '';
+                         html += '<li class="'+((currPageNumber==0)?"disabled":"")+'"><a id="prev_page" href="#">&laquo;</a></li>';
+                         for(var z=1;z<=pageNumber;z++) {
+                              html += '<li class="'+((currPageNumber==z-1)?"active":"")+'"><a href="#" onclick="showPage('+(z-1)+');">'+z+'</a></li>';
                          }
-                     } else {
-                        $('#pagination').hide();
-                     }
+                         html += '<li class="'+((currPageNumber==pageNumber-1)?"disabled":"")+'"><a id="next_page" href="#">&raquo;</a></li>';
+
+                         $('.page_pagination').html(html);
+                         $('#pagination').show();
+
+                        if(currPageNumber != 0) {
+                            document.getElementById('prev_page').setAttribute("onclick", "showPage("+(currPageNumber-1)+");");
+                        }
+
+                        if(currPageNumber != pageNumber-1) {
+                            document.getElementById('next_page').setAttribute("onclick", "showPage("+(currPageNumber+1)+");");
+                        }
+                    } else {
+                         $('#pagination').hide();
+                    }
                 },
                 error:function(){
                     $('#pagination').hide();
                 }
             });
+        }
+
+        function showPage(pageNumber) {
+            currPageNumber = pageNumber;
+            applyFilters();
         }
