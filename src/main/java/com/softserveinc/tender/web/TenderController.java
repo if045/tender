@@ -102,6 +102,13 @@ public class TenderController {
         return tenderFacade.saveDeal(tenderId, proposalId);
     }
 
+    /*@RequestMapping(value = "/{tenderId}/proposals/{proposalId}/bids/{bidId}/deals", method = RequestMethod.POST, consumes = "application/json")
+    public @ResponseBody DealDto createDeal(@PathVariable("tenderId") Integer tenderId,
+                                            @PathVariable("proposalId") Integer proposalId,
+                                            @PathVariable("bidId") Integer bidId) {
+        return tenderFacade.saveDeal();
+    }*/
+
     @RequestMapping(value = "/{tenderId}", method = RequestMethod.GET)
     public @ResponseBody TenderDto getTenderInfo(@PathVariable("tenderId") Integer tenderId){
         return tenderFacade.findOneById(tenderId);

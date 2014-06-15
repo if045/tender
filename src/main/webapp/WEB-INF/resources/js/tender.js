@@ -60,8 +60,14 @@ function showUnit() {
                 '<td>' + data[i].categoryName + '</td>' +
                 '<td>' + data[i].quantity + ' ' + data[i].measurementName + '</td>' +
                 '<td>' + data[i].numberOfBids + '</td>' +
-                '<td class="js-sellerPrice" id="seller_price_' + data[i].id + '">' + 0.00 + '</td>' +
-                '<td align="center">' + '<button type="submit" class="btn btn-default" disabled onclick="createUnitDeal();">Deal</button>' + '</td></tr>';
+                '<td class="js-sellerPrice" id="seller_price_' + data[i].id + '">' + 0.00 +
+
+                '</td>' +
+                '<td align="center">' +
+                '<input  hidden="" type="text" id="selected_proposal_id_' + data[i].id + '"/>' +
+                '<input  hidden="" type="text" id="selected_bid_id_' + data[i].id + '"/>' +
+                    '<button type="submit" class="btn btn-default" onclick="createUnitDeal(' + data[i].id + ')">Deal</button>' +
+                '</td></tr>';
         }
         $('#unitsTable').html(html);
     });
@@ -83,7 +89,24 @@ function createProposalDeal(proposalId) {
     });
 }
 
-function createUnitDeal() {}
+function createUnitDeal(unitId) {
+    var proposalId = $("#selected_proposal_id_" + unitId).val();
+    var bidId = $("#selected_bid_id_" + unitId).val();
+    alert("Here!");
+    $.ajax({
+        url: TENDERS_URL + "/" + tenderId.substring(1) + PROPOSALS_URL + "/" + proposalId + BIDS_URL + "/" + bidId + DEALS_URL,
+        type: "POST",
+        dataType: 'json',
+        contentType: 'application/json',
+
+        success: function(data) {
+            $("#success_create_deal").modal('show');
+        },
+        error: function() {
+            alert("Some error!");
+        }
+    });
+}
 
 function showInfo(){
     var str = location.href;
@@ -228,9 +251,13 @@ function showUnitSellerPrice(proposalId) {
     }
 
     var bidsArr = proposal.bidDtos;
-    for (var i = 0; i < bidsArr.length; i++) {          //show seller price of unit
-        $("#unit_row_" + bidsArr[i].unitId).addClass('info');
-        $("#seller_price_" + bidsArr[i].unitId).html(bidsArr[i].price);
+    for (var i = 0; i < bidsArr.length; i++) {
+        $("#unit_row_" + bidsArr[i].unitId).addClass('info');                   //highlight unit rows witch included proposal
+        $("#seller_price_" + bidsArr[i].unitId).html(bidsArr[i].price);         //show seller price of unit
+        /*document.getElementById('selected_proposal_id_' + bidsArr[i].unitId).value = proposalId;  */       //set selected proposal id
+        /*document.getElementById('selected_bid_id_' + bidsArr[i].unitId).value = bidsArr[i].bidId;  */      //set selected proposal bid id
+        $("#selected_proposal_id_" + bidsArr[i].unitId).attr('value', proposalId);
+        $("#selected_bid_id_" + bidsArr[i].unitId).attr('value', bidsArr[i].bidId);
     }
 
     var str = '';
