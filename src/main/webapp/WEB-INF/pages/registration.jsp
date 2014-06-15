@@ -52,7 +52,7 @@
                                     <div class="col-md-12">
                                         <div class="input-group">
                                             <span class="input-group-addon glyphicon glyphicon-user"></span>
-                                            <input type="text" class="form-control" placeholder="User name (email)">
+                                            <input id="login" type="text" class="form-control" placeholder="User name (email)">
                                         </div>
                                     </div>
                                 </div>
@@ -61,7 +61,7 @@
                                     <div class="col-md-12">
                                         <div class="input-group">
                                             <span class="input-group-addon glyphicon glyphicon-wrench"></span>
-                                            <input type="text" class="form-control" placeholder="Password">
+                                            <input id="password" type="text" class="form-control" placeholder="Password">
                                         </div>
                                     </div>
                                 </div>
@@ -70,7 +70,7 @@
                                     <div class="col-md-12">
                                         <div class="input-group">
                                             <span class="input-group-addon glyphicon glyphicon-wrench"></span>
-                                            <input type="text" class="form-control" placeholder="Confirm password">
+                                            <input id="confirm_password" type="text" class="form-control" placeholder="Confirm password">
                                         </div>
                                     </div>
                                 </div>
@@ -92,7 +92,7 @@
                                     <div class="col-md-12">
                                         <div class="input-group">
                                             <span class="input-group-addon glyphicon glyphicon-pencil"></span>
-                                            <input type="text" class="form-control" placeholder="Name">
+                                            <input id="company_name" type="text" class="form-control" placeholder="Name">
                                         </div>
                                     </div>
                                 </div>
@@ -101,13 +101,13 @@
                                     <div class="col-md-12">
                                         <div class="input-group">
                                             <span class="input-group-addon glyphicon glyphicon-home"></span>
-                                            <input type="text" class="form-control" placeholder="City">
+                                            <input id="city" type="text" class="form-control" placeholder="City">
                                             <span class="input-group-addon"></span>
-                                            <input type="text" class="form-control" placeholder="Street">
+                                            <input id="street" type="text" class="form-control" placeholder="Street">
                                             <span class="input-group-addon"></span>
-                                            <input type="text" class="form-control" placeholder="Building number">
+                                            <input id="building_number" type="text" class="form-control" placeholder="Building number">
                                             <span class="input-group-addon"></span>
-                                            <input type="text" class="form-control" placeholder="Postcode">
+                                            <input id="postcode" type="text" class="form-control" placeholder="Postcode">
                                         </div>
                                     </div>
                                 </div>
@@ -116,9 +116,9 @@
                                     <div class="col-md-12">
                                         <div class="input-group">
                                             <span class="input-group-addon">@</span>
-                                            <input type="text" class="form-control" placeholder="Email">
+                                            <input id="email" type="text" class="form-control" placeholder="Email">
                                             <span class="input-group-addon"></span>
-                                            <input type="text" class="form-control" placeholder="SRN number">
+                                            <input id="srn_number" type="text" class="form-control" placeholder="SRN number">
                                         </div>
                                     </div>
                                 </div>
@@ -165,7 +165,7 @@
                                     <div class="col-md-12">
                                         <div class="input-group">
                                             <span class="input-group-addon glyphicon glyphicon-pencil"></span>
-                                            <input type="text" class="form-control" placeholder="First name">
+                                            <input id="first_name" type="text" class="form-control" placeholder="First name">
                                         </div>
                                     </div>
                                 </div>
@@ -174,7 +174,7 @@
                                     <div class="col-md-12">
                                         <div class="input-group">
                                             <span class="input-group-addon glyphicon glyphicon-pencil"></span>
-                                            <input type="text" class="form-control" placeholder="Last name">
+                                            <input id="last_name" type="text" class="form-control" placeholder="Last name">
                                         </div>
                                     </div>
                                 </div>
@@ -183,7 +183,7 @@
                                     <div class="col-md-12">
                                         <div class="input-group">
                                             <span class="input-group-addon glyphicon glyphicon-earphone"></span>
-                                            <input type="tel" class="form-control" placeholder="Phone number">
+                                            <input id="phone_number" type="tel" class="form-control" placeholder="Phone number">
                                         </div>
                                     </div>
                                 </div>
@@ -204,17 +204,17 @@
                                         <div class="input-group date pull-left" id="birth_date"
                                              data-date-format="dd-mm-yyyy">
                                             <span class="input-group-addon fa glyphicon glyphicon-calendar"></span>
-                                            <input class="form-control" type="text" value="" placeholder="Birth date">
+                                            <input id="birthday" class="form-control" type="text" value="" placeholder="Birth date">
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="row backdown">
                                     <div class="col-md-4">
-                                        <input type="radio" name="person" value="legal"> Legal person<br>
+                                        <input id="legal" type="radio" name="person" value="legal"> Legal person<br>
                                     </div>
                                     <div class="col-md-5">
-                                        <input type="radio" name="person" value="private"> Private person<br>
+                                        <input id="private" type="radio" name="person" value="private"> Private person<br>
                                     </div>
                                 </div>
                             </div>
@@ -264,10 +264,10 @@
                         <div class="panel-body">
                             <div class="panel-group">
                                 <div class="row">
-                                    <h3>Accept website <a href="">policy</a>  <input type="checkbox"></h3>
+                                    <h3>Accept website <a href="">policy</a>  <input id="agreement" onclick="enableConfirmButton()" type="checkbox"></h3>
                                 </div>
                                 <div class="row">
-                                    <button class="btn btn-success" type="button" disabled>Confirm</button>
+                                    <button id="confirm_button" onclick="addRegisteredUser()" class="btn btn-success" type="button" disabled>Confirm</button>
                                 </div>
                             </div>
                             <!-- Panel group -->
