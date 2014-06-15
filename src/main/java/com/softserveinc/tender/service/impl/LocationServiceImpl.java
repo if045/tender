@@ -21,7 +21,7 @@ public class LocationServiceImpl implements LocationService {
     }
 
     @Override
-    public Location findById(int id) {
+    public Location findById(Integer id) {
         return locationRepo.findOne(id);
     }
 
@@ -31,7 +31,7 @@ public class LocationServiceImpl implements LocationService {
     }
 
     @Override
-    public void deleteById(int id) {
+    public void deleteById(Integer id) {
         locationRepo.delete(id);
     }
 
