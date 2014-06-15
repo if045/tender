@@ -124,6 +124,7 @@
         }
 
         function showTenders() {
+            showPagination("");
             var queryParams = "pageSize="+pageSize+"&pageNumber="+currPageNumber;
 
             $.ajax({
@@ -169,8 +170,6 @@
                     alert("ERROR");
                 }
             });
-
-            //showPagination(queryParams);
         }
 
         function clearFilters() {
@@ -253,6 +252,7 @@
                 str += (str.length==0)?"maxDate="+$("#date_to").val():"&maxDate="+$("#date_to").val();
             }
 
+            showPagination(str);
             str += (str.length==0)?"pageSize="+pageSize:"&pageSize="+pageSize;
             str += "&pageNumber="+currPageNumber;
 
@@ -299,8 +299,6 @@
                     alert("ERROR");
                 }
             });
-
-            //showPagination(str);
 
             $("#clear_button").removeAttr("disabled");
         }
@@ -372,4 +370,40 @@
 
         function goToRegistrationPage() {
             window.location.href = '/registration';
+        }
+
+        function showPagination(queryParams) {
+            $.ajax({
+                url: "/tenders/number",
+                async: false,
+                type: "GET",
+                data:  queryParams,
+                dataType:'json',
+
+                success: function(data) {
+                    var dataSize = data.tendersNumber;
+                    var pageNumber = Math.ceil(dataSize / pageSize);
+
+                     if(dataSize > 0) {
+                         if(pageSize < dataSize) {
+                             var html = '';
+                             html += '<li><a href="#">&laquo;</a></li>';
+                             for(var z=1;z<=pageNumber;z++) {
+                                html += '<li><a href="#">'+z+'</a></li>';
+                             }
+                             html += '<li><a href="#">&raquo;</a></li>';
+
+                             $('.page_pagination').html(html);
+                             $('#pagination').show();
+                         } else {
+                            $('#pagination').hide();
+                         }
+                     } else {
+                        $('#pagination').hide();
+                     }
+                },
+                error:function(){
+                    $('#pagination').hide();
+                }
+            });
         }

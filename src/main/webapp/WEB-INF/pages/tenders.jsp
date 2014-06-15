@@ -143,20 +143,18 @@
                 <div id="pagination" class="row">
                     <div class="col-md-12">
                         <div class="pull-right">
-                            <ul class="pagination page_pagination pull-right">
-                                <li><a href="#">&laquo;</a></li>
-                                <li><a href="#">1</a></li>
-                                <li><a href="#">2</a></li>
-                                <li><a href="#">&laquo;</a></li>
-                            </ul>
+                            <ul class="pagination page_pagination pull-right"></ul>
                         </div>
                         <div class="pull-right">
                             <div class="control-group">
-                                 <select id="pagination_itemsnum" class="form-control pull-right items_number_dropdown">
-                                     <option value="10">10</option>
-                                     <option value="15">15</option>
-                                     <option value="20">20</option>
-                                 </select>
+                                <select id="pagination_itemsnum" class="form-control pull-right items_number_dropdown">
+                                    <option value="2" selected>2</option>
+                                    <option value="3">3</option>
+                                    <option value="5">5</option>
+                                    <option value="10">10</option>
+                                    <option value="15">15</option>
+                                    <option value="20">20</option>
+                                </select>
                             </div>
                         </div>
                         <div class="pull-right">
