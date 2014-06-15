@@ -39,8 +39,8 @@ public class TenderServiceImpl implements TenderService {
     }
 
     @Override
-    public Long findByCustomParametersResultSize(TenderFilter tenderFilter) {
-        return tenderRepository.findByCustomParametersResultSize(tenderFilter.getMinPrice(), tenderFilter.getMaxPrice(),
+    public Long getTendersNumber(TenderFilter tenderFilter) {
+        return tenderRepository.getTendersNumber(tenderFilter.getMinPrice(), tenderFilter.getMaxPrice(),
                 tenderFilter.getStatuses(), tenderFilter.getCategories(),
                 tenderFilter.getLocations(), tenderFilter.getItems(),
                 tenderFilter.getMinDate(), tenderFilter.getMaxDate(),

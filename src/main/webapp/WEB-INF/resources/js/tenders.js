@@ -29,6 +29,12 @@
                 enableFilterButtons();
             });
 
+            $('#pagination_itemsnum').on('change', function() {
+                pageSize = this.value;
+                currPageNumber = 0;
+                showPage(currPageNumber);
+            })
+
             $("#category_filter").change(function() {
                 enableFilterButtons();
                 $("#item_dropdown").select2('val', 'All');
@@ -392,7 +398,7 @@
                          }
                          html += '<li class="'+((currPageNumber==pageNumber-1)?"disabled":"")+'"><a id="next_page" href="#">&raquo;</a></li>';
 
-                         $('.page_pagination').html(html);
+                         $('.page_pagination').html(html).show();
                          $('#pagination').show();
 
                         if(currPageNumber != 0) {
@@ -403,7 +409,7 @@
                             document.getElementById('next_page').setAttribute("onclick", "showPage("+(currPageNumber+1)+");");
                         }
                     } else {
-                         $('#pagination').hide();
+                         $('.page_pagination').hide();
                     }
                 },
                 error:function(){

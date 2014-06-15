@@ -10,7 +10,7 @@ public interface TenderService {
 
     Tender findOne(int id);
     List<Tender> findByCustomParameters(TenderFilter tenderFilter, Pageable pageable);
-    Long findByCustomParametersResultSize(TenderFilter tenderFilter);
+    Long getTendersNumber(TenderFilter tenderFilter);
     Tender save(Tender tender);
     Tender updateTender(Integer tenderId, String statusName, Date endDate, String description);
 }

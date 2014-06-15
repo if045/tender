@@ -37,9 +37,7 @@ import com.softserveinc.tender.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -103,7 +101,7 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
 
     @Override
     public TendersNumberDto getTendersNumber(TenderFilter tenderFilter) {
-        Long tendersNumber = tenderService.findByCustomParametersResultSize(tenderFilter);
+        Long tendersNumber = tenderService.getTendersNumber(tenderFilter);
         TendersNumberDto tendersNumberDto = new TendersNumberDto();
         tendersNumberDto.setTendersNumber(tendersNumber);
 

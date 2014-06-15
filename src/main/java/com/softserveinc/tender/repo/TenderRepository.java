@@ -46,17 +46,17 @@ public interface TenderRepository extends JpaRepository<Tender, Integer> {
             "and (1 = :locationFlag or l.id IN (:locations)) " +
             "and (1 = :itemFlag or i.id IN (:items)) " +
             "and t.endDate between :minDate and :maxDate")
-    Long findByCustomParametersResultSize(@Param("min") BigDecimal min,
-                                          @Param("max") BigDecimal max,
-                                          @Param("status") List<Integer> status,
-                                          @Param("categories") Set<Integer> categories,
-                                          @Param("locations") List<Integer> locations,
-                                          @Param("items") List<Integer> items,
-                                          @Param("minDate") Date minDate,
-                                          @Param("maxDate") Date maxDate,
-                                          @Param("categoryFlag") Integer categoryFlag,
-                                          @Param("itemFlag") Integer itemFlag,
-                                          @Param("locationFlag") Integer locationFlag,
-                                          @Param("statusFlag") Integer statusFlag,
-                                          @Param("priceFlag") Integer priceFlag);
+    Long getTendersNumber(@Param("min") BigDecimal min,
+                          @Param("max") BigDecimal max,
+                          @Param("status") List<Integer> status,
+                          @Param("categories") Set<Integer> categories,
+                          @Param("locations") List<Integer> locations,
+                          @Param("items") List<Integer> items,
+                          @Param("minDate") Date minDate,
+                          @Param("maxDate") Date maxDate,
+                          @Param("categoryFlag") Integer categoryFlag,
+                          @Param("itemFlag") Integer itemFlag,
+                          @Param("locationFlag") Integer locationFlag,
+                          @Param("statusFlag") Integer statusFlag,
+                          @Param("priceFlag") Integer priceFlag);
 }
