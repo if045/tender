@@ -12,6 +12,9 @@ import com.softserveinc.tender.repo.TenderFilter;
 import com.softserveinc.tender.dto.TenderStatusDto;
 import com.softserveinc.tender.facade.TenderServiceFacade;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -68,8 +71,12 @@ public class TenderController {
     }
 
     @RequestMapping(value = "/{tenderId}/units", method = RequestMethod.GET)
-    public @ResponseBody List<UnitDto> mapUnits(@PathVariable("tenderId") Integer tenderId) {
-        return tenderFacade.findUnitsByTenderId(tenderId);
+    public @ResponseBody List<UnitDto> sortUnits(@PathVariable("tenderId") Integer tenderId,
+                                                 @RequestParam("direction") String direction,
+                                                 @RequestParam("field") String field) {
+        Sort sort = new Sort(Sort.Direction.fromString(direction), field);
+        Pageable pageRequest = new PageRequest(0, 100, sort);
+        return tenderFacade.findUnitsByTenderId(tenderId, pageRequest);
     }
 
     @RequestMapping(value = "/{tenderId}", method = RequestMethod.PUT)

@@ -36,6 +36,7 @@ import com.softserveinc.tender.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -145,8 +146,8 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
     }
 
     @Override
-    public List<UnitDto> findUnitsByTenderId(Integer tenderId) {
-        List<Unit> units = unitService.findUnitsByTenderId(tenderId);
+    public List<UnitDto> findUnitsByTenderId(Integer tenderId, Pageable pageable) {
+        List<Unit> units = unitService.findUnitsByTenderId(tenderId, pageable);
         return mapUnits(units);
     }
 
