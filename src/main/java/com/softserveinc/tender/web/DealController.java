@@ -29,7 +29,7 @@ public class DealController {
                                                      @RequestParam("statusName") String statusName) {
         dealFacade.updateDealWithStatus(dealId, statusName);
     }
-    @RequestMapping(value = "/{id}/feedback", method = RequestMethod.POST, consumes = "application/json")
+    @RequestMapping(value = "/{id}/feedbacks", method = RequestMethod.POST, consumes = "application/json")
     public @ResponseBody
     FeedbackDto addFeedback(@RequestBody FeedbackSaveDto feedbackSaveDto) {
         return dealFacade.saveFeedback(feedbackSaveDto);

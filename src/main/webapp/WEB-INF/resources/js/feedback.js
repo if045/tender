@@ -11,7 +11,7 @@ function createFeedback() {
         ', "comment": ' + '\"' + $('#feedback_comment').val()+ '\"}';
     var newJson = $.parseJSON(str);
     $.ajax({
-        url: "/deals/" + $('#feedback_id').val() + "/feedback",
+        url: "/deals/" + $('#feedback_id').val() + "/feedbacks",
         type: "POST",
         data: JSON.stringify(newJson),
         dataType: 'json',
