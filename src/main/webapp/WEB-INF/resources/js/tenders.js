@@ -1,7 +1,7 @@
         var pageSize = DEFAULT_PAGE_SIZE;
         var currPageNumber = 0;
         var sortDirection = false;
-        var orderBy = 'createDate';
+        var orderBy = DEFAULT_SORT_FIELD;
 
         $(document).ready(function() {
             $('#startDate, #endDate, #create_tender_enddate').datepicker({
@@ -157,7 +157,7 @@
                 ((sortDirection)?"desc":"asc") + "&orderBy=" + orderBy;
 
             $.ajax({
-                url: "/tenders",
+                url: TENDERS_URL,
                 type: "GET",
                 data:  queryParams,
                 dataType:'json',
@@ -286,7 +286,7 @@
             str += "&pageNumber="+currPageNumber + "&sortDirection=" + ((sortDirection)?"desc":"asc") + "&orderBy=" + orderBy;
 
             $.ajax({
-                url: "/tenders",
+                url: TENDERS_URL,
                 type: "GET",
                 data:  str,
                 dataType:'json',
@@ -403,7 +403,7 @@
 
         function showPagination(queryParams) {
             $.ajax({
-                url: "/tenders/number",
+                url: TENDERS_NUMBER,
                 async: false,
                 type: "GET",
                 data:  queryParams,

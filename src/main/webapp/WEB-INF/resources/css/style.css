@@ -33,8 +33,11 @@ body {
 }
 
 .sidebar {
-	margin-top:16px;
 	margin-left: -15px;
+}
+
+.search_bar {
+ 	margin-bottom: 15px;
 }
 
 .selectpicker {

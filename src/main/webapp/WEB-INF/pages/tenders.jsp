@@ -39,6 +39,19 @@
 
         <!--main-->
         <div class="page_body">
+            <div class="row">
+                <div class="col-md-12 search_bar">
+                    <div class="pull-left"></div>
+                        <div class="pull-right">
+                             <form id="search_form" class="navbar-form navbar-right" role="search">
+                                  <div class="form-group">
+                                       <input id="search_input" type="text" class="form-control" placeholder="Search...">
+                                  </div>
+                             </form>
+                        </div>
+                </div>
+            </div>
+
             <!-- sidebar -->
             <div class="col-md-3">
 
@@ -106,18 +119,6 @@
 
             <!-- content -->
             <div class="col-md-9">
-                <div class="row">
-                    <div class="pull-left">
-                    </div>
-                    <div class="pull-right">
-                            <form id="search_form" class="navbar-form navbar-right" role="search">
-                                <div class="form-group">
-                                    <input id="search_input" type="text" class="form-control" placeholder="Search...">
-                                </div>
-                            </form>
-                    </div>
-                </div>
-
                 <!-- items -->
                 <div id="user_message" class="row"></div>
                 <div id="tender_items" class="row">
