@@ -8,4 +8,5 @@ public interface ProfileService {
     List<Profile> findAll();
     Profile findProfileById(int id);
     void saveProfile(Profile profile);
+    Profile findProfileByUserLogin(String login);
 }

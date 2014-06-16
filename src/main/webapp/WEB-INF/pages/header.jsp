@@ -6,15 +6,16 @@
         <div class="navbar-header">
             <ul class="nav navbar-nav navbar-left nav_buttons">
                 <li><a class="navbar-brand" href="/tendersHome">UATender</a></li>
-                <security:authorize access="isAuthenticated()">
+                <security:authorize access="hasAnyRole('CUSTOMER','SELLER')">
                     <li><button type="button" class="btn btn-default nav_button" disabled>My tenders</button></li>
                 </security:authorize>
-                <security:authorize access="hasAnyRole('ADMIN','MODERATOR')">
+                <security:authorize access="hasAnyRole('CUSTOMER','SELLER')">
                     <li><button type="button" class="btn btn-default nav_button" onclick="showDealsPage();">My
                                     deals</button></li>
                 </security:authorize>
-                <security:authorize access="isAuthenticated()">
-                    <li><button type="button" class="btn btn-default nav_button" data-toggle="modal" data-target="#createTenderWindow">Create tender</button></li>
+                <security:authorize access="hasRole('CUSTOMER')">
+                    <li><button type="button" class="btn btn-default nav_button" data-toggle="modal"
+                                 data-target="#createTenderWindow">Create tender</button></li>
                 </security:authorize>
             </ul>
         </div>

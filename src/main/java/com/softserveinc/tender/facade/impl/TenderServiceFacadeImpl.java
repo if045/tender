@@ -17,6 +17,7 @@ import com.softserveinc.tender.entity.Category;
 import com.softserveinc.tender.entity.Item;
 import com.softserveinc.tender.entity.Location;
 import com.softserveinc.tender.entity.Proposal;
+import com.softserveinc.tender.entity.Role;
 import com.softserveinc.tender.entity.Tender;
 import com.softserveinc.tender.entity.TenderStatus;
 import com.softserveinc.tender.entity.Unit;
@@ -90,10 +91,12 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
 
     private static final String DATE_FORMAT_FROM_CLIENT="yyyy/MM/dd";
     private static final String TENDER_STATUS_IN_PROGRESS = "In progress";
+    private String USER_LOGIN;
 
     @Override
-    public List<TenderDto> findByCustomParams(TenderFilter tenderFilter) {
+    public List<TenderDto> findByCustomParams(TenderFilter tenderFilter, String userLogin) {
         List<Tender> tenders = tenderService.findByCustomParameters(tenderFilter);
+        USER_LOGIN = userLogin;
         return mapTenders(tenders);
     }
 
@@ -119,6 +122,7 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
         TenderDto tenderDto = new TenderDto();
         List<String> locations = new ArrayList<>();
         Set<String> categories = new HashSet<>();
+        List<String> roles = new ArrayList<>();
 
         tenderDto.setId(tender.getId());
         tenderDto.setTitle(tender.getTitle());
@@ -141,6 +145,12 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
         if (tender.getDescription()!=null){
             tenderDto.setDescription(tender.getDescription());
         }
+        if (USER_LOGIN!=null){
+            for (Role role:userService.findByLogin(USER_LOGIN).getRoles()){
+                roles.add(role.getName());
+            }
+        }
+        tenderDto.setRoles(roles);
         return tenderDto;
     }
 
@@ -193,7 +203,7 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
     }
 
     @Override
-    public TenderDto saveTender(TenderSaveDto tenderSaveDto) {
+    public TenderDto saveTender(TenderSaveDto tenderSaveDto, String userLogin) {
         String pattern = DATE_FORMAT_FROM_CLIENT;
         Date date = null;
         SimpleDateFormat formatter;
@@ -221,7 +231,7 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
         tender.setSuitablePrice(tenderSaveDto.getSuitablePrice());
         tender.setCreateDate(new Date());
         tender.setEndDate(date);
-        tender.setAuthor(profileService.findProfileById(8)); //TO DO: put current user
+        tender.setAuthor(profileService.findProfileByUserLogin(userLogin));
         Tender savedTender = tenderService.save(tender);
         List<Unit> units = new ArrayList<>();
         for (UnitSaveDto unitSaveDto : tenderSaveDto.getUnits()) {

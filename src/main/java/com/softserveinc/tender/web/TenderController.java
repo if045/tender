@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import java.math.BigDecimal;
+import java.security.Principal;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -40,10 +41,15 @@ public class TenderController {
             @RequestParam(value = "categories", required = false) Set<Integer> categories,
             @RequestParam(value = "statuses", required = false) List<Integer> statuses,
             @RequestParam(value = "minDate", required = false) Date createDate,
-            @RequestParam(value = "maxDate", required = false) Date endDate) {
-
+            @RequestParam(value = "maxDate", required = false) Date endDate,
+            Principal principal) {
+        String userLogin = null;
+        if (principal!=null){
+            userLogin = principal.getName();
+        }
         return tenderFacade.findByCustomParams(new TenderFilter(minPrice, maxPrice, categories,
-                                                                locations, items, statuses, createDate, endDate));
+                                                                locations, items, statuses, createDate, endDate),
+                                               userLogin);
     }
 
     @RequestMapping(value = "/statuses", method = RequestMethod.GET)
@@ -86,8 +92,8 @@ public class TenderController {
     }
 
     @RequestMapping(value = "", method = RequestMethod.POST, consumes = "application/json")
-    public @ResponseBody TenderDto addTender(@RequestBody TenderSaveDto tenderSaveDto) {
-        return tenderFacade.saveTender(tenderSaveDto);
+    public @ResponseBody TenderDto addTender(@RequestBody TenderSaveDto tenderSaveDto, Principal principal) {
+        return tenderFacade.saveTender(tenderSaveDto, principal.getName());
     }
 
     @RequestMapping(value = "/{id}/proposals", method = RequestMethod.POST, consumes = "application/json")

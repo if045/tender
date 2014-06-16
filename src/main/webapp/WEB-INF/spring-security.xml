@@ -7,8 +7,10 @@
            http://www.springframework.org/schema/security/spring-security.xsd">
 
     <http use-expressions="true" auto-config="true">
-        <intercept-url pattern="/mydeals**" access="hasRole('ADMIN')" />
-        <form-login login-page="/login" />
+        <intercept-url pattern="/mydeals" access="hasAnyRole('CUSTOMER','SELLER')" />
+        <intercept-url pattern="/mytenders" access="hasAnyRole('CUSTOMER','SELLER')" />
+        <intercept-url pattern="/tenderView/**" access="hasAnyRole('CUSTOMER','SELLER')" />
+        <form-login login-page="/login" default-target-url="/tendersHome" />
         <logout logout-url="/logout" />
     </http>
 

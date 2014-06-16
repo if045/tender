@@ -4,6 +4,7 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
+<%@taglib uri="http://www.springframework.org/security/tags" prefix="security"%>
 
 <!DOCTYPE html>
 <html>
@@ -75,8 +76,10 @@
                 <!-- information about tender -->
 
                 <div class="row col-md-12">
-                    <button type="submit" class="btn btn-primary col-md-1 col-md-offset-10"
-                            id="save_tender_button" onclick="saveTenderAfterUpdate();" disabled>Save</button>
+                    <security:authorize access="hasRole('CUSTOMER')">
+                        <button type="submit" class="btn btn-primary col-md-1 col-md-offset-10"
+                                id="save_tender_button" onclick="saveTenderAfterUpdate();" disabled>Save</button>
+                    </security:authorize>
                 </div>
 
                 <div class="row">
@@ -143,9 +146,5 @@
 <jsp:include page="newTenderCreated.jsp"/>
 <!-- new tender modal window -->
 
-<%--<div class="tooltip fade bottom in" style="top: 38px; left: 144px; display: block;">
-    <div class="tooltip-arrow"></div>
-    <div class="tooltip-inner">dasdad</div>
-</div>--%>
 </body>
 </html>
