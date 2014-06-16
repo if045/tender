@@ -72,6 +72,9 @@ function showInfo(){
     var tender1 = str.split(TENDER_VIEW_URL);
     var tender = tender1[tender1.length - 1];
     $.getJSON(TENDERS_URL+'/'+tender.substring(1), function(data){
+        var titleHtml = '';
+        titleHtml += '<h4>' + data.title + '</h4>';
+        $('#tender_title').html(titleHtml);
         var statusHtml = '';
         statusHtml += '<option value="'+ data.status + '">' + data.status + '</option>';
         statusHtml += '<option value="Close">Close</option>';
