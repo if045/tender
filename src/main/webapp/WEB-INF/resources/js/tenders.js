@@ -45,14 +45,6 @@
                 sortTenders("author.firstName");
             });
 
-            $("#tender_category").click(function(){
-                sortTenders("title");
-            });
-
-            $("#tender_location").click(function(){
-                sortTenders("title");
-            });
-
             $("#tender_suitable_price").click(function(){
                 sortTenders("suitablePrice");
             });
@@ -62,7 +54,7 @@
             });
 
             $("#tender_proposals").click(function(){
-                sortTenders("proposals");
+                sortTenders("proposals.size");
             });
 
             $("#category_filter").change(function() {
