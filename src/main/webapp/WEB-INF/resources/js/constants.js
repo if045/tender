@@ -25,7 +25,7 @@ var HOME_PAGE_URL = "/tendersHome";
 var REGISTRATION_PAGE_URL = "/registration";
 var USER_DATA_URL = "/userData";
 var ERROR_MESSAGE = "Please type data correctly";
-var registeredUserJSON;
+var SELLER_ID = 3;
 /*login data*/
 var login;
 var password;

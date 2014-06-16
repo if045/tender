@@ -73,11 +73,10 @@ function buildUserData() {
     password = $('#password').val();
     roles = $('#populate_roles_dropdown').val();
 
-    var userData = '"userDto":{'  +
-                   '"roles":['    + roles    + '],' +
-                   '"login":"'    + login    + '",' +
-                   '"password":"' + password + '"}';
-    return userData
+    return '"userDto":{'  +
+           '"roles":['    + roles    + '],' +
+           '"login":"'    + login    + '",' +
+           '"password":"' + password + '"}';
 }
 
 function buildProfileData() {
@@ -92,13 +91,12 @@ function buildProfileData() {
         person = PRIVATE_PERSON;
     }
 
-    var profileData = '"profileDto":{' +
-                      '"firstName":"'  + firstNme    + '",' +
-                      '"lastName":"'   + lastName    + '",' +
-                      '"birthday":"'   + birthday    + '",' +
-                      '"telephone":"'  + phoneNumber + '",' +
-                      '"person":"'     + person      + '"}';
-    return profileData;
+    return '"profileDto":{' +
+           '"firstName":"'  + firstNme    + '",' +
+           '"lastName":"'   + lastName    + '",' +
+           '"birthday":"'   + birthday    + '",' +
+           '"telephone":"'  + phoneNumber + '",' +
+           '"person":"'     + person      + '"}';
 }
 
 function buildCompanyData() {
@@ -110,26 +108,24 @@ function buildCompanyData() {
     email = $('#email').val();
     srnNumber = $('#srn_number').val();
 
-    var companyData = '"companyDto":{' +
-                      '"email":"'         + email          + '",' +
-                      '"addressDto":{' +
-                      '"buildingNumber":' + buildingNumber + ','  +
-                      '"city":"'          + city           + '",' +
-                      '"street":"'        + street         + '",' +
-                      '"postcode":'       + postcode       + '},' +
-                      '"srnNumber":'      + srnNumber      + ','  +
-                      '"name":"'          + companyName    + '"}';
-    return companyData;
+    return '"companyDto":{' +
+           '"email":"'         + email          + '",' +
+           '"addressDto":{' +
+           '"buildingNumber":' + buildingNumber + ','  +
+           '"city":"'          + city           + '",' +
+           '"street":"'        + street         + '",' +
+           '"postcode":'       + postcode       + '},' +
+           '"srnNumber":'      + srnNumber      + ','  +
+           '"name":"'          + companyName    + '"}';
 }
 
 function buildTradeSphereData() {
     locations = $('#populate_locations_dropdown').val();
     categories = $('#populate_categories_dropdown').val();
 
-    var tradeSphereData = '"tradeSphereDto":{' +
-                          '"locations":['  + locations  + '],' +
-                          '"categories":[' + categories + ']}';
-    return tradeSphereData;
+    return '"tradeSphereDto":{' +
+           '"locations":['  + locations  + '],' +
+           '"categories":[' + categories + ']}';
 }
 
 function enableConfirmButton() {
@@ -157,13 +153,15 @@ function hideShowTradeSphereDataPanel() {
 
     if(roles != null) {
         for (var i = 0; i < roles.length; i++) {
-            var checkRole = roles[i];
-            if (checkRole == 3) {
+            var role = roles[i];
+            if (role == SELLER_ID) {
                 document.getElementById("trade_sphere_panel").removeAttribute('hidden');
             } else {
                 document.getElementById("trade_sphere_panel").setAttribute('hidden', 'hidden');
             }
         }
+    } else {
+        document.getElementById("trade_sphere_panel").setAttribute('hidden', 'hidden');
     }
 }
 
