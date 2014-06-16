@@ -16,6 +16,7 @@
     <link rel="stylesheet" type="text/css" media="screen" href='<c:url value="../resources/css/datepicker.css"/>'/>
     <link rel="stylesheet" type="text/css" media="screen" href='<c:url value="../resources/css/select2.css"/>'/>
     <link rel="stylesheet" type="text/css" media="screen" href='<c:url value="../resources/css/style.css"/>'/>
+    <link rel="stylesheet" type="text/css" media="screen" href='<c:url value="../resources/css/registration.css"/>'/>
 
     <script type='text/javascript' src='<c:url value="../resources/js/jquery-2.1.1.min.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/bootstrap.min.js"/>'></script>
@@ -52,7 +53,7 @@
                                     <div class="col-md-12">
                                         <div class="input-group">
                                             <span class="input-group-addon glyphicon glyphicon-user"></span>
-                                            <input id="login" type="text" class="form-control" placeholder="User name (email)">
+                                            <input id="login" type="text" class="form-control required-field" placeholder="User name (email)">
                                         </div>
                                     </div>
                                 </div>
@@ -61,7 +62,7 @@
                                     <div class="col-md-12">
                                         <div class="input-group">
                                             <span class="input-group-addon glyphicon glyphicon-wrench"></span>
-                                            <input id="password" type="text" class="form-control" placeholder="Password">
+                                            <input id="password" type="text" class="form-control required-field" placeholder="Password">
                                         </div>
                                     </div>
                                 </div>
@@ -70,7 +71,7 @@
                                     <div class="col-md-12">
                                         <div class="input-group">
                                             <span class="input-group-addon glyphicon glyphicon-wrench"></span>
-                                            <input id="confirm_password" type="text" class="form-control" placeholder="Confirm password">
+                                            <input id="confirm_password" type="text" class="form-control required-field" placeholder="Confirm password">
                                         </div>
                                     </div>
                                 </div>
@@ -165,7 +166,7 @@
                                     <div class="col-md-12">
                                         <div class="input-group">
                                             <span class="input-group-addon glyphicon glyphicon-pencil"></span>
-                                            <input id="first_name" type="text" class="form-control" placeholder="First name">
+                                            <input id="first_name" type="text" class="form-control required-field" placeholder="First name">
                                         </div>
                                     </div>
                                 </div>
@@ -174,7 +175,7 @@
                                     <div class="col-md-12">
                                         <div class="input-group">
                                             <span class="input-group-addon glyphicon glyphicon-pencil"></span>
-                                            <input id="last_name" type="text" class="form-control" placeholder="Last name">
+                                            <input id="last_name" type="text" class="form-control required-field" placeholder="Last name">
                                         </div>
                                     </div>
                                 </div>
@@ -183,7 +184,7 @@
                                     <div class="col-md-12">
                                         <div class="input-group">
                                             <span class="input-group-addon glyphicon glyphicon-earphone"></span>
-                                            <input id="phone_number" type="tel" class="form-control" placeholder="Phone number">
+                                            <input id="phone_number" type="tel" class="form-control required-field" placeholder="Phone number">
                                         </div>
                                     </div>
                                 </div>

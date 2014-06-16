@@ -1,0 +1,36 @@
+::-webkit-input-placeholder {
+    color:    #999;
+}
+:-moz-placeholder {
+    color:    #999;
+}
+::-moz-placeholder {
+    color:    #999;
+}
+:-ms-input-placeholder {
+    color:    #999;
+}
+
+.required-field::-webkit-input-placeholder
+{
+    color: #d2242f;
+}
+
+.required-field:-moz-placeholder
+{
+    color: #d2242f;
+}
+
+.required-field::-moz-placeholder
+{
+    color: #d2242f;
+}
+
+.required-field:-ms-input-placeholder
+{
+    color: #d2242f;
+}
+
+.required-select, .select2-default {
+    color: #d2242f !important;
+}
