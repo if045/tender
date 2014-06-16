@@ -8,7 +8,7 @@ $(document).ready(function() {
 });
 
 function showDeals() {
-    $.getJSON('/deals', function (data) {
+    $.getJSON(DEALS_URL, function (data) {
         var html = '';
         var len = data.length;
         if(len > 0) {
@@ -19,15 +19,14 @@ function showDeals() {
                     '<td align="center">' + data[i].status + '</td>' +
                     '<td align="center">' + data[i].sum + '</td>' +
                     '<td align="center">' +
-
-                    '<div class="btn-group">' +
-                    '<button data-toggle="dropdown" class="btn btn-default dropdown-toggle">Action<span class="caret"></span></button>' +
-                    '<ul class="dropdown-menu">' +
-                    '<li><a href="#" data-toggle="modal" data-target="#feedback_mod_wind" onclick="writeFeedbackId(' + data[i].id + ')">Feedback</a></li>' +
-                    '<li><a href="#">Conflict</a></li>' +
-                    '<li><a href="#" data-toggle="modal" data-target="#close_deal_mod_wind" onclick="writeCloseDealId(' + data[i].id + ')">Close</a></li>' +
-                    '</ul>' +
-                    '</div>' +
+                        '<div class="btn-group">' +
+                            '<button data-toggle="dropdown" class="btn btn-default dropdown-toggle">Action<span class="caret"></span></button>' +
+                            '<ul class="dropdown-menu">' +
+                                '<li><a href="#" data-toggle="modal" data-target="#feedback_mod_wind" onclick="writeFeedbackId(' + data[i].id + ')">Feedback</a></li>' +
+                                '<li><a href="#">Conflict</a></li>' +
+                                '<li><a href="#" data-toggle="modal" data-target="#close_deal_mod_wind" onclick="writeCloseDealId(' + data[i].id + ')">Close</a></li>' +
+                            '</ul>' +
+                        '</div>' +
                     '</td></tr>';
             }
 
@@ -63,9 +62,9 @@ function unixTimeConverter(timestamp){
 
 function closeDeal() {
     var str = '';
-    str += "statusName=" + "close";
+    str += "statusName=" + DEAL_STATUS;
     $.ajax({
-        url: "/deals/" + $('#close_deal_id').val() + "?"  + str,
+        url: DEALS_URL+"/" + $('#close_deal_id').val() + "?"  + str,
         type: "PUT",
 
         success: function(data){

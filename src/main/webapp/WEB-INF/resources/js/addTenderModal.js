@@ -23,7 +23,7 @@ $(document).ready(function() {
                 str += (str.length==0)?"type="+$("#option3").val():"&type="+$("#option3").val();
             }
             $.ajax({
-                url: '/items',
+                url: ITEMS_URL,
                 type: "GET",
                 data:  str,
                 dataType:'json',
@@ -32,7 +32,7 @@ $(document).ready(function() {
                     var html = '<option value="0">--Select One--</option>';
                     var len = loc.length;
                     for (var i = 0; i < len; i++) {
-                        html += '<option value="' + loc[i].type+',' +loc[i].name + '">'
+                        html += '<option value="' + loc[i].type+',' +loc[i].name+',' +loc[i].id + '">'
                             +loc[i].name + '</option>';
                     }
 
@@ -57,7 +57,7 @@ $(document).ready(function() {
                 str += (str.length==0)?"type="+$("#option3").val():"&type="+$("#option3").val();
             }
             $.ajax({
-                url: '/items',
+                url: ITEMS_URL,
                 type: "GET",
                 data:  str,
                 dataType:'json',
@@ -66,7 +66,7 @@ $(document).ready(function() {
                     var html = '<option value="0">--Select One--</option>';
                     var len = loc.length;
                     for (var i = 0; i < len; i++) {
-                        html += '<option value="' + loc[i].type+',' +loc[i].name + '">'
+                        html += '<option value="' + loc[i].type+',' +loc[i].name+',' +loc[i].id + '">'
                             +loc[i].name + '</option>';
                     }
 
@@ -113,7 +113,7 @@ $(document).ready(function() {
             placeholder: "All"
         });
 
-        $.getJSON('/locations', function(loc){
+        $.getJSON(LOCATIONS_URL, function(loc){
             var html = ' ';
             var len = loc.length;
             for (var i = 0; i < len; i++) {
@@ -124,7 +124,7 @@ $(document).ready(function() {
             $('#create_tender_location').html(html);
         });
 
-        $.getJSON('/categories', function(loc){
+        $.getJSON(CATEGORIES_URL, function(loc){
             var html = '<option value="0">--Select One--</option>';
             var len = loc.length;
             for (var i = 0; i < len; i++) {
@@ -135,22 +135,22 @@ $(document).ready(function() {
             $('#create_tender_unit_category').html(html);
         });
 
-        $.getJSON('/items', function(loc){
+        $.getJSON(ITEMS_URL, function(loc){
             var html = '<option value="0">--Select One--</option>';
             var len = loc.length;
             for (var i = 0; i < len; i++) {
-                html += '<option value="' + loc[i].type+',' +loc[i].name+ '">'
+                html += '<option value="' + loc[i].type+',' +loc[i].name+',' +loc[i].id+ '">'
                     +loc[i].name + '</option>';
             }
 
             $('#create_tender_unit_item').html(html);
         });
 
-        $.getJSON('/measurements', function(loc){
+        $.getJSON(MEASUREMENTS_URL, function(loc){
             var html = '<option value="0">--Select One--</option>';
             var len = loc.length;
             for (var i = 0; i < len; i++) {
-                html += '<option value="' + loc[i].name + '">'
+                html += '<option value="' + loc[i].id+',' +loc[i].name + '">'
                     + loc[i].name + '</option>';
             }
 
@@ -162,11 +162,15 @@ $(document).ready(function() {
 function addUnit() {
     var categoryName = $('#create_tender_unit_category').val().substring($('#create_tender_unit_category').val().indexOf(',')+1);
     var categoryId=$('#create_tender_unit_category').val().substring(0,$('#create_tender_unit_category').val().indexOf(','));
+    var measurementName = $('#create_tender_unit_measurement').val().substring($('#create_tender_unit_measurement').val().indexOf(',')+1);
+    var measurementId=$('#create_tender_unit_measurement').val().substring(0,$('#create_tender_unit_measurement').val().indexOf(','));
     var itemName='';
     var itemType='';
+    var itemId = '';
     if ($('#create_tender_unit_item').val()!=0){
-        itemName=$('#create_tender_unit_item').val().substring($('#create_tender_unit_item').val().indexOf(',')+1);
+        itemName=$('#create_tender_unit_item').val().substring($('#create_tender_unit_item').val().indexOf(',')+1,$('#create_tender_unit_item').val().lastIndexOf(','));
         itemType=$('#create_tender_unit_item').val().substring(0,$('#create_tender_unit_item').val().indexOf(','));
+        itemId=$('#create_tender_unit_item').val().substring($('#create_tender_unit_item').val().lastIndexOf(',')+1);
     }else{
         itemName=$('#create_tender_unit_newitem').val();
         if (itemName!=""&!$("#option3").is(":checked")&!$("#option2").is(":checked")&!$("#option1").is(":checked")){
@@ -180,19 +184,19 @@ function addUnit() {
     if (newString==""){
         if (($('#create_tender_unit_item').val()!=0)&($('#create_tender_unit_newitem').val()=="")){
             newString+='{"units" : [{"quantity":'+'\"'+$('#create_tender_unit_quantity').val()+'\"'+',"category":'+'\"'+categoryName+'\"'+
-                ',"item":'+'\"'+itemName+'\"'+',"measurment":'+'\"'+$('#create_tender_unit_measurement').val()+'\"'+
+                ',"item":'+'\"'+itemName+'\"'+',"measurment":'+'\"'+measurementName+'\"'+
                 ',"itemType":'+'\"'+type+'\"'+'}]}';
         }
         if (($('#create_tender_unit_newitem').val()!="")&($('#create_tender_unit_item').val()==0)){
             newString+='{"units" : [{"quantity":'+'\"'+$('#create_tender_unit_quantity').val()+'\"'+',"category":'+'\"'+categoryName+'\"'+
-                ',"item":'+'\"'+itemName+'\"'+',"measurment":'+'\"'+$('#create_tender_unit_measurement').val()+'\"'+
+                ',"item":'+'\"'+itemName+'\"'+',"measurment":'+'\"'+measurementName+'\"'+
                 ',"itemType":'+'\"'+type+'\"'+'}]}';
         }
     }else{
         if (($('#create_tender_unit_item').val()!=0)&($('#create_tender_unit_newitem').val()=="")){
             var strf = newString.substring(0,newString.indexOf(']'));
             var strm = ',{"quantity":'+'\"'+$('#create_tender_unit_quantity').val()+'\"'+',"category":'+'\"'+categoryName+'\"'+
-                ',"item":'+'\"'+itemName+'\"'+',"measurment":'+'\"'+$('#create_tender_unit_measurement').val()+'\"'+
+                ',"item":'+'\"'+itemName+'\"'+',"measurment":'+'\"'+measurementName+'\"'+
                 ',"itemType":'+'\"'+type+'\"'+'}';
             var stre = newString.substring(newString.indexOf(']'));
             newString = strf+strm+stre;
@@ -200,29 +204,34 @@ function addUnit() {
         if (($('#create_tender_unit_newitem').val()!="")&($('#create_tender_unit_item').val()==0)){
             var strf = newString.substring(0,newString.indexOf(']'));
             var strm = ',{"quantity":'+'\"'+$('#create_tender_unit_quantity').val()+'\"'+',"category":'+'\"'+categoryName+'\"'+
-                ',"item":'+'\"'+itemName+'\"'+',"measurment":'+'\"'+$('#create_tender_unit_measurement').val()+'\"'+
+                ',"item":'+'\"'+itemName+'\"'+',"measurment":'+'\"'+measurementName+'\"'+
                 ',"itemType":'+'\"'+type+'\"'+'}';
             var stre = newString.substring(newString.indexOf(']'));
             newString = strf+strm+stre;
         }
     }
-
+    var item='';
+    if ($('#create_tender_unit_item').val()!=0) {
+        item=itemId;
+    }else{
+        item=itemName;
+    }
     if (sendToServer==""){
         if (($('#create_tender_unit_item').val()!=0)&($('#create_tender_unit_newitem').val()=="")){
             sendToServer+='{"units" : [{"quantity":'+'\"'+$('#create_tender_unit_quantity').val()+'\"'+',"category":'+'\"'+categoryId+'\"'+
-                ',"item":'+'\"'+itemName+'\"'+',"measurment":'+'\"'+$('#create_tender_unit_measurement').val()+'\"'+
+                ',"item":'+'\"'+item+'\"'+',"measurment":'+'\"'+measurementId+'\"'+
                 ',"itemType":'+'\"'+itemType+'\"'+'}]}';
         }
         if (($('#create_tender_unit_newitem').val()!="")&($('#create_tender_unit_item').val()==0)){
             sendToServer+='{"units" : [{"quantity":'+'\"'+$('#create_tender_unit_quantity').val()+'\"'+',"category":'+'\"'+categoryId+'\"'+
-                ',"item":'+'\"'+itemName+'\"'+',"measurment":'+'\"'+$('#create_tender_unit_measurement').val()+'\"'+
+                ',"item":'+'\"'+item+'\"'+',"measurment":'+'\"'+measurementId+'\"'+
                 ',"itemType":'+'\"'+itemType+'\"'+'}]}';
         }
     }else{
         if (($('#create_tender_unit_item').val()!=0)&($('#create_tender_unit_newitem').val()=="")){
             var strf = sendToServer.substring(0,sendToServer.indexOf(']'));
             var strm = ',{"quantity":'+'\"'+$('#create_tender_unit_quantity').val()+'\"'+',"category":'+'\"'+categoryId+'\"'+
-                ',"item":'+'\"'+itemName+'\"'+',"measurment":'+'\"'+$('#create_tender_unit_measurement').val()+'\"'+
+                ',"item":'+'\"'+item+'\"'+',"measurment":'+'\"'+measurementId+'\"'+
                 ',"itemType":'+'\"'+itemType+'\"'+'}';
             var stre = sendToServer.substring(sendToServer.indexOf(']'));
             sendToServer = strf+strm+stre;
@@ -230,7 +239,7 @@ function addUnit() {
         if (($('#create_tender_unit_newitem').val()!="")&($('#create_tender_unit_item').val()==0)){
             var strf = sendToServer.substring(0,sendToServer.indexOf(']'));
             var strm = ',{"quantity":'+'\"'+$('#create_tender_unit_quantity').val()+'\"'+',"category":'+'\"'+categoryId+'\"'+
-                ',"item":'+'\"'+itemName+'\"'+',"measurment":'+'\"'+$('#create_tender_unit_measurement').val()+'\"'+
+                ',"item":'+'\"'+item+'\"'+',"measurment":'+'\"'+measurementId+'\"'+
                 ',"itemType":'+'\"'+itemType+'\"'+'}';
             var stre = sendToServer.substring(sendToServer.indexOf(']'));
             sendToServer = strf+strm+stre;
@@ -385,7 +394,7 @@ function createTender() {
     sendToServer=strf+strm;
     var newJson=$.parseJSON(sendToServer);
     $.ajax({
-        url: "/tenders",
+        url: TENDERS_URL,
         type: "POST",
         data:  JSON.stringify(newJson),
         dataType:'json',
@@ -408,7 +417,7 @@ function createTender() {
 
 function showResultAfterTenderAdded(){
     $.ajax({
-        url: "/tenders",
+        url: TENDERS_URL,
         type: "GET",
         dataType:'json',
 
@@ -460,5 +469,5 @@ function showResultAfterTenderAdded(){
 }
 
 function showNewTenderModalWindow(){
-    window.location.href = "/tenderView/"+tenderId;
+    window.location.href = TENDER_VIEW_URL+"/"+tenderId;
 }
