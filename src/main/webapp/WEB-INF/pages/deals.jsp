@@ -25,6 +25,7 @@
     <script type='text/javascript' src='<c:url value="../resources/js/addTenderModal.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/tenders.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/constants.js"/>'></script>
+    <script type='text/javascript' src='<c:url value="../resources/js/conflict.js"/>'></script>
 </head>
 <body>
     <div class="container">
@@ -108,6 +109,10 @@
 <!--create tender modal -->
 <jsp:include page="createTender.jsp"/>
 <!--create tender modal -->
+
+<!--action button feedback-->
+<jsp:include page="conflict.jsp"/>
+<!--action button feedback-->
 
 <!-- new tender modal window -->
 <jsp:include page="newTenderCreated.jsp"/>
