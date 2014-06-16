@@ -4,8 +4,13 @@ import com.softserveinc.tender.dto.ConflictDto;
 import com.softserveinc.tender.dto.ConflictSaveDto;
 import com.softserveinc.tender.dto.DealDto;
 import com.softserveinc.tender.entity.Conflict;
+import com.softserveinc.tender.dto.FeedbackDto;
+import com.softserveinc.tender.dto.FeedbackSaveDto;
 import com.softserveinc.tender.entity.Deal;
+import com.softserveinc.tender.entity.Feedback;
+import com.softserveinc.tender.entity.Profile;
 import com.softserveinc.tender.entity.Tender;
+import com.softserveinc.tender.entity.User;
 import com.softserveinc.tender.facade.DealServiceFacade;
 import com.softserveinc.tender.service.*;
 import org.modelmapper.ModelMapper;
@@ -24,6 +29,9 @@ public class DealServiceFacadeImpl implements DealServiceFacade {
 
     @Autowired
     private DealService dealService;
+
+    @Autowired
+    private FeedbackService feedbackService;
 
     @Autowired
     private ModelMapper modelMapper;
@@ -80,5 +88,37 @@ public class DealServiceFacadeImpl implements DealServiceFacade {
 
         Conflict savedConflict = conflictService.save(conflict);
         return mapConflict(savedConflict);
+    }
+
+    private FeedbackDto mapFeedback(Feedback feedback) {
+        FeedbackDto feedbackDto = new FeedbackDto();
+        feedbackDto.setId(feedback.getId());
+        feedbackDto.setProfileId(feedback.getProfile().getId());
+        feedbackDto.setUserId(feedback.getUser().getId());
+        feedbackDto.setCommunication(feedback.getCommunication());
+        feedbackDto.setSpeed(feedback.getSpeed());
+        feedbackDto.setLogistic(feedback.getLogistic());
+        feedbackDto.setComment(feedback.getComment());
+        return feedbackDto;
+    }
+
+    @Override
+    public FeedbackDto saveFeedback(FeedbackSaveDto feedbackSaveDto) {
+        Feedback feedback = new Feedback();
+        feedback.setCommunication(feedbackSaveDto.getCommunication());
+        feedback.setSpeed(feedbackSaveDto.getSpeed());
+        feedback.setLogistic(feedbackSaveDto.getLogistic());
+        feedback.setComment(feedbackSaveDto.getComment());
+        Profile profile = new Profile();
+        profile.setId(dealService.findDealById(feedbackSaveDto.getProfileId()).getCustomer().getId());
+        feedback.setProfile(profile);
+        //TODO: change user id after finish security
+        User user = new User();
+        user.setId(1);
+        feedback.setUser(user);
+
+        Feedback savedFeedback = feedbackService.save(feedback);
+        return mapFeedback(savedFeedback);
+
     }
 }

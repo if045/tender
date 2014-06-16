@@ -20,8 +20,8 @@ public class FeedbackServiceImpl implements FeedbackService {
     }
 
     @Override
-    public void save(Feedback feedback) {
-        feedbackRepository.save(feedback);
+    public Feedback save(Feedback feedback) {
+        return feedbackRepository.save(feedback);
     }
 
     @Override

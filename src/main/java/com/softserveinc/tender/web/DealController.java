@@ -3,6 +3,8 @@ package com.softserveinc.tender.web;
 import com.softserveinc.tender.dto.ConflictDto;
 import com.softserveinc.tender.dto.ConflictSaveDto;
 import com.softserveinc.tender.dto.DealDto;
+import com.softserveinc.tender.dto.FeedbackDto;
+import com.softserveinc.tender.dto.FeedbackSaveDto;
 import com.softserveinc.tender.facade.DealServiceFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -39,5 +42,11 @@ public class DealController {
     public @ResponseBody
     ConflictDto addConflict(@RequestBody ConflictSaveDto conflictSaveDto) {
         return dealFacade.saveConflict(conflictSaveDto);
+    }
+    @RequestMapping(value = "/{id}/feedbacks", method = RequestMethod.POST, consumes = "application/json")
+    public @ResponseBody
+    FeedbackDto addFeedback(@RequestBody FeedbackSaveDto feedbackSaveDto) {
+        return dealFacade.saveFeedback(feedbackSaveDto);
+
     }
 }

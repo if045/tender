@@ -7,6 +7,7 @@ import com.softserveinc.tender.repo.TenderRepository;
 import com.softserveinc.tender.service.TenderService;
 import com.softserveinc.tender.service.TenderStatusService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -26,14 +27,26 @@ public class TenderServiceImpl implements TenderService {
     }
 
     @Override
-    public List<Tender> findByCustomParameters(TenderFilter tenderFilter) {
+    public List<Tender> findByCustomParameters(TenderFilter tenderFilter, Pageable pageable) {
         return tenderRepository.findByCustomParameters(tenderFilter.getMinPrice(), tenderFilter.getMaxPrice(),
                                                        tenderFilter.getStatuses(), tenderFilter.getCategories(),
                                                        tenderFilter.getLocations(), tenderFilter.getItems(),
                                                        tenderFilter.getMinDate(), tenderFilter.getMaxDate(),
                                                        tenderFilter.getCategoryFlag(), tenderFilter.getItemFlag(),
                                                        tenderFilter.getLocationFlag(), tenderFilter.getStatusFlag(),
-                                                       tenderFilter.getPriceFlag());
+                                                       tenderFilter.getPriceFlag(),
+                                                       pageable);
+    }
+
+    @Override
+    public Long getTendersNumber(TenderFilter tenderFilter) {
+        return tenderRepository.getTendersNumber(tenderFilter.getMinPrice(), tenderFilter.getMaxPrice(),
+                tenderFilter.getStatuses(), tenderFilter.getCategories(),
+                tenderFilter.getLocations(), tenderFilter.getItems(),
+                tenderFilter.getMinDate(), tenderFilter.getMaxDate(),
+                tenderFilter.getCategoryFlag(), tenderFilter.getItemFlag(),
+                tenderFilter.getLocationFlag(), tenderFilter.getStatusFlag(),
+                tenderFilter.getPriceFlag());
     }
 
     @Override

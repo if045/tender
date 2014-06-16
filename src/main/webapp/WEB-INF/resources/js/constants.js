@@ -19,3 +19,6 @@ var DEAL_STATUS = "close";
 var PROPOSALS_URL = "/proposals";
 var UNITS_URL = '/units';
 
+/*Constants for tenders pagination*/
+var DEFAULT_PAGE_SIZE = 10;
+
