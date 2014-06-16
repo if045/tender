@@ -18,10 +18,10 @@ var PROPOSALS_URL = "/proposals";
 var UNITS_URL = '/units';
 
 /*Constants for registration.js*/
-var ROLES_URL = "/usersRoles";
+var ROLES_URL = "roles/users";
 var HOME_PAGE_URL = "/tendersHome";
 var REGISTRATION_PAGE_URL = "/registration";
-var USER_DATA_URL = "/userData";
+var USER_DATA_URL = "/user/registration";
 var ERROR_MESSAGE = "Please type data correctly";
 var SELLER_ID = 3;
 /*login data*/
@@ -51,3 +51,4 @@ var categories;
 
 /*Constants for tenders pagination*/
 var DEFAULT_PAGE_SIZE = 10;
+

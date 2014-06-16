@@ -49,7 +49,7 @@ function addRegisteredUser() {
     var newJson = $.parseJSON(buildRegisteredUserJSON());
     $.ajax({
         url: USER_DATA_URL,
-        type: "PUT",
+        type: "POST",
         data:  JSON.stringify(newJson),
         dataType:'json',
         contentType: 'application/json',

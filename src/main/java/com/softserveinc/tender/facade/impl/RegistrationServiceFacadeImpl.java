@@ -29,11 +29,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.lang.reflect.Type;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import static com.softserveinc.tender.util.Util.formatDate;
 
 @Service("registrationServiceFacade")
 @Transactional
@@ -165,18 +165,5 @@ public class RegistrationServiceFacadeImpl implements RegistrationServiceFacade{
         user.setCreateDate(new Date());
 
         return user;
-    }
-
-    private Date formatDate(String dateValue) {
-        String datePattern = "yyyy/mm/dd";
-        SimpleDateFormat formatter = new SimpleDateFormat(datePattern);
-        Date date = null;
-
-        try {
-            date = formatter.parse(dateValue);
-        } catch (ParseException e) {
-            e.getMessage();
-        }
-        return date;
     }
 }
