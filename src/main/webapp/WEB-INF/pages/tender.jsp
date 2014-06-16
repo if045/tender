@@ -87,7 +87,9 @@
                     <div class="col-md-7">
                         <table class="table table-bordered table-striped" id="units">
                             <thead>
-                                <td align="center"><span class="glyphicon glyphicon-check"></span></td>
+                                <td align="center">
+                                    <input type="checkbox" onchange="checkAll()" id="ch_box_head">
+                                </td>
                                 <th>Name</th>
                                 <th>Type</th>
                                 <th>Category</th>

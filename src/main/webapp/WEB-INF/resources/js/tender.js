@@ -208,7 +208,9 @@ function showProposalsTable(propsArray, unitsArray) {
                     '<td class="js-highlightUnits" propId="' + propsArray[i].id +'">' + propsArray[i].numberOfBids + '</td>' +
                     '<td class="js-highlightUnits" propId="' + propsArray[i].id +'">' + propsArray[i].totalBidsPrice + '</td>' +
                     //This button should only be available to the customer
-                    '<td align="center"><button type="submit" class="btn' + buttonStyle + '" onclick="createProposalDeal(' + propsArray[i].id + ')">Deal</button></td>' +
+                    '<td align="center">' +
+                        '<button type="submit" class="btn' + buttonStyle + '" onclick="createProposalDeal(' + propsArray[i].id + ')">Deal</button>' +
+                    '</td>' +
                     '</tr>';
             } 
         }
@@ -285,5 +287,14 @@ function cleanSellerPriceColumn() {
 function resetRowsStyle() {
     $('.js-unitRow').removeClass('info');
     $('.js-proposalRow').removeClass('info');
+}
+
+function checkAll() {
+    var status = $("#ch_box_head").is(":checked");
+    for (var i = 0; i < Units.length; i++) {
+        $("#ch_box_" + i).prop("checked", status);
+    }
+
+    showProposals();
 }
 
