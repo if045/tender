@@ -3,14 +3,9 @@ package com.softserveinc.tender.facade.impl;
 import com.softserveinc.tender.dto.ConflictDto;
 import com.softserveinc.tender.dto.ConflictSaveDto;
 import com.softserveinc.tender.dto.DealDto;
-import com.softserveinc.tender.entity.Conflict;
+import com.softserveinc.tender.entity.*;
 import com.softserveinc.tender.dto.FeedbackDto;
 import com.softserveinc.tender.dto.FeedbackSaveDto;
-import com.softserveinc.tender.entity.Deal;
-import com.softserveinc.tender.entity.Feedback;
-import com.softserveinc.tender.entity.Profile;
-import com.softserveinc.tender.entity.Tender;
-import com.softserveinc.tender.entity.User;
 import com.softserveinc.tender.facade.DealServiceFacade;
 import com.softserveinc.tender.service.*;
 import org.modelmapper.ModelMapper;
@@ -85,6 +80,16 @@ public class DealServiceFacadeImpl implements DealServiceFacade {
     public ConflictDto saveConflict(ConflictSaveDto conflictSaveDto) {
         Conflict conflict = new Conflict();
         conflict.setDescription(conflictSaveDto.getDescription());
+        //TODO: change moderator id after create moderators
+        User moderator = new User();
+        moderator.setId(1);
+        conflict.setModerator(moderator);
+        ConflictStatus conflictStatus = new ConflictStatus();
+        conflictStatus.setId(1);
+        conflict.setStatus(conflictStatus);
+        Bid bid =new Bid();
+        bid.setId(dealService.findDealById(conflictSaveDto.getBidId()).getBid().getId());
+        conflict.setBid(bid);
 
         Conflict savedConflict = conflictService.save(conflict);
         return mapConflict(savedConflict);

@@ -20,7 +20,7 @@
                 </form>
                 <div class="modal-footer">
                     <button class="btn btn-primary" type="button" data-dismiss="modal" onclick="cleanConflict();">Cancel</button>
-                    <button class="btn btn-primary" type="button" onclick="">Send</button>
+                    <button class="btn btn-primary" type="button" onclick="createConflict();">Send</button>
                 </div>
             </div>
         </div>
