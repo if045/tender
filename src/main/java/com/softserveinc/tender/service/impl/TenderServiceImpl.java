@@ -7,8 +7,10 @@ import com.softserveinc.tender.repo.TenderRepository;
 import com.softserveinc.tender.service.TenderService;
 import com.softserveinc.tender.service.TenderStatusService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -25,23 +27,37 @@ public class TenderServiceImpl implements TenderService {
     }
 
     @Override
-    public List<Tender> findByCustomParameters(TenderFilter tenderFilter) {
+    public List<Tender> findByCustomParameters(TenderFilter tenderFilter, Pageable pageable) {
         return tenderRepository.findByCustomParameters(tenderFilter.getMinPrice(), tenderFilter.getMaxPrice(),
                                                        tenderFilter.getStatuses(), tenderFilter.getCategories(),
                                                        tenderFilter.getLocations(), tenderFilter.getItems(),
                                                        tenderFilter.getMinDate(), tenderFilter.getMaxDate(),
                                                        tenderFilter.getCategoryFlag(), tenderFilter.getItemFlag(),
                                                        tenderFilter.getLocationFlag(), tenderFilter.getStatusFlag(),
-                                                       tenderFilter.getPriceFlag());
+                                                       tenderFilter.getPriceFlag(),
+                                                       pageable);
     }
 
     @Override
-    public void updateTenderWithStatus(Integer tenderId, String statusName) {
+    public Long getTendersNumber(TenderFilter tenderFilter) {
+        return tenderRepository.getTendersNumber(tenderFilter.getMinPrice(), tenderFilter.getMaxPrice(),
+                tenderFilter.getStatuses(), tenderFilter.getCategories(),
+                tenderFilter.getLocations(), tenderFilter.getItems(),
+                tenderFilter.getMinDate(), tenderFilter.getMaxDate(),
+                tenderFilter.getCategoryFlag(), tenderFilter.getItemFlag(),
+                tenderFilter.getLocationFlag(), tenderFilter.getStatusFlag(),
+                tenderFilter.getPriceFlag());
+    }
+
+    @Override
+    public Tender updateTender(Integer tenderId, String statusName, Date endDate, String description) {
         Tender tender = tenderRepository.findOne(tenderId);
         TenderStatus tenderStatus = tenderStatusService.findByName(statusName);
 
         tender.setStatus(tenderStatus);
-        tenderRepository.save(tender);
+        if (endDate!=null)tender.setEndDate(endDate);
+        tender.setDescription(description);
+        return tenderRepository.save(tender);
     }
 
     @Override

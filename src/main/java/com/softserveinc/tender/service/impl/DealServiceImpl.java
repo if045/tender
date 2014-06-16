@@ -40,4 +40,9 @@ public class DealServiceImpl implements DealService {
         deal.setStatus(dealStatus);
         dealRepository.save(deal);
     }
+
+    @Override
+    public List<Deal> findBySearchParam(String title) {
+        return dealRepository.findByProposalTenderTitleStartingWith(title);
+    }
 }

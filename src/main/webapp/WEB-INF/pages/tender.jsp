@@ -25,7 +25,7 @@
     <script type='text/javascript' src='<c:url value="../resources/js/validations.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/tender.js"/>'></script>
 
-    <script type='text/javascript' src='<c:url value="../resources/js/tender.js"/>'></script>
+    <script type='text/javascript' src='<c:url value="../resources/js/constants.js"/>'></script>
 
     <script type='text/javascript' src='<c:url value="../resources/js/tenderview.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/addTenderModal.js"/>'></script>
@@ -53,7 +53,7 @@
                             <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                         </div>
                         <label for="suitablePrice" class="control-label col-md-5">Suitable price</label>
-                        <p class="form-control-static col-md-7" id="suitablePrice">0000.00</p>
+                        <div id="suitablePrice"></div>
                     </div>
 
                     <div class="form-group col-md-3">
@@ -62,20 +62,21 @@
                             <select id="status" class="form-control"></select>
                         </div>
                         <label for="locations" class="control-label col-md-3">Locations</label>
-                        <p class="form-control-static col-md-9" id="locations">Some locations</p>
+                        <div id="locations"></div>
                     </div>
 
                     <div class="form-group col-md-6">
                         <label for="description" class="control-label col-md-2">Description</label>
                         <div class="col-md-10">
-                            <textarea id="description" class="form-control" rows="2" name="description"> There is some description </textarea>
+                            <textarea id="description" class="form-control" rows="2" name="description"></textarea>
                         </div>
                     </div>
                 </form>
                 <!-- information about tender -->
 
                 <div class="row col-md-12">
-                    <button type="submit" class="btn btn-primary col-md-1 col-md-offset-10">Save</button>
+                    <button type="submit" class="btn btn-primary col-md-1 col-md-offset-10"
+                            id="save_tender_button" onclick="saveTenderAfterUpdate();" disabled>Save</button>
                 </div>
 
                 <div class="row">
@@ -104,7 +105,7 @@
                         <table class="table table-bordered table-striped" id="head_proposals">
                             <thead>
                                 <th>Seller</th>
-                                <th>Bids</th>
+                                <th>Units</th>
                                 <th>Total price</th>
                                 <th>Deal</th>
                             </thead>
@@ -142,5 +143,9 @@
 <jsp:include page="newTenderCreated.jsp"/>
 <!-- new tender modal window -->
 
+<%--<div class="tooltip fade bottom in" style="top: 38px; left: 144px; display: block;">
+    <div class="tooltip-arrow"></div>
+    <div class="tooltip-inner">dasdad</div>
+</div>--%>
 </body>
 </html>

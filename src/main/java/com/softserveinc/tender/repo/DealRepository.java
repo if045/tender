@@ -12,4 +12,6 @@ import java.util.List;
 import java.util.Set;
 
 public interface DealRepository extends JpaRepository<Deal, Integer> {
+
+    List<Deal> findByProposalTenderTitleStartingWith(String title);
 }

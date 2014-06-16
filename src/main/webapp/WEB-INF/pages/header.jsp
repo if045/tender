@@ -15,7 +15,7 @@
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="/login">Log in</a></li>
-                <li><a href="/signup">Sign up</a></li>
+                <li><button type="button" class="btn btn-default nav_button" onclick="goToRegistrationPage();">Sign up</button></li>
             </ul>
         </div>
     </div>
