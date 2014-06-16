@@ -40,4 +40,14 @@ public class DealServiceImpl implements DealService {
         deal.setStatus(dealStatus);
         dealRepository.save(deal);
     }
+
+    @Override
+    public List<Deal> findByProposalId(Integer proposalId) {
+        return dealRepository.findByProposalId(proposalId);
+    }
+
+    @Override
+    public List<Deal> findByUnitId(Integer unitId) {
+        return dealRepository.findByUnitId(unitId);
+    }
 }

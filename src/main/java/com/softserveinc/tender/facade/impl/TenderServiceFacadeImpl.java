@@ -175,6 +175,7 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
         unitDto.setQuantity(unit.getQuantity());
         unitDto.setMeasurementName(unit.getMeasurement().getName());
         unitDto.setNumberOfBids(unit.getBids().size());
+        unitDto.setHaveDeals(dealService.findByUnitId(unit.getId()).size() > 0);
         return unitDto;
     }
 
@@ -312,6 +313,7 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
             bidDtos.add(bidDto);
         }
         proposalDto.setBidDtos(bidDtos);
+        proposalDto.setHaveDeals(dealService.findByProposalId(proposal.getId()).size() > 0);
 
         return proposalDto;
     }

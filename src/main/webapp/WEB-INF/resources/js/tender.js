@@ -53,6 +53,7 @@ function showUnit() {
                 var itemTypes = 'Product'
             else if (data[i].itemType == 'S')
                 var itemTypes = 'Service'
+            var buttonStyle = (data[i].haveDeals) ? " btn-success" : " btn-info";
             html += '<tr class="js-unitRow" id="unit_row_' + data[i].id + '"><td align="center">' + '<input type="checkbox" onchange="showSpecificProposals()" id="ch_box_' + i + '">' +
                 '<input  hidden="" type="text" value="' + data[i].id +'" id="unit_id_' + i + '"/></td>' +
                 '<td>' + data[i].unitName + '</td>' +
@@ -66,7 +67,7 @@ function showUnit() {
                 '<td align="center">' +
                 '<input  hidden="" type="text" id="selected_proposal_id_' + data[i].id + '"/>' +
                 '<input  hidden="" type="text" id="selected_bid_id_' + data[i].id + '"/>' +
-                    '<button type="submit" class="btn btn-default" onclick="createUnitDeal(' + data[i].id + ')">Deal</button>' +
+                    '<button type="submit" class="btn' + buttonStyle +'" onclick="createUnitDeal(' + data[i].id + ')">Deal</button>' +
                 '</td></tr>';
         }
         $('#unitsTable').html(html);
@@ -81,6 +82,8 @@ function createProposalDeal(proposalId) {
         contentType: 'application/json',
 
         success: function(data) {
+            showProposals();
+            showUnit();
             $("#success_create_deal").modal('show');
         },
         error: function() {
@@ -100,6 +103,8 @@ function createUnitDeal(unitId) {
         contentType: 'application/json',
 
         success: function(data) {
+            showProposals();
+            showUnit();
             $("#success_create_deal").modal('show');
         },
         error: function() {
@@ -196,13 +201,14 @@ function showProposalsTable(propsArray, unitsArray) {
     if(len > 0) {
         document.getElementById("no_proposals_message").setAttribute('hidden','true');
         for (var i = 0; i < len; i++) {
+            var buttonStyle = (propsArray[i].haveDeals) ? " btn-success" : " btn-info";
             if (unitsArray == null || checkBids(propsArray[i].bidDtos, unitsArray)) {
                 html += '<tr class="js-proposalRow" id="proposal_row_' + propsArray[i].id + '">' +
                     '<td class="js-highlightUnits" propId="' + propsArray[i].id +'">' + propsArray[i].fullName + '</td>' +
                     '<td class="js-highlightUnits" propId="' + propsArray[i].id +'">' + propsArray[i].numberOfBids + '</td>' +
                     '<td class="js-highlightUnits" propId="' + propsArray[i].id +'">' + propsArray[i].totalBidsPrice + '</td>' +
                     //This button should only be available to the customer
-                    '<td align="center"><button type="submit" class="btn btn-info" onclick="createProposalDeal(' + propsArray[i].id + ')">Deal</button></td>' +
+                    '<td align="center"><button type="submit" class="btn' + buttonStyle + '" onclick="createProposalDeal(' + propsArray[i].id + ')">Deal</button></td>' +
                     '</tr>';
             } 
         }
@@ -254,10 +260,8 @@ function showUnitSellerPrice(proposalId) {
     for (var i = 0; i < bidsArr.length; i++) {
         $("#unit_row_" + bidsArr[i].unitId).addClass('info');                   //highlight unit rows witch included proposal
         $("#seller_price_" + bidsArr[i].unitId).html(bidsArr[i].price);         //show seller price of unit
-        /*document.getElementById('selected_proposal_id_' + bidsArr[i].unitId).value = proposalId;  */       //set selected proposal id
-        /*document.getElementById('selected_bid_id_' + bidsArr[i].unitId).value = bidsArr[i].bidId;  */      //set selected proposal bid id
-        $("#selected_proposal_id_" + bidsArr[i].unitId).attr('value', proposalId);
-        $("#selected_bid_id_" + bidsArr[i].unitId).attr('value', bidsArr[i].bidId);
+        $("#selected_proposal_id_" + bidsArr[i].unitId).attr('value', proposalId);       //set selected proposal id
+        $("#selected_bid_id_" + bidsArr[i].unitId).attr('value', bidsArr[i].bidId);      //set selected proposal bid id
     }
 
     var str = '';
