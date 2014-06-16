@@ -14,6 +14,7 @@ import com.softserveinc.tender.dto.TenderStatusDto;
 import com.softserveinc.tender.facade.TenderServiceFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -44,11 +45,15 @@ public class TenderController {
             @RequestParam(value = "minDate", required = false) Date createDate,
             @RequestParam(value = "maxDate", required = false) Date endDate,
             @RequestParam(value = "pageNumber", required = true) Integer pageNumber,
-            @RequestParam(value = "pageSize", required = true) Integer pageSize) {
+            @RequestParam(value = "pageSize", required = true) Integer pageSize,
+            @RequestParam(value = "orderBy", required = false, defaultValue = "createDate") String orderBy,
+            @RequestParam(value = "sortDirection", required = false, defaultValue = "ASC") String sortDirection) {
+
+        Sort.Direction pageSortDirection = Sort.Direction.fromString(sortDirection);
 
         return tenderFacade.findByCustomParams(new TenderFilter(minPrice, maxPrice, categories, locations, items,
                                                                 statuses, createDate, endDate),
-                                               new PageRequest(pageNumber, pageSize));
+                                               new PageRequest(pageNumber, pageSize, pageSortDirection, orderBy));
     }
 
     @RequestMapping(value = "/number", method = RequestMethod.GET)

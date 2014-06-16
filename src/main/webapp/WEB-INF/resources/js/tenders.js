@@ -1,5 +1,7 @@
         var pageSize = DEFAULT_PAGE_SIZE;
         var currPageNumber = 0;
+        var sortDirection = false;
+        var orderBy = 'createDate';
 
         $(document).ready(function() {
             $('#startDate, #endDate, #create_tender_enddate').datepicker({
@@ -29,11 +31,39 @@
                 enableFilterButtons();
             });
 
-            $('#pagination_itemsnum').on('change', function() {
+            $("#pagination_itemsnum").on('change', function() {
                 pageSize = this.value;
                 currPageNumber = 0;
                 showPage(currPageNumber);
-            })
+            });
+
+            $("#tender_title").click(function(){
+                sortTenders("title");
+            });
+
+            $("#tender_author").click(function(){
+                sortTenders("author.firstName");
+            });
+
+            $("#tender_category").click(function(){
+                sortTenders("title");
+            });
+
+            $("#tender_location").click(function(){
+                sortTenders("title");
+            });
+
+            $("#tender_suitable_price").click(function(){
+                sortTenders("suitablePrice");
+            });
+
+            $("#tender_status").click(function(){
+                sortTenders("status.name");
+            });
+
+            $("#tender_proposals").click(function(){
+                sortTenders("proposals");
+            });
 
             $("#category_filter").change(function() {
                 enableFilterButtons();
@@ -131,7 +161,8 @@
 
         function showTenders() {
             showPagination("");
-            var queryParams = "pageSize="+pageSize+"&pageNumber="+currPageNumber;
+            var queryParams = "pageSize=" + pageSize + "&pageNumber=" + currPageNumber + "&sortDirection=" +
+                ((sortDirection)?"desc":"asc") + "&orderBy=" + orderBy;
 
             $.ajax({
                 url: "/tenders",
@@ -260,7 +291,7 @@
 
             showPagination(str);
             str += (str.length==0)?"pageSize="+pageSize:"&pageSize="+pageSize;
-            str += "&pageNumber="+currPageNumber;
+            str += "&pageNumber="+currPageNumber + "&sortDirection=" + ((sortDirection)?"desc":"asc") + "&orderBy=" + orderBy;
 
             $.ajax({
                 url: "/tenders",
@@ -420,5 +451,11 @@
 
         function showPage(pageNumber) {
             currPageNumber = pageNumber;
+            applyFilters();
+        }
+
+        function sortTenders(orderByField) {
+            sortDirection = (orderBy == orderByField) ? !sortDirection : false;
+            orderBy = orderByField;
             applyFilters();
         }
