@@ -77,6 +77,7 @@ public class DealServiceFacadeImpl implements DealServiceFacade {
     public ConflictDto saveConflict(ConflictSaveDto conflictSaveDto) {
         Conflict conflict = new Conflict();
         conflict.setDescription(conflictSaveDto.getDescription());
+
         Conflict savedConflict = conflictService.save(conflict);
         return mapConflict(savedConflict);
     }

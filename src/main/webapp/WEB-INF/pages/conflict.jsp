@@ -4,7 +4,7 @@
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
             <div class="modal-header"><button class="close" type="button" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Conflict</h4>
+                <h4 class="modal-title">Create conflict</h4>
             </div>
             <div class="modal-body">
                 <form class="form-horizontal" role="form">
