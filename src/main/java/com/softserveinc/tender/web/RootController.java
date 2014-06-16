@@ -27,4 +27,14 @@ public class RootController {
     public String registration() {
         return "registration";
     }
+
+    @RequestMapping("/login")
+    public String login() {
+        return "login";
+    }
+
+    @RequestMapping("/")
+    public String home() {
+        return "redirect:/tendersHome";
+    }
 }
