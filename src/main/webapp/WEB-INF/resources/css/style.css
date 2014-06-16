@@ -224,3 +224,13 @@ textarea {
 .backdown {
     margin-bottom: 10px;
 }
+
+.sortable {
+    font-weight: bold;
+}
+
+.sortable span {
+    padding-left: 4px;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif !important;
+    font-size: 12px !important;
+}

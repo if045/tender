@@ -125,14 +125,24 @@
                     <table class="table table-bordered table-striped">
                         <thead>
                         <tr>
-                            <th align="center" id="tender_title">Title</th>
-                            <th align="center" id="tender_author">Author</th>
-                            <th align="center" id="tender_category">Category</th>
-                            <th align="center" id="tender_location">Location</th>
-                            <th align="center" id="tender_suitable_price">Suitable Price</th>
-                            <th align="center" id="tender_status">Status</th>
-                            <th align="center" id="tender_proposals">Proposals</th>
-                            <th align="center">Action</th>
+                            <th align="center" id="tender_title">
+                                <span class="glyphicon glyphicon-chevron-down sortable"><span>Title</span></span>
+                            </th>
+                            <th align="center" id="tender_author">
+                                <span class="glyphicon glyphicon-chevron-down sortable"><span>Author</span></span>
+                            </th>
+                            <th align="center" id="tender_category"><span>Category</span></th>
+                            <th align="center" id="tender_location"><span>Location</span></th>
+                            <th align="center" id="tender_suitable_price">
+                                <span class="glyphicon glyphicon-chevron-down sortable"><span>Suitable Price</span></span>
+                            </th>
+                            <th align="center" id="tender_status">
+                                <span class="glyphicon glyphicon-chevron-down sortable"><span>Status</span></span>
+                            </th>
+                            <th align="center" id="tender_proposals">
+                                <span class="glyphicon glyphicon-chevron-down sortable"><span>Proposals</span></span>
+                            </th>
+                            <th align="center" id="tender_action"><span>Action</span></th>
                         </tr>
                         </thead>
                         <tbody id="tenders"></tbody>

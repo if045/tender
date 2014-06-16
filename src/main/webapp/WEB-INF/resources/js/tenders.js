@@ -38,23 +38,23 @@
             });
 
             $("#tender_title").click(function(){
-                sortTenders("title");
+                sortTenders("title","tender_title");
             });
 
             $("#tender_author").click(function(){
-                sortTenders("author.firstName");
+                sortTenders("author.firstName","tender_author");
             });
 
             $("#tender_suitable_price").click(function(){
-                sortTenders("suitablePrice");
+                sortTenders("suitablePrice","tender_suitable_price");
             });
 
             $("#tender_status").click(function(){
-                sortTenders("status.name");
+                sortTenders("status.name","tender_status");
             });
 
             $("#tender_proposals").click(function(){
-                sortTenders("proposals.size");
+                sortTenders("proposals.size","tender_proposals");
             });
 
             $("#category_filter").change(function() {
@@ -446,8 +446,16 @@
             applyFilters();
         }
 
-        function sortTenders(orderByField) {
+        function sortTenders(orderByField, elementId) {
             sortDirection = (orderBy == orderByField) ? !sortDirection : false;
             orderBy = orderByField;
+
+            $('#tender_items .sortable').addClass('glyphicon-chevron-down').removeClass('glyphicon-chevron-up');
+            if(sortDirection == false) {
+                $('#'+elementId+' .sortable').addClass('glyphicon-chevron-up').removeClass('glyphicon-chevron-down');
+            } else {
+                $('#'+elementId+' .sortable').addClass('glyphicon-chevron-down').removeClass('glyphicon-chevron-up');
+            }
+
             applyFilters();
         }
