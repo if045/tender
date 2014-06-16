@@ -44,7 +44,7 @@
                         <div class="pull-right">
                             <form id="search_form" class="navbar-form navbar-right" role="search">
                                 <div class="form-group">
-                                    <input id="search_input" type="text" class="form-control" placeholder="Search...">
+                                    <input id="search_deals" type="text" class="form-control" placeholder="Search...">
                                 </div>
                             </form>
                         </div>

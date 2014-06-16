@@ -97,27 +97,17 @@
             populateItemDropdown();
             showTenders();
 
-            $('#search_input').keypress(function(e) {
+            $('#search_tenders').keypress(function(e) {
                 if (e.keyCode == 13) {
-                    var filter=$('#search_input').val();
+                    var filter=$('#search_tenders').val();
                     if (filter.length > 0) {
-                        search(filter);
+                        searchTenders(filter);
                     }else{
                         showTenders();
                     }
                     return false;
                 }
             });
-
-            /*$('#search_input').keyup(function(event) {
-                var filter=$('#search_input').val();
-                if (filter.length > 0) {
-                    search(filter);
-                }else{
-                    showTenders();
-                }
-            });*/
-
         });
 
         function populateItemDropdown() {
@@ -375,7 +365,7 @@
             return year + '/' + month + '/' + day;
         }
 
-        function search(filter){
+        function searchTenders(filter){
             $.ajax({
                 url: TENDERS_URL + "search/" + filter,
                 type: "GET",
