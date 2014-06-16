@@ -40,7 +40,8 @@ public class DealServiceFacadeImpl implements DealServiceFacade {
         return dealDtos;
     }
 
-    private DealDto mapDeal(Deal deal) {
+    @Override
+    public DealDto mapDeal(Deal deal) {
         DealDto dealDto = new DealDto();
         dealDto.setId(deal.getId());
         dealDto.setDate(deal.getDate());

@@ -351,7 +351,7 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
     }
 
     @Override
-    public List<DealDto> saveDeal(Integer tenderId, Integer proposalId) {
+    public List<DealDto> saveProposalDeal(Integer tenderId, Integer proposalId) {
         Proposal proposal = proposalService.findById(proposalId);
         Tender tender = tenderService.findOne(tenderId);
 
@@ -371,6 +371,26 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
             deals.add(savedDeal);
         }
         return dealServiceFacade.mapDeals(deals);
+    }
+
+    @Override
+    public DealDto saveBidDeal(Integer tenderId, Integer proposalId, Integer bidId) {
+        Proposal proposal = proposalService.findById(proposalId);
+        Tender tender = tenderService.findOne(tenderId);
+        Bid bid = bidService.findById(bidId);
+
+        Deal deal = new Deal();
+        deal.setBid(bid);
+        deal.setCustomer(tender.getAuthor());
+        deal.setSeller(proposal.getSeller().getProfile());
+        deal.setSum(bid.getPrice());
+        deal.setDate(new Date());
+        deal.setStatus(dealStatusService.findByName(DEAL_CREATE_STATUS));
+        deal.setProposal(proposal);
+
+        Deal savedDeal = dealService.saveDeal(deal);
+
+        return dealServiceFacade.mapDeal(savedDeal);
     }
 
 

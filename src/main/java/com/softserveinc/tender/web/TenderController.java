@@ -99,15 +99,15 @@ public class TenderController {
     @RequestMapping(value = "/{tenderId}/proposals/{proposalId}/deals", method = RequestMethod.POST, consumes = "application/json")
     public @ResponseBody List<DealDto> createDeal(@PathVariable("tenderId") Integer tenderId,
                                                   @PathVariable("proposalId") Integer proposalId) {
-        return tenderFacade.saveDeal(tenderId, proposalId);
+        return tenderFacade.saveProposalDeal(tenderId, proposalId);
     }
 
-    /*@RequestMapping(value = "/{tenderId}/proposals/{proposalId}/bids/{bidId}/deals", method = RequestMethod.POST, consumes = "application/json")
+    @RequestMapping(value = "/{tenderId}/proposals/{proposalId}/bids/{bidId}/deals", method = RequestMethod.POST, consumes = "application/json")
     public @ResponseBody DealDto createDeal(@PathVariable("tenderId") Integer tenderId,
                                             @PathVariable("proposalId") Integer proposalId,
                                             @PathVariable("bidId") Integer bidId) {
-        return tenderFacade.saveDeal();
-    }*/
+        return tenderFacade.saveBidDeal(tenderId, proposalId, bidId);
+    }
 
     @RequestMapping(value = "/{tenderId}", method = RequestMethod.GET)
     public @ResponseBody TenderDto getTenderInfo(@PathVariable("tenderId") Integer tenderId){

@@ -10,4 +10,5 @@ public interface DealServiceFacade {
     List<DealDto> findAllDeals();
     void updateDealWithStatus(Integer dealId, String statusName);
     List<DealDto> mapDeals(List<Deal> deals);
+    DealDto mapDeal(Deal deal);
 }
