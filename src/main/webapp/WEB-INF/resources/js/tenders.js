@@ -97,22 +97,26 @@
             populateItemDropdown();
             showTenders();
 
-            /*$('#search_input').keydown(function(event) {
-                if (event.keyCode == 13) {
-                    //search query
-
+            $('#search_input').keypress(function(e) {
+                if (e.keyCode == 13) {
+                    var filter=$('#search_input').val();
+                    if (filter.length > 0) {
+                        search(filter);
+                    }else{
+                        showTenders();
+                    }
                     return false;
                 }
-            });*/
+            });
 
-            $('#search_input').keyup(function(event) {
+            /*$('#search_input').keyup(function(event) {
                 var filter=$('#search_input').val();
                 if (filter.length > 0) {
                     search(filter);
                 }else{
                     showTenders();
                 }
-            });
+            });*/
 
         });
 
