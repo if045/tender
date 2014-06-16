@@ -9,10 +9,12 @@ import com.softserveinc.tender.dto.ProposalSaveDto;
 import com.softserveinc.tender.dto.TenderDto;
 import com.softserveinc.tender.dto.TenderSaveDto;
 import com.softserveinc.tender.dto.UnitDto;
+import com.softserveinc.tender.dto.TendersNumberDto;
 import com.softserveinc.tender.repo.TenderFilter;
 import com.softserveinc.tender.dto.TenderStatusDto;
 import com.softserveinc.tender.facade.TenderServiceFacade;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -41,10 +43,28 @@ public class TenderController {
             @RequestParam(value = "categories", required = false) Set<Integer> categories,
             @RequestParam(value = "statuses", required = false) List<Integer> statuses,
             @RequestParam(value = "minDate", required = false) Date createDate,
+            @RequestParam(value = "maxDate", required = false) Date endDate,
+            @RequestParam(value = "pageNumber", required = true) Integer pageNumber,
+            @RequestParam(value = "pageSize", required = true) Integer pageSize) {
+
+        return tenderFacade.findByCustomParams(new TenderFilter(minPrice, maxPrice, categories, locations, items,
+                                                                statuses, createDate, endDate),
+                                               new PageRequest(pageNumber, pageSize));
+    }
+
+    @RequestMapping(value = "/number", method = RequestMethod.GET)
+    public @ResponseBody TendersNumberDto getTendersNumber(
+            @RequestParam(value = "minPrice", required = false) BigDecimal minPrice,
+            @RequestParam(value = "maxPrice", required = false) BigDecimal maxPrice,
+            @RequestParam(value = "items", required = false) List<Integer> items,
+            @RequestParam(value = "locations", required = false) List<Integer> locations,
+            @RequestParam(value = "categories", required = false) Set<Integer> categories,
+            @RequestParam(value = "statuses", required = false) List<Integer> statuses,
+            @RequestParam(value = "minDate", required = false) Date createDate,
             @RequestParam(value = "maxDate", required = false) Date endDate) {
 
-        return tenderFacade.findByCustomParams(new TenderFilter(minPrice, maxPrice, categories,
-                                                                locations, items, statuses, createDate, endDate));
+        return tenderFacade.getTendersNumber(new TenderFilter(minPrice, maxPrice, categories, locations,
+                items, statuses, createDate, endDate));
     }
 
     @RequestMapping(value = "/statuses", method = RequestMethod.GET)

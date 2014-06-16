@@ -8,6 +8,6 @@ import java.util.List;
 public interface FeedbackService {
 
     List<Feedback> findByProfile(Profile profile);
-    void save(Feedback feedback);
+    Feedback save(Feedback feedback);
     void deleteById(Integer id);
 }

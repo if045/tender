@@ -20,3 +20,6 @@ var PROPOSALS_URL = "/proposals";
 var UNITS_URL = '/units';
 var BIDS_URL = '/bids';
 
+/*Constants for tenders pagination*/
+var DEFAULT_PAGE_SIZE = 10;
+

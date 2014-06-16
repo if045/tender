@@ -13,6 +13,7 @@ import com.softserveinc.tender.dto.TenderStatusDto;
 import com.softserveinc.tender.dto.UnitSaveDto;
 import com.softserveinc.tender.dto.ProposalDto;
 import com.softserveinc.tender.dto.UnitDto;
+import com.softserveinc.tender.dto.TendersNumberDto;
 import com.softserveinc.tender.entity.Bid;
 import com.softserveinc.tender.entity.Category;
 import com.softserveinc.tender.entity.Deal;
@@ -41,6 +42,7 @@ import com.softserveinc.tender.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -107,9 +109,18 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
     private static final String TENDER_STATUS_IN_PROGRESS = "In progress";
 
     @Override
-    public List<TenderDto> findByCustomParams(TenderFilter tenderFilter) {
-        List<Tender> tenders = tenderService.findByCustomParameters(tenderFilter);
+    public List<TenderDto> findByCustomParams(TenderFilter tenderFilter, Pageable pageable) {
+        List<Tender> tenders = tenderService.findByCustomParameters(tenderFilter, pageable);
         return mapTenders(tenders);
+    }
+
+    @Override
+    public TendersNumberDto getTendersNumber(TenderFilter tenderFilter) {
+        Long tendersNumber = tenderService.getTendersNumber(tenderFilter);
+        TendersNumberDto tendersNumberDto = new TendersNumberDto();
+        tendersNumberDto.setTendersNumber(tendersNumber);
+
+        return tendersNumberDto;
     }
 
     public List<TenderStatusDto> findTendersStatuses() {
