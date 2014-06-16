@@ -41,7 +41,7 @@
 
             <div class="row">
                 <!-- User's log in data -->
-                <div class="col-md-4">
+                <div id="login_panel" class="col-md-4">
                     <div class="panel panel-info">
                         <div class="panel-heading">
                             <h3 class="panel-title">Credentials</h3>
@@ -81,7 +81,7 @@
                 <!-- User's log in data -->
 
                 <!-- Company data -->
-                <div class="col-md-8">
+                <div id="company_panel" class="col-md-8" hidden="hidden">
                     <div class="panel panel-info">
                         <div class="panel-heading">
                             <h3 class="panel-title">Company data</h3>
@@ -145,7 +145,7 @@
 
             <div class="row">
                 <!-- User's data -->
-                <div class="col-md-4">
+                <div id="user_panel" class="col-md-4">
                     <div class="panel panel-info">
                         <div class="panel-heading">
                             <h3 class="panel-title">User's data</h3>
@@ -154,7 +154,7 @@
                             <div class="panel-group">
                                 <div class="row backdown">
                                     <div class="col-md-12">
-                                        <select id="populate_roles_dropdown" multiple="multiple"
+                                        <select id="populate_roles_dropdown" onclick="hideShowTradeSphereDataPanel()" multiple="multiple"
                                                 class="populate placeholder select2-offscreen location_selector"
                                                 tabindex="-1">
                                         </select>
@@ -211,10 +211,10 @@
 
                                 <div class="row backdown">
                                     <div class="col-md-4">
-                                        <input id="legal" type="radio" name="person" value="legal"> Legal person<br>
+                                        <input id="legal" onclick="showCompanyDataPanel()" type="radio" name="person" value="legal"> Legal person<br>
                                     </div>
                                     <div class="col-md-5">
-                                        <input id="private" type="radio" name="person" value="private"> Private person<br>
+                                        <input id="private" onclick="hideCompanyDataPanel()" type="radio" name="person" value="private"> Private person<br>
                                     </div>
                                 </div>
                             </div>
@@ -227,7 +227,7 @@
                 <!-- User's data -->
 
                 <!-- Trade sphere data -->
-                <div class="col-md-8">
+                <div id="trade_sphere_panel" class="col-md-8" hidden="hidden">
                     <div class="panel panel-info">
                         <div class="panel-heading">
                             <h3 class="panel-title">Trade sphere</h3>

@@ -140,6 +140,33 @@ function enableConfirmButton() {
     }
 }
 
+function hideCompanyDataPanel() {
+    if($('#private').is(":checked")) {
+        document.getElementById("company_panel").setAttribute('hidden','true');
+    }
+}
+
+function showCompanyDataPanel() {
+    if($('#legal').is(":checked")) {
+        document.getElementById("company_panel").removeAttribute('hidden');
+    }
+}
+
+function hideShowTradeSphereDataPanel() {
+    roles = $('#populate_roles_dropdown').val();
+
+    if(roles != null) {
+        for (var i = 0; i < roles.length; i++) {
+            var checkRole = roles[i];
+            if (checkRole == 3) {
+                document.getElementById("trade_sphere_panel").removeAttribute('hidden');
+            } else {
+                document.getElementById("trade_sphere_panel").setAttribute('hidden', 'hidden');
+            }
+        }
+    }
+}
+
 function goToHomePage() {
     window.location.href = HOME_PAGE_URL;
 }
