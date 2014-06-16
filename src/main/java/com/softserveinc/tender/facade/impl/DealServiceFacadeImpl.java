@@ -1,6 +1,9 @@
 package com.softserveinc.tender.facade.impl;
 
+import com.softserveinc.tender.dto.ConflictDto;
+import com.softserveinc.tender.dto.ConflictSaveDto;
 import com.softserveinc.tender.dto.DealDto;
+import com.softserveinc.tender.entity.Conflict;
 import com.softserveinc.tender.entity.Deal;
 import com.softserveinc.tender.entity.Tender;
 import com.softserveinc.tender.facade.DealServiceFacade;
@@ -24,6 +27,9 @@ public class DealServiceFacadeImpl implements DealServiceFacade {
 
     @Autowired
     private ModelMapper modelMapper;
+
+    @Autowired
+    private ConflictService conflictService;
 
     @Override
     public List<DealDto> findAllDeals() {
@@ -56,5 +62,22 @@ public class DealServiceFacadeImpl implements DealServiceFacade {
         dealDto.setBusinessPartner(deal.getCustomer().getFirstName());
 
         return dealDto;
+    }
+
+    private ConflictDto mapConflict(Conflict conflict) {
+        ConflictDto conflictDto = new ConflictDto();
+        conflictDto.setId(conflict.getId());
+        conflictDto.setBidId(conflict.getBid().getId());
+        conflictDto.setDescription(conflict.getDescription());
+        conflictDto.setStatusId(conflict.getStatus().getId());
+        return conflictDto;
+    }
+
+    @Override
+    public ConflictDto saveConflict(ConflictSaveDto conflictSaveDto) {
+        Conflict conflict = new Conflict();
+        conflict.setDescription(conflictSaveDto.getDescription());
+        Conflict savedConflict = conflictService.save(conflict);
+        return mapConflict(savedConflict);
     }
 }
