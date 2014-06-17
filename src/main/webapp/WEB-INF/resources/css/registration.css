@@ -34,3 +34,7 @@
 .required-select, .select2-default {
     color: #d2242f !important;
 }
+
+.required-radio {
+    color:#d2242f;
+}
