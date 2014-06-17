@@ -133,6 +133,5 @@ public class DealServiceFacadeImpl implements DealServiceFacade {
 
         Feedback savedFeedback = feedbackService.save(feedback);
         return mapFeedback(savedFeedback);
-
     }
 }
