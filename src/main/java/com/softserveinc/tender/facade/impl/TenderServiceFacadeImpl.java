@@ -34,6 +34,7 @@ import com.softserveinc.tender.service.ProposalService;
 import com.softserveinc.tender.service.TenderStatusService;
 import com.softserveinc.tender.service.UnitService;
 import com.softserveinc.tender.service.UserService;
+import com.softserveinc.tender.service.impl.TenderMail;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -338,6 +339,8 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
             bids.add(savedBid);
         }
         savedProposal.setBids(bids);
+        TenderMail tenderMail = new TenderMail();
+        tenderMail.sendMail("tinochka0@gmail.com", "Test subject", "Text message");
         return mapTenderProposal(savedProposal);
     }
 
