@@ -40,7 +40,7 @@
             <div class="page_body">
                 <!-- content -->
                 <div class="row col-md-12 pull-left">
-                    <h4>Tender title</h4>
+                    <div id="tender_title"></div>
                 </div>
 
                 <!-- information about tender -->
@@ -164,9 +164,5 @@
 <jsp:include page="newTenderCreated.jsp"/>
 <!-- new tender modal window -->
 
-<%--<div class="tooltip fade bottom in" style="top: 38px; left: 144px; display: block;">
-    <div class="tooltip-arrow"></div>
-    <div class="tooltip-inner">dasdad</div>
-</div>--%>
 </body>
 </html>
