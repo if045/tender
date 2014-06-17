@@ -52,12 +52,25 @@
             border-top-left-radius: 0;
             border-top-right-radius: 0;
         }
+        .error {
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 1px solid transparent;
+            border-radius: 4px;
+            color: #a94442;
+            background-color: #f2dede;
+            border-color: #ebccd1;
+        }
     </style>
 </head>
 
 <body>
 
     <jsp:include page="header.jsp"/>
+
+    <c:if test="${not empty error}">
+        <div class="error"><h4>${error}</h4></div>
+    </c:if>
 
     <form class="form-signin" role="form" action="/j_spring_security_check" method="post">
         <h2 class="form-signin-heading">Please sign in</h2>
