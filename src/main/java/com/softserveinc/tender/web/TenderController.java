@@ -1,6 +1,7 @@
 package com.softserveinc.tender.web;
 
 import com.softserveinc.tender.dto.CategoryDto;
+import com.softserveinc.tender.dto.DealDto;
 import com.softserveinc.tender.dto.ItemDto;
 import com.softserveinc.tender.dto.LocationDto;
 import com.softserveinc.tender.dto.ProposalDto;
@@ -113,6 +114,19 @@ public class TenderController {
     @RequestMapping(value = "/{id}/proposals", method = RequestMethod.POST, consumes = "application/json")
     public @ResponseBody ProposalDto addProposal(@RequestBody ProposalSaveDto proposalSaveDto) {
         return tenderFacade.saveProposal(proposalSaveDto);
+    }
+
+    @RequestMapping(value = "/{tenderId}/proposals/{proposalId}/deals", method = RequestMethod.POST, consumes = "application/json")
+    public @ResponseBody List<DealDto> createDeal(@PathVariable("tenderId") Integer tenderId,
+                                                  @PathVariable("proposalId") Integer proposalId) {
+        return tenderFacade.saveProposalDeal(tenderId, proposalId);
+    }
+
+    @RequestMapping(value = "/{tenderId}/proposals/{proposalId}/bids/{bidId}/deals", method = RequestMethod.POST, consumes = "application/json")
+    public @ResponseBody DealDto createDeal(@PathVariable("tenderId") Integer tenderId,
+                                            @PathVariable("proposalId") Integer proposalId,
+                                            @PathVariable("bidId") Integer bidId) {
+        return tenderFacade.saveBidDeal(tenderId, proposalId, bidId);
     }
 
     @RequestMapping(value = "/{tenderId}", method = RequestMethod.GET)
