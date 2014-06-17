@@ -198,9 +198,20 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
     private List<CategoryDto> mapCategories(List<Category> categories) {
         List<CategoryDto> categoryDtos = new ArrayList<>();
         for (Category category : categories) {
-            categoryDtos.add(modelMapper.map(category, CategoryDto.class));
+            categoryDtos.add(mapCategory(category));
         }
         return categoryDtos;
+    }
+
+    private CategoryDto mapCategory(Category category) {
+        CategoryDto categoryDto = new CategoryDto();
+        categoryDto.setId(category.getId());
+        categoryDto.setName(category.getName());
+        if(category.getParent() != null) {
+            categoryDto.setParentId(category.getParent().getId());
+        }
+
+        return categoryDto;
     }
 
     @Override
