@@ -6,6 +6,8 @@
            http://www.springframework.org/schema/security
            http://www.springframework.org/schema/security/spring-security.xsd">
 
+    <global-method-security pre-post-annotations="enabled"/>
+
     <http use-expressions="true" auto-config="true">
         <intercept-url pattern="/mydeals" access="hasAnyRole('CUSTOMER','SELLER')" />
         <intercept-url pattern="/mytenders" access="hasAnyRole('CUSTOMER','SELLER')" />
