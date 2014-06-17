@@ -44,9 +44,9 @@ public class DealServiceFacadeImpl implements DealServiceFacade {
 
     @Override
     public DealsNumberDto getDealsNumber() {
-        Long delsNumber = dealService.getDealsNumber();
+        Long dealsNumber = dealService.getDealsNumber();
         DealsNumberDto dealsNumberDto = new DealsNumberDto();
-        dealsNumberDto.setDealsNumber(delsNumber);
+        dealsNumberDto.setDealsNumber(dealsNumber);
 
         return dealsNumberDto;
     }
