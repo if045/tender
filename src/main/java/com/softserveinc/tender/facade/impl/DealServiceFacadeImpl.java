@@ -1,6 +1,7 @@
 package com.softserveinc.tender.facade.impl;
 
 import com.softserveinc.tender.dto.DealDto;
+import com.softserveinc.tender.dto.DealsNumberDto;
 import com.softserveinc.tender.dto.FeedbackDto;
 import com.softserveinc.tender.dto.FeedbackSaveDto;
 import com.softserveinc.tender.entity.Deal;
@@ -9,10 +10,12 @@ import com.softserveinc.tender.entity.Profile;
 import com.softserveinc.tender.entity.Tender;
 import com.softserveinc.tender.entity.User;
 import com.softserveinc.tender.facade.DealServiceFacade;
-import com.softserveinc.tender.service.*;
+import com.softserveinc.tender.service.DealService;
+import com.softserveinc.tender.service.FeedbackService;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -34,9 +37,18 @@ public class DealServiceFacadeImpl implements DealServiceFacade {
     private ModelMapper modelMapper;
 
     @Override
-    public List<DealDto> findAllDeals() {
-        List<Deal> deals = dealService.findAllDeals();
+    public List<DealDto> findAllDeals(Pageable pageable) {
+        List<Deal> deals = dealService.findAllDeals(pageable);
         return mapDeals(deals);
+    }
+
+    @Override
+    public DealsNumberDto getDealsNumber() {
+        Long delsNumber = dealService.getDealsNumber();
+        DealsNumberDto dealsNumberDto = new DealsNumberDto();
+        dealsNumberDto.setDealsNumber(delsNumber);
+
+        return dealsNumberDto;
     }
 
     @Override

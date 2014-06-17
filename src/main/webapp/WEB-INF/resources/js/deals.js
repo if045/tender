@@ -1,7 +1,16 @@
+var pageSize = DEFAULT_PAGE_SIZE;
+var currPageNumber = 0;
+
 $(document).ready(function() {
     $('#endDate').datepicker({
         format: 'mm-dd-yyyy',
         startDate: '-5y'
+    });
+
+    $('#pagination_itemsnum').on('change', function() {
+        pageSize = this.value;
+        currPageNumber = 0;
+        //showPage(currPageNumber);
     });
 
     showDeals();
@@ -82,4 +91,9 @@ function writeCloseDealId(id) {
 
 function closeDealModalWindow(id) {
     $('#' + id).modal('hide');
+}
+
+function showPage(pageNumber) {
+    currPageNumber = pageNumber;
+    //applyFilters();
 }
