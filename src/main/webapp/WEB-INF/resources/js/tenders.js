@@ -375,7 +375,7 @@
         }
 
         function goToRegistrationPage() {
-            window.location.href = '/registration';
+            window.location.href = REGISTRATION_PAGE_URL;
         }
 
         function showPagination(queryParams) {
