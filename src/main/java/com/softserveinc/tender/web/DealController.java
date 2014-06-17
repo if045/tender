@@ -43,10 +43,10 @@ public class DealController {
     ConflictDto addConflict(@RequestBody ConflictSaveDto conflictSaveDto) {
         return dealFacade.saveConflict(conflictSaveDto);
     }
+
     @RequestMapping(value = "/{id}/feedbacks", method = RequestMethod.POST, consumes = "application/json")
     public @ResponseBody
     FeedbackDto addFeedback(@RequestBody FeedbackSaveDto feedbackSaveDto) {
         return dealFacade.saveFeedback(feedbackSaveDto);
-
     }
 }
