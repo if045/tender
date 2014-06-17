@@ -7,5 +7,5 @@ public interface UserService {
 
     List<User> findAll();
     User findUserById(int id);
-    void saveUser(User user);
+    User saveUser(User user);
 }

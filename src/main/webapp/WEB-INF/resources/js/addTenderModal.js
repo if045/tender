@@ -250,7 +250,7 @@ function addUnit() {
     var len = newJson.units.length;
     $('#create_tender_units_table').show();
     for (var i = 0; i < len; i++) {
-        html += '<tr><td align="center">'+newJson.units[i].item +'</td>' +
+        html += '<tr><td align="center" class="units_table_body_name">'+newJson.units[i].item +'</td>' +
             '<td align="center" class="units_table_body_type">' + newJson.units[i].itemType + '</td>' +
             '<td align="center" class="units_table_body_category">' + newJson.units[i].category + '</td>' +
             '<td align="center" class="units_table_body_quantity">' + newJson.units[i].quantity + '</td>' +
@@ -280,7 +280,7 @@ function removeUnit(id) {
         var html = '';
         var len = newJson.units.length;
         for (var i = 0; i < len; i++) {
-            html += '<tr><td align="center">'+newJson.units[i].item +'</td>' +
+            html += '<tr><td align="center" class="units_table_body_name">'+newJson.units[i].item +'</td>' +
                 '<td align="center" class="units_table_body_type">' + newJson.units[i].itemType + '</td>' +
                 '<td align="center" class="units_table_body_category">' + newJson.units[i].category + '</td>' +
                 '<td align="center" class="units_table_body_quantity">' + newJson.units[i].quantity + '</td>' +
