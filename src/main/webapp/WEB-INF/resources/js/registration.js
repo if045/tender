@@ -16,33 +16,25 @@ $(document).ready(function() {
         placeholder: "Select locations"
     });
 
-    $.getJSON(ROLES_URL, {
-        ajax : 'true'
-    }, function(data){
-        $('#populate_roles_dropdown').html(mapDropdownData(data));
-    });
+    mapDropdownData(ROLES_URL, '#populate_roles_dropdown');
+    mapDropdownData(CATEGORIES_URL, '#populate_categories_dropdown');
+    mapDropdownData(LOCATIONS_URL, "#populate_locations_dropdown");
 
-    $.getJSON(CATEGORIES_URL, {
-        ajax : 'true'
-    }, function(data){
-        $('#populate_categories_dropdown').html(mapDropdownData(data));
-    });
-
-    $.getJSON(LOCATIONS_URL, {
-        ajax : 'true'
-    }, function(data){
-        $('#populate_locations_dropdown').html(mapDropdownData(data));
-    });
+    addRegisteredUser();
 });
 
-function mapDropdownData(data) {
-    var html;
-    var len = data.length;
-    for (var i = 0; i < len; i++) {
-        html += '<option value="' + data[i].id + '">'
-            + data[i].name + '</option>';
-    }
-    return html;
+function mapDropdownData(url, id) {
+    $.getJSON(url, {
+        ajax : 'true'
+    }, function(data){
+        var html;
+        var len = data.length;
+        for (var i = 0; i < len; i++) {
+            html += '<option value="' + data[i].id + '">'
+                + data[i].name + '</option>';
+        }
+        $(id).html(html);
+    });
 }
 
 function addRegisteredUser() {
@@ -140,12 +132,19 @@ function hideCompanyDataPanel() {
     if($('#private').is(":checked")) {
         document.getElementById("company_panel").setAttribute('hidden','true');
     }
+    hideRequiredRadio();
 }
 
 function showCompanyDataPanel() {
     if($('#legal').is(":checked")) {
         document.getElementById("company_panel").removeAttribute('hidden');
     }
+    hideRequiredRadio();
+}
+
+function hideRequiredRadio() {
+    $('#legal-radio').removeClass('required-radio');
+    $('#private-radio').removeClass('required-radio');
 }
 
 function hideShowTradeSphereDataPanel() {
