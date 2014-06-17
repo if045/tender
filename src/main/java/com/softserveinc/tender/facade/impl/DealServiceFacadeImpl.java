@@ -34,6 +34,9 @@ public class DealServiceFacadeImpl implements DealServiceFacade {
     @Autowired
     private ConflictService conflictService;
 
+    @Autowired
+    private UserService userService;
+
     @Override
     public List<DealDto> findAllDeals() {
         List<Deal> deals = dealService.findAllDeals();
@@ -80,9 +83,8 @@ public class DealServiceFacadeImpl implements DealServiceFacade {
     public ConflictDto saveConflict(ConflictSaveDto conflictSaveDto) {
         Conflict conflict = new Conflict();
         conflict.setDescription(conflictSaveDto.getDescription());
-        //TODO: change moderator id after create moderators
         User moderator = new User();
-        moderator.setId(1);
+        moderator.setId(userService.findByModeratorCategoriesId(dealService.findDealById(conflictSaveDto.getBidId()).getBid().getUnit().getItem().getCategory().getId()).getId());
         conflict.setModerator(moderator);
         ConflictStatus conflictStatus = new ConflictStatus();
         conflictStatus.setId(1);
