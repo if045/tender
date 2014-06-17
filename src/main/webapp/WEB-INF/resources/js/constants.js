@@ -13,6 +13,7 @@ var TENDER_VIEW_URL = "/tenderView";
 /*Constants for deals.js*/
 var DEALS_URL = "/deals";
 var DEAL_STATUS = "close";
+var DEALS_NUMBER_URL = '/deals/number';
 /*Constants for deals.js*/
 
 
