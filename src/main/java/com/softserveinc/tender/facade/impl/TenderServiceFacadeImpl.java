@@ -91,8 +91,13 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
     @Autowired
     private BidService bidService;
 
+    @Autowired
+    private TenderMail tenderMail;
+
     private static final String DATE_FORMAT_FROM_CLIENT="yyyy/MM/dd";
     private static final String TENDER_STATUS_IN_PROGRESS = "In progress";
+    private static final String TENDER_VIEW_URL = "http://localhost:8080/tenderView/";
+    private static final String MESSAGE_PROPOSAL_TITLE = "new proposal";
 
     @Override
     public List<TenderDto> findByCustomParams(TenderFilter tenderFilter, Pageable pageable) {
@@ -339,8 +344,8 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
             bids.add(savedBid);
         }
         savedProposal.setBids(bids);
-        TenderMail tenderMail = new TenderMail();
-        tenderMail.sendMail("tinochka0@gmail.com", "Test subject", "Text message");
+        //TO DO set hear real user mail
+        tenderMail.sendMail("tinochka0@gmail.com", MESSAGE_PROPOSAL_TITLE, TENDER_VIEW_URL + tender.getId());
         return mapTenderProposal(savedProposal);
     }
 
