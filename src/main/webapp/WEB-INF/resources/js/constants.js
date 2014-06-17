@@ -16,6 +16,7 @@ var DEAL_STATUS = "close";
 
 var PROPOSALS_URL = "/proposals";
 var UNITS_URL = '/units';
+var BIDS_URL = '/bids';
 
 /*Constants for registration.js*/
 var ROLES_URL = "roles/users";
@@ -51,4 +52,8 @@ var categories;
 
 /*Constants for tenders pagination*/
 var DEFAULT_PAGE_SIZE = 10;
+var TENDERS_NUMBER = "/tenders/number";
+
+/*Constants for tenders pagination*/
+var DEFAULT_SORT_FIELD = "createDate";
 

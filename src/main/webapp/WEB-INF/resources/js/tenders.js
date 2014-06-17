@@ -1,5 +1,7 @@
         var pageSize = DEFAULT_PAGE_SIZE;
         var currPageNumber = 0;
+        var sortDirection = false;
+        var orderBy = DEFAULT_SORT_FIELD;
 
         $(document).ready(function() {
             $('#startDate, #endDate, #create_tender_enddate').datepicker({
@@ -29,11 +31,31 @@
                 enableFilterButtons();
             });
 
-            $('#pagination_itemsnum').on('change', function() {
+            $("#pagination_itemsnum").on('change', function() {
                 pageSize = this.value;
                 currPageNumber = 0;
                 showPage(currPageNumber);
-            })
+            });
+
+            $("#tender_title").click(function(){
+                sortTenders("title","tender_title");
+            });
+
+            $("#tender_author").click(function(){
+                sortTenders("author.firstName","tender_author");
+            });
+
+            $("#tender_suitable_price").click(function(){
+                sortTenders("suitablePrice","tender_suitable_price");
+            });
+
+            $("#tender_status").click(function(){
+                sortTenders("status.name","tender_status");
+            });
+
+            $("#tender_proposals").click(function(){
+                sortTenders("proposals.size","tender_proposals");
+            });
 
             $("#category_filter").change(function() {
                 enableFilterButtons();
@@ -131,10 +153,11 @@
 
         function showTenders() {
             showPagination("");
-            var queryParams = "pageSize="+pageSize+"&pageNumber="+currPageNumber;
+            var queryParams = "pageSize=" + pageSize + "&pageNumber=" + currPageNumber + "&sortDirection=" +
+                ((sortDirection)?"desc":"asc") + "&orderBy=" + orderBy;
 
             $.ajax({
-                url: "/tenders",
+                url: TENDERS_URL,
                 type: "GET",
                 data:  queryParams,
                 dataType:'json',
@@ -260,10 +283,10 @@
 
             showPagination(str);
             str += (str.length==0)?"pageSize="+pageSize:"&pageSize="+pageSize;
-            str += "&pageNumber="+currPageNumber;
+            str += "&pageNumber="+currPageNumber + "&sortDirection=" + ((sortDirection)?"desc":"asc") + "&orderBy=" + orderBy;
 
             $.ajax({
-                url: "/tenders",
+                url: TENDERS_URL,
                 type: "GET",
                 data:  str,
                 dataType:'json',
@@ -380,7 +403,7 @@
 
         function showPagination(queryParams) {
             $.ajax({
-                url: "/tenders/number",
+                url: TENDERS_NUMBER,
                 async: false,
                 type: "GET",
                 data:  queryParams,
@@ -420,5 +443,19 @@
 
         function showPage(pageNumber) {
             currPageNumber = pageNumber;
+            applyFilters();
+        }
+
+        function sortTenders(orderByField, elementId) {
+            sortDirection = (orderBy == orderByField) ? !sortDirection : false;
+            orderBy = orderByField;
+
+            $('#tender_items .sortable').addClass('glyphicon-chevron-down').removeClass('glyphicon-chevron-up');
+            if(sortDirection == false) {
+                $('#'+elementId+' .sortable').addClass('glyphicon-chevron-up').removeClass('glyphicon-chevron-down');
+            } else {
+                $('#'+elementId+' .sortable').addClass('glyphicon-chevron-down').removeClass('glyphicon-chevron-up');
+            }
+
             applyFilters();
         }
