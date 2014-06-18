@@ -14,6 +14,7 @@ import com.softserveinc.tender.repo.TenderFilter;
 import com.softserveinc.tender.dto.TenderStatusDto;
 import com.softserveinc.tender.facade.TenderServiceFacade;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
@@ -98,6 +99,7 @@ public class TenderController {
         return tenderFacade.findUnitsByTenderId(tenderId);
     }
 
+    @PreAuthorize("hasRole('CUSTOMER')")
     @RequestMapping(value = "/{tenderId}", method = RequestMethod.PUT)
     public @ResponseBody TenderDto updateTender(@PathVariable("tenderId") Integer tenderId,
                                                 @RequestParam("statusName") String statusName,
@@ -111,11 +113,13 @@ public class TenderController {
          return tenderFacade.findTendersProposals(id);
     }
 
+    @PreAuthorize("hasRole('CUSTOMER')")
     @RequestMapping(value = "", method = RequestMethod.POST, consumes = "application/json")
     public @ResponseBody TenderDto addTender(@RequestBody TenderSaveDto tenderSaveDto) {
         return tenderFacade.saveTender(tenderSaveDto);
     }
 
+    @PreAuthorize("hasRole('SELLER')")
     @RequestMapping(value = "/{id}/proposals", method = RequestMethod.POST, consumes = "application/json")
     public @ResponseBody ProposalDto addProposal(@RequestBody ProposalSaveDto proposalSaveDto) {
         return tenderFacade.saveProposal(proposalSaveDto);

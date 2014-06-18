@@ -1,11 +1,18 @@
 package com.softserveinc.tender.dto;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 public class UserDto {
 
+    @NotNull
     private String login;
+
+    @NotNull
     private String password;
+
+    @NotNull
     private List<Integer> roles;
 
     public String getLogin() {

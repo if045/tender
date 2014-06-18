@@ -174,18 +174,23 @@
                                 '<td align="center">' + data[i].locations + '</td>' +
                                 '<td align="center">' + data[i].suitablePrice + '</td>' +
                                 '<td align="center">' + data[i].status + '</td>' +
-                                '<td align="center">' + data[i].proposals + '</td>'+
+                                '<td align="center">' + data[i].proposals + '</td>' +
                                 '<td align="center">' +
                                 '<div class="btn-group">' +
                                 '<button data-toggle="dropdown" class="btn btn-default dropdown-toggle">Action<span class="caret"></span></button>' +
-                                '<ul class="dropdown-menu">' +
-                                '<li><a href="/tenderView/' + data[i].id + '">View</a></li>' +
-                                '<li><a href="#" data-toggle="modal" data-target="#createProposalWindow">Create proposal</a></li>' +
-                                '<li><a href="#" data-toggle="modal" data-target="#close_tender_mod_wind" onclick="writeCloseTenderId(' + data[i].id + ')">Close</a></li>' +
-                                '</ul>' +
+                                '<ul class="dropdown-menu">'+
+                                '<li><a href="/tenderView/' + data[i].id + '">View</a></li>';
+                            if (data[i].roles.toString().search('CUSTOMER')!=-1){
+                                html += '<li><a href="#" data-toggle="modal" data-target="#close_tender_mod_wind" onclick="writeCloseTenderId(' + data[i].id + ')">Close</a></li>';
+                            }
+                            if (data[i].roles.toString().search('SELLER')!=-1){
+                                html += '<li><a href="#" data-toggle="modal" data-target="#createProposalWindow" onclick="showUnits(' + data[i].id + ')">Create proposal</a></li>';
+                            }
+                            html +='</ul>' +
                                 '</div>' +
                                 '</td></tr>';
                         }
+
 
                         $('#user_message').html('');
                         $('#tender_items').show();
@@ -303,15 +308,19 @@
                                 '<td align="center">' + data[i].locations + '</td>' +
                                 '<td align="center">' + data[i].suitablePrice + '</td>' +
                                 '<td align="center">' + data[i].status + '</td>' +
-                                '<td align="center">' + data[i].proposals + '</td>'+
+                                '<td align="center">' + data[i].proposals + '</td>' +
                                 '<td align="center">' +
                                 '<div class="btn-group">' +
                                 '<button data-toggle="dropdown" class="btn btn-default dropdown-toggle">Action<span class="caret"></span></button>' +
-                                '<ul class="dropdown-menu">' +
-                                '<li><a href="/tenderView/' + data[i].id + '">View</a></li>' +
-                                '<li><a href="#" data-toggle="modal" data-target="#createProposalWindow">Create proposal</a></li>' +
-                                '<li><a href="#" data-toggle="modal" data-target="#close_tender_mod_wind" onclick="writeCloseTenderId(' + data[i].id + ')">Close</a></li>' +
-                                '</ul>' +
+                                '<ul class="dropdown-menu">'+
+                                '<li><a href="/tenderView/' + data[i].id + '">View</a></li>';
+                            if (data[i].roles.toString().search('CUSTOMER')!=-1){
+                                html += '<li><a href="#" data-toggle="modal" data-target="#close_tender_mod_wind" onclick="writeCloseTenderId(' + data[i].id + ')">Close</a></li>';
+                            }
+                            if (data[i].roles.toString().search('SELLER')!=-1){
+                                html += '<li><a href="#" data-toggle="modal" data-target="#createProposalWindow" onclick="showUnits(' + data[i].id + ')">Create proposal</a></li>';
+                            }
+                            html +='</ul>' +
                                 '</div>' +
                                 '</td></tr>';
                         }

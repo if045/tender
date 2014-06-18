@@ -4,6 +4,7 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
+<%@taglib uri="http://www.springframework.org/security/tags" prefix="security"%>
 
 <!DOCTYPE html>
 <html>
@@ -16,6 +17,7 @@
     <link rel="stylesheet" type="text/css" media="screen" href='<c:url value="../resources/css/select2.css"/>'/>
     <link rel="stylesheet" type="text/css" media="screen" href='<c:url value="../resources/css/style.css"/>'/>
 
+    <script type='text/javascript' src='<c:url value="../resources/js/constants.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/jquery-2.1.1.min.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/bootstrap.min.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/bootstrap-datepicker.js"/>'></script>
@@ -25,7 +27,6 @@
 
     <script type='text/javascript' src='<c:url value="../resources/js/tenders.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/tender.js"/>'></script>
-    <script type='text/javascript' src='<c:url value="../resources/js/constants.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/tenderview.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/addTenderModal.js"/>'></script>
 </head>
@@ -74,8 +75,10 @@
                 <!-- information about tender -->
 
                 <div class="row col-md-12">
-                    <button type="submit" class="btn btn-primary col-md-1 col-md-offset-10"
-                            id="save_tender_button" onclick="saveTenderAfterUpdate();" disabled>Save</button>
+                    <security:authorize access="hasRole('CUSTOMER')">
+                        <button type="submit" class="btn btn-primary col-md-1 col-md-offset-10"
+                                id="save_tender_button" onclick="saveTenderAfterUpdate();" disabled>Save</button>
+                    </security:authorize>
                 </div>
 
                 <div class="row">

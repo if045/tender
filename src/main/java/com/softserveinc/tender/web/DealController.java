@@ -7,6 +7,7 @@ import com.softserveinc.tender.dto.FeedbackDto;
 import com.softserveinc.tender.dto.FeedbackSaveDto;
 import com.softserveinc.tender.facade.DealServiceFacade;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -32,6 +33,7 @@ public class DealController {
         return dealFacade.findAllDeals();
     }
 
+    @PreAuthorize("hasAnyRole('CUSTOMER','SELLER')")
     @RequestMapping(value = "/{dealId}", method = RequestMethod.PUT)
     public @ResponseBody void updateDealWithStatus(@PathVariable("dealId") Integer dealId,
                                                      @RequestParam("statusName") String statusName) {
