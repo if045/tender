@@ -7,7 +7,7 @@ function createConflict() {
         ', "bidId": ' + '\"' + $('#conflict_id').val() +'\"}';
     var newJson = $.parseJSON(str);
     $.ajax({
-        url: "/deals/" + $('#conflict_id').val() + "/conflicts",
+        url: DEALS + $('#conflict_id').val() + CONFLICTS,
         type: "POST",
         data: JSON.stringify(newJson),
         dataType: 'json',

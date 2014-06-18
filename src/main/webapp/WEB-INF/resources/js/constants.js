@@ -57,3 +57,6 @@ var TENDERS_NUMBER = "/tenders/number";
 /*Constants for tenders pagination*/
 var DEFAULT_SORT_FIELD = "createDate";
 
+/*Constants for conflict*/
+var DEALS ="/deals/";
+var CONFLICTS = "/conflicts";
