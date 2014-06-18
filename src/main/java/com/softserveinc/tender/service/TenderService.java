@@ -13,5 +13,4 @@ public interface TenderService {
     Long getTendersNumber(TenderFilter tenderFilter);
     Tender save(Tender tender);
     Tender updateTender(Integer tenderId, String statusName, Date endDate, String description);
-    List<Tender> findBySearchParam(String title);
 }

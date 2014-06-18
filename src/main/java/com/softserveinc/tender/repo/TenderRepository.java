@@ -16,6 +16,7 @@ public interface TenderRepository extends JpaRepository<Tender, Integer> {
 
     @Query("select distinct t from Tender t inner join t.locations l, Category c, Unit u, Item i " +
             "where t.id = u.tender.id and c.id=i.category.id and i.id = u.item.id " +
+            "and (1 = :searchFlag or t.title like :searchParam) "+
             "and (1 = :priceFlag or t.suitablePrice between :min and :max) " +
             "and (1 = :categoryFlag or i.category.id in (:categories)) " +
             "and (1 = :statusFlag or t.status.id in (:status)) " +
@@ -23,7 +24,8 @@ public interface TenderRepository extends JpaRepository<Tender, Integer> {
             "and (1 = :locationFlag or l.id IN (:locations)) " +
             "and (1 = :itemFlag or i.id IN (:items)) " +
             "and t.endDate between :minDate and :maxDate")
-    List<Tender> findByCustomParameters(@Param("min") BigDecimal min,
+    List<Tender> findByCustomParameters(@Param("searchParam")String tenderTitle,
+                                        @Param("min") BigDecimal min,
                                         @Param("max") BigDecimal max,
                                         @Param("status") List<Integer> status,
                                         @Param("categories") Set<Integer> categories,
@@ -36,6 +38,7 @@ public interface TenderRepository extends JpaRepository<Tender, Integer> {
                                         @Param("locationFlag") Integer locationFlag,
                                         @Param("statusFlag") Integer statusFlag,
                                         @Param("priceFlag") Integer priceFlag,
+                                        @Param("searchFlag") Integer searchFlag,
                                         Pageable pageable);
 
     @Query("select count(distinct t) from Tender t inner join t.locations l, Category c, Unit u, Item i " +
@@ -61,5 +64,4 @@ public interface TenderRepository extends JpaRepository<Tender, Integer> {
                           @Param("statusFlag") Integer statusFlag,
                           @Param("priceFlag") Integer priceFlag);
 
-    List<Tender> findByTitleStartingWith(String title);
 }

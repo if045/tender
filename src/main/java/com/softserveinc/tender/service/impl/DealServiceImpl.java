@@ -43,6 +43,6 @@ public class DealServiceImpl implements DealService {
 
     @Override
     public List<Deal> findBySearchParam(String title) {
-        return dealRepository.findByProposalTenderTitleStartingWith(title);
+        return dealRepository.findByProposalTenderTitleContaining(title);
     }
 }

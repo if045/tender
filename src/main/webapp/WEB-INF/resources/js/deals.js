@@ -6,7 +6,7 @@ $(document).ready(function() {
 
     showDeals();
     $('#search_deals').keypress(function(e) {
-        if (e.keyCode == 13) {
+        if (e.keyCode == ENTER_BUTTON_CODE) {
             var filter=$('#search_deals').val();
             if (filter.length > 0) {
                 searchDeals(filter);

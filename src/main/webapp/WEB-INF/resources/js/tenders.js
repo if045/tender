@@ -1,5 +1,6 @@
         var pageSize = DEFAULT_PAGE_SIZE;
         var currPageNumber = 0;
+        var ENTER_BUTTON_CODE =13;
 
         $(document).ready(function() {
             $('#startDate, #endDate, #create_tender_enddate').datepicker({
@@ -106,13 +107,8 @@
             showTenders();
 
             $('#search_tenders').keypress(function(e) {
-                if (e.keyCode == 13) {
-                    var filter=$('#search_tenders').val();
-                    if (filter.length > 0) {
-                        searchTenders(filter);
-                    }else{
-                        showTenders();
-                    }
+                if (e.keyCode == ENTER_BUTTON_CODE) {
+                    applyFilters();
                     return false;
                 }
             });
@@ -190,6 +186,7 @@
             $("#category_filter").select2('val', 'All');
             $("#item_dropdown").select2('val', 'All');
             $("#status_filter").select2('val', 'All');
+            $('#search_tenders').val("");
             initializeDateFilter();
             
             showTenders();
@@ -258,6 +255,9 @@
             }
             if($("#date_to").val()!=""){
                 str += (str.length==0)?"maxDate="+$("#date_to").val():"&maxDate="+$("#date_to").val();
+            }
+            if($('#search_tenders').val()!=""){
+                str += (str.length==0)?"searchParam="+$('#search_tenders').val():"&searchParam="+$('#search_tenders').val();
             }
 
             showPagination(str);

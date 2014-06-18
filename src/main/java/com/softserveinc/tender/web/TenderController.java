@@ -44,10 +44,12 @@ public class TenderController {
             @RequestParam(value = "minDate", required = false) Date createDate,
             @RequestParam(value = "maxDate", required = false) Date endDate,
             @RequestParam(value = "pageNumber", required = true) Integer pageNumber,
-            @RequestParam(value = "pageSize", required = true) Integer pageSize) {
+            @RequestParam(value = "pageSize", required = true) Integer pageSize,
+            @RequestParam(value = "searchParam",required = false) String searchParam) {
 
-        return tenderFacade.findByCustomParams(new TenderFilter(minPrice, maxPrice, categories, locations, items,
-                        statuses, createDate, endDate),
+        return tenderFacade.findByCustomParams(new TenderFilter(minPrice, maxPrice, categories, locations,
+                        items,
+                        statuses, createDate, endDate, searchParam),
                 new PageRequest(pageNumber, pageSize)
         );
     }
@@ -61,10 +63,11 @@ public class TenderController {
             @RequestParam(value = "categories", required = false) Set<Integer> categories,
             @RequestParam(value = "statuses", required = false) List<Integer> statuses,
             @RequestParam(value = "minDate", required = false) Date createDate,
-            @RequestParam(value = "maxDate", required = false) Date endDate) {
+            @RequestParam(value = "maxDate", required = false) Date endDate,
+            @RequestParam(value = "searchParam",required = false) String searchParam) {
 
         return tenderFacade.getTendersNumber(new TenderFilter(minPrice, maxPrice, categories, locations,
-                items, statuses, createDate, endDate));
+                items, statuses, createDate, endDate,searchParam));
     }
 
     @RequestMapping(value = "/statuses", method = RequestMethod.GET)
@@ -114,11 +117,6 @@ public class TenderController {
     @RequestMapping(value = "/{id}/proposals", method = RequestMethod.POST, consumes = "application/json")
     public @ResponseBody ProposalDto addProposal(@RequestBody ProposalSaveDto proposalSaveDto) {
         return tenderFacade.saveProposal(proposalSaveDto);
-    }
-
-    @RequestMapping(value = "/search/{title}", method = RequestMethod.GET)
-    public @ResponseBody List<TenderDto> search(@PathVariable("title") String title) {
-        return tenderFacade.findBySearchParam(title);
     }
 
     @RequestMapping(value = "/{tenderId}", method = RequestMethod.GET)

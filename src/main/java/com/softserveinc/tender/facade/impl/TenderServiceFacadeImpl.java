@@ -345,10 +345,4 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
     public TenderDto findOneById(Integer id) {
         return mapTender(tenderService.findOne(id));
     }
-
-    @Override
-    public List<TenderDto> findBySearchParam(String title) {
-        List<Tender> tenders = tenderService.findBySearchParam(title.toLowerCase());
-        return mapTenders(tenders);
-    }
 }

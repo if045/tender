@@ -28,6 +28,5 @@ public interface TenderServiceFacade {
     TenderDto updateTender(Integer tenderId, String statusName, String endDate, String description);
     List<ProposalDto> findTendersProposals(Integer tenderId);
     ProposalDto saveProposal(ProposalSaveDto proposalSaveDto);
-    List<TenderDto> findBySearchParam(String title);
     TenderDto findOneById(Integer id);
 }
