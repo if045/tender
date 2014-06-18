@@ -39,6 +39,7 @@ public class DealController {
     @RequestMapping(value = "/number", method = RequestMethod.GET)
     public @ResponseBody DealsNumberDto getDealsNumber() {
          return dealFacade.getDealsNumber();
+
     }
 
     @PreAuthorize("hasAnyRole('CUSTOMER','SELLER')")

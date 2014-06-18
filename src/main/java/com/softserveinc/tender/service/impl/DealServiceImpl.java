@@ -20,10 +20,14 @@ public class DealServiceImpl implements DealService {
     private DealStatusService dealStatusService;
 
     @Override
-    public List<Deal> findAllDeals(Pageable pageable) {
-        return dealRepository.findAllDeals(pageable);
+    public List<Deal> findAllDealsForCustomer(Pageable pageable, Integer id) {
+        return dealRepository.findAllDealsForCustomer(id,pageable);
     }
 
+    @Override
+    public List<Deal> findAllDealsForSeller(Pageable pageable, Integer id) {
+        return dealRepository.findAllDealsForSeller(id,pageable);
+    }
     @Override
     public Long getDealsNumber() {
         return dealRepository.getDealsNumber();
