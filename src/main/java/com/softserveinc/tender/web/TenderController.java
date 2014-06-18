@@ -15,6 +15,7 @@ import com.softserveinc.tender.facade.TenderServiceFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -46,15 +47,11 @@ public class TenderController {
             @RequestParam(value = "minDate", required = false) Date createDate,
             @RequestParam(value = "maxDate", required = false) Date endDate,
             @RequestParam(value = "pageNumber", required = true) Integer pageNumber,
-            @RequestParam(value = "pageSize", required = true) Integer pageSize,
-            Principal principal) {
-        String userLogin = null;
-        if (principal!=null){
-            userLogin = principal.getName();
-        }
+            @RequestParam(value = "pageSize", required = true) Integer pageSize) {
+
         return tenderFacade.findByCustomParams(new TenderFilter(minPrice, maxPrice, categories, locations, items,
                                                                 statuses, createDate, endDate),
-                                               new PageRequest(pageNumber, pageSize), userLogin);
+                                               new PageRequest(pageNumber, pageSize));
     }
 
     @RequestMapping(value = "/number", method = RequestMethod.GET)
@@ -114,8 +111,8 @@ public class TenderController {
 
     @PreAuthorize("hasRole('CUSTOMER')")
     @RequestMapping(value = "", method = RequestMethod.POST, consumes = "application/json")
-    public @ResponseBody TenderDto addTender(@RequestBody TenderSaveDto tenderSaveDto, Principal principal) {
-        return tenderFacade.saveTender(tenderSaveDto, principal.getName());
+    public @ResponseBody TenderDto addTender(@RequestBody TenderSaveDto tenderSaveDto) {
+        return tenderFacade.saveTender(tenderSaveDto);
     }
 
     @PreAuthorize("hasRole('SELLER')")

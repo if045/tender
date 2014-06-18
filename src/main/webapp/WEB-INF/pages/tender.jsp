@@ -17,6 +17,7 @@
     <link rel="stylesheet" type="text/css" media="screen" href='<c:url value="../resources/css/select2.css"/>'/>
     <link rel="stylesheet" type="text/css" media="screen" href='<c:url value="../resources/css/style.css"/>'/>
 
+    <script type='text/javascript' src='<c:url value="../resources/js/constants.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/jquery-2.1.1.min.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/bootstrap.min.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/bootstrap-datepicker.js"/>'></script>
@@ -25,9 +26,6 @@
     <script type='text/javascript' src='<c:url value="../resources/js/jquery.validate.min.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/validations.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/tender.js"/>'></script>
-
-    <script type='text/javascript' src='<c:url value="../resources/js/constants.js"/>'></script>
-
     <script type='text/javascript' src='<c:url value="../resources/js/tenderview.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/addTenderModal.js"/>'></script>
 </head>

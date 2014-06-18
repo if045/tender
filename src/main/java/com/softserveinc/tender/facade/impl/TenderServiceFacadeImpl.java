@@ -39,6 +39,7 @@ import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -93,12 +94,10 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
 
     private static final String DATE_FORMAT_FROM_CLIENT="yyyy/MM/dd";
     private static final String TENDER_STATUS_IN_PROGRESS = "In progress";
-    private String USER_LOGIN;
 
     @Override
-    public List<TenderDto> findByCustomParams(TenderFilter tenderFilter, Pageable pageable, String userLogin) {
+    public List<TenderDto> findByCustomParams(TenderFilter tenderFilter, Pageable pageable) {
         List<Tender> tenders = tenderService.findByCustomParameters(tenderFilter, pageable);
-        USER_LOGIN = userLogin;
         return mapTenders(tenders);
     }
 
@@ -156,8 +155,8 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
         if (tender.getDescription()!=null){
             tenderDto.setDescription(tender.getDescription());
         }
-        if (USER_LOGIN!=null){
-            for (Role role:userService.findByLogin(USER_LOGIN).getRoles()){
+        if (SecurityContextHolder.getContext().getAuthentication().getName()!="anonymousUser"){
+            for (Role role:userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).getRoles()){
                 roles.add(role.getName());
             }
         }
@@ -214,7 +213,7 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
     }
 
     @Override
-    public TenderDto saveTender(TenderSaveDto tenderSaveDto, String userLogin) {
+    public TenderDto saveTender(TenderSaveDto tenderSaveDto) {
         String pattern = DATE_FORMAT_FROM_CLIENT;
         Date date = null;
         SimpleDateFormat formatter;
@@ -242,7 +241,7 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
         tender.setSuitablePrice(tenderSaveDto.getSuitablePrice());
         tender.setCreateDate(new Date());
         tender.setEndDate(date);
-        tender.setAuthor(profileService.findProfileByUserLogin(userLogin));
+        tender.setAuthor(profileService.findProfileByUserLogin(SecurityContextHolder.getContext().getAuthentication().getName()));
         Tender savedTender = tenderService.save(tender);
         List<Unit> units = new ArrayList<>();
         for (UnitSaveDto unitSaveDto : tenderSaveDto.getUnits()) {
