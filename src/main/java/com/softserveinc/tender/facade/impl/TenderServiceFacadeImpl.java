@@ -34,7 +34,7 @@ import com.softserveinc.tender.service.ProposalService;
 import com.softserveinc.tender.service.TenderStatusService;
 import com.softserveinc.tender.service.UnitService;
 import com.softserveinc.tender.service.UserService;
-import com.softserveinc.tender.service.impl.TenderMail;
+import com.softserveinc.tender.service.impl.MailService;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +42,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -92,11 +94,12 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
     private BidService bidService;
 
     @Autowired
-    private TenderMail tenderMail;
+    private MailService mailService;
 
     private static final String DATE_FORMAT_FROM_CLIENT="yyyy/MM/dd";
     private static final String TENDER_STATUS_IN_PROGRESS = "In progress";
-    private static final String TENDER_VIEW_URL = "http://localhost:8080/tenderView/";
+    private static final int PORT = 8080;
+    private static final String TENDER_VIEW_URL = "tenderView/";
     private static final String MESSAGE_PROPOSAL_TITLE = "new proposal";
 
     @Override
@@ -344,8 +347,15 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
             bids.add(savedBid);
         }
         savedProposal.setBids(bids);
-        //TO DO set hear real user mail
-        tenderMail.sendMail("tinochka0@gmail.com", MESSAGE_PROPOSAL_TITLE, TENDER_VIEW_URL + tender.getId());
+
+        try {
+            String hostAddress = InetAddress.getLocalHost().getHostAddress();
+            //TO DO set hear real user mail
+            mailService.sendMail("tinochka0@gmail.com", MESSAGE_PROPOSAL_TITLE,
+                                "http://" + hostAddress + ":" + PORT + "/" + TENDER_VIEW_URL + tender.getId());
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
         return mapTenderProposal(savedProposal);
     }
 
