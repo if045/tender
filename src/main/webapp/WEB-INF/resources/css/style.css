@@ -257,3 +257,11 @@ textarea {
     font-family: "Helvetica Neue",Helvetica,Arial,sans-serif !important;
     font-size: 12px !important;
 }
+
+#tender_action, #tender_proposals {
+    width:50px;
+}
+
+#tender_status {
+    width:80px;
+}

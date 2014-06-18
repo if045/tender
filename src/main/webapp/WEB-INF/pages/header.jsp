@@ -10,7 +10,7 @@
                     <li><button type="button" class="btn btn-default nav_button" disabled>My tenders</button></li>
                 </security:authorize>
                 <security:authorize access="hasAnyRole('CUSTOMER','SELLER')">
-                    <li><button type="button" class="btn btn-default nav_button" onclick="showDealsPage();">My
+                    <li><button type="button" class="btn btn-default nav_button" onclick="goToMyDealsPage();">My
                                     deals</button></li>
                 </security:authorize>
                 <security:authorize access="hasRole('CUSTOMER')">
