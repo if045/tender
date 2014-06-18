@@ -21,6 +21,7 @@ import com.softserveinc.tender.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -140,9 +141,8 @@ public class DealServiceFacadeImpl implements DealServiceFacade {
         Profile profile = new Profile();
         profile.setId(dealService.findDealById(feedbackSaveDto.getProfileId()).getCustomer().getId());
         feedback.setProfile(profile);
-        //TODO: change user id after finish security
         User user = new User();
-        user.setId(1);
+        user.setId(userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).getId());
         feedback.setUser(user);
 
         Feedback savedFeedback = feedbackService.save(feedback);
