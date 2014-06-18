@@ -29,8 +29,13 @@ public class DealServiceImpl implements DealService {
         return dealRepository.findAllDealsForSeller(id,pageable);
     }
     @Override
-    public Long getDealsNumber() {
-        return dealRepository.getDealsNumber();
+    public Long getDealsNumberForCustomer(Integer id) {
+        return dealRepository.getDealsNumberForCustomer(id);
+    }
+
+    @Override
+    public Long getDealsNumberForSeller(Integer id) {
+        return dealRepository.getDealsNumberForSeller(id);
     }
 
     @Override

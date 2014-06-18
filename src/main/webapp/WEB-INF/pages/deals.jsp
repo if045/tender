@@ -57,7 +57,7 @@
                 </div>
 
                 <!-- information about deals -->
-                <div id="user_message" class="row"></div>
+                <div id="deals_user_message"></div>
                 <div id="deal_items" class="row">
                     <div class="col-md-12">
                         <table class="table table-bordered table-striped" id="units">

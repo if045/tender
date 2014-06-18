@@ -53,12 +53,14 @@ function showDeals() {
                         '</td></tr>';
                 }
 
-                $('#user_message').html('');
+                $('#deals_user_message').html('');
                 $('#deal_items').show();
                 $('#deals').html(html);
+                $('#pagination').show();
             } else {
-                $('#user_message').html('<h4>No deals found</h4>');
+                $('#deals_user_message').html('<h4>No deals found</h4>').show();
                 $('#deal_items').hide();
+                $('#pagination').hide();
             }
         },
         error:function(){

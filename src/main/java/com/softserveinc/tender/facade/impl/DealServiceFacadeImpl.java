@@ -65,7 +65,16 @@ public class DealServiceFacadeImpl implements DealServiceFacade {
 
     @Override
     public DealsNumberDto getDealsNumber() {
-        Long dealsNumber = dealService.getDealsNumber();
+        Long dealsNumber = 0L;
+
+        for (Role role : userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).getRoles()) {
+            if (role.getName().equals("CUSTOMER")) {
+                dealsNumber = dealService.getDealsNumberForCustomer(userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).getId());
+            } else if (role.getName().equals("SELLER")){
+                dealsNumber = dealService.getDealsNumberForSeller(userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).getId());
+            }
+        }
+
         DealsNumberDto dealsNumberDto = new DealsNumberDto();
         dealsNumberDto.setDealsNumber(dealsNumber);
 
