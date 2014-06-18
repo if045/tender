@@ -29,6 +29,7 @@
     <script type='text/javascript' src='<c:url value="../resources/js/addTenderModal.js"/>'></script>
     <script type="text/javascript" src='<c:url value="../resources/js/star-rating.min.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/tenders.js"/>'></script>
+    <script type='text/javascript' src='<c:url value="../resources/js/conflict.js"/>'></script>
 </head>
 <body>
     <div class="container">
@@ -112,6 +113,10 @@
 <!--create tender modal -->
 <jsp:include page="createTender.jsp"/>
 <!--create tender modal -->
+
+<!--action button conflict-->
+<jsp:include page="conflict.jsp"/>
+<!--action button conflict-->
 
 <!--action button feedback-->
 <jsp:include page="feedback.jsp"/>
