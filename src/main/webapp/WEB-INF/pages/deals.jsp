@@ -4,6 +4,7 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
+<%@taglib uri="http://www.springframework.org/security/tags" prefix="security"%>
 
 <!DOCTYPE html>
 <html>
@@ -22,12 +23,13 @@
     <script type='text/javascript' src='<c:url value="../resources/js/bootstrap-datepicker.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/select2.min.js"/>'></script>
 
-    <script type='text/javascript' src='<c:url value="../resources/js/deals.js"/>'></script>
+    <script type='text/javascript' src='<c:url value="../resources/js/constants.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/feedback.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/addTenderModal.js"/>'></script>
     <script type="text/javascript" src='<c:url value="../resources/js/star-rating.min.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/tenders.js"/>'></script>
-    <script type='text/javascript' src='<c:url value="../resources/js/constants.js"/>'></script>
+    <script type='text/javascript' src='<c:url value="../resources/js/conflict.js"/>'></script>
+    <script type='text/javascript' src='<c:url value="../resources/js/deals.js"/>'></script>
 </head>
 <body>
     <div class="container">
@@ -78,19 +80,15 @@
                 <div id="pagination" class="row">
                     <div class="col-md-12">
                         <div class="pull-right">
-                            <ul class="pagination page_pagination pull-right">
-                                <li><a href="#">&laquo;</a></li>
-                                <li><a href="#">1</a></li>
-                                <li><a href="#">2</a></li>
-                                <li><a href="#">&laquo;</a></li>
-                            </ul>
+                            <ul class="pagination page_pagination pull-right"></ul>
                         </div>
                         <div class="pull-right">
                             <div class="control-group">
-                                <select id="pagination_itemsnum" class="form-control pull-right items_number_dropdown">
-                                    <option>10</option>
-                                    <option>15</option>
-                                    <option>20</option>
+                                <select id="pagination_dealsnum" class="form-control pull-right items_number_dropdown">
+                                    <option value="5">5</option>
+                                    <option value="10" selected>10</option>
+                                    <option value="15">15</option>
+                                    <option value="20">20</option>
                                 </select>
                             </div>
                         </div>
@@ -111,6 +109,10 @@
 <!--create tender modal -->
 <jsp:include page="createTender.jsp"/>
 <!--create tender modal -->
+
+<!--action button conflict-->
+<jsp:include page="conflict.jsp"/>
+<!--action button conflict-->
 
 <!--action button feedback-->
 <jsp:include page="feedback.jsp"/>

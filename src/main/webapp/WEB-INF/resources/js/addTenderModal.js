@@ -250,7 +250,7 @@ function addUnit() {
     var len = newJson.units.length;
     $('#create_tender_units_table').show();
     for (var i = 0; i < len; i++) {
-        html += '<tr><td align="center">'+newJson.units[i].item +'</td>' +
+        html += '<tr><td align="center" class="units_table_body_name">'+newJson.units[i].item +'</td>' +
             '<td align="center" class="units_table_body_type">' + newJson.units[i].itemType + '</td>' +
             '<td align="center" class="units_table_body_category">' + newJson.units[i].category + '</td>' +
             '<td align="center" class="units_table_body_quantity">' + newJson.units[i].quantity + '</td>' +
@@ -280,7 +280,7 @@ function removeUnit(id) {
         var html = '';
         var len = newJson.units.length;
         for (var i = 0; i < len; i++) {
-            html += '<tr><td align="center">'+newJson.units[i].item +'</td>' +
+            html += '<tr><td align="center" class="units_table_body_name">'+newJson.units[i].item +'</td>' +
                 '<td align="center" class="units_table_body_type">' + newJson.units[i].itemType + '</td>' +
                 '<td align="center" class="units_table_body_category">' + newJson.units[i].category + '</td>' +
                 '<td align="center" class="units_table_body_quantity">' + newJson.units[i].quantity + '</td>' +
@@ -416,50 +416,55 @@ function createTender() {
 }
 
 function showResultAfterTenderAdded(){
+    showPagination("");
+    var queryParams = "pageSize=" + pageSize + "&pageNumber=" + currPageNumber + "&sortDirection=" +
+        ((sortDirection)?"desc":"asc") + "&orderBy=" + orderBy;
+
     $.ajax({
         url: TENDERS_URL,
         type: "GET",
+        data:  queryParams,
         dataType:'json',
 
         success: function(data) {
             var html = '';
-            var len = data.length;
+            var dataSize = data.length;
 
-            if(len > 0) {
-                for (var i = 0; i < len; i++) {
-                    html += '<tr><td align="center"><a href="/tenderView/' + data[i].id + '">' + data[i].title + '</a></td>' +
+            if(dataSize > 0) {
+                for (var i = 0; i < dataSize; i++) {
+                    html += '<tr><td align="center">' + data[i].title + '</td>' +
                         '<td align="center">' + data[i].authorName + '</td>' +
-                        '<td align="center">' + data[i].categories + '</td>' +
-                        '<td align="center">' + data[i].locations + '</td>' +
-                        '<td align="center">' + data[i].suitablePrice + '</td>' +
+                        '<td align="center">' + data[i].categories + '</td>';
+                    if (data[i].locations.toString().split(',').length>2){
+                        html += '<td align="center" data-toggle="tooltip" data-placement="bottom" title="'+data[i].locations+'">' + data[i].locations.toString().split(',')[0] +','+data[i].locations.toString().split(',')[1] + '...'+'</td>';
+                    }else{
+                        html += '<td align="center">' + data[i].locations + '</td>';
+                    }
+
+                    html += '<td align="center">' + data[i].suitablePrice + '</td>' +
                         '<td align="center">' + data[i].status + '</td>' +
-                        '<td align="center">' + data[i].proposals + '</td>'+
+                        '<td align="center">' + data[i].proposals + '</td>' +
                         '<td align="center">' +
                         '<div class="btn-group">' +
                         '<button data-toggle="dropdown" class="btn btn-default dropdown-toggle">Action<span class="caret"></span></button>' +
-                        '<ul class="dropdown-menu">' +
-                        '<li><a href="/tenderView/' + data[i].id + '">View</a></li>' +
-                        '<li><a href="#" data-toggle="modal" data-target="#createProposalWindow">Create proposal</a></li>' +
-                        '<li><a href="#" data-toggle="modal" data-target="#close_tender_mod_wind" onclick="writeCloseTenderId(' + data[i].id + ')">Close</a></li>' +
-                        '</ul>' +
+                        '<ul class="dropdown-menu">'+
+                        '<li><a href="/tenderView/' + data[i].id + '">View</a></li>';
+                    if (data[i].roles.toString().search('CUSTOMER')!=-1){
+                        html += '<li><a href="#" data-toggle="modal" data-target="#close_tender_mod_wind" onclick="writeCloseTenderId(' + data[i].id + ')">Close</a></li>';
+                    }
+                    if (data[i].roles.toString().search('SELLER')!=-1){
+                        html += '<li><a href="#" data-toggle="modal" data-target="#createProposalWindow" onclick="showUnits(' + data[i].id + ')">Create proposal</a></li>';
+                    }
+                    html +='</ul>' +
                         '</div>' +
                         '</td></tr>';
                 }
-
                 $('#user_message').html('');
                 $('#tender_items').show();
                 $('#tenders').html(html);
-
-                var pageItemsNumber = $('#pagination_itemsnum').val();
-                if(pageItemsNumber < len) {
-                    $('#pagination').show();
-                } else {
-                    $('#pagination').hide();
-                }
             } else {
                 $('#user_message').html('<h4>Your filter parameters did not match any tender</h4>');
                 $('#tender_items').hide();
-                $('#pagination').hide();
             }
         },
         error:function(){

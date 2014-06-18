@@ -81,7 +81,7 @@ public class Company {
         return address;
     }
 
-    public void setBook(Address address) {
+    public void setAddress(Address address) {
         this.address = address;
     }
 }

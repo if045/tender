@@ -1,24 +1,32 @@
 package com.softserveinc.tender.facade.impl;
 
+import com.softserveinc.tender.dto.ConflictDto;
+import com.softserveinc.tender.dto.ConflictSaveDto;
 import com.softserveinc.tender.dto.DealDto;
+import com.softserveinc.tender.dto.DealsNumberDto;
 import com.softserveinc.tender.dto.FeedbackDto;
 import com.softserveinc.tender.dto.FeedbackSaveDto;
 import com.softserveinc.tender.entity.Deal;
 import com.softserveinc.tender.entity.Feedback;
 import com.softserveinc.tender.entity.Profile;
-import com.softserveinc.tender.entity.Tender;
 import com.softserveinc.tender.entity.User;
+import com.softserveinc.tender.entity.Conflict;
+import com.softserveinc.tender.entity.ConflictStatus;
+import com.softserveinc.tender.entity.Bid;
 import com.softserveinc.tender.facade.DealServiceFacade;
-import com.softserveinc.tender.service.*;
+import com.softserveinc.tender.service.ConflictService;
+import com.softserveinc.tender.service.DealService;
+import com.softserveinc.tender.service.FeedbackService;
+import com.softserveinc.tender.service.UserService;
 import org.modelmapper.ModelMapper;
-import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.lang.reflect.Type;
-import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+
 
 @Service("dealServiceFacade")
 @Transactional
@@ -33,10 +41,25 @@ public class DealServiceFacadeImpl implements DealServiceFacade {
     @Autowired
     private ModelMapper modelMapper;
 
+    @Autowired
+    private ConflictService conflictService;
+
+    @Autowired
+    private UserService userService;
+
     @Override
-    public List<DealDto> findAllDeals() {
-        List<Deal> deals = dealService.findAllDeals();
+    public List<DealDto> findAllDeals(Pageable pageable) {
+        List<Deal> deals = dealService.findAllDeals(pageable);
         return mapDeals(deals);
+    }
+
+    @Override
+    public DealsNumberDto getDealsNumber() {
+        Long dealsNumber = dealService.getDealsNumber();
+        DealsNumberDto dealsNumberDto = new DealsNumberDto();
+        dealsNumberDto.setDealsNumber(dealsNumber);
+
+        return dealsNumberDto;
     }
 
     @Override
@@ -44,7 +67,8 @@ public class DealServiceFacadeImpl implements DealServiceFacade {
         dealService.updateDealWithStatus(dealId, statusName);
     }
 
-    private List<DealDto> mapDeals(List<Deal> deals) {
+    @Override
+    public List<DealDto> mapDeals(List<Deal> deals) {
         List<DealDto> dealDtos = new ArrayList<>();
         for (Deal deal : deals) {
             dealDtos.add(mapDeal(deal));
@@ -53,7 +77,8 @@ public class DealServiceFacadeImpl implements DealServiceFacade {
         return dealDtos;
     }
 
-    private DealDto mapDeal(Deal deal) {
+    @Override
+    public DealDto mapDeal(Deal deal) {
         DealDto dealDto = new DealDto();
         dealDto.setId(deal.getId());
         dealDto.setDate(deal.getDate());
@@ -65,6 +90,34 @@ public class DealServiceFacadeImpl implements DealServiceFacade {
 
         return dealDto;
     }
+
+    private ConflictDto mapConflict(Conflict conflict) {
+        ConflictDto conflictDto = new ConflictDto();
+        conflictDto.setId(conflict.getId());
+        conflictDto.setBidId(conflict.getBid().getId());
+        conflictDto.setDescription(conflict.getDescription());
+        conflictDto.setStatusId(conflict.getStatus().getId());
+        return conflictDto;
+    }
+
+    @Override
+    public ConflictDto saveConflict(ConflictSaveDto conflictSaveDto) {
+        Conflict conflict = new Conflict();
+        conflict.setDescription(conflictSaveDto.getDescription());
+        User moderator = new User();
+        moderator.setId(userService.findByModeratorCategoriesId(dealService.findDealById(conflictSaveDto.getBidId()).getBid().getUnit().getItem().getCategory().getId()).getId());
+        conflict.setModerator(moderator);
+        ConflictStatus conflictStatus = new ConflictStatus();
+        conflictStatus.setId(1);
+        conflict.setStatus(conflictStatus);
+        Bid bid =new Bid();
+        bid.setId(dealService.findDealById(conflictSaveDto.getBidId()).getBid().getId());
+        conflict.setBid(bid);
+
+        Conflict savedConflict = conflictService.save(conflict);
+        return mapConflict(savedConflict);
+    }
+
     private FeedbackDto mapFeedback(Feedback feedback) {
         FeedbackDto feedbackDto = new FeedbackDto();
         feedbackDto.setId(feedback.getId());

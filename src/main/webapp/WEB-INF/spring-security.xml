@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+             xmlns:beans="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+           http://www.springframework.org/schema/security
+           http://www.springframework.org/schema/security/spring-security.xsd">
+
+    <global-method-security pre-post-annotations="enabled"/>
+
+    <http use-expressions="true" auto-config="true">
+        <intercept-url pattern="/mydeals" access="hasAnyRole('CUSTOMER','SELLER')" />
+        <intercept-url pattern="/mytenders" access="hasAnyRole('CUSTOMER','SELLER')" />
+        <access-denied-handler error-page="/403" />
+        <form-login login-page="/login"
+                    authentication-failure-url="/login?error"
+                    default-target-url="/tendersHome" />
+        <logout logout-url="/logout" />
+    </http>
+
+    <authentication-manager>
+        <authentication-provider>
+            <jdbc-user-service data-source-ref="dataSource"
+
+                               authorities-by-username-query="select user.login, role.name from user
+                                                                join user_role on user.id = user_role.user_id
+                                                                join role on user_role.role_id = role.id
+                                                                where user.login = ?"
+
+                               users-by-username-query="select login,password,enabled from user where login = ?"/>
+        </authentication-provider>
+    </authentication-manager>
+
+</beans:beans>

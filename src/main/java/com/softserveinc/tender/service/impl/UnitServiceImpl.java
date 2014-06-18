@@ -4,6 +4,7 @@ import com.softserveinc.tender.entity.Unit;
 import com.softserveinc.tender.repo.UnitRepository;
 import com.softserveinc.tender.service.UnitService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
@@ -22,8 +23,8 @@ public class UnitServiceImpl implements UnitService{
         return unitRepository.saveAndFlush(unit);
     }
 
-    public List<Unit> findUnitsByTenderId(int tenderId) {
-        return unitRepository.findUnitsByTenderId(tenderId);
+    public List<Unit> findUnitsByTenderId(int tenderId, Pageable pageable) {
+        return unitRepository.findUnitsByTenderId(tenderId, pageable);
     }
 
     @Override

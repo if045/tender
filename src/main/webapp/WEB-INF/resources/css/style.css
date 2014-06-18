@@ -33,13 +33,15 @@ body {
 }
 
 .sidebar {
-	margin-top:16px;
 	margin-left: -15px;
+}
+
+.search_bar {
+ 	margin-bottom: 15px;
 }
 
 .selectpicker {
 	width:100%;
-	margin-top:5px;
 	margin-bottom:5px;
 }
 
@@ -146,6 +148,7 @@ body {
 }
 
 .field_group {
+    margin-top:5px;
 	padding-left:50px;
 }
 
@@ -159,43 +162,62 @@ body {
 }
 
 .units_table .units_table_header_action {
-	width: 40px;
+	width: 57px;
+	max-width: 57px;
 }
 
 .units_table_body_action {
 	width: 40px;
+	max-width: 40px;
 }
 
 .units_table .units_table_header_measurement {
 	width: 103px;
+	max-width: 103px;
 }
 
 .units_table_body_measurement {
 	width: 103px;
+	max-width: 103px;
 }
 
 .units_table .units_table_header_quantity {
 	width: 150px;
+	max-width: 150px;
 }
 
 .units_table_body_quantity {
 	width: 150px;
+	max-width: 150px;
+}
+.units_table .units_table_header_name{
+    width: 237px;
+    max-width: 237px;
 }
 
 .units_table .units_table_header_type {
 	width: 60px;
+	max-width: 60px;
 }
 
 .units_table_body_type {
 	width: 60px;
+	max-width: 60px;
+}
+.units_table_body_name {
+    width: 237px;
+    max-width: 237px;
+    word-wrap: break-word;
 }
 
 .units_table .units_table_header_category {
 	width: 250px;
+	max-width: 250px;
 }
 
 .units_table_body_category {
 	width: 250px;
+	max-width: 250px;
 }
 
 .deal_action_field {
@@ -224,4 +246,22 @@ textarea {
 
 .backdown {
     margin-bottom: 10px;
+}
+
+.sortable {
+    font-weight: bold;
+}
+
+.sortable span {
+    padding-left: 4px;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif !important;
+    font-size: 12px !important;
+}
+
+#tender_action, #tender_proposals {
+    width:50px;
+}
+
+#tender_status {
+    width:80px;
 }

@@ -6,6 +6,7 @@ import com.softserveinc.tender.repo.DealRepository;
 import com.softserveinc.tender.service.DealService;
 import com.softserveinc.tender.service.DealStatusService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
@@ -19,8 +20,13 @@ public class DealServiceImpl implements DealService {
     private DealStatusService dealStatusService;
 
     @Override
-    public List<Deal> findAllDeals() {
-        return dealRepository.findAll();
+    public List<Deal> findAllDeals(Pageable pageable) {
+        return dealRepository.findAllDeals(pageable);
+    }
+
+    @Override
+    public Long getDealsNumber() {
+        return dealRepository.getDealsNumber();
     }
 
     @Override
@@ -29,8 +35,8 @@ public class DealServiceImpl implements DealService {
     }
 
     @Override
-    public void saveDeal(Deal deal) {
-        dealRepository.save(deal);
+    public Deal saveDeal(Deal deal) {
+        return dealRepository.save(deal);
     }
 
     @Override
@@ -39,5 +45,15 @@ public class DealServiceImpl implements DealService {
         DealStatus dealStatus = dealStatusService.findByName(statusName);
         deal.setStatus(dealStatus);
         dealRepository.save(deal);
+    }
+
+    @Override
+    public List<Deal> findByProposalId(Integer proposalId) {
+        return dealRepository.findByProposalId(proposalId);
+    }
+
+    @Override
+    public List<Deal> findByUnitId(Integer unitId) {
+        return dealRepository.findByUnitId(unitId);
     }
 }
