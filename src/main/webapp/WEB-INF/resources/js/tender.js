@@ -153,7 +153,7 @@ function showInfo(){
     $.getJSON(TENDERS_URL+'/'+tender.substring(1), function(data){
         var titleHtml = '';
         titleHtml += '<h4>' + data.title + '</h4>';
-        $('#tender_title').html(titleHtml);
+        $('#tender_title_onTenderViewPage').html(titleHtml);
         var statusHtml = '';
         statusHtml += '<option value="'+ data.status + '">' + data.status + '</option>';
         statusHtml += '<option value="Close">Close</option>';
