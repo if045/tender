@@ -22,10 +22,6 @@ public class Role {
     @Column(name = "name", unique = true, nullable = false, length = 10)
     private String name;
 
-    @ManyToMany
-    @JoinTable(name = "user_role", joinColumns = {@JoinColumn(name = "role_id")}, inverseJoinColumns = {@JoinColumn(name = "user_id")})
-
-
     public Integer getId() {
         return id;
     }

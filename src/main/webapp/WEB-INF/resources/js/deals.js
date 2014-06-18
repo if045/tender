@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    $('#endDate').datepicker({
+    $('#endDate, #create_tender_enddate').datepicker({
         format: 'mm-dd-yyyy',
         startDate: '-5y'
     });

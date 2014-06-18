@@ -39,6 +39,19 @@
 
         <!--main-->
         <div class="page_body">
+            <div class="row">
+                <div class="col-md-12 search_bar">
+                    <div class="pull-left"></div>
+                        <div class="pull-right">
+                             <form id="search_form" class="navbar-form navbar-right" role="search">
+                                  <div class="form-group">
+                                       <input id="search_input" type="text" class="form-control" placeholder="Search...">
+                                  </div>
+                             </form>
+                        </div>
+                </div>
+            </div>
+
             <!-- sidebar -->
             <div class="col-md-3">
 
@@ -106,32 +119,30 @@
 
             <!-- content -->
             <div class="col-md-9">
-                <div class="row">
-                    <div class="pull-left">
-                    </div>
-                    <div class="pull-right">
-                            <form id="search_form" class="navbar-form navbar-right" role="search">
-                                <div class="form-group">
-                                    <input id="search_input" type="text" class="form-control" placeholder="Search...">
-                                </div>
-                            </form>
-                    </div>
-                </div>
-
                 <!-- items -->
                 <div id="user_message" class="row"></div>
                 <div id="tender_items" class="row">
                     <table class="table table-bordered table-striped">
                         <thead>
                         <tr>
-                            <th align="center">Title</th>
-                            <th align="center">Author</th>
-                            <th align="center">Category</th>
-                            <th align="center">Location</th>
-                            <th align="center">Suitable Price</th>
-                            <th align="center">Status</th>
-                            <th align="center">Proposals</th>
-                            <th align="center">Action</th>
+                            <th align="center" id="tender_title">
+                                <span class="glyphicon glyphicon-chevron-down sortable"><span>Title</span></span>
+                            </th>
+                            <th align="center" id="tender_author">
+                                <span class="glyphicon glyphicon-chevron-down sortable"><span>Author</span></span>
+                            </th>
+                            <th align="center" id="tender_category"><span>Category</span></th>
+                            <th align="center" id="tender_location"><span>Location</span></th>
+                            <th align="center" id="tender_suitable_price">
+                                <span class="glyphicon glyphicon-chevron-down sortable"><span>Suitable Price</span></span>
+                            </th>
+                            <th align="center" id="tender_status">
+                                <span class="glyphicon glyphicon-chevron-down sortable"><span>Status</span></span>
+                            </th>
+                            <th align="center" id="tender_proposals">
+                                <span class="glyphicon glyphicon-chevron-down sortable"><span>Proposals</span></span>
+                            </th>
+                            <th align="center" id="tender_action"><span>Action</span></th>
                         </tr>
                         </thead>
                         <tbody id="tenders"></tbody>

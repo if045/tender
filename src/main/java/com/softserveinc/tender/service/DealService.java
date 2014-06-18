@@ -7,6 +7,8 @@ public interface DealService {
 
     List<Deal> findAllDeals();
     Deal findDealById(Integer id);
-    void saveDeal(Deal deal);
+    Deal saveDeal(Deal deal);
     void updateDealWithStatus(Integer dealId, String statusName);
+    List<Deal> findByProposalId(Integer proposalId);
+    List<Deal> findByUnitId(Integer unitId);
 }
