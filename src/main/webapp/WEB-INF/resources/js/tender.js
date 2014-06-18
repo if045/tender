@@ -80,7 +80,6 @@ function buildUnitTable(data){
         else if (data[i].itemType == 'S')
             var itemTypes = 'Service';
         var buttonStyle = (data[i].haveDeals) ? " btn-success" : " btn-info";
-        var enablButt = (data[i].numberOfBids < 0);
         html += '<tr class="js-unitRow" id="unit_row_' + data[i].id + '"><td align="center">' + '<input type="checkbox" onchange="showSpecificProposals()" id="ch_box_' + i + '">' +
             '<input  hidden="" type="text" value="' + data[i].id +'" id="unit_id_' + i + '"/></td>' +
             '<td>' + data[i].unitName + '</td>' +
