@@ -3,6 +3,7 @@ package com.softserveinc.tender.facade.impl;
 import com.softserveinc.tender.dto.BidDto;
 import com.softserveinc.tender.dto.BidSaveDto;
 import com.softserveinc.tender.dto.CategoryDto;
+import com.softserveinc.tender.dto.DealDto;
 import com.softserveinc.tender.dto.ItemDto;
 import com.softserveinc.tender.dto.ProposalSaveDto;
 import com.softserveinc.tender.dto.TenderDto;
@@ -15,15 +16,20 @@ import com.softserveinc.tender.dto.UnitDto;
 import com.softserveinc.tender.dto.TendersNumberDto;
 import com.softserveinc.tender.entity.Bid;
 import com.softserveinc.tender.entity.Category;
+import com.softserveinc.tender.entity.Deal;
 import com.softserveinc.tender.entity.Item;
 import com.softserveinc.tender.entity.Location;
 import com.softserveinc.tender.entity.Proposal;
+import com.softserveinc.tender.entity.Role;
 import com.softserveinc.tender.entity.Tender;
 import com.softserveinc.tender.entity.TenderStatus;
 import com.softserveinc.tender.entity.Unit;
+import com.softserveinc.tender.facade.DealServiceFacade;
 import com.softserveinc.tender.facade.TenderServiceFacade;
 import com.softserveinc.tender.repo.TenderFilter;
 import com.softserveinc.tender.service.BidService;
+import com.softserveinc.tender.service.DealService;
+import com.softserveinc.tender.service.DealStatusService;
 import com.softserveinc.tender.service.ItemService;
 import com.softserveinc.tender.service.MeasurementService;
 import com.softserveinc.tender.service.ProfileService;
@@ -34,13 +40,17 @@ import com.softserveinc.tender.service.ProposalService;
 import com.softserveinc.tender.service.TenderStatusService;
 import com.softserveinc.tender.service.UnitService;
 import com.softserveinc.tender.service.UserService;
+import com.softserveinc.tender.service.impl.MailService;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -90,8 +100,24 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
     @Autowired
     private BidService bidService;
 
+    @Autowired
+    private MailService mailService;
+
+    @Autowired
+    private DealStatusService dealStatusService;
+
+    @Autowired
+    private DealService dealService;
+
+    @Autowired
+    private DealServiceFacade dealServiceFacade;
+
     private static final String DATE_FORMAT_FROM_CLIENT="yyyy/MM/dd";
+    private static final String DEAL_CREATE_STATUS = "in progress";
     private static final String TENDER_STATUS_IN_PROGRESS = "In progress";
+    private static final int PORT = 8080;
+    private static final String TENDER_VIEW_URL = "tenderView/";
+    private static final String MESSAGE_PROPOSAL_TITLE = "new proposal";
 
     @Override
     public List<TenderDto> findByCustomParams(TenderFilter tenderFilter, Pageable pageable) {
@@ -130,6 +156,7 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
         TenderDto tenderDto = new TenderDto();
         List<String> locations = new ArrayList<>();
         Set<String> categories = new HashSet<>();
+        List<String> roles = new ArrayList<>();
 
         tenderDto.setId(tender.getId());
         tenderDto.setTitle(tender.getTitle());
@@ -152,12 +179,18 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
         if (tender.getDescription()!=null){
             tenderDto.setDescription(tender.getDescription());
         }
+        if (SecurityContextHolder.getContext().getAuthentication().getName()!="anonymousUser"){
+            for (Role role:userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).getRoles()){
+                roles.add(role.getName());
+            }
+        }
+        tenderDto.setRoles(roles);
         return tenderDto;
     }
 
     @Override
-    public List<UnitDto> findUnitsByTenderId(Integer tenderId) {
-        List<Unit> units = unitService.findUnitsByTenderId(tenderId);
+    public List<UnitDto> findUnitsByTenderId(Integer tenderId, Pageable pageable) {
+        List<Unit> units = unitService.findUnitsByTenderId(tenderId, pageable);
         return mapUnits(units);
     }
 
@@ -171,6 +204,7 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
         unitDto.setQuantity(unit.getQuantity());
         unitDto.setMeasurementName(unit.getMeasurement().getName());
         unitDto.setNumberOfBids(unit.getBids().size());
+        unitDto.setHaveDeals(dealService.findByUnitId(unit.getId()).size() > 0);
         return unitDto;
     }
 
@@ -232,7 +266,7 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
         tender.setSuitablePrice(tenderSaveDto.getSuitablePrice());
         tender.setCreateDate(new Date());
         tender.setEndDate(date);
-        tender.setAuthor(profileService.findProfileById(8)); //TO DO: put current user
+        tender.setAuthor(profileService.findProfileByUserLogin(SecurityContextHolder.getContext().getAuthentication().getName()));
         Tender savedTender = tenderService.save(tender);
         List<Unit> units = new ArrayList<>();
         for (UnitSaveDto unitSaveDto : tenderSaveDto.getUnits()) {
@@ -308,6 +342,7 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
             bidDtos.add(bidDto);
         }
         proposalDto.setBidDtos(bidDtos);
+        proposalDto.setHaveDeals(dealService.findByProposalId(proposal.getId()).size() > 0);
 
         return proposalDto;
     }
@@ -338,6 +373,15 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
             bids.add(savedBid);
         }
         savedProposal.setBids(bids);
+
+        try {
+            String hostAddress = InetAddress.getLocalHost().getHostAddress();
+            //TO DO set hear real user mail
+            mailService.sendMail("tinochka0@gmail.com", MESSAGE_PROPOSAL_TITLE,
+                                "http://" + hostAddress + ":" + PORT + "/" + TENDER_VIEW_URL + tender.getId());
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
         return mapTenderProposal(savedProposal);
     }
 
@@ -345,4 +389,49 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
     public TenderDto findOneById(Integer id) {
         return mapTender(tenderService.findOne(id));
     }
+
+    @Override
+    public List<DealDto> saveProposalDeal(Integer tenderId, Integer proposalId) {
+        Proposal proposal = proposalService.findById(proposalId);
+        Tender tender = tenderService.findOne(tenderId);
+
+        List<Bid> bids = proposal.getBids();
+        List<Deal> deals = new ArrayList<>();
+        for (Bid bid: bids) {
+            Deal deal = new Deal();
+            deal.setBid(bid);
+            deal.setCustomer(tender.getAuthor());
+            deal.setSeller(proposal.getSeller().getProfile());
+            deal.setSum(bid.getPrice());
+            deal.setDate(new Date());
+            deal.setStatus(dealStatusService.findByName(DEAL_CREATE_STATUS));
+            deal.setProposal(proposal);
+
+            Deal savedDeal = dealService.saveDeal(deal);
+            deals.add(savedDeal);
+        }
+        return dealServiceFacade.mapDeals(deals);
+    }
+
+    @Override
+    public DealDto saveBidDeal(Integer tenderId, Integer proposalId, Integer bidId) {
+        Proposal proposal = proposalService.findById(proposalId);
+        Tender tender = tenderService.findOne(tenderId);
+        Bid bid = bidService.findById(bidId);
+
+        Deal deal = new Deal();
+        deal.setBid(bid);
+        deal.setCustomer(tender.getAuthor());
+        deal.setSeller(proposal.getSeller().getProfile());
+        deal.setSum(bid.getPrice());
+        deal.setDate(new Date());
+        deal.setStatus(dealStatusService.findByName(DEAL_CREATE_STATUS));
+        deal.setProposal(proposal);
+
+        Deal savedDeal = dealService.saveDeal(deal);
+
+        return dealServiceFacade.mapDeal(savedDeal);
+    }
+
+
 }

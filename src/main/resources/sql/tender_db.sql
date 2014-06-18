@@ -74,6 +74,7 @@ CREATE TABLE user (
 	login VARCHAR(30) UNIQUE NOT NULL,
 	password VARCHAR(15) NOT NULL,
 	create_date DATE NOT NULL,
+	enabled TINYINT NOT NULL DEFAULT 1 ,
 
 	PRIMARY KEY(id)
 );

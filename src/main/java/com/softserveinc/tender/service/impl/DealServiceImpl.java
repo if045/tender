@@ -29,8 +29,8 @@ public class DealServiceImpl implements DealService {
     }
 
     @Override
-    public void saveDeal(Deal deal) {
-        dealRepository.save(deal);
+    public Deal saveDeal(Deal deal) {
+        return dealRepository.save(deal);
     }
 
     @Override
@@ -44,5 +44,15 @@ public class DealServiceImpl implements DealService {
     @Override
     public List<Deal> findBySearchParam(String title) {
         return dealRepository.findByProposalTenderTitleContaining(title);
+
+    }
+    public List<Deal> findByProposalId(Integer proposalId) {
+        return dealRepository.findByProposalId(proposalId);
+    }
+
+
+    public List<Deal> findByUnitId(Integer unitId) {
+        return dealRepository.findByUnitId(unitId);
+
     }
 }

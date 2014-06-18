@@ -18,6 +18,15 @@ public class TenderDto {
     private Set<String> categories;
     private Integer proposals;
     private String description;
+    private List<String> roles;
+
+    public List<String> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<String> roles) {
+        this.roles = roles;
+    }
 
     public String getDescription() {
         return description;

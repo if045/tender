@@ -53,6 +53,17 @@ public class User {
     @OneToOne(mappedBy = "user")
     private Profile profile;
 
+    @Column(name = "enabled", nullable = false)
+    private Boolean enabled;
+
+    public Boolean getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
+    }
+
     public Integer getId() {
         return id;
     }

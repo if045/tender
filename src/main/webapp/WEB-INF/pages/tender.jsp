@@ -4,6 +4,7 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
+<%@taglib uri="http://www.springframework.org/security/tags" prefix="security"%>
 
 <!DOCTYPE html>
 <html>
@@ -15,18 +16,18 @@
     <link rel="stylesheet" type="text/css" media="screen" href='<c:url value="../resources/css/datepicker.css"/>'/>
     <link rel="stylesheet" type="text/css" media="screen" href='<c:url value="../resources/css/select2.css"/>'/>
     <link rel="stylesheet" type="text/css" media="screen" href='<c:url value="../resources/css/style.css"/>'/>
+    <link rel="stylesheet" type="text/css" media="screen" href='<c:url value="../resources/css/fixedTendersTables.css"/>'/>
 
+    <script type='text/javascript' src='<c:url value="../resources/js/constants.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/jquery-2.1.1.min.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/bootstrap.min.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/bootstrap-datepicker.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/select2.min.js"/>'></script>
-    <script type='text/javascript' src='<c:url value="../resources/js/tenders.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/jquery.validate.min.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/validations.js"/>'></script>
+
+    <script type='text/javascript' src='<c:url value="../resources/js/tenders.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/tender.js"/>'></script>
-
-    <script type='text/javascript' src='<c:url value="../resources/js/constants.js"/>'></script>
-
     <script type='text/javascript' src='<c:url value="../resources/js/tenderview.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/addTenderModal.js"/>'></script>
 </head>
@@ -41,7 +42,7 @@
             <div class="page_body">
                 <!-- content -->
                 <div class="row col-md-12 pull-left">
-                    <h4>Tender title</h4>
+                    <div id="tender_title"></div>
                 </div>
 
                 <!-- information about tender -->
@@ -75,8 +76,10 @@
                 <!-- information about tender -->
 
                 <div class="row col-md-12">
-                    <button type="submit" class="btn btn-primary col-md-1 col-md-offset-10"
-                            id="save_tender_button" onclick="saveTenderAfterUpdate();" disabled>Save</button>
+                    <security:authorize access="hasRole('CUSTOMER')">
+                        <button type="submit" class="btn btn-primary col-md-1 col-md-offset-10"
+                                id="save_tender_button" onclick="saveTenderAfterUpdate();" disabled>Save</button>
+                    </security:authorize>
                 </div>
 
                 <div class="row">
@@ -85,14 +88,14 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-md-7">
-                        <table class="table table-bordered table-striped" id="units">
+                    <div class="col-md-7 height">
+                        <table class="table table-bordered table-striped fancyTable" id="units">
                             <thead>
-                                <td align="center"><span class="glyphicon glyphicon-check"></span></td>
-                                <th>Name</th>
-                                <th>Type</th>
-                                <th>Category</th>
-                                <th>Quantity</th>
+                                <td align="center"><input type="checkbox" onchange="checkAll()" id="ch_box_head"></td>
+                                <th><span class="sortable asc glyphicon glyphicon-chevron-up" name="item.name">Name</span></th>
+                                <th><span class="sortable" name="item.type">Type</span></th>
+                                <th><span class="sortable" name="item.category">Category</span></th>
+                                <th><span class="sortable" name="quantity">Quantity</span></th>
                                 <th>Bids</th>
                                 <th>Seller price</th>
                                 <th>Deal</th>
@@ -101,7 +104,7 @@
                         </table>
                     </div>
 
-                    <div class="col-md-4">
+                    <div class="col-md-4 height">
                         <table class="table table-bordered table-striped" id="head_proposals">
                             <thead>
                                 <th>Seller</th>
@@ -135,6 +138,26 @@
         </div>
     </div>
 
+    <!-- success create deal modal window -->
+    <div class="modal fade" id="success_create_deal" tabindex="-1" role="dialog" hidden="">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header"><button class="close" type="button" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Success</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" role="form">
+                        <h5>You have successfully signed an agreement!</h5>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" type="button" data-dismiss="modal">Good</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- success create deal modal window -->
+
 <!--create tender modal -->
 <jsp:include page="createTender.jsp"/>
 <!--create tender modal -->
@@ -143,9 +166,5 @@
 <jsp:include page="newTenderCreated.jsp"/>
 <!-- new tender modal window -->
 
-<%--<div class="tooltip fade bottom in" style="top: 38px; left: 144px; display: block;">
-    <div class="tooltip-arrow"></div>
-    <div class="tooltip-inner">dasdad</div>
-</div>--%>
 </body>
 </html>

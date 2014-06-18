@@ -14,4 +14,10 @@ import java.util.Set;
 public interface DealRepository extends JpaRepository<Deal, Integer> {
 
     List<Deal> findByProposalTenderTitleContaining(String title);
+
+    List<Deal> findByProposalId(Integer proposalId);
+
+    @Query("select d from Deal d inner join d.bid b where b.unit.id = :unitId")
+    List<Deal> findByUnitId(@Param("unitId")Integer unitId);
+
 }
