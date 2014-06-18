@@ -16,6 +16,7 @@
     <link rel="stylesheet" type="text/css" media="screen" href='<c:url value="../resources/css/datepicker.css"/>'/>
     <link rel="stylesheet" type="text/css" media="screen" href='<c:url value="../resources/css/select2.css"/>'/>
     <link rel="stylesheet" type="text/css" media="screen" href='<c:url value="../resources/css/style.css"/>'/>
+    <link rel="stylesheet" type="text/css" media="screen" href='<c:url value="../resources/css/fixedTendersTables.css"/>'/>
 
     <script type='text/javascript' src='<c:url value="../resources/js/constants.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/jquery-2.1.1.min.js"/>'></script>
@@ -87,16 +88,14 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-md-7">
-                        <table class="table table-bordered table-striped" id="units">
+                    <div class="col-md-7 height">
+                        <table class="table table-bordered table-striped fancyTable" id="units">
                             <thead>
-                                <td align="center">
-                                    <input type="checkbox" onchange="checkAll()" id="ch_box_head">
-                                </td>
-                                <th>Name</th>
-                                <th>Type</th>
-                                <th>Category</th>
-                                <th>Quantity</th>
+                                <th align="center"><span class="glyphicon glyphicon-check"></span></th>
+                                <th><span class="sortable asc glyphicon glyphicon-chevron-up" name="item.name">Name</span></th>
+                                <th><span class="sortable" name="item.type">Type</span></th>
+                                <th><span class="sortable" name="item.category">Category</span></th>
+                                <th><span class="sortable" name="quantity">Quantity</span></th>
                                 <th>Bids</th>
                                 <th>Seller price</th>
                                 <th>Deal</th>
@@ -105,7 +104,7 @@
                         </table>
                     </div>
 
-                    <div class="col-md-4">
+                    <div class="col-md-4 height">
                         <table class="table table-bordered table-striped" id="head_proposals">
                             <thead>
                                 <th>Seller</th>

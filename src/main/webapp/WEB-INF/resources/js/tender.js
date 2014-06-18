@@ -3,12 +3,39 @@ var FORMAT_DATE = 'yyyy/mm/dd';
 var locs = '';
 var Units = [];
 var Proposals = [];
+var highLightedElement;
 
 $(document).ready(function () {
     $('#endDate').datepicker({
         format: FORMAT_DATE,
         startDate: '-3d'
     });
+
+    $('.sortable').on("click", function(){
+        console.log(this);
+            $( ".sortable" ).each(function( i ) {
+                if ($( ".sortable" )!=this.getAttribute("sortable")) {
+                    $( ".sortable" ).removeClass('glyphicon-chevron-up');
+                    $( ".sortable" ).removeClass('glyphicon-chevron-down');
+                }
+            });
+        if (this.getAttribute("class").indexOf("asc") > -1){
+            var sortValue = "desc";
+            $(this).addClass('desc').removeClass('asc');
+            $(this).addClass('glyphicon').addClass('glyphicon-chevron-down').removeClass('glyphicon-chevron-up');
+        } else{
+            var sortValue = "asc";
+            $(this).addClass('asc').removeClass('desc');
+            $(this).addClass('glyphicon').addClass('glyphicon-chevron-up').removeClass('glyphicon-chevron-down');
+        }
+        var nameValue = this.getAttribute("name");
+
+        var str = location.href;
+        var tender1 = str.split(TENDER_VIEW_URL);
+        var tender = tender1[tender1.length - 1];
+        $.getJSON('/tenders' + tender + '/units?direction='+ sortValue +'&field='+ nameValue, buildUnitTable);
+    });
+
     showUnit();
     showProposals();
     showInfo();
@@ -40,38 +67,39 @@ function showProposals() {
         showProposalsTable(Proposals);
     });
 }
+
+
+
+function buildUnitTable(data){
+    var html = '';
+    var len = data.length;
+    Units = data.slice(0);
+    for (var i = 0; i < len; i++) {
+        if (data[i].itemType == 'P')
+            var itemTypes = 'Product'
+        else if (data[i].itemType == 'S')
+            var itemTypes = 'Service'
+        html += '<tr class="js-unitRow" id="unit_row_' + data[i].id + '"><td align="center">' + '<input type="checkbox" onchange="showSpecificProposals()" id="ch_box_' + i + '">' +
+            '<input  hidden="" type="text" value="' + data[i].id +'" id="unit_id_' + i + '"/></td>' +
+            '<td>' + data[i].unitName + '</td>' +
+            '<td>' + itemTypes + '</td>' +
+            '<td>' + data[i].categoryName + '</td>' +
+            '<td>' + data[i].quantity + ' ' + data[i].measurementName + '</td>' +
+            '<td>' + data[i].numberOfBids + '</td>' +
+            '<td class="js-sellerPrice" id="seller_price_' + data[i].id + '">' + 0.00 + '</td>' +
+            '<td align="center">' + '<button type="submit" class="btn btn-default" disabled>Deal</button>' + '</td></tr>';
+    }
+    $('#unitsTable').html(html);
+    if(!(highLightedElement == undefined)) {
+        showUnitSellerPrice(highLightedElement.getAttribute("propId"));
+    }
+};
+
 function showUnit() {
     var str = location.href;
     var tender1 = str.split(TENDER_VIEW_URL);
     var tender = tender1[tender1.length - 1];
-    $.getJSON('/tenders/' + tender + '/units', function (data) {
-        var html = '';
-        var len = data.length;
-        Units = data.slice(0);
-        for (var i = 0; i < len; i++) {
-            if (data[i].itemType == 'P')
-                var itemTypes = 'Product'
-            else if (data[i].itemType == 'S')
-                var itemTypes = 'Service'
-            var buttonStyle = (data[i].haveDeals) ? " btn-success" : " btn-info";
-            html += '<tr class="js-unitRow" id="unit_row_' + data[i].id + '"><td align="center">' + '<input type="checkbox" onchange="showSpecificProposals()" id="ch_box_' + i + '">' +
-                '<input  hidden="" type="text" value="' + data[i].id +'" id="unit_id_' + i + '"/></td>' +
-                '<td>' + data[i].unitName + '</td>' +
-                '<td>' + itemTypes + '</td>' +
-                '<td>' + data[i].categoryName + '</td>' +
-                '<td>' + data[i].quantity + ' ' + data[i].measurementName + '</td>' +
-                '<td>' + data[i].numberOfBids + '</td>' +
-                '<td class="js-sellerPrice" id="seller_price_' + data[i].id + '">' + 0.00 +
-
-                '</td>' +
-                '<td align="center">' +
-                '<input  hidden="" type="text" id="selected_proposal_id_' + data[i].id + '"/>' +
-                '<input  hidden="" type="text" id="selected_bid_id_' + data[i].id + '"/>' +
-                    '<button type="submit" class="btn' + buttonStyle +'" onclick="createUnitDeal(' + data[i].id + ')">Deal</button>' +
-                '</td></tr>';
-        }
-        $('#unitsTable').html(html);
-    });
+    $.getJSON('/tenders' + tender + '/units?direction=asc&field=item.name', buildUnitTable);
 }
 
 function createProposalDeal(proposalId) {
@@ -215,14 +243,16 @@ function showProposalsTable(propsArray, unitsArray) {
                         '<button type="submit" class="btn' + buttonStyle + '" onclick="createProposalDeal(' + propsArray[i].id + ')">Deal</button>' +
                     '</td>' +
                     '</tr>';
-            } 
+            }
         }
         $('#proposals').html(html);
     } else {
         document.getElementById("head_proposals").setAttribute('hidden','true');
     }
     $('.js-highlightUnits').click(function(){
-        showUnitSellerPrice(this.getAttribute("propId"));
+        highLightedElement = this;
+        console.log(highLightedElement);
+        showUnitSellerPrice(highLightedElement.getAttribute("propId"));
     });
 }
 
@@ -246,6 +276,8 @@ function checkBids(bidsArray, unitsArray) {
     } else {
         return false;
     }
+
+
 }
 
 function showUnitSellerPrice(proposalId) {
