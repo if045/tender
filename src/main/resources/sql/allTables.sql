@@ -203,10 +203,23 @@ INSERT INTO category (parent, name) VALUES
   (/* 16 */ 13, 'Motorcycle');
 
 INSERT INTO moderator_category (user_id, category_id) VALUES
-/* One moderator / parent category*/
+/* One moderator / category*/
   (17, 1),
   (18, 9),
-  (19, 13);
+  (19, 13),
+  (17, 2),
+  (17, 3),
+  (17, 4),
+  (17, 5),
+  (17, 6),
+  (18, 7),
+  (18, 8),
+  (18, 10),
+  (18, 11),
+  (19, 12),
+  (19, 14),
+  (19, 15),
+  (19, 16);
 
 INSERT INTO item (type, category_id, name) VALUES
   (/* 1 */  'P', 6,  'Gibson'),

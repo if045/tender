@@ -18,7 +18,7 @@
             <form class="form-horizontal" role="form" id="create_tender_form_validation">
                 <div class="form-group">
                     <label for="create_tender_title" class="col-sm-2 control-label">Title*:</label>
-                    <div class="col-sm-10">
+                    <div class="col-sm-6">
                       <input type="text" class="form-control" id="create_tender_title" placeholder="Title of the tender" name="title">
                     </div>
                 </div>
@@ -54,7 +54,7 @@
                     <div><label class="control-label">New unit:</label></div>
                     <div class="row addunit_body">
                         <div class="col-sm-12">
-                            <div class="col-sm-3 addunit_body_item">
+                            <div class="col-sm-2 addunit_body_item">
                                 <div class="form-group">
                                     <div>Category*:</div>
                                     <div class="selectpicker">
@@ -62,7 +62,7 @@
                                     </div>
                                 </div> 
                             </div>
-                            <div class="col-sm-3 addunit_body_item field_group">
+                            <div class="col-sm-4 addunit_body_item field_group">
                                 <div class="form-group btn-group" data-toggle="buttons-radio">
                                     <div>Type*:</div>
                                     <div class="btn-group" data-toggle="buttons" id="radio_group">
@@ -101,7 +101,7 @@
                                     </div>
                                 </div> 
                             </div>
-                            <div class="col-sm-2 addunit_body_item field_group">
+                            <div class="col-sm-3 addunit_body_item field_group">
                                 <div class="form-group">
                                     <div>Measurement*:</div>
                                     <div>
@@ -109,7 +109,7 @@
                                     </div>
                                 </div> 
                             </div>
-                            <div class="col-sm-7 addunit_body_item">
+                            <div class="col-sm-6 addunit_body_item">
                                 <div class="form-group">
                                     <div class="selectpicker">
                                         <button type="button" class="btn btn-primary pull-right addbutton"
