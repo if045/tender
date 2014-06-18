@@ -103,10 +103,6 @@ function closeDealModalWindow(id) {
     $('#' + id).modal('hide');
 }
 
-function goToRegistrationPage() {
-    window.location.href = REGISTRATION_PAGE_URL;
-}
-
 function showDealsPagination(queryParams) {
     $.ajax({
         url: DEALS_NUMBER_URL,
