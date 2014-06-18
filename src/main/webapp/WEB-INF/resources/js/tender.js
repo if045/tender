@@ -91,7 +91,7 @@ function buildUnitTable(data){
             '<td align="center">' +
                 '<input  hidden="" type="text" id="selected_proposal_id_' + data[i].id + '"/>' +
                 '<input  hidden="" type="text" id="selected_bid_id_' + data[i].id + '"/>' +
-                '<button type="submit" class="btn' + buttonStyle +'" onclick="createUnitDeal(' + data[i].id + ')">Deal</button>' +
+                '<button type="submit" id="unit_deal_button_'+ data[i].id +'" class="btn' + buttonStyle +'" onclick="createUnitDeal(' + data[i].id + ')" disabled>Deal</button>' +
             '</td></tr>';
     }
     $('#unitsTable').html(html);
@@ -256,7 +256,6 @@ function showProposalsTable(propsArray, unitsArray) {
     }
     $('.js-highlightUnits').click(function(){
         highLightedElement = this;
-        console.log(highLightedElement);
         showUnitSellerPrice(highLightedElement.getAttribute("propId"));
     });
 }
@@ -288,6 +287,7 @@ function checkBids(bidsArray, unitsArray) {
 function showUnitSellerPrice(proposalId) {
     resetRowsStyle();
     cleanSellerPriceColumn();
+    disabledUnitDealButton();
 
     $("#proposal_row_" + proposalId).addClass('info');
     var proposal;
@@ -304,10 +304,11 @@ function showUnitSellerPrice(proposalId) {
         $("#seller_price_" + bidsArr[i].unitId).html(bidsArr[i].price);         //show seller price of unit
         $("#selected_proposal_id_" + bidsArr[i].unitId).attr('value', proposalId);       //set selected proposal id
         $("#selected_bid_id_" + bidsArr[i].unitId).attr('value', bidsArr[i].bidId);      //set selected proposal bid id
+        $("#unit_deal_button_" + bidsArr[i].unitId).removeAttr("disabled");
     }
 
     var str = '';
-    if (proposal.description.length != null) {
+    if (proposal.description != null) {
         str += proposal.description + "\n";
     }
     if (proposal.discountCurrency != null) {
@@ -336,5 +337,11 @@ function checkAll() {
     }
 
     showProposals();
+}
+
+function disabledUnitDealButton(){
+    for (var i = 0; i < Units.length; i++) {
+        $("#unit_deal_button_" + Units[i].id).attr('disabled', 'disabled');
+    }
 }
 
