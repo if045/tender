@@ -4,6 +4,7 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
+<%@taglib uri="http://www.springframework.org/security/tags" prefix="security"%>
 
 <!DOCTYPE html>
 <html>
@@ -22,12 +23,12 @@
     <script type='text/javascript' src='<c:url value="../resources/js/bootstrap-datepicker.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/select2.min.js"/>'></script>
 
+    <script type='text/javascript' src='<c:url value="../resources/js/constants.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/deals.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/feedback.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/addTenderModal.js"/>'></script>
     <script type="text/javascript" src='<c:url value="../resources/js/star-rating.min.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/tenders.js"/>'></script>
-    <script type='text/javascript' src='<c:url value="../resources/js/constants.js"/>'></script>
 </head>
 <body>
     <div class="container">

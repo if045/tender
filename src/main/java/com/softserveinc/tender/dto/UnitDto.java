@@ -10,6 +10,7 @@ public class UnitDto {
     private String measurementName;
     private Double price;
     private Integer numberOfBids;
+    private Boolean haveDeals;
 
     public Integer getTenderId() {
         return tenderId;
@@ -81,5 +82,13 @@ public class UnitDto {
 
     public void setNumberOfBids(Integer numberOfBids) {
         this.numberOfBids = numberOfBids;
+    }
+
+    public Boolean getHaveDeals() {
+        return haveDeals;
+    }
+
+    public void setHaveDeals(Boolean haveDeals) {
+        this.haveDeals = haveDeals;
     }
 }

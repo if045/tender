@@ -80,4 +80,82 @@ $(document).ready(function () {
     jQuery("#edit_tender_form").validate(validationForAllInput);
     jQuery("#create_proposal_form").validate(validationForAllInput);
     jQuery("#tendersHome_validation").validate(validationForTenderHomePrice);
+
+    jQuery.validator.addMethod("lettersonly", function(value, element) {
+        return this.optional(element) || /^[a-z]+$/i.test(value);
+    }, "Please enter only letters");
+
+    registrationPageValidation();
 });
+
+function registrationPageValidation() {
+
+    $('form').validate({
+        rules: {
+            login: {
+                email: true,
+                maxlength: 30,
+                required: true
+            },
+
+            password: {
+                required: true,
+                minlength: 6
+            },
+
+            confirm_password: {
+                equalTo: "#password",
+                required: true
+            },
+
+            first_name: {
+                minlength: 3,
+                maxlength: 20,
+                lettersonly: true,
+                required: true
+            },
+
+            last_name: {
+                minlength: 3,
+                maxlength: 20,
+                lettersonly: true,
+                required: true
+            },
+
+            phone_number: {
+                maxlength: 10,
+                minlength: 10,
+                digits: true,
+                required: true
+            }
+        },
+
+        messages : {
+            first_name: {
+                lettersonly: "please enter your name correctly, like: John"
+            },
+            last_name: {
+                lettersonly: "please enter your name correctly, like: Doe"
+            }
+        },
+
+        highlight: function(element) {
+            $(element).closest('.form-group').removeClass('has-success').addClass('has-error');
+        },
+
+        unhighlight: function(element) {
+            $(element).closest('.form-group').removeClass('has-error').addClass('has-success');
+        },
+
+        errorElement: 'span',
+        errorClass: 'help-block',
+
+        errorPlacement: function(error, element) {
+            if(element.parent('.input-group').length) {
+                error.insertAfter(element.parent());
+            } else {
+                error.insertAfter(element);
+            }
+        }
+    });
+}

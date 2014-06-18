@@ -8,7 +8,6 @@
 
     <context:annotation-config />
     <context:component-scan base-package="com.softserveinc.tender" />
-
     <mvc:annotation-driven />
     <mvc:resources mapping="/resources/**" location="/WEB-INF/resources/"/>
 
@@ -17,5 +16,7 @@
 
 
     <bean id="modelMapper" class="org.modelmapper.ModelMapper" />
+
+    <import resource="spring-security.xml"/>
 
 </beans>
