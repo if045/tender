@@ -30,7 +30,7 @@ public class DealController {
 
     @RequestMapping(method = RequestMethod.GET)
     public @ResponseBody List<DealDto> findDeals() {
-        return dealFacade.findAllDeals();
+        return dealFacade.findAllDealsBySeller();
     }
 
     @PreAuthorize("hasAnyRole('CUSTOMER','SELLER')")

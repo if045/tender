@@ -16,4 +16,6 @@ public interface DealRepository extends JpaRepository<Deal, Integer> {
 
     @Query("select d from Deal d inner join d.bid b where b.unit.id = :unitId")
     List<Deal> findByUnitId(@Param("unitId")Integer unitId);
+
+    List<Deal> findBySellerId(Integer id);
 }

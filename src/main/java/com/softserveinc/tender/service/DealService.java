@@ -6,6 +6,7 @@ import java.util.List;
 public interface DealService {
 
     List<Deal> findAllDeals();
+    List<Deal> findAllDealsBySeller(Integer id);
     Deal findDealById(Integer id);
     Deal saveDeal(Deal deal);
     void updateDealWithStatus(Integer dealId, String statusName);

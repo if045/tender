@@ -24,6 +24,11 @@ public class DealServiceImpl implements DealService {
     }
 
     @Override
+    public List<Deal> findAllDealsBySeller(Integer id) {
+        return dealRepository.findBySellerId(id);
+    }
+
+    @Override
     public Deal findDealById(Integer id) {
         return dealRepository.findOne(id);
     }

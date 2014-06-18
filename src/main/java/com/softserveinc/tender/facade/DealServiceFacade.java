@@ -13,6 +13,7 @@ import java.util.List;
 public interface DealServiceFacade {
 
     List<DealDto> findAllDeals();
+    List<DealDto> findAllDealsBySeller();
     void updateDealWithStatus(Integer dealId, String statusName);
     ConflictDto saveConflict(ConflictSaveDto conflictSaveDto);
     List<DealDto> mapDeals(List<Deal> deals);
