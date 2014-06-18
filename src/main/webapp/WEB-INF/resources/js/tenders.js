@@ -365,10 +365,6 @@
             $('#' + id).modal('hide');
         }
 
-        function showDealsPage() {
-            window.location.href='/mydeals';
-        }
-
         function initializeDateFilter() {
             var currentDate = getCurrentDate();
             var nextMonthDate = getNextMonthDate();
@@ -408,6 +404,10 @@
 
         function goToRegistrationPage() {
             window.location.href = REGISTRATION_PAGE_URL;
+        }
+
+        function goToMyDealsPage() {
+            window.location.href = MYDEALS_PAGE_URL;
         }
 
         function showPagination(queryParams) {

@@ -1,5 +1,7 @@
 package com.softserveinc.tender.web;
 
+import com.softserveinc.tender.dto.ConflictDto;
+import com.softserveinc.tender.dto.ConflictSaveDto;
 import com.softserveinc.tender.dto.DealDto;
 import com.softserveinc.tender.dto.DealsNumberDto;
 import com.softserveinc.tender.dto.FeedbackDto;
@@ -10,6 +12,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -44,6 +47,13 @@ public class DealController {
                                                      @RequestParam("statusName") String statusName) {
         dealFacade.updateDealWithStatus(dealId, statusName);
     }
+
+    @RequestMapping(value = "/{id}/conflicts", method = RequestMethod.POST, consumes = "application/json")
+    public @ResponseBody
+    ConflictDto addConflict(@RequestBody ConflictSaveDto conflictSaveDto) {
+        return dealFacade.saveConflict(conflictSaveDto);
+    }
+
     @RequestMapping(value = "/{id}/feedbacks", method = RequestMethod.POST, consumes = "application/json")
     public @ResponseBody
     FeedbackDto addFeedback(@RequestBody FeedbackSaveDto feedbackSaveDto) {

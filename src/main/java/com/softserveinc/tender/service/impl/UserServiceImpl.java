@@ -29,6 +29,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public  User findByModeratorCategoriesId(int categoryId) {
+        return userRepository.findByModeratorCategoriesId(categoryId);
+    }
+
     public User findByLogin(String login) {
         return userRepository.findByLogin(login);
     }

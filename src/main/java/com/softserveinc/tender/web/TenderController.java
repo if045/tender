@@ -16,6 +16,7 @@ import com.softserveinc.tender.facade.TenderServiceFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -95,8 +96,12 @@ public class TenderController {
     }
 
     @RequestMapping(value = "/{tenderId}/units", method = RequestMethod.GET)
-    public @ResponseBody List<UnitDto> mapUnits(@PathVariable("tenderId") Integer tenderId) {
-        return tenderFacade.findUnitsByTenderId(tenderId);
+    public @ResponseBody List<UnitDto> sortUnits(@PathVariable("tenderId") Integer tenderId,
+                                                 @RequestParam("direction") String direction,
+                                                 @RequestParam("field") String field) {
+        Sort sort = new Sort(Sort.Direction.fromString(direction), field);
+        Pageable pageRequest = new PageRequest(0, Integer.MAX_VALUE, sort);
+        return tenderFacade.findUnitsByTenderId(tenderId, pageRequest);
     }
 
     @PreAuthorize("hasRole('CUSTOMER')")

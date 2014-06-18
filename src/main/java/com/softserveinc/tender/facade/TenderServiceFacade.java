@@ -25,7 +25,7 @@ public interface TenderServiceFacade {
     List<ItemDto> findTendersItems(TenderFilter tenderFilter);
     List<LocationDto> findTendersLocations();
     List<CategoryDto> findTendersCategories();
-    List<UnitDto> findUnitsByTenderId(Integer tenderId);
+    List<UnitDto> findUnitsByTenderId(Integer tenderId, Pageable pageable);
     TenderDto updateTender(Integer tenderId, String statusName, String endDate, String description);
     List<ProposalDto> findTendersProposals(Integer tenderId);
     ProposalDto saveProposal(ProposalSaveDto proposalSaveDto);

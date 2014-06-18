@@ -24,10 +24,12 @@
     <script type='text/javascript' src='<c:url value="../resources/js/select2.min.js"/>'></script>
 
     <script type='text/javascript' src='<c:url value="../resources/js/constants.js"/>'></script>
-    <script type='text/javascript' src='<c:url value="../resources/js/deals.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/feedback.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/addTenderModal.js"/>'></script>
     <script type="text/javascript" src='<c:url value="../resources/js/star-rating.min.js"/>'></script>
+    <script type='text/javascript' src='<c:url value="../resources/js/tenders.js"/>'></script>
+    <script type='text/javascript' src='<c:url value="../resources/js/conflict.js"/>'></script>
+    <script type='text/javascript' src='<c:url value="../resources/js/deals.js"/>'></script>
 </head>
 <body>
     <div class="container">
@@ -82,7 +84,7 @@
                         </div>
                         <div class="pull-right">
                             <div class="control-group">
-                                <select id="pagination_itemsnum" class="form-control pull-right items_number_dropdown">
+                                <select id="pagination_dealsnum" class="form-control pull-right items_number_dropdown">
                                     <option value="5">5</option>
                                     <option value="10" selected>10</option>
                                     <option value="15">15</option>
@@ -107,6 +109,10 @@
 <!--create tender modal -->
 <jsp:include page="createTender.jsp"/>
 <!--create tender modal -->
+
+<!--action button conflict-->
+<jsp:include page="conflict.jsp"/>
+<!--action button conflict-->
 
 <!--action button feedback-->
 <jsp:include page="feedback.jsp"/>

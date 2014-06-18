@@ -7,19 +7,19 @@ $(document).ready(function() {
         startDate: '-5y'
     });
 
-    $('#pagination_itemsnum').on('change', function() {
+    $('#pagination_dealsnum').on('change', function() {
         pageSize = this.value;
         currPageNumber = 0;
-        showPage(currPageNumber);
+        showDealsPage(currPageNumber);
     });
 
     showDeals();
 });
 
 function showDeals() {
-    var queryParams = ''; 
+    var queryParams = '';
     
-    showPagination(queryParams);
+    showDealsPagination(queryParams);
     
     queryParams += (queryParams.length==0)?"pageSize="+pageSize:"&pageSize="+pageSize;
     queryParams += "&pageNumber="+currPageNumber;
@@ -46,7 +46,7 @@ function showDeals() {
                                 '<button data-toggle="dropdown" class="btn btn-default dropdown-toggle">Action<span class="caret"></span></button>' +
                                 '<ul class="dropdown-menu">' +
                                     '<li><a href="#" data-toggle="modal" data-target="#feedback_mod_wind" onclick="writeFeedbackId(' + data[i].id + ')">Feedback</a></li>' +
-                                    '<li><a href="#">Conflict</a></li>' +
+                                    '<li><a href="#" data-toggle="modal" data-target="#conflict_mod_wind" onclick="writeConflictId(' + data[i].id + ')">Conflict</a></li>' +
                                     '<li><a href="#" data-toggle="modal" data-target="#close_deal_mod_wind" onclick="writeCloseDealId(' + data[i].id + ')">Close</a></li>' +
                                 '</ul>' +
                             '</div>' +
@@ -107,7 +107,7 @@ function goToRegistrationPage() {
     window.location.href = REGISTRATION_PAGE_URL;
 }
 
-function showPagination(queryParams) {
+function showDealsPagination(queryParams) {
     $.ajax({
         url: DEALS_NUMBER_URL,
         async: false,
@@ -123,7 +123,7 @@ function showPagination(queryParams) {
                 var html = '';
                 html += '<li class="'+((currPageNumber==0)?"disabled":"")+'"><a id="prev_page" href="#">&laquo;</a></li>';
                 for(var z=1;z<=pageNumber;z++) {
-                    html += '<li class="'+((currPageNumber==z-1)?"active":"")+'"><a href="#" onclick="showPage('+(z-1)+');">'+z+'</a></li>';
+                    html += '<li class="'+((currPageNumber==z-1)?"active":"")+'"><a href="#" onclick="showDealsPage('+(z-1)+');">'+z+'</a></li>';
                 }
                 html += '<li class="'+((currPageNumber==pageNumber-1)?"disabled":"")+'"><a id="next_page" href="#">&raquo;</a></li>';
 
@@ -131,11 +131,11 @@ function showPagination(queryParams) {
                 $('#pagination').show();
 
                 if(currPageNumber != 0) {
-                    document.getElementById('prev_page').setAttribute("onclick", "showPage("+(currPageNumber-1)+");");
+                    document.getElementById('prev_page').setAttribute("onclick", "showDealsPage("+(currPageNumber-1)+");");
                 }
 
                 if(currPageNumber != pageNumber-1) {
-                    document.getElementById('next_page').setAttribute("onclick", "showPage("+(currPageNumber+1)+");");
+                    document.getElementById('next_page').setAttribute("onclick", "showDealsPage("+(currPageNumber+1)+");");
                 }
             } else {
                 $('.page_pagination').hide();
@@ -147,7 +147,7 @@ function showPagination(queryParams) {
     });
 }
 
-function showPage(pageNumber) {
+function showDealsPage(pageNumber) {
     currPageNumber = pageNumber;
     showDeals();
 }

@@ -7,5 +7,5 @@ public interface ConflictService {
 
     List<Conflict> findAll();
     Conflict findById(int id);
-
+    Conflict save(Conflict conflict);
 }

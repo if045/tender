@@ -1,5 +1,6 @@
 var CLOSE_TENDER_STATUS_NAME = "Close";
 var TENDERS_URL = "/tenders";
+var MYDEALS_PAGE_URL = "/mydeals";
 
 /*Constants for addTenderModal.js*/
 var ITEMS_URL = "/items";
@@ -58,3 +59,6 @@ var TENDERS_NUMBER = "/tenders/number";
 /*Constants for tenders pagination*/
 var DEFAULT_SORT_FIELD = "createDate";
 
+/*Constants for conflict*/
+var DEALS ="/deals/";
+var CONFLICTS = "/conflicts";

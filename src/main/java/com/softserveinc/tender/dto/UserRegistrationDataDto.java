@@ -4,8 +4,12 @@ import javax.validation.constraints.NotNull;
 
 public class UserRegistrationDataDto {
 
+    @NotNull
     private UserDto userDto;
+
+    @NotNull
     private ProfileDto profileDto;
+
     private CompanyDto companyDto;
     private TradeSphereDto tradeSphereDto;
 
