@@ -1,3 +1,4 @@
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <nav class="navbar navbar-default" role="navigation">
@@ -5,17 +6,34 @@
         <div class="navbar-header">
             <ul class="nav navbar-nav navbar-left nav_buttons">
                 <li><a class="navbar-brand" href="/tendersHome">UATender</a></li>
-                <li><button type="button" class="btn btn-default nav_button" disabled>My tenders</button></li>
-                <li><button type="button" class="btn btn-default nav_button" onclick="showDealsPage();">My
-                    deals</button></li>
-                <li><button type="button" class="btn btn-default nav_button" data-toggle="modal" data-target="#createTenderWindow">Create tender</button></li>
+                <security:authorize access="hasAnyRole('CUSTOMER','SELLER')">
+                    <li><button type="button" class="btn btn-default nav_button" disabled>My tenders</button></li>
+                </security:authorize>
+                <security:authorize access="hasAnyRole('CUSTOMER','SELLER')">
+                    <li><button type="button" class="btn btn-default nav_button" onclick="showDealsPage();">My
+                                    deals</button></li>
+                </security:authorize>
+                <security:authorize access="hasRole('CUSTOMER')">
+                    <li><button type="button" class="btn btn-default nav_button" data-toggle="modal"
+                                 data-target="#createTenderWindow">Create tender</button></li>
+                </security:authorize>
             </ul>
         </div>
 
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="/login">Log in</a></li>
-                <li><button type="button" class="btn btn-default nav_button" onclick="goToRegistrationPage();">Sign up</button></li>
+                <security:authorize access="! isAuthenticated()">
+                    <li><a href="/login">Log in</a></li>
+                </security:authorize>
+                <security:authorize access="isAuthenticated()">
+                    <li><a href="/logout">Log out</a></li>
+                </security:authorize>
+                <security:authorize access="isAuthenticated()">
+                    <li><a class="glyphicon glyphicon-user" href="#"></a></li>
+                </security:authorize>
+                <security:authorize access="! isAuthenticated()">
+                    <li><button type="button" class="btn btn-default nav_button" onclick="goToRegistrationPage();">Sign up</button></li>
+                </security:authorize>
             </ul>
         </div>
     </div>

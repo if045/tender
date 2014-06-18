@@ -7,5 +7,6 @@ public interface ProfileService {
 
     List<Profile> findAll();
     Profile findProfileById(int id);
+    Profile findProfileByUserLogin(String login);
     Profile saveProfile(Profile profile);
 }

@@ -27,10 +27,10 @@ INSERT INTO conflict_status (name) VALUE
   ('resolved');
 
 INSERT INTO role (name) VALUES
-  ('admin'),
-  ('moderator'),
-  ('seller'),
-  ('customer');
+  ('ADMIN'),
+  ('MODERATOR'),
+  ('SELLER'),
+  ('CUSTOMER');
 
 INSERT INTO deal_status (name) VALUES
   ('open'),
@@ -110,31 +110,31 @@ INSERT INTO company (name, srn, email, logo, address_id) VALUES
   ('Xado Corp',                             132345, 'XadoCorp@gmail.com',          null, 14),
   ('Garbuz Studio',                         142345, 'GarbuzStudio@gmail.com',      null, 15);
 
-INSERT INTO user (login, password, create_date) VALUES
+INSERT INTO user (login, password, create_date, enabled) VALUES
 /* Sellers */
-  ('odin_ogame@ukr.net',    'arlekin',   		CURDATE()),
-  ('mail4quest@mail.ru',    'quest',     		CURDATE()),
-  ('vasapupkin@gmail.com',  'pupkin',    		CURDATE()),
-  ('vasahopnik@rambler.ru', 'dver88',    		CURDATE()),
-  ('dota2@gmail.com',       'noob23',    		CURDATE()),
-  ('olgamoros@ukr.net',     'ole4ka',    		CURDATE()),
-  ('sanja_ivanow@ukr.net',  '123qwerty', 		CURDATE()),
-  ('kolja234@qmail.com',    'vasa567',   		CURDATE()),
-  ('GUSbYa@gmail.com',      'maideniron987',  CURDATE()),
-  ('romawar@gmail.com',     'deuslovult',     CURDATE()),
+  ('odin_ogame@ukr.net',    'arlekin',   		CURDATE(), TRUE),
+  ('mail4quest@mail.ru',    'quest',     		CURDATE(), TRUE),
+  ('vasapupkin@gmail.com',  'pupkin',    		CURDATE(), TRUE),
+  ('vasahopnik@rambler.ru', 'dver88',    		CURDATE(), TRUE),
+  ('dota2@gmail.com',       'noob23',    		CURDATE(), TRUE),
+  ('olgamoros@ukr.net',     'ole4ka',    		CURDATE(), TRUE),
+  ('sanja_ivanow@ukr.net',  '123qwerty', 		CURDATE(), TRUE),
+  ('kolja234@qmail.com',    'vasa567',   		CURDATE(), TRUE),
+  ('GUSbYa@gmail.com',      'maideniron987',  CURDATE(), TRUE),
+  ('romawar@gmail.com',     'deuslovult',     CURDATE(), TRUE),
 
 /* Customers */
-  ('ramstein@ukr.net',      'duriechstsogut', CURDATE()),
-  ('maidenFan@ukr.net',     'holysmoke',      CURDATE()),
-  ('TSRules@qmail.com',     'iwonarock',      CURDATE()),
-  ('TolkienReader@ukr.net', 'lotr090191',     CURDATE()),
-  ('egoManiac@qmail.com',   'iamtheking',     CURDATE()),
+  ('ramstein@ukr.net',      'duriechstsogut', CURDATE(), TRUE),
+  ('maidenFan@ukr.net',     'holysmoke',      CURDATE(), TRUE),
+  ('TSRules@qmail.com',     'iwonarock',      CURDATE(), TRUE),
+  ('TolkienReader@ukr.net', 'lotr090191',     CURDATE(), TRUE),
+  ('egoManiac@qmail.com',   'iamtheking',     CURDATE(), TRUE),
 
 /* Admin, moderators */
-  ('TenderAdmin@gmail.com', 'thebestadmever', '2014-04-07'),
-  ('modjunior@gmail.com',   'holysmoke',      '2014-04-07'),
-  ('modSenior@gmail.com',   'iwonarock',      '2014-04-07'),
-  ('modIntermid@gmail.com', 'iamtheking',     '2014-04-07');
+  ('TenderAdmin@gmail.com', 'thebestadmever', '2014-04-07', TRUE),
+  ('modjunior@gmail.com',   'holysmoke',      '2014-04-07', TRUE),
+  ('modSenior@gmail.com',   'iwonarock',      '2014-04-07', TRUE),
+  ('modIntermid@gmail.com', 'iamtheking',     '2014-04-07', TRUE);
 
 INSERT INTO user_role (user_id, role_id) VALUES
 /* Sellers */

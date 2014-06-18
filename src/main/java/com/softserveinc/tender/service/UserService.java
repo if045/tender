@@ -7,5 +7,6 @@ public interface UserService {
 
     List<User> findAll();
     User findUserById(int id);
+    User findByLogin(String login);
     User saveUser(User user);
 }

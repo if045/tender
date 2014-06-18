@@ -20,6 +20,7 @@ import com.softserveinc.tender.entity.Deal;
 import com.softserveinc.tender.entity.Item;
 import com.softserveinc.tender.entity.Location;
 import com.softserveinc.tender.entity.Proposal;
+import com.softserveinc.tender.entity.Role;
 import com.softserveinc.tender.entity.Tender;
 import com.softserveinc.tender.entity.TenderStatus;
 import com.softserveinc.tender.entity.Unit;
@@ -43,6 +44,7 @@ import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -145,6 +147,7 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
         TenderDto tenderDto = new TenderDto();
         List<String> locations = new ArrayList<>();
         Set<String> categories = new HashSet<>();
+        List<String> roles = new ArrayList<>();
 
         tenderDto.setId(tender.getId());
         tenderDto.setTitle(tender.getTitle());
@@ -167,6 +170,12 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
         if (tender.getDescription()!=null){
             tenderDto.setDescription(tender.getDescription());
         }
+        if (SecurityContextHolder.getContext().getAuthentication().getName()!="anonymousUser"){
+            for (Role role:userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).getRoles()){
+                roles.add(role.getName());
+            }
+        }
+        tenderDto.setRoles(roles);
         return tenderDto;
     }
 
@@ -248,7 +257,7 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
         tender.setSuitablePrice(tenderSaveDto.getSuitablePrice());
         tender.setCreateDate(new Date());
         tender.setEndDate(date);
-        tender.setAuthor(profileService.findProfileById(8)); //TO DO: put current user
+        tender.setAuthor(profileService.findProfileByUserLogin(SecurityContextHolder.getContext().getAuthentication().getName()));
         Tender savedTender = tenderService.save(tender);
         List<Unit> units = new ArrayList<>();
         for (UnitSaveDto unitSaveDto : tenderSaveDto.getUnits()) {
