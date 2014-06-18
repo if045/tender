@@ -12,6 +12,8 @@
     <mvc:resources mapping="/resources/**" location="/WEB-INF/resources/"/>
 
     <import resource="spring-data.xml"/>
+    <import resource="spring-mail.xml"/>
+
 
     <bean id="modelMapper" class="org.modelmapper.ModelMapper" />
 

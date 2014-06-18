@@ -78,7 +78,8 @@ function buildUnitTable(data){
         if (data[i].itemType == 'P')
             var itemTypes = 'Product'
         else if (data[i].itemType == 'S')
-            var itemTypes = 'Service'
+            var itemTypes = 'Service';
+        var buttonStyle = (data[i].haveDeals) ? " btn-success" : " btn-info";
         html += '<tr class="js-unitRow" id="unit_row_' + data[i].id + '"><td align="center">' + '<input type="checkbox" onchange="showSpecificProposals()" id="ch_box_' + i + '">' +
             '<input  hidden="" type="text" value="' + data[i].id +'" id="unit_id_' + i + '"/></td>' +
             '<td>' + data[i].unitName + '</td>' +
@@ -87,7 +88,11 @@ function buildUnitTable(data){
             '<td>' + data[i].quantity + ' ' + data[i].measurementName + '</td>' +
             '<td>' + data[i].numberOfBids + '</td>' +
             '<td class="js-sellerPrice" id="seller_price_' + data[i].id + '">' + 0.00 + '</td>' +
-            '<td align="center">' + '<button type="submit" class="btn btn-default" disabled>Deal</button>' + '</td></tr>';
+            '<td align="center">' +
+                '<input  hidden="" type="text" id="selected_proposal_id_' + data[i].id + '"/>' +
+                '<input  hidden="" type="text" id="selected_bid_id_' + data[i].id + '"/>' +
+                '<button type="submit" class="btn' + buttonStyle +'" onclick="createUnitDeal(' + data[i].id + ')">Deal</button>' +
+            '</td></tr>';
     }
     $('#unitsTable').html(html);
     if(!(highLightedElement == undefined)) {

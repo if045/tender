@@ -91,7 +91,7 @@
                     <div class="col-md-7 height">
                         <table class="table table-bordered table-striped fancyTable" id="units">
                             <thead>
-                                <th align="center"><span class="glyphicon glyphicon-check"></span></th>
+                                <td align="center"><input type="checkbox" onchange="checkAll()" id="ch_box_head"></td>
                                 <th><span class="sortable asc glyphicon glyphicon-chevron-up" name="item.name">Name</span></th>
                                 <th><span class="sortable" name="item.type">Type</span></th>
                                 <th><span class="sortable" name="item.category">Category</span></th>
