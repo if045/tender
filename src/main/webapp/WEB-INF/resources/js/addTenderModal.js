@@ -434,9 +434,14 @@ function showResultAfterTenderAdded(){
                 for (var i = 0; i < dataSize; i++) {
                     html += '<tr><td align="center">' + data[i].title + '</td>' +
                         '<td align="center">' + data[i].authorName + '</td>' +
-                        '<td align="center">' + data[i].categories + '</td>' +
-                        '<td align="center">' + data[i].locations + '</td>' +
-                        '<td align="center">' + data[i].suitablePrice + '</td>' +
+                        '<td align="center">' + data[i].categories + '</td>';
+                    if (data[i].locations.toString().split(',').length>2){
+                        html += '<td align="center" data-toggle="tooltip" data-placement="bottom" title="'+data[i].locations+'">' + data[i].locations.toString().split(',')[0] +','+data[i].locations.toString().split(',')[1] + '...'+'</td>';
+                    }else{
+                        html += '<td align="center">' + data[i].locations + '</td>';
+                    }
+
+                    html += '<td align="center">' + data[i].suitablePrice + '</td>' +
                         '<td align="center">' + data[i].status + '</td>' +
                         '<td align="center">' + data[i].proposals + '</td>' +
                         '<td align="center">' +
