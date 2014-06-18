@@ -33,13 +33,15 @@ body {
 }
 
 .sidebar {
-	margin-top:16px;
 	margin-left: -15px;
+}
+
+.search_bar {
+ 	margin-bottom: 15px;
 }
 
 .selectpicker {
 	width:100%;
-	margin-top:5px;
 	margin-bottom:5px;
 }
 
@@ -146,6 +148,7 @@ body {
 }
 
 .field_group {
+    margin-top:5px;
 	padding-left:50px;
 }
 
@@ -237,6 +240,20 @@ textarea {
     width:75%;
 }
 
+#feedback_mod_wind .modal-dialog {
+    width: 500px;
+}
+
 .backdown {
     margin-bottom: 10px;
+}
+
+.sortable {
+    font-weight: bold;
+}
+
+.sortable span {
+    padding-left: 4px;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif !important;
+    font-size: 12px !important;
 }

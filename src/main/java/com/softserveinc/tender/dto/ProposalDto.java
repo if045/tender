@@ -17,6 +17,7 @@ public class ProposalDto {
     private String description;
     private Double discountPercentage;
     private BigDecimal discountCurrency;
+    private Boolean haveDeals;
 
     public Double countTotalBidsPrice(Proposal proposal) {
         final Integer START_COUNT_VALUE = 0;
@@ -95,5 +96,13 @@ public class ProposalDto {
 
     public void setDiscountCurrency(BigDecimal discountCurrency) {
         this.discountCurrency = discountCurrency;
+    }
+
+    public Boolean getHaveDeals() {
+        return haveDeals;
+    }
+
+    public void setHaveDeals(Boolean haveDeals) {
+        this.haveDeals = haveDeals;
     }
 }

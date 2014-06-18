@@ -1,6 +1,7 @@
 package com.softserveinc.tender.web;
 
 import com.softserveinc.tender.dto.CategoryDto;
+import com.softserveinc.tender.dto.DealDto;
 import com.softserveinc.tender.dto.ItemDto;
 import com.softserveinc.tender.dto.LocationDto;
 import com.softserveinc.tender.dto.ProposalDto;
@@ -8,6 +9,7 @@ import com.softserveinc.tender.dto.ProposalSaveDto;
 import com.softserveinc.tender.dto.TenderDto;
 import com.softserveinc.tender.dto.TenderSaveDto;
 import com.softserveinc.tender.dto.UnitDto;
+import com.softserveinc.tender.dto.TendersNumberDto;
 import com.softserveinc.tender.repo.TenderFilter;
 import com.softserveinc.tender.dto.TenderStatusDto;
 import com.softserveinc.tender.facade.TenderServiceFacade;
@@ -43,10 +45,32 @@ public class TenderController {
             @RequestParam(value = "categories", required = false) Set<Integer> categories,
             @RequestParam(value = "statuses", required = false) List<Integer> statuses,
             @RequestParam(value = "minDate", required = false) Date createDate,
+            @RequestParam(value = "maxDate", required = false) Date endDate,
+            @RequestParam(value = "pageNumber", required = true) Integer pageNumber,
+            @RequestParam(value = "pageSize", required = true) Integer pageSize,
+            @RequestParam(value = "orderBy", required = false, defaultValue = "createDate") String orderBy,
+            @RequestParam(value = "sortDirection", required = false, defaultValue = "ASC") String sortDirection) {
+
+        Sort.Direction pageSortDirection = Sort.Direction.fromString(sortDirection);
+
+        return tenderFacade.findByCustomParams(new TenderFilter(minPrice, maxPrice, categories, locations, items,
+                                                                statuses, createDate, endDate),
+                                               new PageRequest(pageNumber, pageSize, pageSortDirection, orderBy));
+    }
+
+    @RequestMapping(value = "/number", method = RequestMethod.GET)
+    public @ResponseBody TendersNumberDto getTendersNumber(
+            @RequestParam(value = "minPrice", required = false) BigDecimal minPrice,
+            @RequestParam(value = "maxPrice", required = false) BigDecimal maxPrice,
+            @RequestParam(value = "items", required = false) List<Integer> items,
+            @RequestParam(value = "locations", required = false) List<Integer> locations,
+            @RequestParam(value = "categories", required = false) Set<Integer> categories,
+            @RequestParam(value = "statuses", required = false) List<Integer> statuses,
+            @RequestParam(value = "minDate", required = false) Date createDate,
             @RequestParam(value = "maxDate", required = false) Date endDate) {
 
-        return tenderFacade.findByCustomParams(new TenderFilter(minPrice, maxPrice, categories,
-                                                                locations, items, statuses, createDate, endDate));
+        return tenderFacade.getTendersNumber(new TenderFilter(minPrice, maxPrice, categories, locations,
+                items, statuses, createDate, endDate));
     }
 
     @RequestMapping(value = "/statuses", method = RequestMethod.GET)
@@ -100,6 +124,19 @@ public class TenderController {
     @RequestMapping(value = "/{id}/proposals", method = RequestMethod.POST, consumes = "application/json")
     public @ResponseBody ProposalDto addProposal(@RequestBody ProposalSaveDto proposalSaveDto) {
         return tenderFacade.saveProposal(proposalSaveDto);
+    }
+
+    @RequestMapping(value = "/{tenderId}/proposals/{proposalId}/deals", method = RequestMethod.POST, consumes = "application/json")
+    public @ResponseBody List<DealDto> createDeal(@PathVariable("tenderId") Integer tenderId,
+                                                  @PathVariable("proposalId") Integer proposalId) {
+        return tenderFacade.saveProposalDeal(tenderId, proposalId);
+    }
+
+    @RequestMapping(value = "/{tenderId}/proposals/{proposalId}/bids/{bidId}/deals", method = RequestMethod.POST, consumes = "application/json")
+    public @ResponseBody DealDto createDeal(@PathVariable("tenderId") Integer tenderId,
+                                            @PathVariable("proposalId") Integer proposalId,
+                                            @PathVariable("bidId") Integer bidId) {
+        return tenderFacade.saveBidDeal(tenderId, proposalId, bidId);
     }
 
     @RequestMapping(value = "/{tenderId}", method = RequestMethod.GET)

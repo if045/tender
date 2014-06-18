@@ -21,13 +21,12 @@
     <script type='text/javascript' src='<c:url value="../resources/js/bootstrap.min.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/bootstrap-datepicker.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/select2.min.js"/>'></script>
-    <script type='text/javascript' src='<c:url value="../resources/js/tenders.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/jquery.validate.min.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/validations.js"/>'></script>
+
+    <script type='text/javascript' src='<c:url value="../resources/js/tenders.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/tender.js"/>'></script>
-
     <script type='text/javascript' src='<c:url value="../resources/js/constants.js"/>'></script>
-
     <script type='text/javascript' src='<c:url value="../resources/js/tenderview.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/addTenderModal.js"/>'></script>
 </head>
@@ -42,7 +41,7 @@
             <div class="page_body">
                 <!-- content -->
                 <div class="row col-md-12 pull-left">
-                    <h4>Tender title</h4>
+                    <div id="tender_title"></div>
                 </div>
 
                 <!-- information about tender -->
@@ -136,6 +135,26 @@
         </div>
     </div>
 
+    <!-- success create deal modal window -->
+    <div class="modal fade" id="success_create_deal" tabindex="-1" role="dialog" hidden="">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header"><button class="close" type="button" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Success</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" role="form">
+                        <h5>You have successfully signed an agreement!</h5>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" type="button" data-dismiss="modal">Good</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- success create deal modal window -->
+
 <!--create tender modal -->
 <jsp:include page="createTender.jsp"/>
 <!--create tender modal -->
@@ -144,9 +163,5 @@
 <jsp:include page="newTenderCreated.jsp"/>
 <!-- new tender modal window -->
 
-<%--<div class="tooltip fade bottom in" style="top: 38px; left: 144px; display: block;">
-    <div class="tooltip-arrow"></div>
-    <div class="tooltip-inner">dasdad</div>
-</div>--%>
 </body>
 </html>

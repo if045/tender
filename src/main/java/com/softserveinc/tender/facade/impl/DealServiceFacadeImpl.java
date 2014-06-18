@@ -1,19 +1,22 @@
 package com.softserveinc.tender.facade.impl;
 
 import com.softserveinc.tender.dto.DealDto;
+import com.softserveinc.tender.dto.FeedbackDto;
+import com.softserveinc.tender.dto.FeedbackSaveDto;
 import com.softserveinc.tender.entity.Deal;
-import com.softserveinc.tender.entity.Tender;
+import com.softserveinc.tender.entity.Feedback;
+import com.softserveinc.tender.entity.Profile;
+import com.softserveinc.tender.entity.User;
 import com.softserveinc.tender.facade.DealServiceFacade;
-import com.softserveinc.tender.service.*;
-import org.modelmapper.ModelMapper;
-import org.modelmapper.TypeToken;
+import com.softserveinc.tender.service.DealService;
+import com.softserveinc.tender.service.FeedbackService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.lang.reflect.Type;
-import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+
 
 @Service("dealServiceFacade")
 @Transactional
@@ -23,7 +26,7 @@ public class DealServiceFacadeImpl implements DealServiceFacade {
     private DealService dealService;
 
     @Autowired
-    private ModelMapper modelMapper;
+    private FeedbackService feedbackService;
 
     @Override
     public List<DealDto> findAllDeals() {
@@ -36,7 +39,8 @@ public class DealServiceFacadeImpl implements DealServiceFacade {
         dealService.updateDealWithStatus(dealId, statusName);
     }
 
-    private List<DealDto> mapDeals(List<Deal> deals) {
+    @Override
+    public List<DealDto> mapDeals(List<Deal> deals) {
         List<DealDto> dealDtos = new ArrayList<>();
         for (Deal deal : deals) {
             dealDtos.add(mapDeal(deal));
@@ -45,7 +49,8 @@ public class DealServiceFacadeImpl implements DealServiceFacade {
         return dealDtos;
     }
 
-    private DealDto mapDeal(Deal deal) {
+    @Override
+    public DealDto mapDeal(Deal deal) {
         DealDto dealDto = new DealDto();
         dealDto.setId(deal.getId());
         dealDto.setDate(deal.getDate());
@@ -56,5 +61,35 @@ public class DealServiceFacadeImpl implements DealServiceFacade {
         dealDto.setBusinessPartner(deal.getCustomer().getFirstName());
 
         return dealDto;
+    }
+    private FeedbackDto mapFeedback(Feedback feedback) {
+        FeedbackDto feedbackDto = new FeedbackDto();
+        feedbackDto.setId(feedback.getId());
+        feedbackDto.setProfileId(feedback.getProfile().getId());
+        feedbackDto.setUserId(feedback.getUser().getId());
+        feedbackDto.setCommunication(feedback.getCommunication());
+        feedbackDto.setSpeed(feedback.getSpeed());
+        feedbackDto.setLogistic(feedback.getLogistic());
+        feedbackDto.setComment(feedback.getComment());
+        return feedbackDto;
+    }
+
+    @Override
+    public FeedbackDto saveFeedback(FeedbackSaveDto feedbackSaveDto) {
+        Feedback feedback = new Feedback();
+        feedback.setCommunication(feedbackSaveDto.getCommunication());
+        feedback.setSpeed(feedbackSaveDto.getSpeed());
+        feedback.setLogistic(feedbackSaveDto.getLogistic());
+        feedback.setComment(feedbackSaveDto.getComment());
+        Profile profile = new Profile();
+        profile.setId(dealService.findDealById(feedbackSaveDto.getProfileId()).getCustomer().getId());
+        feedback.setProfile(profile);
+        //TODO: change user id after finish security
+        User user = new User();
+        user.setId(1);
+        feedback.setUser(user);
+
+        Feedback savedFeedback = feedbackService.save(feedback);
+        return mapFeedback(savedFeedback);
     }
 }

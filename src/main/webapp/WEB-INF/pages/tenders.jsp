@@ -39,6 +39,19 @@
 
         <!--main-->
         <div class="page_body">
+            <div class="row">
+                <div class="col-md-12 search_bar">
+                    <div class="pull-left"></div>
+                        <div class="pull-right">
+                             <form id="search_form" class="navbar-form navbar-right" role="search">
+                                  <div class="form-group">
+                                       <input id="search_input" type="text" class="form-control" placeholder="Search...">
+                                  </div>
+                             </form>
+                        </div>
+                </div>
+            </div>
+
             <!-- sidebar -->
             <div class="col-md-3">
 
@@ -106,32 +119,30 @@
 
             <!-- content -->
             <div class="col-md-9">
-                <div class="row">
-                    <div class="pull-left">
-                    </div>
-                    <div class="pull-right">
-                            <form id="search_form" class="navbar-form navbar-right" role="search">
-                                <div class="form-group">
-                                    <input id="search_input" type="text" class="form-control" placeholder="Search...">
-                                </div>
-                            </form>
-                    </div>
-                </div>
-
                 <!-- items -->
                 <div id="user_message" class="row"></div>
                 <div id="tender_items" class="row">
                     <table class="table table-bordered table-striped">
                         <thead>
                         <tr>
-                            <th align="center">Title</th>
-                            <th align="center">Author</th>
-                            <th align="center">Category</th>
-                            <th align="center">Location</th>
-                            <th align="center">Suitable Price</th>
-                            <th align="center">Status</th>
-                            <th align="center">Proposals</th>
-                            <th align="center">Action</th>
+                            <th align="center" id="tender_title">
+                                <span class="glyphicon glyphicon-chevron-down sortable"><span>Title</span></span>
+                            </th>
+                            <th align="center" id="tender_author">
+                                <span class="glyphicon glyphicon-chevron-down sortable"><span>Author</span></span>
+                            </th>
+                            <th align="center" id="tender_category"><span>Category</span></th>
+                            <th align="center" id="tender_location"><span>Location</span></th>
+                            <th align="center" id="tender_suitable_price">
+                                <span class="glyphicon glyphicon-chevron-down sortable"><span>Suitable Price</span></span>
+                            </th>
+                            <th align="center" id="tender_status">
+                                <span class="glyphicon glyphicon-chevron-down sortable"><span>Status</span></span>
+                            </th>
+                            <th align="center" id="tender_proposals">
+                                <span class="glyphicon glyphicon-chevron-down sortable"><span>Proposals</span></span>
+                            </th>
+                            <th align="center" id="tender_action"><span>Action</span></th>
                         </tr>
                         </thead>
                         <tbody id="tenders"></tbody>
@@ -143,20 +154,16 @@
                 <div id="pagination" class="row">
                     <div class="col-md-12">
                         <div class="pull-right">
-                            <ul class="pagination page_pagination pull-right">
-                                <li><a href="#">&laquo;</a></li>
-                                <li><a href="#">1</a></li>
-                                <li><a href="#">2</a></li>
-                                <li><a href="#">&laquo;</a></li>
-                            </ul>
+                            <ul class="pagination page_pagination pull-right"></ul>
                         </div>
                         <div class="pull-right">
                             <div class="control-group">
-                                 <select id="pagination_itemsnum" class="form-control pull-right items_number_dropdown">
-                                     <option value="10">10</option>
-                                     <option value="15">15</option>
-                                     <option value="20">20</option>
-                                 </select>
+                                <select id="pagination_itemsnum" class="form-control pull-right items_number_dropdown">
+                                    <option value="5">5</option>
+                                    <option value="10" selected>10</option>
+                                    <option value="15">15</option>
+                                    <option value="20">20</option>
+                                </select>
                             </div>
                         </div>
                         <div class="pull-right">
