@@ -1,12 +1,23 @@
 package com.softserveinc.tender.dto;
 
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 public class ProfileDto {
 
+    @NotNull
     private String firstName;
+
+    @NotNull
     private String lastName;
-    private String birthday;
+
+    @NotNull
     private String telephone;
+
+    @NotNull
     private Character person;
+    private String birthday;
     private Integer userId;
     private Integer companyId;
 
