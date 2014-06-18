@@ -168,11 +168,16 @@
 
                     if(dataSize > 0) {
                         for (var i = 0; i < dataSize; i++) {
-                            html += '<tr><td align="center"><a href="/tenderView/' + data[i].id + '">' + data[i].title + '</a></td>' +
+                            html += '<tr><td align="center">' + data[i].title + '</td>' +
                                 '<td align="center">' + data[i].authorName + '</td>' +
-                                '<td align="center">' + data[i].categories + '</td>' +
-                                '<td align="center">' + data[i].locations + '</td>' +
-                                '<td align="center">' + data[i].suitablePrice + '</td>' +
+                                '<td align="center">' + data[i].categories + '</td>';
+                                if (data[i].locations.toString().split(',').length>2){
+                                    html += '<td align="center" data-toggle="tooltip" data-placement="bottom" title="'+data[i].locations+'">' + data[i].locations.toString().split(',')[0] +','+data[i].locations.toString().split(',')[1] + '...'+'</td>';
+                                }else{
+                                    html += '<td align="center">' + data[i].locations + '</td>';
+                                }
+
+                            html += '<td align="center">' + data[i].suitablePrice + '</td>' +
                                 '<td align="center">' + data[i].status + '</td>' +
                                 '<td align="center">' + data[i].proposals + '</td>' +
                                 '<td align="center">' +
@@ -306,11 +311,16 @@
 
                     if(dataSize > 0) {
                         for (var i = 0; i < dataSize; i++) {
-                            html += '<tr><td align="center"><a href="/tenderView/' + data[i].id + '">' + data[i].title + '</a></td>' +
+                            html += '<tr><td align="center">' + data[i].title + '</td>' +
                                 '<td align="center">' + data[i].authorName + '</td>' +
-                                '<td align="center">' + data[i].categories + '</td>' +
-                                '<td align="center">' + data[i].locations + '</td>' +
-                                '<td align="center">' + data[i].suitablePrice + '</td>' +
+                                '<td align="center">' + data[i].categories + '</td>';
+                            if (data[i].locations.toString().split(',').length>2){
+                                html += '<td align="center" data-toggle="tooltip" data-placement="bottom" title="'+data[i].locations+'">' + data[i].locations.toString().split(',')[0] +','+data[i].locations.toString().split(',')[1] + '...'+'</td>';
+                            }else{
+                                html += '<td align="center">' + data[i].locations + '</td>';
+                            }
+
+                            html += '<td align="center">' + data[i].suitablePrice + '</td>' +
                                 '<td align="center">' + data[i].status + '</td>' +
                                 '<td align="center">' + data[i].proposals + '</td>' +
                                 '<td align="center">' +
@@ -367,10 +377,6 @@
 
         function closeModalWindow(id) {
             $('#' + id).modal('hide');
-        }
-
-        function showDealsPage() {
-            window.location.href='/mydeals';
         }
 
         function initializeDateFilter() {
@@ -450,6 +456,10 @@
 
         function goToRegistrationPage() {
             window.location.href = REGISTRATION_PAGE_URL;
+        }
+
+        function goToMyDealsPage() {
+            window.location.href = MYDEALS_PAGE_URL;
         }
 
         function showPagination(queryParams) {

@@ -1,7 +1,16 @@
+var pageSize = DEFAULT_PAGE_SIZE;
+var currPageNumber = 0;
+
 $(document).ready(function() {
     $('#endDate, #create_tender_enddate').datepicker({
         format: 'mm-dd-yyyy',
         startDate: '-5y'
+    });
+
+    $('#pagination_dealsnum').on('change', function() {
+        pageSize = this.value;
+        currPageNumber = 0;
+        showDealsPage(currPageNumber);
     });
 
     showDeals();
@@ -19,42 +28,52 @@ $(document).ready(function() {
 });
 
 function showDeals() {
-    $.getJSON(DEALS_URL, function (data) {
-        var html = '';
-        var len = data.length;
-        if(len > 0) {
-            for (var i = 0; i < len; i++) {
-                html += '<tr><td align="center">' + data[i].title + '</td>' +
-                    '<td align="center">' + unixTimeConverter(data[i].date) + '</td>' +
-                    '<td align="center">' + data[i].businessPartner + '</td>' +
-                    '<td align="center">' + data[i].status + '</td>' +
-                    '<td align="center">' + data[i].sum + '</td>' +
-                    '<td align="center">' +
-                        '<div class="btn-group">' +
-                            '<button data-toggle="dropdown" class="btn btn-default dropdown-toggle">Action<span class="caret"></span></button>' +
-                            '<ul class="dropdown-menu">' +
-                                '<li><a href="#" data-toggle="modal" data-target="#feedback_mod_wind" onclick="writeFeedbackId(' + data[i].id + ')">Feedback</a></li>' +
-                                '<li><a href="#" data-toggle="modal" data-target="#conflict_mod_wind" onclick="writeConflictId(' + data[i].id + ')">Conflict</a></li>' +
-                                '<li><a href="#" data-toggle="modal" data-target="#close_deal_mod_wind" onclick="writeCloseDealId(' + data[i].id + ')">Close</a></li>' +
-                            '</ul>' +
-                        '</div>' +
-                    '</td></tr>';
-            }
+    var queryParams = '';
+    
+    showDealsPagination(queryParams);
+    
+    queryParams += (queryParams.length==0)?"pageSize="+pageSize:"&pageSize="+pageSize;
+    queryParams += "&pageNumber="+currPageNumber;
 
-            $('#user_message').html('');
-            $('#deal_items').show();
-            $('#deals').html(html);
+    $.ajax({
+        url: DEALS_URL,
+        type: "GET",
+        data:  queryParams,
+        dataType:'json',
 
-            var pageItemsNumber = $('#pagination_itemsnum').val();
-            if(pageItemsNumber < len) {
-                $('#pagination').show();
+        success: function(data) {
+            var html = '';
+            var dataSize = data.length;
+
+            if(dataSize > 0) {
+                for (var i = 0; i < dataSize; i++) {
+                    html += '<tr><td align="center">' + data[i].title + '</td>' +
+                        '<td align="center">' + unixTimeConverter(data[i].date) + '</td>' +
+                        '<td align="center">' + data[i].businessPartner + '</td>' +
+                        '<td align="center">' + data[i].status + '</td>' +
+                        '<td align="center">' + data[i].sum + '</td>' +
+                        '<td align="center">' +
+                            '<div class="btn-group">' +
+                                '<button data-toggle="dropdown" class="btn btn-default dropdown-toggle">Action<span class="caret"></span></button>' +
+                                '<ul class="dropdown-menu">' +
+                                    '<li><a href="#" data-toggle="modal" data-target="#feedback_mod_wind" onclick="writeFeedbackId(' + data[i].id + ')">Feedback</a></li>' +
+                                    '<li><a href="#" data-toggle="modal" data-target="#conflict_mod_wind" onclick="writeConflictId(' + data[i].id + ')">Conflict</a></li>' +
+                                    '<li><a href="#" data-toggle="modal" data-target="#close_deal_mod_wind" onclick="writeCloseDealId(' + data[i].id + ')">Close</a></li>' +
+                                '</ul>' +
+                            '</div>' +
+                        '</td></tr>';
+                }
+
+                $('#user_message').html('');
+                $('#deal_items').show();
+                $('#deals').html(html);
             } else {
-                $('#pagination').hide();
+                $('#user_message').html('<h4>No deals found</h4>');
+                $('#deal_items').hide();
             }
-        } else {
-            $('#user_message').html('<h4>No deals found</h4>');
-            $('#deal_items').hide();
-            $('#pagination').hide();
+        },
+        error:function(){
+            alert("ERROR");
         }
     });
 }
@@ -95,16 +114,17 @@ function closeDealModalWindow(id) {
     $('#' + id).modal('hide');
 }
 
-function searchDeals(filter){
+
+function searchDeals(filter) {
     $.ajax({
         url: DEALS_URL + '/' + "search/" + filter,
         type: "GET",
 
-        success: function(data){
+        success: function (data) {
             var html = '';
             var len = data.length;
 
-            if(len > 0) {
+            if (len > 0) {
                 for (var i = 0; i < len; i++) {
                     html += '<tr><td align="center">' + data[i].title + '</td>' +
                         '<td align="center">' + unixTimeConverter(data[i].date) + '</td>' +
@@ -125,8 +145,52 @@ function searchDeals(filter){
                 $('#deals').html(html);
             }
         },
-        error: function(){
+        error: function () {
             alert("Something wrong")
         }
     });
+}
+function showDealsPagination(queryParams) {
+    $.ajax({
+        url: DEALS_NUMBER_URL,
+        async: false,
+        type: "GET",
+        data:  queryParams,
+        dataType:'json',
+
+        success: function(data) {
+            var dataSize = data.dealsNumber;
+            var pageNumber = Math.ceil(dataSize / pageSize);
+
+            if(dataSize > 0 && pageSize < dataSize) {
+                var html = '';
+                html += '<li class="'+((currPageNumber==0)?"disabled":"")+'"><a id="prev_page" href="#">&laquo;</a></li>';
+                for(var z=1;z<=pageNumber;z++) {
+                    html += '<li class="'+((currPageNumber==z-1)?"active":"")+'"><a href="#" onclick="showDealsPage('+(z-1)+');">'+z+'</a></li>';
+                }
+                html += '<li class="'+((currPageNumber==pageNumber-1)?"disabled":"")+'"><a id="next_page" href="#">&raquo;</a></li>';
+
+                $('.page_pagination').html(html).show();
+                $('#pagination').show();
+
+                if(currPageNumber != 0) {
+                    document.getElementById('prev_page').setAttribute("onclick", "showDealsPage("+(currPageNumber-1)+");");
+                }
+
+                if(currPageNumber != pageNumber-1) {
+                    document.getElementById('next_page').setAttribute("onclick", "showDealsPage("+(currPageNumber+1)+");");
+                }
+            } else {
+                $('.page_pagination').hide();
+            }
+        },
+        error:function(){
+            $('#pagination').hide();
+        }
+    });
+}
+
+function showDealsPage(pageNumber) {
+    currPageNumber = pageNumber;
+    showDeals();
 }

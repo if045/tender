@@ -42,7 +42,7 @@
             <div class="page_body">
                 <!-- content -->
                 <div class="row col-md-12 pull-left">
-                    <div id="tender_title"></div>
+                    <div id="tender_title_onTenderViewPage"></div>
                 </div>
 
                 <!-- information about tender -->

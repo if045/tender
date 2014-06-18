@@ -9,7 +9,7 @@ $(document).ready(function() {
 
 function showUnits(id) {
     tenderId = id;
-    $.getJSON(TENDERS_URL + "/" + id + UNITS_URL, function(data) {
+    $.getJSON(TENDERS_URL + "/" + id + UNITS_URL + "?direction=asc&field=item.name", function(data) {
         var html='';
         var len = data.length;
         unitsQuantity = data.length;
