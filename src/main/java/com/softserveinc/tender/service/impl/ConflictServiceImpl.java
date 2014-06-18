@@ -22,5 +22,9 @@ public class ConflictServiceImpl implements ConflictService{
     public Conflict findById(int id) {
         return conflictRepository.findOne(id);
     }
+    @Override
+    public Conflict save(Conflict conflict){
+        return conflictRepository.save(conflict);
+    }
 
 }
