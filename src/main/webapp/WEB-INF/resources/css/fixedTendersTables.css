@@ -3,6 +3,8 @@
     overflow-x: auto;
     overflow-y: auto;
     padding-right: 0px;
+    position: relative;
+    table-layout:fixed;
 }
 .sortable{
     font-weight: bold;

@@ -87,17 +87,17 @@
 
                 <div class="row">
                     <div class="col-md-7 height">
-                        <table class="table table-bordered table-striped fancyTable" id="units">
-                            <thead>
-                            <th align="center"><span class="glyphicon glyphicon-check"></span></th>
-                            <th><span class="sortable asc glyphicon glyphicon-chevron-up" name="item.name">Name</span></th>
-                            <th><span class="sortable" name="item.type">Type</span></th>
-                            <th><span class="sortable" name="item.category">Category</span></th>
-                            <th><span class="sortable" name="quantity">Quantity</span></th>
-                            <th>Bids</th>
-                            <th>Seller price</th>
-                            <th>Deal</th>
-                            </thead>
+                        <table class="table table-bordered table-striped fancyTable units_table" id="units">
+
+                                    <th align="center"><span class="glyphicon glyphicon-check"></span></th>
+                                    <th><span class="sortable asc glyphicon glyphicon-chevron-up" name="item.name">Name</span></th>
+                                    <th><span class="sortable" name="item.type">Type</span></th>
+                                    <th><span class="sortable" name="item.category">Category</span></th>
+                                    <th><span class="sortable" name="quantity">Quantity</span></th>
+                                    <th>Bids</th>
+                                    <th>Seller price</th>
+                                    <th>Deal</th>
+
                             <tbody id="unitsTable"></tbody>
                         </table>
                     </div>

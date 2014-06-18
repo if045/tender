@@ -75,7 +75,7 @@ public class TenderController {
                                                  @RequestParam("direction") String direction,
                                                  @RequestParam("field") String field) {
         Sort sort = new Sort(Sort.Direction.fromString(direction), field);
-        Pageable pageRequest = new PageRequest(0, 100, sort);
+        Pageable pageRequest = new PageRequest(0, Integer.MAX_VALUE, sort);
         return tenderFacade.findUnitsByTenderId(tenderId, pageRequest);
     }
 
