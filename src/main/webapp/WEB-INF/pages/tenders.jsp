@@ -45,11 +45,12 @@
                 <div class="col-md-12 search_bar">
                     <div class="pull-left"></div>
                         <div class="pull-right">
-                             <form id="search_form" class="navbar-form navbar-right" role="search">
-                                  <div class="form-group">
-                                       <input id="search_input" type="text" class="form-control" placeholder="Search...">
-                                  </div>
-                             </form>
+                            <form id="search_form" class="navbar-form navbar-right" role="search">
+                                <div class="form-group">
+                                    <input id="search_tenders" type="text" class="form-control"
+                                           placeholder="Search by tender title...">
+                                </div>
+                            </form>
                         </div>
                 </div>
             </div>

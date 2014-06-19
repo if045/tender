@@ -32,8 +32,9 @@ public class DealController {
 
     @RequestMapping(method = RequestMethod.GET)
     public @ResponseBody List<DealDto> findDeals(@RequestParam(value = "pageNumber",required = true) Integer pageNumber,
-                                                 @RequestParam(value = "pageSize",required = true) Integer pageSize) {
-        return dealFacade.findAllDeals(new PageRequest(pageNumber, pageSize));
+                                                 @RequestParam(value = "pageSize",required = true) Integer pageSize,
+                                                 @RequestParam(value = "searchParam",required = false) String searchParam) {
+        return dealFacade.findAllDeals(new PageRequest(pageNumber, pageSize),searchParam);
     }
 
     @RequestMapping(value = "/number", method = RequestMethod.GET)

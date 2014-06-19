@@ -6,8 +6,8 @@ import java.util.List;
 
 public interface DealService {
 
-    List<Deal> findAllDealsForCustomer(Pageable pageable,Integer id);
-    List<Deal> findAllDealsForSeller(Pageable pageable,Integer id);
+    List<Deal> findAllDealsForCustomer(Pageable pageable,Integer id, String tenderTitle);
+    List<Deal> findAllDealsForSeller(Pageable pageable,Integer id, String tenderTitle);
     Long getDealsNumberForCustomer(Integer id);
     Long getDealsNumberForSeller(Integer id);
     Deal findDealById(Integer id);
