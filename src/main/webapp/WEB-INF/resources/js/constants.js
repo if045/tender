@@ -2,6 +2,8 @@ var CLOSE_TENDER_STATUS_NAME = "Close";
 var TENDERS_URL = "/tenders";
 var MYDEALS_PAGE_URL = "/mydeals";
 
+var NEW_DEALS_URL = "/deals/newdeals";
+
 /*Constants for addTenderModal.js*/
 var ITEMS_URL = "/items";
 var LOCATIONS_URL = "/locations";

@@ -265,3 +265,9 @@ textarea {
 #tender_status {
     width:80px;
 }
+
+.new_deal_notification {
+    color: rgb(92, 216, 92);
+    font-weight: bold;
+    padding-left: 3px;
+}
