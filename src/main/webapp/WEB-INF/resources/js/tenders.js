@@ -468,3 +468,7 @@
 
             applyFilters();
         }
+
+        function goToUserProfilePage() {
+            window.location.href = USER_PROFILE_PAGE_URL;
+        }
