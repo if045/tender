@@ -1,7 +1,10 @@
         var pageSize = DEFAULT_PAGE_SIZE;
         var currPageNumber = 0;
+        var ENTER_BUTTON_CODE =13;
+
         var sortDirection = false;
         var orderBy = DEFAULT_SORT_FIELD;
+
 
         $(document).ready(function() {
             $('#startDate, #endDate, #create_tender_enddate').datepicker({
@@ -127,15 +130,12 @@
             populateItemDropdown();
             showTenders();
 
-            $('#search_input').keydown(function(event) {
-                if (event.keyCode == 13) {
-                    //search query
-
+            $('#search_tenders').keypress(function(e) {
+                if (e.keyCode == ENTER_BUTTON_CODE) {
+                    applyFilters();
                     return false;
                 }
             });
-
-
         });
 
         function populateItemDropdown() {
@@ -168,11 +168,16 @@
 
                     if(dataSize > 0) {
                         for (var i = 0; i < dataSize; i++) {
-                            html += '<tr><td align="center"><a href="/tenderView/' + data[i].id + '">' + data[i].title + '</a></td>' +
+                            html += '<tr><td align="center">' + data[i].title + '</td>' +
                                 '<td align="center">' + data[i].authorName + '</td>' +
-                                '<td align="center">' + data[i].categories + '</td>' +
-                                '<td align="center">' + data[i].locations + '</td>' +
-                                '<td align="center">' + data[i].suitablePrice + '</td>' +
+                                '<td align="center">' + data[i].categories + '</td>';
+                                if (data[i].locations.toString().split(',').length>2){
+                                    html += '<td align="center" data-toggle="tooltip" data-placement="bottom" title="'+data[i].locations+'">' + data[i].locations.toString().split(',')[0] +','+data[i].locations.toString().split(',')[1] + '...'+'</td>';
+                                }else{
+                                    html += '<td align="center">' + data[i].locations + '</td>';
+                                }
+
+                            html += '<td align="center">' + data[i].suitablePrice + '</td>' +
                                 '<td align="center">' + data[i].status + '</td>' +
                                 '<td align="center">' + data[i].proposals + '</td>' +
                                 '<td align="center">' +
@@ -181,7 +186,9 @@
                                 '<ul class="dropdown-menu">'+
                                 '<li><a href="/tenderView/' + data[i].id + '">View</a></li>';
                             if (data[i].roles.toString().search('CUSTOMER')!=-1){
-                                html += '<li><a href="#" data-toggle="modal" data-target="#close_tender_mod_wind" onclick="writeCloseTenderId(' + data[i].id + ')">Close</a></li>';
+                                if (data[i].userId.toString()==data[i].authorId.toString()){
+                                    html += '<li><a href="#" data-toggle="modal" data-target="#close_tender_mod_wind" onclick="writeCloseTenderId(' + data[i].id + ')">Close</a></li>';
+                                }
                             }
                             if (data[i].roles.toString().search('SELLER')!=-1){
                                 html += '<li><a href="#" data-toggle="modal" data-target="#createProposalWindow" onclick="showUnits(' + data[i].id + ')">Create proposal</a></li>';
@@ -216,6 +223,7 @@
             $("#category_filter").select2('val', 'All');
             $("#item_dropdown").select2('val', 'All');
             $("#status_filter").select2('val', 'All');
+            $('#search_tenders').val("");
             initializeDateFilter();
             
             showTenders();
@@ -255,14 +263,9 @@
                     url: '/tenders/categories',
                     async: false,
                     success: function(data){
-                        var dataLength = data.length;
-                        var catNumber = categories.length;
-                        for(var z = 0;z<catNumber;z++) {
-                            for (var i = 0; i < dataLength; i++) {
-                                if(categories[z] == data[i].parent) {
-                                    categories.push(""+data[i].id);
-                                }
-                            }
+                        for(var z=0;z<categories.length;z++) {
+                            var subCats = getSubCategories(categories[z],data,categories);
+                            categories = categories.concat(subCats);
                         }
                     }
                 });
@@ -285,6 +288,9 @@
             if($("#date_to").val()!=""){
                 str += (str.length==0)?"maxDate="+$("#date_to").val():"&maxDate="+$("#date_to").val();
             }
+            if($('#search_tenders').val()!=""){
+                str += (str.length==0)?"searchParam="+$('#search_tenders').val():"&searchParam="+$('#search_tenders').val();
+            }
 
             showPagination(str);
             str += (str.length==0)?"pageSize="+pageSize:"&pageSize="+pageSize;
@@ -302,11 +308,16 @@
 
                     if(dataSize > 0) {
                         for (var i = 0; i < dataSize; i++) {
-                            html += '<tr><td align="center"><a href="/tenderView/' + data[i].id + '">' + data[i].title + '</a></td>' +
+                            html += '<tr><td align="center">' + data[i].title + '</td>' +
                                 '<td align="center">' + data[i].authorName + '</td>' +
-                                '<td align="center">' + data[i].categories + '</td>' +
-                                '<td align="center">' + data[i].locations + '</td>' +
-                                '<td align="center">' + data[i].suitablePrice + '</td>' +
+                                '<td align="center">' + data[i].categories + '</td>';
+                            if (data[i].locations.toString().split(',').length>2){
+                                html += '<td align="center" data-toggle="tooltip" data-placement="bottom" title="'+data[i].locations+'">' + data[i].locations.toString().split(',')[0] +','+data[i].locations.toString().split(',')[1] + '...'+'</td>';
+                            }else{
+                                html += '<td align="center">' + data[i].locations + '</td>';
+                            }
+
+                            html += '<td align="center">' + data[i].suitablePrice + '</td>' +
                                 '<td align="center">' + data[i].status + '</td>' +
                                 '<td align="center">' + data[i].proposals + '</td>' +
                                 '<td align="center">' +
@@ -365,10 +376,6 @@
             $('#' + id).modal('hide');
         }
 
-        function showDealsPage() {
-            window.location.href='/mydeals';
-        }
-
         function initializeDateFilter() {
             var currentDate = getCurrentDate();
             var nextMonthDate = getNextMonthDate();
@@ -380,6 +387,22 @@
             $('#endDate').data({date: nextMonthDate});
             $('#endDate').datepicker('update');
             $('#endDate').datepicker().children('input').val(nextMonthDate);
+        }
+
+        function getSubCategories(id,data,categories) {
+            var dataSize = data.length;
+            var subCats = new Array();
+
+            for(var z=0;z<dataSize;z++) {
+                if(id == data[z].parentId)
+                {
+                    if($.inArray(data[z].id, categories) != 0) {
+                        subCats.push(data[z].id);
+                    }
+                }
+            }
+
+            return subCats;
         }
 
         function getCurrentDate() {
@@ -406,8 +429,50 @@
             return year + '/' + month + '/' + day;
         }
 
+        function searchTenders(filter){
+            $.ajax({
+                url: TENDERS_URL + '/' + "search/" + filter,
+                type: "GET",
+
+                success: function(data){
+                    var html = '';
+                    var len = data.length;
+
+                    if(len > 0) {
+                        for (var i = 0; i < len; i++) {
+                            html += '<tr><td align="center"><a href="/tenderView/' + data[i].id + '">' + data[i].title + '</a></td>' +
+                                '<td align="center">' + data[i].authorName + '</td>' +
+                                '<td align="center">' + data[i].categories + '</td>' +
+                                '<td align="center">' + data[i].locations + '</td>' +
+                                '<td align="center">' + data[i].suitablePrice + '</td>' +
+                                '<td align="center">' + data[i].status + '</td>' +
+                                '<td align="center">' + data[i].proposals + '</td>' +
+                                '<td align="center">' +
+                                '<div class="btn-group">' +
+                                '<button data-toggle="dropdown" class="btn btn-default dropdown-toggle">Action<span class="caret"></span></button>' +
+                                '<ul class="dropdown-menu">' +
+                                '<li><a href="/tenderView/' + data[i].id + '">View</a></li>' +
+                                '<li><a href="#" data-toggle="modal" data-target="#createProposalWindow" onclick="showUnits(' + data[i].id + ')">Create proposal</a></li>' +
+                                '<li><a href="#" data-toggle="modal" data-target="#close_tender_mod_wind" onclick="writeCloseTenderId(' + data[i].id + ')">Close</a></li>' +
+                                '</ul>' +
+                                '</div>' +
+                                '</td></tr>';
+                        }
+                        $('#tenders').html(html);
+                    }
+                },
+                error: function(){
+                    alert("Something wrong")
+                }
+            });
+        }
+
         function goToRegistrationPage() {
             window.location.href = REGISTRATION_PAGE_URL;
+        }
+
+        function goToMyDealsPage() {
+            window.location.href = MYDEALS_PAGE_URL;
         }
 
         function showPagination(queryParams) {

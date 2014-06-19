@@ -6,12 +6,14 @@ import com.softserveinc.tender.repo.DealRepository;
 import com.softserveinc.tender.service.DealService;
 import com.softserveinc.tender.service.DealStatusService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
 public class DealServiceImpl implements DealService {
 
+    public static final String PERCENT = "%";
     @Autowired
     private DealRepository dealRepository;
 
@@ -19,8 +21,36 @@ public class DealServiceImpl implements DealService {
     private DealStatusService dealStatusService;
 
     @Override
-    public List<Deal> findAllDeals() {
-        return dealRepository.findAll();
+    public List<Deal> findAllDealsForCustomer(Pageable pageable, Integer id, String tenderTitle) {
+        Integer searchFlag;
+        if (tenderTitle==null){
+            searchFlag=1;
+        }else {
+            searchFlag=0;
+            tenderTitle = PERCENT +tenderTitle+PERCENT;
+        }
+        return dealRepository.findAllDealsForCustomer(id,pageable, tenderTitle, searchFlag);
+    }
+
+    @Override
+    public List<Deal> findAllDealsForSeller(Pageable pageable, Integer id, String tenderTitle) {
+        Integer searchFlag;
+        if (tenderTitle==null){
+            searchFlag=1;
+        }else {
+            searchFlag=0;
+            tenderTitle = PERCENT+tenderTitle+PERCENT;
+        }
+        return dealRepository.findAllDealsForSeller(id,pageable, tenderTitle, searchFlag);
+    }
+    @Override
+    public Long getDealsNumberForCustomer(Integer id) {
+        return dealRepository.getDealsNumberForCustomer(id);
+    }
+
+    @Override
+    public Long getDealsNumberForSeller(Integer id) {
+        return dealRepository.getDealsNumberForSeller(id);
     }
 
     @Override
@@ -41,13 +71,13 @@ public class DealServiceImpl implements DealService {
         dealRepository.save(deal);
     }
 
-    @Override
     public List<Deal> findByProposalId(Integer proposalId) {
         return dealRepository.findByProposalId(proposalId);
     }
 
-    @Override
+
     public List<Deal> findByUnitId(Integer unitId) {
         return dealRepository.findByUnitId(unitId);
+
     }
 }

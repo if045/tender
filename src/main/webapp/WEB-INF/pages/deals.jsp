@@ -24,12 +24,12 @@
     <script type='text/javascript' src='<c:url value="../resources/js/select2.min.js"/>'></script>
 
     <script type='text/javascript' src='<c:url value="../resources/js/constants.js"/>'></script>
-    <script type='text/javascript' src='<c:url value="../resources/js/deals.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/feedback.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/addTenderModal.js"/>'></script>
     <script type="text/javascript" src='<c:url value="../resources/js/star-rating.min.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/tenders.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/conflict.js"/>'></script>
+    <script type='text/javascript' src='<c:url value="../resources/js/deals.js"/>'></script>
 </head>
 <body>
     <div class="container">
@@ -49,7 +49,7 @@
                         <div class="pull-right">
                             <form id="search_form" class="navbar-form navbar-right" role="search">
                                 <div class="form-group">
-                                    <input id="search_input" type="text" class="form-control" placeholder="Search...">
+                                    <input id="search_deals" type="text" class="form-control" placeholder="Search by tender title...">
                                 </div>
                             </form>
                         </div>
@@ -57,7 +57,7 @@
                 </div>
 
                 <!-- information about deals -->
-                <div id="user_message" class="row"></div>
+                <div id="deals_user_message"></div>
                 <div id="deal_items" class="row">
                     <div class="col-md-12">
                         <table class="table table-bordered table-striped" id="units">
@@ -80,19 +80,15 @@
                 <div id="pagination" class="row">
                     <div class="col-md-12">
                         <div class="pull-right">
-                            <ul class="pagination page_pagination pull-right">
-                                <li><a href="#">&laquo;</a></li>
-                                <li><a href="#">1</a></li>
-                                <li><a href="#">2</a></li>
-                                <li><a href="#">&laquo;</a></li>
-                            </ul>
+                            <ul class="pagination page_pagination pull-right"></ul>
                         </div>
                         <div class="pull-right">
                             <div class="control-group">
-                                <select id="pagination_itemsnum" class="form-control pull-right items_number_dropdown">
-                                    <option>10</option>
-                                    <option>15</option>
-                                    <option>20</option>
+                                <select id="pagination_dealsnum" class="form-control pull-right items_number_dropdown">
+                                    <option value="5">5</option>
+                                    <option value="10" selected>10</option>
+                                    <option value="15">15</option>
+                                    <option value="20">20</option>
                                 </select>
                             </div>
                         </div>

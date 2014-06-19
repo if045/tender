@@ -58,17 +58,16 @@ $(document).ready(function () {
         }
     );
 });
+
 function showProposals() {
     var URL = location.href;
     var tenderURI = URL.split(TENDER_VIEW_URL);
     tenderId = tenderURI[tenderURI.length - 1];
-    $.getJSON('/tenders/'+tenderId+'/proposals', function (data) {
+    $.getJSON(TENDERS_URL + tenderId + PROPOSALS_URL, function (data) {
         Proposals = data.slice(0);
         showProposalsTable(Proposals);
     });
 }
-
-
 
 function buildUnitTable(data){
     var html = '';
@@ -78,7 +77,8 @@ function buildUnitTable(data){
         if (data[i].itemType == 'P')
             var itemTypes = 'Product'
         else if (data[i].itemType == 'S')
-            var itemTypes = 'Service'
+            var itemTypes = 'Service';
+        var buttonStyle = (data[i].haveDeals) ? " btn-success" : " btn-info";
         html += '<tr class="js-unitRow" id="unit_row_' + data[i].id + '"><td align="center">' + '<input type="checkbox" onchange="showSpecificProposals()" id="ch_box_' + i + '">' +
             '<input  hidden="" type="text" value="' + data[i].id +'" id="unit_id_' + i + '"/></td>' +
             '<td>' + data[i].unitName + '</td>' +
@@ -86,8 +86,12 @@ function buildUnitTable(data){
             '<td>' + data[i].categoryName + '</td>' +
             '<td>' + data[i].quantity + ' ' + data[i].measurementName + '</td>' +
             '<td>' + data[i].numberOfBids + '</td>' +
-            '<td class="js-sellerPrice" id="seller_price_' + data[i].id + '">' + 0.00 + '</td>' +
-            '<td align="center">' + '<button type="submit" class="btn btn-default" disabled>Deal</button>' + '</td></tr>';
+            '<td class="js-sellerPrice" id="seller_price_' + data[i].id + '"></td>' +
+            '<td align="center">' +
+                '<input  hidden="" type="text" id="selected_proposal_id_' + data[i].id + '"/>' +
+                '<input  hidden="" type="text" id="selected_bid_id_' + data[i].id + '"/>' +
+                '<button type="submit" id="unit_deal_button_'+ data[i].id +'" class="btn' + buttonStyle +'" onclick="createUnitDeal(' + data[i].id + ')" disabled>Deal</button>' +
+            '</td></tr>';
     }
     $('#unitsTable').html(html);
     if(!(highLightedElement == undefined)) {
@@ -123,7 +127,6 @@ function createProposalDeal(proposalId) {
 function createUnitDeal(unitId) {
     var proposalId = $("#selected_proposal_id_" + unitId).val();
     var bidId = $("#selected_bid_id_" + unitId).val();
-    alert("Here!");
     $.ajax({
         url: TENDERS_URL + "/" + tenderId.substring(1) + PROPOSALS_URL + "/" + proposalId + BIDS_URL + "/" + bidId + DEALS_URL,
         type: "POST",
@@ -148,7 +151,7 @@ function showInfo(){
     $.getJSON(TENDERS_URL+'/'+tender.substring(1), function(data){
         var titleHtml = '';
         titleHtml += '<h4>' + data.title + '</h4>';
-        $('#tender_title').html(titleHtml);
+        $('#tender_title_onTenderViewPage').html(titleHtml);
         var statusHtml = '';
         statusHtml += '<option value="'+ data.status + '">' + data.status + '</option>';
         statusHtml += '<option value="Close">Close</option>';
@@ -206,6 +209,7 @@ function saveTenderAfterUpdate(){
         url: TENDERS_URL + '/' + tender.substring(1) + "?"  + str,
         type: "PUT",
         success: function(data){
+            $('#success_update_tender_info').modal('show');
         },
         error: function(){
         }
@@ -251,7 +255,6 @@ function showProposalsTable(propsArray, unitsArray) {
     }
     $('.js-highlightUnits').click(function(){
         highLightedElement = this;
-        console.log(highLightedElement);
         showUnitSellerPrice(highLightedElement.getAttribute("propId"));
     });
 }
@@ -276,13 +279,12 @@ function checkBids(bidsArray, unitsArray) {
     } else {
         return false;
     }
-
-
 }
 
 function showUnitSellerPrice(proposalId) {
     resetRowsStyle();
     cleanSellerPriceColumn();
+    disabledUnitDealButton();
 
     $("#proposal_row_" + proposalId).addClass('info');
     var proposal;
@@ -299,10 +301,11 @@ function showUnitSellerPrice(proposalId) {
         $("#seller_price_" + bidsArr[i].unitId).html(bidsArr[i].price);         //show seller price of unit
         $("#selected_proposal_id_" + bidsArr[i].unitId).attr('value', proposalId);       //set selected proposal id
         $("#selected_bid_id_" + bidsArr[i].unitId).attr('value', bidsArr[i].bidId);      //set selected proposal bid id
+        $("#unit_deal_button_" + bidsArr[i].unitId).removeAttr("disabled");
     }
 
     var str = '';
-    if (proposal.description.length != null) {
+    if (proposal.description != null) {
         str += proposal.description + "\n";
     }
     if (proposal.discountCurrency != null) {
@@ -316,7 +319,7 @@ function showUnitSellerPrice(proposalId) {
 }
 
 function cleanSellerPriceColumn() {
-    $('.js-sellerPrice').html('0.00');
+    $('.js-sellerPrice').html('');
 }
 
 function resetRowsStyle() {
@@ -330,6 +333,12 @@ function checkAll() {
         $("#ch_box_" + i).prop("checked", status);
     }
 
-    showProposals();
+    showSpecificProposals();
+}
+
+function disabledUnitDealButton(){
+    for (var i = 0; i < Units.length; i++) {
+        $("#unit_deal_button_" + Units[i].id).attr('disabled', 'disabled');
+    }
 }
 

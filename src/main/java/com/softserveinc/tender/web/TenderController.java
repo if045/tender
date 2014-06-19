@@ -50,13 +50,16 @@ public class TenderController {
             @RequestParam(value = "pageNumber", required = true) Integer pageNumber,
             @RequestParam(value = "pageSize", required = true) Integer pageSize,
             @RequestParam(value = "orderBy", required = false, defaultValue = "createDate") String orderBy,
-            @RequestParam(value = "sortDirection", required = false, defaultValue = "ASC") String sortDirection) {
+            @RequestParam(value = "sortDirection", required = false, defaultValue = "ASC") String sortDirection,
+            @RequestParam(value = "searchParam",required = false) String searchParam) {
 
         Sort.Direction pageSortDirection = Sort.Direction.fromString(sortDirection);
 
-        return tenderFacade.findByCustomParams(new TenderFilter(minPrice, maxPrice, categories, locations, items,
-                                                                statuses, createDate, endDate),
-                                               new PageRequest(pageNumber, pageSize, pageSortDirection, orderBy));
+        return tenderFacade.findByCustomParams(new TenderFilter(minPrice, maxPrice, categories,
+                        locations, items,
+                        statuses, createDate, endDate, searchParam),
+                new PageRequest(pageNumber, pageSize, pageSortDirection, orderBy)
+        );
     }
 
     @RequestMapping(value = "/number", method = RequestMethod.GET)
@@ -68,10 +71,11 @@ public class TenderController {
             @RequestParam(value = "categories", required = false) Set<Integer> categories,
             @RequestParam(value = "statuses", required = false) List<Integer> statuses,
             @RequestParam(value = "minDate", required = false) Date createDate,
-            @RequestParam(value = "maxDate", required = false) Date endDate) {
+            @RequestParam(value = "maxDate", required = false) Date endDate,
+            @RequestParam(value = "searchParam",required = false) String searchParam) {
 
         return tenderFacade.getTendersNumber(new TenderFilter(minPrice, maxPrice, categories, locations,
-                items, statuses, createDate, endDate));
+                items, statuses, createDate, endDate,searchParam));
     }
 
     @RequestMapping(value = "/statuses", method = RequestMethod.GET)

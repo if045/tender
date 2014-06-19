@@ -3,10 +3,12 @@ package com.softserveinc.tender.web;
 import com.softserveinc.tender.dto.ConflictDto;
 import com.softserveinc.tender.dto.ConflictSaveDto;
 import com.softserveinc.tender.dto.DealDto;
+import com.softserveinc.tender.dto.DealsNumberDto;
 import com.softserveinc.tender.dto.FeedbackDto;
 import com.softserveinc.tender.dto.FeedbackSaveDto;
 import com.softserveinc.tender.facade.DealServiceFacade;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,8 +31,16 @@ public class DealController {
     private DealServiceFacade dealFacade;
 
     @RequestMapping(method = RequestMethod.GET)
-    public @ResponseBody List<DealDto> findDeals() {
-        return dealFacade.findAllDeals();
+    public @ResponseBody List<DealDto> findDeals(@RequestParam(value = "pageNumber",required = true) Integer pageNumber,
+                                                 @RequestParam(value = "pageSize",required = true) Integer pageSize,
+                                                 @RequestParam(value = "searchParam",required = false) String searchParam) {
+        return dealFacade.findAllDeals(new PageRequest(pageNumber, pageSize),searchParam);
+    }
+
+    @RequestMapping(value = "/number", method = RequestMethod.GET)
+    public @ResponseBody DealsNumberDto getDealsNumber() {
+         return dealFacade.getDealsNumber();
+
     }
 
     @PreAuthorize("hasAnyRole('CUSTOMER','SELLER')")

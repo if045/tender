@@ -27,6 +27,8 @@
     <jdbc-driver-version>5.1.6</jdbc-driver-version>
     <c3p0.version>0.9.2.1</c3p0.version>
     <jackson>1.4.1</jackson>
+    <javax-mail-version>1.4.3</javax-mail-version>
+    <spring-integration-mail-version>3.0.3.RELEASE</spring-integration-mail-version>
     <spring.security.version>3.2.4.RELEASE</spring.security.version>
 
 
@@ -161,6 +163,18 @@
           <version>0.6.5</version>
       </dependency>
 
+      <!-- Java Mail API -->
+      <dependency>
+          <groupId>javax.mail</groupId>
+          <artifactId>mail</artifactId>
+          <version>${javax-mail-version}</version>
+      </dependency>
+      <dependency>
+          <groupId>org.springframework.integration</groupId>
+          <artifactId>spring-integration-mail</artifactId>
+          <version>${spring-integration-mail-version}</version>
+      </dependency>
+
       <!--Spring Security-->
       <dependency>
           <groupId>org.springframework.security</groupId>
@@ -180,7 +194,7 @@
       <dependency>
           <groupId>org.springframework.security</groupId>
           <artifactId>spring-security-taglibs</artifactId>
-          <version>${org.springframework-version}</version>
+          <version>${spring.security.version}</version>
       </dependency>
   </dependencies>
 

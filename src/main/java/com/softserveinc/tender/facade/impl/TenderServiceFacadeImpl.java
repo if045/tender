@@ -40,6 +40,7 @@ import com.softserveinc.tender.service.ProposalService;
 import com.softserveinc.tender.service.TenderStatusService;
 import com.softserveinc.tender.service.UnitService;
 import com.softserveinc.tender.service.UserService;
+import com.softserveinc.tender.service.impl.MailService;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,6 +49,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -98,6 +101,9 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
     private BidService bidService;
 
     @Autowired
+    private MailService mailService;
+
+    @Autowired
     private DealStatusService dealStatusService;
 
     @Autowired
@@ -109,6 +115,9 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
     private static final String DATE_FORMAT_FROM_CLIENT="yyyy/MM/dd";
     private static final String DEAL_CREATE_STATUS = "in progress";
     private static final String TENDER_STATUS_IN_PROGRESS = "In progress";
+    private static final int PORT = 8080;
+    private static final String TENDER_VIEW_URL = "tenderView/";
+    private static final String MESSAGE_PROPOSAL_TITLE = "new proposal";
 
     @Override
     public List<TenderDto> findByCustomParams(TenderFilter tenderFilter, Pageable pageable) {
@@ -175,6 +184,10 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
                 roles.add(role.getName());
             }
         }
+        tenderDto.setAuthorId(tender.getAuthor().getUser().getId());
+        if (SecurityContextHolder.getContext().getAuthentication().getName()!="anonymousUser"){
+            tenderDto.setUserId(userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).getId());
+        }
         tenderDto.setRoles(roles);
         return tenderDto;
     }
@@ -223,9 +236,20 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
     private List<CategoryDto> mapCategories(List<Category> categories) {
         List<CategoryDto> categoryDtos = new ArrayList<>();
         for (Category category : categories) {
-            categoryDtos.add(modelMapper.map(category, CategoryDto.class));
+            categoryDtos.add(mapCategory(category));
         }
         return categoryDtos;
+    }
+
+    private CategoryDto mapCategory(Category category) {
+        CategoryDto categoryDto = new CategoryDto();
+        categoryDto.setId(category.getId());
+        categoryDto.setName(category.getName());
+        if(category.getParent() != null) {
+            categoryDto.setParentId(category.getParent().getId());
+        }
+
+        return categoryDto;
     }
 
     @Override
@@ -346,7 +370,7 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
         Tender updatedTender = tenderService.save(tender);
 
         Proposal proposal = new Proposal();
-        proposal.setSeller(userService.findUserById(7));  //TO DO: put current user
+        proposal.setSeller(userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()));
         proposal.setTender(updatedTender);
         proposal.setDiscountCurrency(proposalSaveDto.getDiscountCurrency());
         proposal.setDiscountPercentage(proposalSaveDto.getDiscountPercentage());
@@ -364,6 +388,14 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
             bids.add(savedBid);
         }
         savedProposal.setBids(bids);
+
+        try {
+            String hostAddress = InetAddress.getLocalHost().getHostAddress();
+            mailService.sendMail(tender.getAuthor().getUser().getLogin(), MESSAGE_PROPOSAL_TITLE,
+                                "http://" + hostAddress + ":" + PORT + "/" + TENDER_VIEW_URL + tender.getId());
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
         return mapTenderProposal(savedProposal);
     }
 
