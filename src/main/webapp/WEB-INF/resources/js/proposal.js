@@ -108,6 +108,7 @@ function cleanCreateProposalFields() {
     $("#optRadPercent").attr("disabled", "disabled");
     $("#allowance").val("");
     showTenders();
+    showProposals();
 }
 
 
