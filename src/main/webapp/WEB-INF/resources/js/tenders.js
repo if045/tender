@@ -152,9 +152,20 @@
         }
 
         function showTenders() {
-            showPagination("");
-            var queryParams = "pageSize=" + pageSize + "&pageNumber=" + currPageNumber + "&sortDirection=" +
-                ((sortDirection)?"desc":"asc") + "&orderBy=" + orderBy;
+            var queryParams = "";
+
+            if($("#date_from").val()!="" && $("#date_from").val() != undefined){
+                queryParams += (queryParams.length==0)?"minDate="+$("#date_from").val():"&minDate="+$("#date_from").val();
+            }
+            if($("#date_to").val()!="" && $("#date_to").val() != undefined){
+                queryParams += (queryParams.length==0)?"maxDate="+$("#date_to").val():"&maxDate="+$("#date_to").val();
+            }
+
+            showPagination(queryParams);
+
+            queryParams += (queryParams.length==0)?"pageSize="+pageSize:"&pageSize="+pageSize;
+            queryParams += "&pageNumber=" + currPageNumber + "&sortDirection=" +
+                                                                ((sortDirection)?"desc":"asc") + "&orderBy=" + orderBy;
 
             $.ajax({
                 url: TENDERS_URL,
@@ -339,9 +350,11 @@
                         $('#user_message').html('');
                         $('#tender_items').show();
                         $('#tenders').html(html);
+                        $('#pagination').show();
                     } else {
                         $('#user_message').html('<h4>Your filter parameters did not match any tender</h4>');
                         $('#tender_items').hide();
+                        $('#pagination').hide();
                     }
                 },
                 error:function(){
