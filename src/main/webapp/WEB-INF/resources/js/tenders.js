@@ -4,6 +4,7 @@
 
         var sortDirection = false;
         var orderBy = DEFAULT_SORT_FIELD;
+        var userTenders = false;
 
 
         $(document).ready(function() {
@@ -291,6 +292,9 @@
             if($('#search_tenders').val()!=""){
                 str += (str.length==0)?"searchParam="+$('#search_tenders').val():"&searchParam="+$('#search_tenders').val();
             }
+            if(userTenders) {
+                str += "&userTenders=true";
+            }
 
             showPagination(str);
             str += (str.length==0)?"pageSize="+pageSize:"&pageSize="+pageSize;
@@ -531,5 +535,10 @@
                 $('#'+elementId+' .sortable').addClass('glyphicon-chevron-down').removeClass('glyphicon-chevron-up');
             }
 
+            applyFilters();
+        }
+
+        function goToMyTenders() {
+            userTenders = true;
             applyFilters();
         }
