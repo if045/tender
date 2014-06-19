@@ -58,17 +58,16 @@ $(document).ready(function () {
         }
     );
 });
+
 function showProposals() {
     var URL = location.href;
     var tenderURI = URL.split(TENDER_VIEW_URL);
     tenderId = tenderURI[tenderURI.length - 1];
-    $.getJSON('/tenders/'+tenderId+'/proposals', function (data) {
+    $.getJSON(TENDERS_URL + tenderId + PROPOSALS_URL, function (data) {
         Proposals = data.slice(0);
         showProposalsTable(Proposals);
     });
 }
-
-
 
 function buildUnitTable(data){
     var html = '';
@@ -87,7 +86,7 @@ function buildUnitTable(data){
             '<td>' + data[i].categoryName + '</td>' +
             '<td>' + data[i].quantity + ' ' + data[i].measurementName + '</td>' +
             '<td>' + data[i].numberOfBids + '</td>' +
-            '<td class="js-sellerPrice" id="seller_price_' + data[i].id + '">' + 0.00 + '</td>' +
+            '<td class="js-sellerPrice" id="seller_price_' + data[i].id + '"></td>' +
             '<td align="center">' +
                 '<input  hidden="" type="text" id="selected_proposal_id_' + data[i].id + '"/>' +
                 '<input  hidden="" type="text" id="selected_bid_id_' + data[i].id + '"/>' +
@@ -128,7 +127,6 @@ function createProposalDeal(proposalId) {
 function createUnitDeal(unitId) {
     var proposalId = $("#selected_proposal_id_" + unitId).val();
     var bidId = $("#selected_bid_id_" + unitId).val();
-    alert("Here!");
     $.ajax({
         url: TENDERS_URL + "/" + tenderId.substring(1) + PROPOSALS_URL + "/" + proposalId + BIDS_URL + "/" + bidId + DEALS_URL,
         type: "POST",
@@ -280,8 +278,6 @@ function checkBids(bidsArray, unitsArray) {
     } else {
         return false;
     }
-
-
 }
 
 function showUnitSellerPrice(proposalId) {
@@ -322,7 +318,7 @@ function showUnitSellerPrice(proposalId) {
 }
 
 function cleanSellerPriceColumn() {
-    $('.js-sellerPrice').html('0.00');
+    $('.js-sellerPrice').html('');
 }
 
 function resetRowsStyle() {
@@ -336,7 +332,7 @@ function checkAll() {
         $("#ch_box_" + i).prop("checked", status);
     }
 
-    showProposals();
+    showSpecificProposals();
 }
 
 function disabledUnitDealButton(){
