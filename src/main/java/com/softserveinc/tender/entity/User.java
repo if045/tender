@@ -31,6 +31,10 @@ public class User {
     @Temporal(value = TemporalType.DATE)
     private Date createDate;
 
+    @Column(name = "deals_view", nullable = false)
+    @Temporal(value = TemporalType.TIMESTAMP)
+    private Date dealsViewDate;
+
     @Column(name = "login", nullable = false, unique = true, length = 30)
     private String login;
 
@@ -86,6 +90,14 @@ public class User {
 
     public void setCreateDate(Date createDate) {
         this.createDate = createDate;
+    }
+
+    public Date getDealsViewDate() {
+        return dealsViewDate;
+    }
+
+    public void setDealsViewDate(Date dealsViewDate) {
+        this.dealsViewDate = dealsViewDate;
     }
 
     public String getLogin() {
