@@ -21,4 +21,9 @@ public class UserController {
     public @ResponseBody User saveUserRegistrationData(@RequestBody UserRegistrationDataDto userData) {
         return registrationServiceFacade.saveUser(userData);
     }
+
+    @RequestMapping(value = "/profile", method = RequestMethod.GET)
+    public String showUserProfile() {
+        return "profile";
+    }
 }
