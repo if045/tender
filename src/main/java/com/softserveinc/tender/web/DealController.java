@@ -42,6 +42,11 @@ public class DealController {
 
     }
 
+    @RequestMapping(value = "/newdeals", method = RequestMethod.GET)
+    public @ResponseBody DealsNumberDto getNewDealsNumber() {
+        return dealFacade.getNewDealsNumber();
+    }
+
     @PreAuthorize("hasAnyRole('CUSTOMER','SELLER')")
     @RequestMapping(value = "/{dealId}", method = RequestMethod.PUT)
     public @ResponseBody void updateDealWithStatus(@PathVariable("dealId") Integer dealId,

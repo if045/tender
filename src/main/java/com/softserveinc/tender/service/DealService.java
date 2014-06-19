@@ -2,12 +2,15 @@ package com.softserveinc.tender.service;
 
 import com.softserveinc.tender.entity.Deal;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.query.Param;
+
 import java.util.List;
 
 public interface DealService {
 
     List<Deal> findAllDealsForCustomer(Pageable pageable,Integer id);
     List<Deal> findAllDealsForSeller(Pageable pageable,Integer id);
+    Long getNewDealsNumberForSeller(@Param("sellerId") Integer id);
     Long getDealsNumber();
     Deal findDealById(Integer id);
     Deal saveDeal(Deal deal);

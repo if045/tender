@@ -28,6 +28,12 @@ public class DealServiceImpl implements DealService {
     public List<Deal> findAllDealsForSeller(Pageable pageable, Integer id) {
         return dealRepository.findAllDealsForSeller(id,pageable);
     }
+
+    @Override
+    public Long getNewDealsNumberForSeller(Integer id) {
+        return dealRepository.getNewDealsNumberForSeller(id);
+    }
+
     @Override
     public Long getDealsNumber() {
         return dealRepository.getDealsNumber();
