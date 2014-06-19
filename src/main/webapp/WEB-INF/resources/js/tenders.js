@@ -293,7 +293,7 @@
                 str += (str.length==0)?"searchParam="+$('#search_tenders').val():"&searchParam="+$('#search_tenders').val();
             }
             if(userTenders) {
-                str += "&userTenders=true";
+                str += "&userTenders=0";
             }
 
             showPagination(str);

@@ -23,7 +23,8 @@ public interface TenderRepository extends JpaRepository<Tender, Integer> {
             "and (0 = :statusFlag or t.status.active = true) " +
             "and (1 = :locationFlag or l.id IN (:locations)) " +
             "and (1 = :itemFlag or i.id IN (:items)) " +
-            "and t.endDate between :minDate and :maxDate")
+            "and t.endDate between :minDate and :maxDate " +
+            "and (1 = :userTendersFlag or t.author.id = :profileId)")
     List<Tender> findByCustomParameters(@Param("searchParam")String tenderTitle,
                                         @Param("min") BigDecimal min,
                                         @Param("max") BigDecimal max,
@@ -39,6 +40,8 @@ public interface TenderRepository extends JpaRepository<Tender, Integer> {
                                         @Param("statusFlag") Integer statusFlag,
                                         @Param("priceFlag") Integer priceFlag,
                                         @Param("searchFlag") Integer searchFlag,
+                                        @Param("userTendersFlag") Integer userTendersFlag,
+                                        @Param("profileId") Integer profileId,
                                         Pageable pageable);
 
     @Query("select count(distinct t) from Tender t inner join t.locations l, Category c, Unit u, Item i " +

@@ -30,6 +30,9 @@ public class TenderFilter {
     private Character type;
     private Integer typeFlag;
 
+    private Integer userTendersFlag;
+    private Integer profileId;
+
     public TenderFilter(Set<Integer> categories) {
         if (categories == null) {
             setCategoryFlag(1);
@@ -55,7 +58,8 @@ public class TenderFilter {
     }
 
     public TenderFilter(BigDecimal minPrice, BigDecimal maxPrice, Set<Integer> categories, List<Integer> locations,
-                        List<Integer> items, List<Integer> statuses, Date minDate, Date maxDate, String tenderTitle) {
+                        List<Integer> items, List<Integer> statuses, Date minDate, Date maxDate, String tenderTitle,
+                        Integer userTendersFlag) {
 
         if (minPrice == null & maxPrice == null) {
             setPriceFlag(1);
@@ -96,7 +100,7 @@ public class TenderFilter {
             setSearchFlag(0);
             this.tenderTitle = PERCENT + tenderTitle + PERCENT;
         }
-
+        this.userTendersFlag = userTendersFlag;
     }
 
     public String getTenderTitle() {
@@ -249,5 +253,21 @@ public class TenderFilter {
 
     public void setMaxDate(Date maxDate) {
         this.maxDate = maxDate;
+    }
+
+    public Integer getUserTendersFlag() {
+        return userTendersFlag;
+    }
+
+    public void setUserTendersFlag(Integer userTendersFlag) {
+        this.userTendersFlag = userTendersFlag;
+    }
+
+    public Integer getProfileId() {
+        return profileId;
+    }
+
+    public void setProfileId(Integer profileId) {
+        this.profileId = profileId;
     }
 }

@@ -51,13 +51,13 @@ public class TenderController {
             @RequestParam(value = "pageSize", required = true) Integer pageSize,
             @RequestParam(value = "orderBy", required = false, defaultValue = "createDate") String orderBy,
             @RequestParam(value = "sortDirection", required = false, defaultValue = "ASC") String sortDirection,
-            @RequestParam(value = "searchParam",required = false) String searchParam) {
+            @RequestParam(value = "searchParam", required = false) String searchParam,
+            @RequestParam(value = "userTenders", required = false) Integer userTendersFlag) {
 
         Sort.Direction pageSortDirection = Sort.Direction.fromString(sortDirection);
 
         return tenderFacade.findByCustomParams(new TenderFilter(minPrice, maxPrice, categories,
-                        locations, items,
-                        statuses, createDate, endDate, searchParam),
+                        locations, items, statuses, createDate, endDate, searchParam, userTendersFlag),
                 new PageRequest(pageNumber, pageSize, pageSortDirection, orderBy)
         );
     }
@@ -72,10 +72,11 @@ public class TenderController {
             @RequestParam(value = "statuses", required = false) List<Integer> statuses,
             @RequestParam(value = "minDate", required = false) Date createDate,
             @RequestParam(value = "maxDate", required = false) Date endDate,
-            @RequestParam(value = "searchParam",required = false) String searchParam) {
+            @RequestParam(value = "searchParam",required = false) String searchParam,
+            @RequestParam(value = "userTenders", required = false) Integer userTendersFlag) {
 
         return tenderFacade.getTendersNumber(new TenderFilter(minPrice, maxPrice, categories, locations,
-                items, statuses, createDate, endDate,searchParam));
+                items, statuses, createDate, endDate, searchParam, userTendersFlag));
     }
 
     @RequestMapping(value = "/statuses", method = RequestMethod.GET)

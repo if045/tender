@@ -29,14 +29,15 @@ public class TenderServiceImpl implements TenderService {
     @Override
     public List<Tender> findByCustomParameters(TenderFilter tenderFilter, Pageable pageable) {
         return tenderRepository.findByCustomParameters(tenderFilter.getTenderTitle(), tenderFilter.getMinPrice(),
-                                                       tenderFilter.getMaxPrice(),
-                                                       tenderFilter.getStatuses(), tenderFilter.getCategories(),
-                                                       tenderFilter.getLocations(), tenderFilter.getItems(),
-                                                       tenderFilter.getMinDate(), tenderFilter.getMaxDate(),
-                                                       tenderFilter.getCategoryFlag(), tenderFilter.getItemFlag(),
-                                                       tenderFilter.getLocationFlag(), tenderFilter.getStatusFlag(),
-                                                       tenderFilter.getPriceFlag(),tenderFilter.getSearchFlag(),
-                                                       pageable);
+                tenderFilter.getMaxPrice(),
+                tenderFilter.getStatuses(), tenderFilter.getCategories(),
+                tenderFilter.getLocations(), tenderFilter.getItems(),
+                tenderFilter.getMinDate(), tenderFilter.getMaxDate(),
+                tenderFilter.getCategoryFlag(), tenderFilter.getItemFlag(),
+                tenderFilter.getLocationFlag(), tenderFilter.getStatusFlag(),
+                tenderFilter.getPriceFlag(), tenderFilter.getSearchFlag(),
+                tenderFilter.getUserTendersFlag(), tenderFilter.getProfileId(),
+                pageable);
     }
 
     @Override

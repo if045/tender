@@ -121,6 +121,10 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
 
     @Override
     public List<TenderDto> findByCustomParams(TenderFilter tenderFilter, Pageable pageable) {
+        if (tenderFilter.getUserTendersFlag() != null) {
+            tenderFilter.setProfileId(profileService.findProfileByUserLogin(SecurityContextHolder.getContext()
+                    .getAuthentication().getName()).getId());
+        }
         List<Tender> tenders = tenderService.findByCustomParameters(tenderFilter, pageable);
         return mapTenders(tenders);
     }
