@@ -14,6 +14,12 @@ $(document).ready(function() {
     });
 
     showDeals();
+    $('#search_deals').keypress(function(e) {
+        if (e.keyCode == ENTER_BUTTON_CODE) {
+            showDeals();
+            return false;
+        }
+    });
 });
 
 function showDeals() {
@@ -23,6 +29,10 @@ function showDeals() {
     
     queryParams += (queryParams.length==0)?"pageSize="+pageSize:"&pageSize="+pageSize;
     queryParams += "&pageNumber="+currPageNumber;
+
+    if($('#search_deals').val()!=""){
+        queryParams += (queryParams.length==0)?"searchParam="+$('#search_deals').val():"&searchParam="+$('#search_deals').val();
+    }
 
     $.ajax({
         url: DEALS_URL,
@@ -53,12 +63,14 @@ function showDeals() {
                         '</td></tr>';
                 }
 
-                $('#user_message').html('');
+                $('#deals_user_message').html('');
                 $('#deal_items').show();
                 $('#deals').html(html);
+                $('#pagination').show();
             } else {
-                $('#user_message').html('<h4>No deals found</h4>');
+                $('#deals_user_message').html('<h4>No deals found</h4>').show();
                 $('#deal_items').hide();
+                $('#pagination').hide();
             }
         },
         error:function(){

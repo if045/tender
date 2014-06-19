@@ -29,10 +29,10 @@
                     <li><a href="/logout">Log out</a></li>
                 </security:authorize>
                 <security:authorize access="isAuthenticated()">
-                    <li><a class="glyphicon glyphicon-user" href="#"></a></li>
+                    <li><li><a class="glyphicon glyphicon-user" onclick="goToUserProfilePage()"></a></li></li>
                 </security:authorize>
                 <security:authorize access="! isAuthenticated()">
-                    <li><button type="button" class="btn btn-default nav_button" onclick="goToRegistrationPage();">Sign up</button></li>
+                    <li><button type="button" class="btn btn-default nav_button" onclick="goToRegistrationPage()">Sign up</button></li>
                 </security:authorize>
             </ul>
         </div>

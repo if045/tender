@@ -12,7 +12,7 @@ import java.util.List;
 
 public interface DealServiceFacade {
 
-    List<DealDto> findAllDeals(Pageable pageable);
+    List<DealDto> findAllDeals(Pageable pageable, String tenderTitle);
     DealsNumberDto getNewDealsNumber();
     DealsNumberDto getDealsNumber();
     void updateDealWithStatus(Integer dealId, String statusName);

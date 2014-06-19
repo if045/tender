@@ -4,6 +4,7 @@ var locs = '';
 var Units = [];
 var Proposals = [];
 var highLightedElement;
+var USER_ROLE;
 
 $(document).ready(function () {
     $('#endDate').datepicker({
@@ -36,9 +37,11 @@ $(document).ready(function () {
         $.getJSON('/tenders' + tender + '/units?direction='+ sortValue +'&field='+ nameValue, buildUnitTable);
     });
 
-    showUnit();
-    showProposals();
     showInfo();
+    setTimeout(function() {
+        showUnit();
+        showProposals();
+    }, 100);
     $("#status, #date_to, #description").change(function() {
         enableSaveTenderButton();
     });
@@ -58,17 +61,16 @@ $(document).ready(function () {
         }
     );
 });
+
 function showProposals() {
     var URL = location.href;
     var tenderURI = URL.split(TENDER_VIEW_URL);
     tenderId = tenderURI[tenderURI.length - 1];
-    $.getJSON('/tenders/'+tenderId+'/proposals', function (data) {
+    $.getJSON(TENDERS_URL + tenderId + PROPOSALS_URL, function (data) {
         Proposals = data.slice(0);
         showProposalsTable(Proposals);
     });
 }
-
-
 
 function buildUnitTable(data){
     var html = '';
@@ -87,12 +89,16 @@ function buildUnitTable(data){
             '<td>' + data[i].categoryName + '</td>' +
             '<td>' + data[i].quantity + ' ' + data[i].measurementName + '</td>' +
             '<td>' + data[i].numberOfBids + '</td>' +
-            '<td class="js-sellerPrice" id="seller_price_' + data[i].id + '">' + 0.00 + '</td>' +
-            '<td align="center">' +
+        '<td class="js-sellerPrice" id="seller_price_' + data[i].id + '"></td>';
+        if (USER_ROLE.search('CUSTOMER')!=-1) {
+            html += '<td align="center">' +
                 '<input  hidden="" type="text" id="selected_proposal_id_' + data[i].id + '"/>' +
                 '<input  hidden="" type="text" id="selected_bid_id_' + data[i].id + '"/>' +
-                '<button type="submit" id="unit_deal_button_'+ data[i].id +'" class="btn' + buttonStyle +'" onclick="createUnitDeal(' + data[i].id + ')" disabled>Deal</button>' +
-            '</td></tr>';
+                '<button type="submit" id="unit_deal_button_' + data[i].id + '" class="btn' + buttonStyle + '" onclick="createUnitDeal(' + data[i].id + ')" disabled>Deal</button>' +
+                '</td></tr>';
+        }else{
+            html += '</tr>';
+        }
     }
     $('#unitsTable').html(html);
     if(!(highLightedElement == undefined)) {
@@ -128,7 +134,6 @@ function createProposalDeal(proposalId) {
 function createUnitDeal(unitId) {
     var proposalId = $("#selected_proposal_id_" + unitId).val();
     var bidId = $("#selected_bid_id_" + unitId).val();
-    alert("Here!");
     $.ajax({
         url: TENDERS_URL + "/" + tenderId.substring(1) + PROPOSALS_URL + "/" + proposalId + BIDS_URL + "/" + bidId + DEALS_URL,
         type: "POST",
@@ -183,6 +188,7 @@ function showInfo(){
         locationsHtml += '<p class="form-control-static col-md-9" id="locations" rel="tooltip">' + locations + '</p>';
         $('#locations').html(locationsHtml);
         locs = data.locations;
+        USER_ROLE=data.roles.toString();
     });
 }
 
@@ -211,6 +217,7 @@ function saveTenderAfterUpdate(){
         url: TENDERS_URL + '/' + tender.substring(1) + "?"  + str,
         type: "PUT",
         success: function(data){
+            $('#success_update_tender_info').modal('show');
         },
         error: function(){
         }
@@ -242,12 +249,15 @@ function showProposalsTable(propsArray, unitsArray) {
                 html += '<tr class="js-proposalRow" id="proposal_row_' + propsArray[i].id + '">' +
                     '<td class="js-highlightUnits" propId="' + propsArray[i].id +'">' + propsArray[i].fullName + '</td>' +
                     '<td class="js-highlightUnits" propId="' + propsArray[i].id +'">' + propsArray[i].numberOfBids + '</td>' +
-                    '<td class="js-highlightUnits" propId="' + propsArray[i].id +'">' + propsArray[i].totalBidsPrice + '</td>' +
+                    '<td class="js-highlightUnits" propId="' + propsArray[i].id +'">' + propsArray[i].totalBidsPrice + '</td>';
                     //This button should only be available to the customer
-                    '<td align="center">' +
-                        '<button type="submit" class="btn' + buttonStyle + '" onclick="createProposalDeal(' + propsArray[i].id + ')">Deal</button>' +
-                    '</td>' +
-                    '</tr>';
+                    if (USER_ROLE.search('CUSTOMER')!=-1) {
+                        html += '<td align="center">' +
+                            '<button type="submit" class="btn' + buttonStyle + '" onclick="createProposalDeal(' + propsArray[i].id + ')">Deal</button>' +
+                            '</td></tr>';
+                    }else{
+                        html += '</tr>';
+                    }
             }
         }
         $('#proposals').html(html);
@@ -280,8 +290,6 @@ function checkBids(bidsArray, unitsArray) {
     } else {
         return false;
     }
-
-
 }
 
 function showUnitSellerPrice(proposalId) {
@@ -322,7 +330,7 @@ function showUnitSellerPrice(proposalId) {
 }
 
 function cleanSellerPriceColumn() {
-    $('.js-sellerPrice').html('0.00');
+    $('.js-sellerPrice').html('');
 }
 
 function resetRowsStyle() {
@@ -336,7 +344,7 @@ function checkAll() {
         $("#ch_box_" + i).prop("checked", status);
     }
 
-    showProposals();
+    showSpecificProposals();
 }
 
 function disabledUnitDealButton(){
@@ -344,4 +352,3 @@ function disabledUnitDealButton(){
         $("#unit_deal_button_" + Units[i].id).attr('disabled', 'disabled');
     }
 }
-

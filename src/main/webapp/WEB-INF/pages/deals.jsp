@@ -49,7 +49,7 @@
                         <div class="pull-right">
                             <form id="search_form" class="navbar-form navbar-right" role="search">
                                 <div class="form-group">
-                                    <input id="search_input" type="text" class="form-control" placeholder="Search...">
+                                    <input id="search_deals" type="text" class="form-control" placeholder="Search by tender title...">
                                 </div>
                             </form>
                         </div>
@@ -57,7 +57,7 @@
                 </div>
 
                 <!-- information about deals -->
-                <div id="user_message" class="row"></div>
+                <div id="deals_user_message"></div>
                 <div id="deal_items" class="row">
                     <div class="col-md-12">
                         <table class="table table-bordered table-striped" id="units">

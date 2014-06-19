@@ -127,7 +127,7 @@ INSERT INTO user (login, password, create_date, enabled) VALUES
   ('ramstein@ukr.net',      'duriechstsogut', CURDATE(), TRUE),
   ('maidenFan@ukr.net',     'holysmoke',      CURDATE(), TRUE),
   ('TSRules@qmail.com',     'iwonarock',      CURDATE(), TRUE),
-  ('TolkienReader@ukr.net', 'lotr090191',     CURDATE(), TRUE),
+  ('tenderCustomer@gmail.com',   '1111',      CURDATE(), TRUE),
   ('egoManiac@qmail.com',   'iamtheking',     CURDATE(), TRUE),
 
 /* Admin, moderators */

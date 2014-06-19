@@ -64,3 +64,6 @@ var DEFAULT_SORT_FIELD = "createDate";
 /*Constants for conflict*/
 var DEALS ="/deals/";
 var CONFLICTS = "/conflicts";
+
+USER_PROFILE_PAGE_URL = "/user/profile";
+

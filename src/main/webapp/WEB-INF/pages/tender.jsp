@@ -73,6 +73,7 @@
                         </div>
                     </div>
                 </form>
+
                 <!-- information about tender -->
 
                 <div class="row col-md-12">
@@ -98,7 +99,9 @@
                                 <th><span class="sortable" name="quantity">Quantity</span></th>
                                 <th>Bids</th>
                                 <th>Seller price</th>
-                                <th>Deal</th>
+                                <security:authorize access="hasRole('CUSTOMER')">
+                                    <th>Deal</th>
+                                </security:authorize>
                             </thead>
                             <tbody id="unitsTable"></tbody>
                         </table>
@@ -110,7 +113,9 @@
                                 <th>Seller</th>
                                 <th>Units</th>
                                 <th>Total price</th>
-                                <th>Deal</th>
+                                <security:authorize access="hasRole('CUSTOMER')">
+                                    <th>Deal</th>
+                                </security:authorize>
                             </thead>
                             <tbody id="proposals"/>
                         </table>
@@ -165,6 +170,26 @@
 <!-- new tender modal window -->
 <jsp:include page="newTenderCreated.jsp"/>
 <!-- new tender modal window -->
+
+    <!-- successfully update tender info -->
+    <div class="modal fade" id="success_update_tender_info" tabindex="-1" role="dialog" hidden="">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header"><button class="close" type="button" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Success</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" role="form">
+                        <h5>You have successfully update tender info!</h5>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" type="button" data-dismiss="modal">Good</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- successfully update tender info  -->
 
 </body>
 </html>

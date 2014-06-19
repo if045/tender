@@ -13,6 +13,7 @@ import java.util.List;
 @Service
 public class DealServiceImpl implements DealService {
 
+    public static final String PERCENT = "%";
     @Autowired
     private DealRepository dealRepository;
 
@@ -20,13 +21,27 @@ public class DealServiceImpl implements DealService {
     private DealStatusService dealStatusService;
 
     @Override
-    public List<Deal> findAllDealsForCustomer(Pageable pageable, Integer id) {
-        return dealRepository.findAllDealsForCustomer(id,pageable);
+    public List<Deal> findAllDealsForCustomer(Pageable pageable, Integer id, String tenderTitle) {
+        Integer searchFlag;
+        if (tenderTitle==null){
+            searchFlag=1;
+        }else {
+            searchFlag=0;
+            tenderTitle = PERCENT +tenderTitle+PERCENT;
+        }
+        return dealRepository.findAllDealsForCustomer(id,pageable, tenderTitle, searchFlag);
     }
 
     @Override
-    public List<Deal> findAllDealsForSeller(Pageable pageable, Integer id) {
-        return dealRepository.findAllDealsForSeller(id,pageable);
+    public List<Deal> findAllDealsForSeller(Pageable pageable, Integer id, String tenderTitle) {
+        Integer searchFlag;
+        if (tenderTitle==null){
+            searchFlag=1;
+        }else {
+            searchFlag=0;
+            tenderTitle = PERCENT+tenderTitle+PERCENT;
+        }
+        return dealRepository.findAllDealsForSeller(id,pageable, tenderTitle, searchFlag);
     }
 
     @Override
@@ -35,8 +50,13 @@ public class DealServiceImpl implements DealService {
     }
 
     @Override
-    public Long getDealsNumber() {
-        return dealRepository.getDealsNumber();
+    public Long getDealsNumberForCustomer(Integer id) {
+        return dealRepository.getDealsNumberForCustomer(id);
+    }
+
+    @Override
+    public Long getDealsNumberForSeller(Integer id) {
+        return dealRepository.getDealsNumberForSeller(id);
     }
 
     @Override
@@ -57,13 +77,13 @@ public class DealServiceImpl implements DealService {
         dealRepository.save(deal);
     }
 
-    @Override
     public List<Deal> findByProposalId(Integer proposalId) {
         return dealRepository.findByProposalId(proposalId);
     }
 
-    @Override
+
     public List<Deal> findByUnitId(Integer unitId) {
         return dealRepository.findByUnitId(unitId);
+
     }
 }
