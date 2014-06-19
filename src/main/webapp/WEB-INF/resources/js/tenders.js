@@ -128,7 +128,7 @@
             });
 
             populateItemDropdown();
-            showTenders();
+            applyFilters();
 
             $('#search_tenders').keypress(function(e) {
                 if (e.keyCode == ENTER_BUTTON_CODE) {
@@ -339,9 +339,11 @@
                         $('#user_message').html('');
                         $('#tender_items').show();
                         $('#tenders').html(html);
+                        $('#pagination').show();
                     } else {
                         $('#user_message').html('<h4>Your filter parameters did not match any tender</h4>');
                         $('#tender_items').hide();
+                        $('#pagination').hide();
                     }
                 },
                 error:function(){
