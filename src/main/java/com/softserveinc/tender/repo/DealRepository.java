@@ -14,8 +14,11 @@ import java.util.Set;
 
 public interface DealRepository extends JpaRepository<Deal, Integer> {
 
-    @Query("select distinct d from Deal d")
-    List<Deal> findAllDeals(Pageable pageable);
+    @Query("select distinct d from Deal d where d.customer.id = :customerId")
+    List<Deal> findAllDealsForCustomer(@Param("customerId") Integer id,Pageable pageable);
+
+    @Query("select distinct d from Deal d where d.seller.id = :sellerId")
+    List<Deal> findAllDealsForSeller(@Param("sellerId") Integer id,Pageable pageable);
 
     @Query("select count(distinct d) from Deal d")
     Long getDealsNumber();
@@ -24,4 +27,6 @@ public interface DealRepository extends JpaRepository<Deal, Integer> {
 
     @Query("select d from Deal d inner join d.bid b where b.unit.id = :unitId")
     List<Deal> findByUnitId(@Param("unitId")Integer unitId);
+
+    List<Deal> findBySellerId(Integer id);
 }

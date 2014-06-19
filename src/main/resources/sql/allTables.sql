@@ -238,7 +238,12 @@ INSERT INTO item (type, category_id, name) VALUES
   (/* 14 */ 'S', 14, 'Limo'),
   (/* 15 */ 'P', 14, 'Audi'),
   (/* 16 */ 'P', 15, 'Renault Trucks'),
-  (/* 17 */ 'P', 16, 'Toyota');
+  (/* 17 */ 'P', 16, 'Toyota'),
+
+  (/* 18 */ 'P', 5, 'Macbook Air'),
+  (/* 19 */ 'P', 1, 'Optic cable'),
+  (/* 19 */ 'P', 2, 'IBM'),
+  (/* 20 */ 'P', 2, 'Titanium');
 
 INSERT INTO tender (author_id, title, create_date, end_date, status_id, suitable_price, description) VALUES
 /* Open tenders */
@@ -275,7 +280,12 @@ INSERT INTO tender (author_id, title, create_date, end_date, status_id, suitable
   (/* 27 */ 12, 'House Building',     '2014-04-12', '2014-06-11', 3, 27000.00, NULL),
   (/* 28 */ 13, 'Industry',           '2014-06-07', '2014-06-28', 3, 28000.00, NULL),
   (/* 29 */ 14, 'Products',           '2014-06-08', '2014-06-17', 3, 29000.00, 'I want free deliver to some specific place'),
-  (/* 30 */ 15, 'Products for me',    CURDATE(),    '2014-06-15', 3, 30000.00, NULL);
+  (/* 30 */ 15, 'Products for me',    CURDATE(),    '2014-06-15', 3, 30000.00, NULL),
+  
+  (/* 31 */ 11, 'Need computers',     CURDATE(),    '2014-07-15', 1, 60000.00, NULL),
+  (/* 32 */ 12, 'Servers',    	      CURDATE(),    '2014-07-14', 2, 70000.00, NULL),
+  (/* 33 */ 13, 'Laptops in office',  CURDATE(),    '2014-07-13', 1, 85000.00, NULL),
+  (/* 34 */ 14, 'Computer network',   CURDATE(),    '2014-07-12', 1, 90000.00, NULL);
 
 INSERT INTO unit (quantity, measurement_id, item_id, tender_id) VALUES
   (5, 1, 1,  1),
@@ -307,7 +317,12 @@ INSERT INTO unit (quantity, measurement_id, item_id, tender_id) VALUES
   (8, 8, 10, 27),
   (7, 8, 11, 28),
   (8, 3, 12, 29),
-  (2, 1, 13, 30);
+  (2, 1, 13, 30),
+
+  (5,  5, 19, 31),
+  (10, 5, 20, 32),
+  (15, 5, 18, 33),
+  (20, 5, 19, 34);
 
 INSERT INTO proposal (discount_percentage, discount_currency, seller_id, tender_id, description) VALUES
 /* Proposals for tenders that in progress*/
@@ -468,7 +483,12 @@ INSERT INTO tender_location (tender_id, location_id) VALUES
   (27, 5),
   (28, 17),
   (29, 18),
-  (30, 3);
+  (30, 3),
+
+  (31, 5),
+  (32, 17),
+  (33, 18),
+  (34, 3);
 
 INSERT INTO checked_profile (profile_id, moderator_id, status_id) VALUES
   (1,  17, 3),

@@ -1,6 +1,5 @@
 package com.softserveinc.tender.facade;
 
-import com.softserveinc.tender.dto.CategoryDto;
 import com.softserveinc.tender.dto.ConflictDto;
 import com.softserveinc.tender.dto.ConflictSaveDto;
 import com.softserveinc.tender.dto.DealDto;
