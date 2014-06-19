@@ -13,6 +13,7 @@ import java.util.List;
 @Service
 public class DealServiceImpl implements DealService {
 
+    public static final String PERCENT = "%";
     @Autowired
     private DealRepository dealRepository;
 
@@ -26,7 +27,7 @@ public class DealServiceImpl implements DealService {
             searchFlag=1;
         }else {
             searchFlag=0;
-            tenderTitle = "%"+tenderTitle+"%";
+            tenderTitle = PERCENT +tenderTitle+PERCENT;
         }
         return dealRepository.findAllDealsForCustomer(id,pageable, tenderTitle, searchFlag);
     }
@@ -38,7 +39,7 @@ public class DealServiceImpl implements DealService {
             searchFlag=1;
         }else {
             searchFlag=0;
-            tenderTitle = "%"+tenderTitle+"%";
+            tenderTitle = PERCENT+tenderTitle+PERCENT;
         }
         return dealRepository.findAllDealsForSeller(id,pageable, tenderTitle, searchFlag);
     }

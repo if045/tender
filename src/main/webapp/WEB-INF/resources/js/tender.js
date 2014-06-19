@@ -209,6 +209,7 @@ function saveTenderAfterUpdate(){
         url: TENDERS_URL + '/' + tender.substring(1) + "?"  + str,
         type: "PUT",
         success: function(data){
+            $('#success_update_tender_info').modal('show');
         },
         error: function(){
         }
