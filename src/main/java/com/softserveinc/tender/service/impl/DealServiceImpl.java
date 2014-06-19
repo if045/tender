@@ -20,13 +20,27 @@ public class DealServiceImpl implements DealService {
     private DealStatusService dealStatusService;
 
     @Override
-    public List<Deal> findAllDealsForCustomer(Pageable pageable, Integer id) {
-        return dealRepository.findAllDealsForCustomer(id,pageable);
+    public List<Deal> findAllDealsForCustomer(Pageable pageable, Integer id, String tenderTitle) {
+        Integer searchFlag;
+        if (tenderTitle==null){
+            searchFlag=1;
+        }else {
+            searchFlag=0;
+            tenderTitle = "%"+tenderTitle+"%";
+        }
+        return dealRepository.findAllDealsForCustomer(id,pageable, tenderTitle, searchFlag);
     }
 
     @Override
-    public List<Deal> findAllDealsForSeller(Pageable pageable, Integer id) {
-        return dealRepository.findAllDealsForSeller(id,pageable);
+    public List<Deal> findAllDealsForSeller(Pageable pageable, Integer id, String tenderTitle) {
+        Integer searchFlag;
+        if (tenderTitle==null){
+            searchFlag=1;
+        }else {
+            searchFlag=0;
+            tenderTitle = "%"+tenderTitle+"%";
+        }
+        return dealRepository.findAllDealsForSeller(id,pageable, tenderTitle, searchFlag);
     }
     @Override
     public Long getDealsNumber() {
@@ -51,13 +65,13 @@ public class DealServiceImpl implements DealService {
         dealRepository.save(deal);
     }
 
-    @Override
     public List<Deal> findByProposalId(Integer proposalId) {
         return dealRepository.findByProposalId(proposalId);
     }
 
-    @Override
+
     public List<Deal> findByUnitId(Integer unitId) {
         return dealRepository.findByUnitId(unitId);
+
     }
 }

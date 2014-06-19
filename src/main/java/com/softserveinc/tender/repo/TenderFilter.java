@@ -7,6 +7,7 @@ import java.util.Set;
 
 public class TenderFilter {
 
+    public static final String PERCENT = "%";
     private BigDecimal minPrice;
     private BigDecimal maxPrice;
     private Set<Integer> categories;
@@ -15,6 +16,7 @@ public class TenderFilter {
     private List<Integer> statuses;
     private Date minDate;
     private Date maxDate;
+    private String tenderTitle;
 
     private Integer categoryFlag;
     private Integer itemFlag;
@@ -22,45 +24,47 @@ public class TenderFilter {
     private Integer statusFlag;
     private Integer dataFlag;
     private Integer priceFlag;
+    private Integer searchFlag;
 
     private Integer categoryId;
     private Character type;
     private Integer typeFlag;
 
     public TenderFilter(Set<Integer> categories) {
-        if (categories==null) {
+        if (categories == null) {
             setCategoryFlag(1);
-        }else {
-            this.categories =categories;
+        } else {
+            this.categories = categories;
             setCategoryFlag(0);
         }
     }
 
     public TenderFilter(Integer categoryId, Character type) {
-        if (categoryId==null) {
+        if (categoryId == null) {
             setCategoryFlag(1);
-        }else {
+        } else {
             this.categoryId = categoryId;
             setCategoryFlag(0);
         }
-        if (type==null) {
+        if (type == null) {
             setTypeFlag(1);
-        }else {
+        } else {
             this.type = type;
             setTypeFlag(0);
         }
     }
 
-    public TenderFilter(BigDecimal minPrice, BigDecimal maxPrice, Set<Integer> categories, List<Integer> locations, List<Integer> items, List<Integer> statuses, Date minDate, Date maxDate) {
+    public TenderFilter(BigDecimal minPrice, BigDecimal maxPrice, Set<Integer> categories, List<Integer> locations,
+                        List<Integer> items, List<Integer> statuses, Date minDate, Date maxDate, String tenderTitle) {
 
-        if (minPrice==null&maxPrice==null){
+        if (minPrice == null & maxPrice == null) {
             setPriceFlag(1);
-        }else {
-            this.minPrice=minPrice;
-            this.maxPrice=maxPrice;
+        } else {
+            this.minPrice = minPrice;
+            this.maxPrice = maxPrice;
             setPriceFlag(0);
         }
-        if (categories==null) {
+        if (categories == null) {
             setCategoryFlag(1);
         } else {
             this.categories = categories;
@@ -84,8 +88,31 @@ public class TenderFilter {
             setStatusFlag(0);
             this.statuses = statuses;
         }
-        this.minDate = (minDate!=null)?minDate:new Date();
-        this.maxDate = (maxDate!=null)?maxDate:new Date((new Date().getTime())+2419200000l);
+        this.minDate = (minDate != null) ? minDate : new Date();
+        this.maxDate = (maxDate != null) ? maxDate : new Date((new Date().getTime()) + 2419200000l);
+        if (tenderTitle == null) {
+            setSearchFlag(1);
+        } else {
+            setSearchFlag(0);
+            this.tenderTitle = PERCENT + tenderTitle + PERCENT;
+        }
+
+    }
+
+    public String getTenderTitle() {
+        return tenderTitle;
+    }
+
+    public void setTenderTitle(String tenderTitle) {
+        this.tenderTitle = tenderTitle;
+    }
+
+    public Integer getSearchFlag() {
+        return searchFlag;
+    }
+
+    public void setSearchFlag(Integer searchFlag) {
+        this.searchFlag = searchFlag;
     }
 
     public Integer getCategoryId() {

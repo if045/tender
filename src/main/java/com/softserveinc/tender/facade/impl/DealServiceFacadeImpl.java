@@ -50,13 +50,14 @@ public class DealServiceFacadeImpl implements DealServiceFacade {
     private UserService userService;
 
     @Override
-    public List<DealDto> findAllDeals(Pageable pageable) {
+    public List<DealDto> findAllDeals(Pageable pageable, String tenderTitle) {
         List<Deal> deals = null;
         for (Role role : userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).getRoles()) {
             if (role.getName().equals("CUSTOMER")) {
-                deals = dealService.findAllDealsForCustomer(pageable, userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).getId());
+                deals = dealService.findAllDealsForCustomer(pageable, userService.findByLogin(SecurityContextHolder
+                        .getContext().getAuthentication().getName()).getId(), tenderTitle);
             } else if (role.getName().equals("SELLER")){
-                deals = dealService.findAllDealsForSeller(pageable, userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).getId());
+                deals = dealService.findAllDealsForSeller(pageable, userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).getId(), tenderTitle);
             }
         }
 
