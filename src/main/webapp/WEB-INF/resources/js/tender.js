@@ -38,8 +38,10 @@ $(document).ready(function () {
     });
 
     showInfo();
-    showUnit();
-    showProposals();
+    setTimeout(function() {
+        showUnit();
+        showProposals();
+    }, 100);
     $("#status, #date_to, #description").change(function() {
         enableSaveTenderButton();
     });
@@ -350,4 +352,3 @@ function disabledUnitDealButton(){
         $("#unit_deal_button_" + Units[i].id).attr('disabled', 'disabled');
     }
 }
-

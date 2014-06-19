@@ -73,6 +73,7 @@
                         </div>
                     </div>
                 </form>
+
                 <!-- information about tender -->
 
                 <div class="row col-md-12">
