@@ -387,8 +387,7 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
 
         try {
             String hostAddress = InetAddress.getLocalHost().getHostAddress();
-            //TO DO set hear real user mail
-            mailService.sendMail("tinochka0@gmail.com", MESSAGE_PROPOSAL_TITLE,
+            mailService.sendMail(tender.getAuthor().getUser().getLogin(), MESSAGE_PROPOSAL_TITLE,
                                 "http://" + hostAddress + ":" + PORT + "/" + TENDER_VIEW_URL + tender.getId());
         } catch (UnknownHostException e) {
             e.printStackTrace();
