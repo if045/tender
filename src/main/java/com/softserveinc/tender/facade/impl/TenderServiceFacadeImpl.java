@@ -366,7 +366,7 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
         Tender updatedTender = tenderService.save(tender);
 
         Proposal proposal = new Proposal();
-        proposal.setSeller(userService.findUserById(7));  //TO DO: put current user
+        proposal.setSeller(userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()));
         proposal.setTender(updatedTender);
         proposal.setDiscountCurrency(proposalSaveDto.getDiscountCurrency());
         proposal.setDiscountPercentage(proposalSaveDto.getDiscountPercentage());
