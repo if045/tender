@@ -27,7 +27,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 
@@ -79,6 +81,15 @@ public class DealServiceFacadeImpl implements DealServiceFacade {
         dealsNumberDto.setDealsNumber(newDealsNumber);
 
         return  dealsNumberDto;
+    }
+
+    @Override
+    public void updateMyDealsDate() {
+        User currentUser = userService.findUserById(userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).getId());
+        Calendar calendar = Calendar.getInstance();
+        Timestamp myDealsDate = new Timestamp(calendar.getTime().getTime());
+        currentUser.setMyDealsDate(myDealsDate);
+        userService.saveUser(currentUser);
     }
 
     @Override
