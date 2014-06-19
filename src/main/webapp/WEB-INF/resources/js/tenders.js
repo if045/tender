@@ -261,14 +261,9 @@
                     url: '/tenders/categories',
                     async: false,
                     success: function(data){
-                        var dataLength = data.length;
-                        var catNumber = categories.length;
-                        for(var z = 0;z<catNumber;z++) {
-                            for (var i = 0; i < dataLength; i++) {
-                                if(categories[z] == data[i].parent) {
-                                    categories.push(""+data[i].id);
-                                }
-                            }
+                        for(var z=0;z<categories.length;z++) {
+                            var subCats = getSubCategories(categories[z],data,categories);
+                            categories = categories.concat(subCats);
                         }
                     }
                 });
@@ -390,6 +385,22 @@
             $('#endDate').data({date: nextMonthDate});
             $('#endDate').datepicker('update');
             $('#endDate').datepicker().children('input').val(nextMonthDate);
+        }
+
+        function getSubCategories(id,data,categories) {
+            var dataSize = data.length;
+            var subCats = new Array();
+
+            for(var z=0;z<dataSize;z++) {
+                if(id == data[z].parentId)
+                {
+                    if($.inArray(data[z].id, categories) != 0) {
+                        subCats.push(data[z].id);
+                    }
+                }
+            }
+
+            return subCats;
         }
 
         function getCurrentDate() {

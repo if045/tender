@@ -20,10 +20,28 @@ public class DealServiceImpl implements DealService {
     private DealStatusService dealStatusService;
 
     @Override
-    public List<Deal> findAllDeals(Pageable pageable) {
-        return dealRepository.findAllDeals(pageable);
+    public List<Deal> findAllDealsForCustomer(Pageable pageable, Integer id, String tenderTitle) {
+        Integer searchFlag;
+        if (tenderTitle==null){
+            searchFlag=1;
+        }else {
+            searchFlag=0;
+            tenderTitle = "%"+tenderTitle+"%";
+        }
+        return dealRepository.findAllDealsForCustomer(id,pageable, tenderTitle, searchFlag);
     }
 
+    @Override
+    public List<Deal> findAllDealsForSeller(Pageable pageable, Integer id, String tenderTitle) {
+        Integer searchFlag;
+        if (tenderTitle==null){
+            searchFlag=1;
+        }else {
+            searchFlag=0;
+            tenderTitle = "%"+tenderTitle+"%";
+        }
+        return dealRepository.findAllDealsForSeller(id,pageable, tenderTitle, searchFlag);
+    }
     @Override
     public Long getDealsNumber() {
         return dealRepository.getDealsNumber();
@@ -47,11 +65,6 @@ public class DealServiceImpl implements DealService {
         dealRepository.save(deal);
     }
 
-    @Override
-    public List<Deal> findBySearchParam(String title) {
-        return dealRepository.findByProposalTenderTitleContaining(title);
-
-    }
     public List<Deal> findByProposalId(Integer proposalId) {
         return dealRepository.findByProposalId(proposalId);
     }

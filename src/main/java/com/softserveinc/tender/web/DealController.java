@@ -32,13 +32,15 @@ public class DealController {
 
     @RequestMapping(method = RequestMethod.GET)
     public @ResponseBody List<DealDto> findDeals(@RequestParam(value = "pageNumber",required = true) Integer pageNumber,
-                                                 @RequestParam(value = "pageSize",required = true) Integer pageSize) {
-        return dealFacade.findAllDeals(new PageRequest(pageNumber, pageSize));
+                                                 @RequestParam(value = "pageSize",required = true) Integer pageSize,
+                                                 @RequestParam(value = "searchParam",required = false) String searchParam) {
+        return dealFacade.findAllDeals(new PageRequest(pageNumber, pageSize),searchParam);
     }
 
     @RequestMapping(value = "/number", method = RequestMethod.GET)
     public @ResponseBody DealsNumberDto getDealsNumber() {
          return dealFacade.getDealsNumber();
+
     }
 
     @PreAuthorize("hasAnyRole('CUSTOMER','SELLER')")
@@ -58,10 +60,5 @@ public class DealController {
     public @ResponseBody
     FeedbackDto addFeedback(@RequestBody FeedbackSaveDto feedbackSaveDto) {
         return dealFacade.saveFeedback(feedbackSaveDto);
-    }
-
-    @RequestMapping(value = "/search/{title}", method = RequestMethod.GET)
-    public @ResponseBody List<DealDto> search(@PathVariable("title") String title) {
-        return dealFacade.findBySearchParam(title);
     }
 }

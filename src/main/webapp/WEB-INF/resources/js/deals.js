@@ -16,12 +16,7 @@ $(document).ready(function() {
     showDeals();
     $('#search_deals').keypress(function(e) {
         if (e.keyCode == ENTER_BUTTON_CODE) {
-            var filter=$('#search_deals').val();
-            if (filter.length > 0) {
-                searchDeals(filter);
-            }else{
-                showDeals();
-            }
+            showDeals();
             return false;
         }
     });
@@ -34,6 +29,10 @@ function showDeals() {
     
     queryParams += (queryParams.length==0)?"pageSize="+pageSize:"&pageSize="+pageSize;
     queryParams += "&pageNumber="+currPageNumber;
+
+    if($('#search_deals').val()!=""){
+        queryParams += (queryParams.length==0)?"searchParam="+$('#search_deals').val():"&searchParam="+$('#search_deals').val();
+    }
 
     $.ajax({
         url: DEALS_URL,
@@ -114,42 +113,6 @@ function closeDealModalWindow(id) {
     $('#' + id).modal('hide');
 }
 
-
-function searchDeals(filter) {
-    $.ajax({
-        url: DEALS_URL + '/' + "search/" + filter,
-        type: "GET",
-
-        success: function (data) {
-            var html = '';
-            var len = data.length;
-
-            if (len > 0) {
-                for (var i = 0; i < len; i++) {
-                    html += '<tr><td align="center">' + data[i].title + '</td>' +
-                        '<td align="center">' + unixTimeConverter(data[i].date) + '</td>' +
-                        '<td align="center">' + data[i].businessPartner + '</td>' +
-                        '<td align="center">' + data[i].status + '</td>' +
-                        '<td align="center">' + data[i].sum + '</td>' +
-                        '<td align="center">' +
-                        '<div class="btn-group">' +
-                        '<button data-toggle="dropdown" class="btn btn-default dropdown-toggle">Action<span class="caret"></span></button>' +
-                        '<ul class="dropdown-menu">' +
-                        '<li><a href="#" data-toggle="modal" data-target="#feedback_mod_wind" onclick="writeFeedbackId(' + data[i].id + ')">Feedback</a></li>' +
-                        '<li><a href="#">Conflict</a></li>' +
-                        '<li><a href="#" data-toggle="modal" data-target="#close_deal_mod_wind" onclick="writeCloseDealId(' + data[i].id + ')">Close</a></li>' +
-                        '</ul>' +
-                        '</div>' +
-                        '</td></tr>';
-                }
-                $('#deals').html(html);
-            }
-        },
-        error: function () {
-            alert("Something wrong")
-        }
-    });
-}
 function showDealsPagination(queryParams) {
     $.ajax({
         url: DEALS_NUMBER_URL,
