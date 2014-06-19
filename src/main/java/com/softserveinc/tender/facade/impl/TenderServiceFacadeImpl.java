@@ -186,7 +186,7 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
         }
         tenderDto.setAuthorId(tender.getAuthor().getUser().getId());
         if (SecurityContextHolder.getContext().getAuthentication().getName()!="anonymousUser"){
-        tenderDto.setUserId(userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).getId());
+            tenderDto.setUserId(userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).getId());
         }
         tenderDto.setRoles(roles);
         return tenderDto;
