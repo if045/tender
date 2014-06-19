@@ -19,6 +19,24 @@ public class TenderDto {
     private Integer proposals;
     private String description;
     private List<String> roles;
+    private Integer authorId;
+    private Integer userId;
+
+    public Integer getAuthorId() {
+        return authorId;
+    }
+
+    public void setAuthorId(Integer authorId) {
+        this.authorId = authorId;
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
 
     public List<String> getRoles() {
         return roles;

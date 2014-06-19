@@ -184,6 +184,10 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
                 roles.add(role.getName());
             }
         }
+        tenderDto.setAuthorId(tender.getAuthor().getUser().getId());
+        if (SecurityContextHolder.getContext().getAuthentication().getName()!="anonymousUser"){
+            tenderDto.setUserId(userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).getId());
+        }
         tenderDto.setRoles(roles);
         return tenderDto;
     }
@@ -366,7 +370,7 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
         Tender updatedTender = tenderService.save(tender);
 
         Proposal proposal = new Proposal();
-        proposal.setSeller(userService.findUserById(7));  //TO DO: put current user
+        proposal.setSeller(userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()));
         proposal.setTender(updatedTender);
         proposal.setDiscountCurrency(proposalSaveDto.getDiscountCurrency());
         proposal.setDiscountPercentage(proposalSaveDto.getDiscountPercentage());
@@ -387,8 +391,7 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
 
         try {
             String hostAddress = InetAddress.getLocalHost().getHostAddress();
-            //TO DO set hear real user mail
-            mailService.sendMail("tinochka0@gmail.com", MESSAGE_PROPOSAL_TITLE,
+            mailService.sendMail(tender.getAuthor().getUser().getLogin(), MESSAGE_PROPOSAL_TITLE,
                                 "http://" + hostAddress + ":" + PORT + "/" + TENDER_VIEW_URL + tender.getId());
         } catch (UnknownHostException e) {
             e.printStackTrace();

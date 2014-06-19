@@ -21,8 +21,11 @@ public interface DealRepository extends JpaRepository<Deal, Integer> {
                                      Pageable pageable,@Param("tenderTitle") String searchParam,
                                      @Param("searchFlag") Integer searchFlag);
 
-    @Query("select count(distinct d) from Deal d")
-    Long getDealsNumber();
+    @Query("select count(distinct d) from Deal d where d.customer.id = :customerId")
+    Long getDealsNumberForCustomer(@Param("customerId") Integer id);
+
+    @Query("select count(distinct d) from Deal d where d.seller.id = :sellerId")
+    Long getDealsNumberForSeller(@Param("sellerId") Integer id);
 
     List<Deal> findByProposalId(Integer proposalId);
 
