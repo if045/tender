@@ -41,13 +41,14 @@ public class TenderServiceImpl implements TenderService {
 
     @Override
     public Long getTendersNumber(TenderFilter tenderFilter) {
-        return tenderRepository.getTendersNumber(tenderFilter.getMinPrice(), tenderFilter.getMaxPrice(),
+        return tenderRepository.getTendersNumber(tenderFilter.getTenderTitle(), tenderFilter.getMinPrice(),
+                tenderFilter.getMaxPrice(),
                 tenderFilter.getStatuses(), tenderFilter.getCategories(),
                 tenderFilter.getLocations(), tenderFilter.getItems(),
                 tenderFilter.getMinDate(), tenderFilter.getMaxDate(),
                 tenderFilter.getCategoryFlag(), tenderFilter.getItemFlag(),
                 tenderFilter.getLocationFlag(), tenderFilter.getStatusFlag(),
-                tenderFilter.getPriceFlag());
+                tenderFilter.getPriceFlag(),tenderFilter.getSearchFlag());
     }
 
     @Override
