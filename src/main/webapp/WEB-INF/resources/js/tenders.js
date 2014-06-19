@@ -185,8 +185,8 @@
                                 '<li><a href="/tenderView/' + data[i].id + '">View</a></li>';
                             if (data[i].roles.toString().search('CUSTOMER')!=-1){
                                 if (data[i].userId.toString()==data[i].authorId.toString()){
-                                html += '<li><a href="#" data-toggle="modal" data-target="#close_tender_mod_wind" onclick="writeCloseTenderId(' + data[i].id + ')">Close</a></li>';
-                            }
+                                    html += '<li><a href="#" data-toggle="modal" data-target="#close_tender_mod_wind" onclick="writeCloseTenderId(' + data[i].id + ')">Close</a></li>';
+                                }
                             }
                             if (data[i].roles.toString().search('SELLER')!=-1){
                                 html += '<li><a href="#" data-toggle="modal" data-target="#createProposalWindow" onclick="showUnits(' + data[i].id + ')">Create proposal</a></li>';
