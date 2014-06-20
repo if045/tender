@@ -1,7 +1,6 @@
         var pageSize = DEFAULT_PAGE_SIZE;
         var currPageNumber = 0;
         var ENTER_BUTTON_CODE =13;
-        var TENDERS_QUANTITY= 1000;
 
         var sortDirection = false;
         var orderBy = DEFAULT_SORT_FIELD;
@@ -135,7 +134,7 @@
                 if (e.keyCode == ENTER_BUTTON_CODE) {
                     if (this.value!=""){
                         applyFilters();
-                        pageSize = TENDERS_QUANTITY;
+                        pageSize = $('#pagination_itemsnum').val();
                         currPageNumber = 0;
                         showPage(currPageNumber);
                     }else {
