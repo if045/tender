@@ -39,4 +39,9 @@ public class UserController {
     public @ResponseBody User saveUserRegistrationData(@RequestBody PrivateCustomerRegistrationDataDto customerData) {
         return registrationServiceFacade.savePrivateCustomer(customerData);
     }
+
+    @RequestMapping(value = "/profile", method = RequestMethod.GET)
+    public String showUserProfile() {
+        return "profile";
+    }
 }

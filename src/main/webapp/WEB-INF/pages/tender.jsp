@@ -73,6 +73,7 @@
                         </div>
                     </div>
                 </form>
+
                 <!-- information about tender -->
 
                 <div class="row col-md-12">
@@ -98,7 +99,9 @@
                                 <th><span class="sortable" name="quantity">Quantity</span></th>
                                 <th>Bids</th>
                                 <th>Seller price</th>
-                                <th>Deal</th>
+                                <security:authorize access="hasRole('CUSTOMER')">
+                                    <th>Deal</th>
+                                </security:authorize>
                             </thead>
                             <tbody id="unitsTable"></tbody>
                         </table>
@@ -110,7 +113,9 @@
                                 <th>Seller</th>
                                 <th>Units</th>
                                 <th>Total price</th>
-                                <th>Deal</th>
+                                <security:authorize access="hasRole('CUSTOMER')">
+                                    <th>Deal</th>
+                                </security:authorize>
                             </thead>
                             <tbody id="proposals"/>
                         </table>
