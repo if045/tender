@@ -23,7 +23,7 @@ public class Role {
     @Column(name = "name", unique = true, nullable = false, length = 10)
     private String name;
 
-    @ManyToMany
+/*    @ManyToMany
     @JoinTable(name = "user_role", joinColumns = {@JoinColumn(name = "role_id")}, inverseJoinColumns = {@JoinColumn(name = "user_id")})
     private List<User> users;
 
@@ -33,7 +33,7 @@ public class Role {
 
     public void setUsers(List<User> users) {
         this.users = users;
-    }
+    }*/
 
     public Integer getId() {
         return id;
