@@ -49,7 +49,8 @@ public class TenderServiceImpl implements TenderService {
                 tenderFilter.getMinDate(), tenderFilter.getMaxDate(),
                 tenderFilter.getCategoryFlag(), tenderFilter.getItemFlag(),
                 tenderFilter.getLocationFlag(), tenderFilter.getStatusFlag(),
-                tenderFilter.getPriceFlag(),tenderFilter.getSearchFlag());
+                tenderFilter.getPriceFlag(),tenderFilter.getSearchFlag(),
+                tenderFilter.getUserTendersFlag(), tenderFilter.getProfileId());
     }
 
     @Override

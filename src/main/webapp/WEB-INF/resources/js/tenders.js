@@ -172,7 +172,7 @@
             if($("#date_to").val()!="" && $("#date_to").val() != undefined){
                 queryParams += (queryParams.length==0)?"maxDate="+$("#date_to").val():"&maxDate="+$("#date_to").val();
             }
-
+            queryParams += "&userTenders=" + userTenders;
             showPagination(queryParams);
 
             queryParams += (queryParams.length==0)?"pageSize="+pageSize:"&pageSize="+pageSize;
