@@ -2,7 +2,7 @@ package com.softserveinc.tender.dto;
 
 import javax.validation.constraints.NotNull;
 
-public class UserRegistrationDataDto {
+public class PrivateSellerRegistrationDataDto {
 
     @NotNull
     private UserDto userDto;
@@ -10,7 +10,7 @@ public class UserRegistrationDataDto {
     @NotNull
     private ProfileDto profileDto;
 
-    private CompanyDto companyDto;
+    @NotNull
     private TradeSphereDto tradeSphereDto;
 
     public UserDto getUserDto() {
@@ -27,14 +27,6 @@ public class UserRegistrationDataDto {
 
     public void setProfileDto(ProfileDto profileDto) {
         this.profileDto = profileDto;
-    }
-
-    public CompanyDto getCompanyDto() {
-        return companyDto;
-    }
-
-    public void setCompanyDto(CompanyDto companyDto) {
-        this.companyDto = companyDto;
     }
 
     public TradeSphereDto getTradeSphereDto() {

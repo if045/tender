@@ -19,8 +19,6 @@ $(document).ready(function() {
     mapDropdownData(ROLES_URL, '#populate_roles_dropdown');
     mapDropdownData(CATEGORIES_URL, '#populate_categories_dropdown');
     mapDropdownData(LOCATIONS_URL, "#populate_locations_dropdown");
-
-    addRegisteredUser();
 });
 
 function mapDropdownData(url, id) {
@@ -38,16 +36,42 @@ function mapDropdownData(url, id) {
 }
 
 function addRegisteredUser() {
-    var newJson = $.parseJSON(buildRegisteredUserJSON());
+    var newJson;
+    var url;
+    var roles = $('#populate_roles_dropdown').val();
+
+    if(roles != null) {
+        for (var i = 0; i < roles.length; i++) {
+            var role = roles[i];
+            if (role == SELLER_ID) {
+                if($('#legal').is(":checked")) {
+                    newJson = $.parseJSON(buildRegisteredSellerJSON());
+                    url = SELLER_REGISTRATION_URL;
+                } else if($('#private').is(":checked")) {
+                    newJson = $.parseJSON(buildRegisteredPrivateSellerJSON());
+                    url = PRIVATE_SELLER_REGISTRATION_URL;
+                }
+            } else {
+                if($('#legal').is(":checked")) {
+                    newJson = $.parseJSON(buildRegisteredCustomerJSON());
+                    url = CUSTOMER_REGISTRATION_URL;
+                } else if($('#private').is(":checked")) {
+                    newJson = $.parseJSON(buildRegisteredPrivateCustomerJSON());
+                    url = PRIVATE_CUSTOMER_REGISTRATION_URL;
+                }
+            }
+        }
+    }
+
     $.ajax({
-        url: USER_DATA_URL,
+        url: url,
         type: "POST",
         data:  JSON.stringify(newJson),
         dataType:'json',
         contentType: 'application/json',
 
         success: function(data) {
-            goToHomePage();
+            goToLoginPage();
         },
         error: function(){
             alert(ERROR_MESSAGE);
@@ -55,15 +79,29 @@ function addRegisteredUser() {
     });
 }
 
-function buildRegisteredUserJSON() {
+function buildRegisteredSellerJSON() {
     return '{' + buildUserData() + ',' + buildProfileData() + ',' +
            buildCompanyData() + ',' + buildTradeSphereData() + '}';
 }
 
+function buildRegisteredPrivateSellerJSON() {
+    return '{' + buildUserData() + ',' + buildProfileData() + ',' +
+        buildTradeSphereData() + '}';
+}
+
+function buildRegisteredCustomerJSON() {
+    return '{' + buildUserData() + ',' + buildProfileData() + ',' +
+        buildCompanyData() + '}';
+}
+
+function buildRegisteredPrivateCustomerJSON() {
+    return '{' + buildUserData() + ',' + buildProfileData() + '}';
+}
+
 function buildUserData() {
-    login = $('#login').val();
-    password = $('#password').val();
-    roles = $('#populate_roles_dropdown').val();
+    var login = $('#login').val();
+    var password = $('#password').val();
+    var roles = $('#populate_roles_dropdown').val();
 
     return '"userDto":{'  +
            '"roles":['    + roles    + '],' +
@@ -72,10 +110,11 @@ function buildUserData() {
 }
 
 function buildProfileData() {
-    firstNme = $('#first_name').val();
-    lastName = $('#last_name').val();
-    birthday = $('#birthday').val();
-    phoneNumber = $('#phone_number').val();
+    var firstNme = $('#first_name').val();
+    var lastName = $('#last_name').val();
+    var birthday = $('#birthday').val();
+    var phoneNumber = $('#phone_number').val();
+    var person;
 
     if($('#legal').is(":checked")) {
         person = LEGAL_PERSON;
@@ -92,28 +131,28 @@ function buildProfileData() {
 }
 
 function buildCompanyData() {
-    companyName = $('#company_name').val();
-    city = $('#city').val();
-    street = $('#street').val();
-    buildingNumber = $('#building_number').val();
-    postcode = $('#postcode').val();
-    email = $('#email').val();
-    srnNumber = $('#srn_number').val();
+    var companyName = $('#company_name').val();
+    var city = $('#city').val();
+    var street = $('#street').val();
+    var buildingNumber = $('#building_number').val();
+    var postcode = $('#postcode').val();
+    var email = $('#email').val();
+    var srnNumber = $('#srn_number').val();
 
     return '"companyDto":{' +
            '"email":"'         + email          + '",' +
            '"addressDto":{' +
-           '"buildingNumber":' + buildingNumber + ','  +
+           '"buildingNumber":"' + buildingNumber + '",'  +
            '"city":"'          + city           + '",' +
            '"street":"'        + street         + '",' +
-           '"postcode":'       + postcode       + '},' +
-           '"srnNumber":'      + srnNumber      + ','  +
+           '"postcode":"'       + postcode       + '"},' +
+           '"srnNumber":"'      + srnNumber      + '",'  +
            '"name":"'          + companyName    + '"}';
 }
 
 function buildTradeSphereData() {
-    locations = $('#populate_locations_dropdown').val();
-    categories = $('#populate_categories_dropdown').val();
+    var locations = $('#populate_locations_dropdown').val();
+    var categories = $('#populate_categories_dropdown').val();
 
     return '"tradeSphereDto":{' +
            '"locations":['  + locations  + '],' +
@@ -148,7 +187,7 @@ function hideRequiredRadio() {
 }
 
 function hideShowTradeSphereDataPanel() {
-    roles = $('#populate_roles_dropdown').val();
+    var roles = $('#populate_roles_dropdown').val();
 
     if(roles != null) {
         for (var i = 0; i < roles.length; i++) {
@@ -164,6 +203,6 @@ function hideShowTradeSphereDataPanel() {
     }
 }
 
-function goToHomePage() {
-    window.location.href = HOME_PAGE_URL;
+function goToLoginPage() {
+    window.location.href = LOGIN_PAGE_URL;
 }

@@ -3,7 +3,7 @@ package com.softserveinc.tender.dto;
 public class CompanyDto {
 
     private String name;
-    private Integer srnNumber;
+    private String srnNumber;
     private String email;
     private AddressDto addressDto;
 
@@ -15,11 +15,11 @@ public class CompanyDto {
         this.name = name;
     }
 
-    public Integer getSrnNumber() {
+    public String getSrnNumber() {
         return srnNumber;
     }
 
-    public void setSrnNumber(Integer srnNumber) {
+    public void setSrnNumber(String srnNumber) {
         this.srnNumber = srnNumber;
     }
 

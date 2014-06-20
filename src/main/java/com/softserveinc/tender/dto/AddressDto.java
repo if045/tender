@@ -4,8 +4,8 @@ public class AddressDto {
 
     private String city;
     private String street;
-    private Integer buildingNumber;
-    private Integer postcode;
+    private String buildingNumber;
+    private String postcode;
 
     public String getCity() {
         return city;
@@ -23,19 +23,19 @@ public class AddressDto {
         this.street = street;
     }
 
-    public Integer getBuildingNumber() {
+    public String getBuildingNumber() {
         return buildingNumber;
     }
 
-    public void setBuildingNumber(Integer buildingNumber) {
+    public void setBuildingNumber(String buildingNumber) {
         this.buildingNumber = buildingNumber;
     }
 
-    public Integer getPostcode() {
+    public String getPostcode() {
         return postcode;
     }
 
-    public void setPostcode(Integer postcode) {
+    public void setPostcode(String postcode) {
         this.postcode = postcode;
     }
 }
