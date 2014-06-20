@@ -77,6 +77,12 @@ function showDeals() {
             alert("ERROR");
         }
     });
+
+    $.ajax({
+        url: "/deals/mydealsdate",
+        type: "PUT",
+        dataType: "json"
+    });
 }
 
 function unixTimeConverter(timestamp){
