@@ -132,17 +132,10 @@
 
             $('#search_tenders').keypress(function(e) {
                 if (e.keyCode == ENTER_BUTTON_CODE) {
-                    if (this.value!=""){
                         applyFilters();
                         pageSize = $('#pagination_itemsnum').val();
                         currPageNumber = 0;
                         showPage(currPageNumber);
-                    }else {
-                        applyFilters();
-                        pageSize = $('#pagination_itemsnum').val();
-                        currPageNumber = 0;
-                        showPage(currPageNumber);
-                    }
                     return false;
                 }
             });
