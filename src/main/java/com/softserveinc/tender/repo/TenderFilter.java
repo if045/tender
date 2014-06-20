@@ -94,7 +94,7 @@ public class TenderFilter {
             setSearchFlag(1);
         } else {
             setSearchFlag(0);
-            this.tenderTitle = PERCENT + tenderTitle + PERCENT;
+            this.tenderTitle = PERCENT + tenderTitle.toLowerCase().trim() + PERCENT;
         }
 
     }
