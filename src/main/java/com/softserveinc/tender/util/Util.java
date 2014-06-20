@@ -4,9 +4,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class Util {
+import static com.softserveinc.tender.util.Constants.DATE_PATTERN;
 
-    public final static String DATE_PATTERN = "yyyy/MM/dd";
+public class Util {
 
     public static Date formatDate(String dateValue) {
         SimpleDateFormat formatter = new SimpleDateFormat(DATE_PATTERN);
