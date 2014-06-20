@@ -5,7 +5,7 @@
 
         var sortDirection = false;
         var orderBy = DEFAULT_SORT_FIELD;
-        var userTenders = false;
+        var userTenders = 1;
 
 
         $(document).ready(function() {
@@ -314,9 +314,7 @@
             if($('#search_tenders').val()!=""){
                 str += (str.length==0)?"searchParam="+$('#search_tenders').val():"&searchParam="+$('#search_tenders').val();
             }
-            if(userTenders) {
-                str += "&userTenders=0";
-            }
+                str += "&userTenders=" + userTenders;
 
             showPagination(str);
             str += (str.length==0)?"pageSize="+pageSize:"&pageSize="+pageSize;
@@ -526,7 +524,7 @@
         }
 
         function goToMyTenders() {
-            userTenders = true;
+            userTenders = 0;
             applyFilters();
         }
         
