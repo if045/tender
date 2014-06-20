@@ -1,7 +1,7 @@
         var pageSize = DEFAULT_PAGE_SIZE;
         var currPageNumber = 0;
         var ENTER_BUTTON_CODE =13;
-        var TENDERS_QUANTITY= 0;
+        var TENDERS_QUANTITY= 1000;
 
         var sortDirection = false;
         var orderBy = DEFAULT_SORT_FIELD;
@@ -471,7 +471,6 @@
 
                 success: function(data) {
                     var dataSize = data.tendersNumber;
-                    TENDERS_QUANTITY = dataSize;
                     var pageNumber = Math.ceil(dataSize / pageSize);
 
                     if(dataSize > 0 && pageSize < dataSize) {
