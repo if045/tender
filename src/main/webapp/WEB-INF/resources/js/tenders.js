@@ -5,8 +5,7 @@
 
         var sortDirection = false;
         var orderBy = DEFAULT_SORT_FIELD;
-        var userTenders = 1;
-
+        var roleFlag = false;
 
         $(document).ready(function() {
             $('#startDate, #endDate, #create_tender_enddate').datepicker({
@@ -172,7 +171,9 @@
             if($("#date_to").val()!="" && $("#date_to").val() != undefined){
                 queryParams += (queryParams.length==0)?"maxDate="+$("#date_to").val():"&maxDate="+$("#date_to").val();
             }
-            queryParams += "&userTenders=" + userTenders;
+            if ($("#CURRENT_USER_ROLE").val() != ""&roleFlag) {
+                queryParams += "&userRole=" + $("#CURRENT_USER_ROLE").val();
+            }
             showPagination(queryParams);
 
             queryParams += (queryParams.length==0)?"pageSize="+pageSize:"&pageSize="+pageSize;
@@ -314,7 +315,9 @@
             if($('#search_tenders').val()!=""){
                 str += (str.length==0)?"searchParam="+$('#search_tenders').val():"&searchParam="+$('#search_tenders').val();
             }
-                str += "&userTenders=" + userTenders;
+            if ($("#CURRENT_USER_ROLE").val() != ""&roleFlag) {
+                str += "&userRole=" + $("#CURRENT_USER_ROLE").val();
+            }
 
             showPagination(str);
             str += (str.length==0)?"pageSize="+pageSize:"&pageSize="+pageSize;
@@ -524,8 +527,9 @@
         }
 
         function goToMyTenders() {
-            userTenders = 0;
-            applyFilters();
+            window.location.href = "/tendersHome";
+            roleFlag = true;
+            showTenders();
         }
         
         function goToUserProfilePage() {

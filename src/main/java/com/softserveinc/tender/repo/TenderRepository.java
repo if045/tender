@@ -13,8 +13,8 @@ import java.util.Set;
 
 public interface TenderRepository extends JpaRepository<Tender, Integer> {
 
-    @Query("select distinct t from Tender t inner join t.locations l, Category c, Unit u, Item i " +
-            "where t.id = u.tender.id and c.id=i.category.id and i.id = u.item.id " +
+    @Query("select distinct t from Tender t inner join t.locations l, Category c, Unit u, Item i, Proposal p " +
+            "where t.id = u.tender.id and c.id=i.category.id and i.id = u.item.id and p.tender.id = t.id " +
             "and (1 = :searchFlag or t.title like :searchParam) "+
             "and (1 = :priceFlag or t.suitablePrice between :min and :max) " +
             "and (1 = :categoryFlag or i.category.id in (:categories)) " +
@@ -23,7 +23,8 @@ public interface TenderRepository extends JpaRepository<Tender, Integer> {
             "and (1 = :locationFlag or l.id IN (:locations)) " +
             "and (1 = :itemFlag or i.id IN (:items)) " +
             "and t.endDate between :minDate and :maxDate " +
-            "and (1 = :userTendersFlag or t.author.id = :profileId)")
+            "and (1 = :customerTendersFlag or t.author.id = :profileId) " +
+            "and (1 = :sellerTendersFlag or p.seller.id = :profileId)")
     List<Tender> findByCustomParameters(@Param("searchParam")String tenderTitle,
                                         @Param("min") BigDecimal min,
                                         @Param("max") BigDecimal max,
@@ -39,12 +40,13 @@ public interface TenderRepository extends JpaRepository<Tender, Integer> {
                                         @Param("statusFlag") Integer statusFlag,
                                         @Param("priceFlag") Integer priceFlag,
                                         @Param("searchFlag") Integer searchFlag,
-                                        @Param("userTendersFlag") Integer userTendersFlag,
+                                        @Param("customerTendersFlag") Integer customerTendersFlag,
+                                        @Param("sellerTendersFlag") Integer sellerTendersFlag,
                                         @Param("profileId") Integer profileId,
                                         Pageable pageable);
 
-    @Query("select count(distinct t) from Tender t inner join t.locations l, Category c, Unit u, Item i " +
-            "where t.id = u.tender.id and c.id=i.category.id and i.id = u.item.id " +
+    @Query("select count(distinct t) from Tender t inner join t.locations l, Category c, Unit u, Item i, Proposal p " +
+            "where t.id = u.tender.id and c.id=i.category.id and i.id = u.item.id and p.tender.id = t.id " +
             "and (1 = :searchFlag or t.title like :searchParam) "+
             "and (1 = :priceFlag or t.suitablePrice between :min and :max) " +
             "and (1 = :categoryFlag or i.category.id in (:categories)) " +
@@ -53,7 +55,8 @@ public interface TenderRepository extends JpaRepository<Tender, Integer> {
             "and (1 = :locationFlag or l.id IN (:locations)) " +
             "and (1 = :itemFlag or i.id IN (:items)) " +
             "and t.endDate between :minDate and :maxDate " +
-            "and (1 = :userTendersFlag or t.author.id = :profileId)")
+            "and (1 = :customerTendersFlag or t.author.id = :profileId) " +
+            "and (1 = :sellerTendersFlag or p.seller.id = :profileId)")
     Long getTendersNumber(@Param("searchParam")String tenderTitle,
                           @Param("min") BigDecimal min,
                           @Param("max") BigDecimal max,
@@ -69,7 +72,8 @@ public interface TenderRepository extends JpaRepository<Tender, Integer> {
                           @Param("statusFlag") Integer statusFlag,
                           @Param("priceFlag") Integer priceFlag,
                           @Param("searchFlag") Integer searchFlag,
-                          @Param("userTendersFlag") Integer userTendersFlag,
+                          @Param("customerTendersFlag") Integer customerTendersFlag,
+                          @Param("sellerTendersFlag") Integer sellerTendersFlag,
                           @Param("profileId") Integer profileId);
 
 }

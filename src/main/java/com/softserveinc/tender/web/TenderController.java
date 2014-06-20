@@ -52,12 +52,12 @@ public class TenderController {
             @RequestParam(value = "orderBy", required = false, defaultValue = "createDate") String orderBy,
             @RequestParam(value = "sortDirection", required = false, defaultValue = "ASC") String sortDirection,
             @RequestParam(value = "searchParam", required = false) String searchParam,
-            @RequestParam(value = "userTenders", required = false) Integer userTendersFlag) {
+            @RequestParam(value = "userRole", required = false) String userRole) {
 
         Sort.Direction pageSortDirection = Sort.Direction.fromString(sortDirection);
 
         return tenderFacade.findByCustomParams(new TenderFilter(minPrice, maxPrice, categories,
-                        locations, items, statuses, createDate, endDate, searchParam, userTendersFlag),
+                        locations, items, statuses, createDate, endDate, searchParam, userRole),
                 new PageRequest(pageNumber, pageSize, pageSortDirection, orderBy)
         );
     }
@@ -73,10 +73,10 @@ public class TenderController {
             @RequestParam(value = "minDate", required = false) Date createDate,
             @RequestParam(value = "maxDate", required = false) Date endDate,
             @RequestParam(value = "searchParam",required = false) String searchParam,
-            @RequestParam(value = "userTenders", required = false) Integer userTendersFlag) {
+            @RequestParam(value = "userRole", required = false) String userRole) {
 
         return tenderFacade.getTendersNumber(new TenderFilter(minPrice, maxPrice, categories, locations,
-                items, statuses, createDate, endDate, searchParam, userTendersFlag));
+                items, statuses, createDate, endDate, searchParam, userRole));
     }
 
     @RequestMapping(value = "/statuses", method = RequestMethod.GET)

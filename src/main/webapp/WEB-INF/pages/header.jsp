@@ -7,7 +7,8 @@
             <ul class="nav navbar-nav navbar-left nav_buttons">
                 <li><a class="navbar-brand" href="/tendersHome">UATender</a></li>
                 <security:authorize access="hasAnyRole('CUSTOMER','SELLER')">
-                    <li><button type="button" class="btn btn-default nav_button" onclick="goToMyTenders()">My tenders</button></li>
+                    <li><button type="button" class="btn btn-default nav_button" onclick="goToMyTenders()">My tenders</button>
+                    </li>
                 </security:authorize>
                 <security:authorize access="hasAnyRole('CUSTOMER','SELLER')">
                     <li><button type="button" class="btn btn-default nav_button" onclick="goToMyDealsPage();">My
@@ -16,7 +17,15 @@
                 <security:authorize access="hasRole('CUSTOMER')">
                     <li><button type="button" class="btn btn-default nav_button" data-toggle="modal"
                                  data-target="#createTenderWindow">Create tender</button></li>
+                    <input id="CURRENT_USER_ROLE" value="CUSTOMER" hidden=""/>
                 </security:authorize>
+                <security:authorize access="hasRole('SELLER')">
+                    <input id="CURRENT_USER_ROLE" value="SELLER" hidden=""/>
+                </security:authorize>
+                <security:authorize access="! isAuthenticated()">
+                    <input id="CURRENT_USER_ROLE" value="" hidden=""/>
+                </security:authorize>
+
             </ul>
         </div>
 

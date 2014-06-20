@@ -30,8 +30,11 @@ public class TenderFilter {
     private Character type;
     private Integer typeFlag;
 
-    private Integer userTendersFlag;
+   // private Integer userTendersFlag;
     private Integer profileId;
+    private Integer sellerTendersFlag;
+    private Integer customerTendersFlag;
+    private String userRole;
 
     public TenderFilter(Set<Integer> categories) {
         if (categories == null) {
@@ -59,7 +62,7 @@ public class TenderFilter {
 
     public TenderFilter(BigDecimal minPrice, BigDecimal maxPrice, Set<Integer> categories, List<Integer> locations,
                         List<Integer> items, List<Integer> statuses, Date minDate, Date maxDate, String tenderTitle,
-                        Integer userTendersFlag) {
+                        String userRole) {
 
         if (minPrice == null & maxPrice == null) {
             setPriceFlag(1);
@@ -100,7 +103,18 @@ public class TenderFilter {
             setSearchFlag(0);
             this.tenderTitle = PERCENT + tenderTitle + PERCENT;
         }
-        this.userTendersFlag = userTendersFlag;
+        //this.userTendersFlag = userTendersFlag;
+        this.userRole = userRole;
+        if (userRole == null) {
+            setSellerTendersFlag(1);
+            setCustomerTendersFlag(1);
+        } else if (userRole.equals("CUSTOMER")) {
+            setCustomerTendersFlag(0);
+            setSellerTendersFlag(1);
+        } else if (userRole.equals("SELLER")) {
+            setSellerTendersFlag(0);
+            setCustomerTendersFlag(1);
+        }
     }
 
     public String getTenderTitle() {
@@ -255,13 +269,13 @@ public class TenderFilter {
         this.maxDate = maxDate;
     }
 
-    public Integer getUserTendersFlag() {
+    /*public Integer getUserTendersFlag() {
         return userTendersFlag;
     }
 
     public void setUserTendersFlag(Integer userTendersFlag) {
         this.userTendersFlag = userTendersFlag;
-    }
+    }*/
 
     public Integer getProfileId() {
         return profileId;
@@ -269,5 +283,29 @@ public class TenderFilter {
 
     public void setProfileId(Integer profileId) {
         this.profileId = profileId;
+    }
+
+    public Integer getSellerTendersFlag() {
+        return sellerTendersFlag;
+    }
+
+    public void setSellerTendersFlag(Integer sellerTendersFlag) {
+        this.sellerTendersFlag = sellerTendersFlag;
+    }
+
+    public Integer getCustomerTendersFlag() {
+        return customerTendersFlag;
+    }
+
+    public void setCustomerTendersFlag(Integer customerTendersFlag) {
+        this.customerTendersFlag = customerTendersFlag;
+    }
+
+    public String getUserRole() {
+        return userRole;
+    }
+
+    public void setUserRole(String userRole) {
+        this.userRole = userRole;
     }
 }
