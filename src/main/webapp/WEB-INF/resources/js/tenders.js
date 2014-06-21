@@ -14,6 +14,9 @@
             });
 
             initializeDateFilter();
+            if ($("#CURRENT_USER_ROLE").val() != "") {
+                $("#my_tenders_btn").removeAttr("disabled");
+            }
 
             $("#category_filter").select2({
                 placeholder: "All categories"
@@ -171,7 +174,7 @@
             if($("#date_to").val()!="" && $("#date_to").val() != undefined){
                 queryParams += (queryParams.length==0)?"maxDate="+$("#date_to").val():"&maxDate="+$("#date_to").val();
             }
-            if ($("#CURRENT_USER_ROLE").val() != ""&roleFlag) {
+            if ($("#CURRENT_USER_ROLE").val() != "" && roleFlag) {
                 queryParams += "&userRole=" + $("#CURRENT_USER_ROLE").val();
             }
             showPagination(queryParams);
@@ -315,7 +318,7 @@
             if($('#search_tenders').val()!=""){
                 str += (str.length==0)?"searchParam="+$('#search_tenders').val():"&searchParam="+$('#search_tenders').val();
             }
-            if ($("#CURRENT_USER_ROLE").val() != ""&roleFlag) {
+            if ($("#CURRENT_USER_ROLE").val() != "" && roleFlag) {
                 str += "&userRole=" + $("#CURRENT_USER_ROLE").val();
             }
 
@@ -527,7 +530,7 @@
         }
 
         function goToMyTenders() {
-            window.location.href = "/tendersHome";
+            //window.location.href = "/tendersHome";
             roleFlag = true;
             showTenders();
         }

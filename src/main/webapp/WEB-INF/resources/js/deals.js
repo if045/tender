@@ -7,6 +7,8 @@ $(document).ready(function() {
         startDate: '-5y'
     });
 
+    $("#my_tenders_btn").attr("disabled", "disabled");
+
     $('#pagination_dealsnum').on('change', function() {
         pageSize = this.value;
         currPageNumber = 0;
