@@ -197,14 +197,12 @@ public class RegistrationServiceFacadeImpl implements RegistrationServiceFacade{
     private Address mapAddress(AddressDto addressDto) {
         Address address = new Address();
 
-        if(!addressDto.getBuildingNumber().equals("")){
-            address.setBuildingNumber(Integer.valueOf(addressDto.getBuildingNumber()));
-        }
         if(!addressDto.getPostcode().equals("")){
             address.setPostcode(Integer.valueOf(addressDto.getPostcode()));
         }
         address.setCity(addressDto.getCity());
         address.setStreet(addressDto.getStreet());
+        address.setBuildingNumber(addressDto.getBuildingNumber());
 
         return address;
     }
