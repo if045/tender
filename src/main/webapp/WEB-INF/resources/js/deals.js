@@ -46,7 +46,7 @@ function showDeals() {
 
             if(dataSize > 0) {
                 for (var i = 0; i < dataSize; i++) {
-                    html += '<tr><td align="center">' + data[i].title + '</td>' +
+                    html += '<tr class="'+((data[i].newDeal)?"info":"")+'"><td align="center">' + data[i].title + '</td>' +
                         '<td align="center">' + unixTimeConverter(data[i].date) + '</td>' +
                         '<td align="center">' + data[i].businessPartner + '</td>' +
                         '<td align="center">' + data[i].status + '</td>' +

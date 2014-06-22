@@ -75,7 +75,7 @@ CREATE TABLE user (
 	password VARCHAR(15) NOT NULL,
 	create_date DATE NOT NULL,
 	enabled TINYINT NOT NULL DEFAULT 1,
-    MyDealsDate timestamp DEFAULT CURRENT_TIMESTAMP,
+	 MyDealsDate timestamp DEFAULT CURRENT_TIMESTAMP,
 
 	PRIMARY KEY(id)
 );

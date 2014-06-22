@@ -136,6 +136,12 @@ public class DealServiceFacadeImpl implements DealServiceFacade {
         dealDto.setTitle(deal.getProposal().getTender().getTitle());
         dealDto.setBusinessPartner(deal.getCustomer().getFirstName());
 
+        Timestamp myDealsDate = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).getMyDealsDate();
+        Timestamp dealDate = new Timestamp(deal.getDate().getTime());
+        if(dealDate.after(myDealsDate)) {
+            dealDto.setNewDeal(true);
+        }
+
         return dealDto;
     }
 
