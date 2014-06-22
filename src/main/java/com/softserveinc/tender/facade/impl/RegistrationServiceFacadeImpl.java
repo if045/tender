@@ -142,9 +142,12 @@ public class RegistrationServiceFacadeImpl implements RegistrationServiceFacade{
     private Company mapCompany(CompanyDto companyDto, Address address) {
         Company company = new Company();
 
+        if(!companyDto.getSrnNumber().equals("")){
+            company.setSrn(Integer.valueOf(companyDto.getSrnNumber()));
+        }
+
         company.setName(companyDto.getName());
         company.setEmail(companyDto.getEmail());
-        company.setSrn(Integer.valueOf(companyDto.getSrnNumber()));
         company.setAddress(addressService.findById(address.getId()));
 
         return company;
@@ -194,10 +197,14 @@ public class RegistrationServiceFacadeImpl implements RegistrationServiceFacade{
     private Address mapAddress(AddressDto addressDto) {
         Address address = new Address();
 
+        if(!addressDto.getBuildingNumber().equals("")){
+            address.setBuildingNumber(Integer.valueOf(addressDto.getBuildingNumber()));
+        }
+        if(!addressDto.getPostcode().equals("")){
+            address.setPostcode(Integer.valueOf(addressDto.getPostcode()));
+        }
         address.setCity(addressDto.getCity());
         address.setStreet(addressDto.getStreet());
-        address.setBuildingNumber(Integer.valueOf(addressDto.getBuildingNumber()));
-        address.setPostcode(Integer.valueOf(addressDto.getPostcode()));
 
         return address;
     }
