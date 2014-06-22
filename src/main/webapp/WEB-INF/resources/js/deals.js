@@ -79,7 +79,7 @@ function showDeals() {
     });
 
     $.ajax({
-        url: "/deals/mydealsdate",
+        url: MYDEALS_DATE_URL,
         type: "PUT",
         dataType: "json"
     });

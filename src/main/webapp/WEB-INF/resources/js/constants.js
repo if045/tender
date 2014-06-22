@@ -3,6 +3,7 @@ var TENDERS_URL = "/tenders";
 var MYDEALS_PAGE_URL = "/mydeals";
 
 var NEW_DEALS_URL = "/deals/newdeals";
+var MYDEALS_DATE_URL = "/deals/mydealsdate";
 
 /*Constants for addTenderModal.js*/
 var ITEMS_URL = "/items";
