@@ -40,8 +40,11 @@ var PRIVATE_CUSTOMER_REGISTRATION_URL = "/user/registration/customer/private";
 var DEFAULT_PAGE_SIZE = 10;
 var TENDERS_NUMBER = "/tenders/number";
 
-/*Constants for tenders pagination*/
+/*Constants for tenders sorting*/
 var DEFAULT_SORT_FIELD = "createDate";
+
+/*Constants for deals sotring*/
+var DEFAULT_DEALS_SORT_FIELD = "date";
 
 /*Constants for conflict*/
 var DEALS ="/deals/";
