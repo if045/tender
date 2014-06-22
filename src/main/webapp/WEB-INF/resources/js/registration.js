@@ -103,6 +103,13 @@ function buildUserData() {
     var password = $('#password').val();
     var roles = $('#populate_roles_dropdown').val();
 
+    var passwordChecked = passwordIsChecked(password);
+
+    if(!passwordChecked) {
+        alert("passwords are mismatched");
+        return;
+    }
+
     return '"userDto":{'  +
            '"roles":['    + roles    + '],' +
            '"login":"'    + login    + '",' +
@@ -205,4 +212,14 @@ function hideShowTradeSphereDataPanel() {
 
 function goToLoginPage() {
     window.location.href = LOGIN_PAGE_URL;
+}
+
+function passwordIsChecked(password) {
+    var confirmPassword = $('#confirm_password').val();
+
+    if(password == confirmPassword) {
+        return true;
+    } else {
+        return false;
+    }
 }
