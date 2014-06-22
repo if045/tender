@@ -504,7 +504,7 @@
             sortDirection = (orderBy == orderByField) ? !sortDirection : false;
             orderBy = orderByField;
 
-            $('#tender_items .sortable').addClass('glyphicon-chevron-down').removeClass('glyphicon-chevron-up');
+            $('#tender_items .sortable').removeClass('glyphicon-chevron-up').removeClass('glyphicon-chevron-down');
             if(sortDirection == false) {
                 $('#'+elementId+' .sortable').addClass('glyphicon-chevron-up').removeClass('glyphicon-chevron-down');
             } else {
