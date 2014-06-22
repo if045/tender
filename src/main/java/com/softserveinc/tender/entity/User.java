@@ -92,7 +92,7 @@ public class User {
         this.createDate = createDate;
     }
 
-    public Date getMyDealsDate() {
+    public Timestamp getMyDealsDate() {
         return myDealsDate;
     }
 
