@@ -67,6 +67,7 @@ function showDeals() {
                 $('#deal_items').show();
                 $('#deals').html(html);
                 $('#pagination').show();
+                $('.new_deal_notification').html("");
             } else {
                 $('#deals_user_message').html('<h4>No deals found</h4>').show();
                 $('#deal_items').hide();
@@ -81,7 +82,10 @@ function showDeals() {
     $.ajax({
         url: MYDEALS_DATE_URL,
         type: "PUT",
-        dataType: "json"
+        dataType: "json",
+        success:function(data) {
+            $('.new_deal_notification').html("");
+        }
     });
 }
 

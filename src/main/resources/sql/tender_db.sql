@@ -75,7 +75,7 @@ CREATE TABLE user (
 	password VARCHAR(15) NOT NULL,
 	create_date DATE NOT NULL,
 	enabled TINYINT NOT NULL DEFAULT 1,
-        MyDealsDate timestamp DEFAULT CURRENT_TIMESTAMP,
+    MyDealsDate timestamp DEFAULT CURRENT_TIMESTAMP,
 
 	PRIMARY KEY(id)
 );
@@ -291,7 +291,7 @@ CREATE TABLE deal (
 	customer_id INT NOT NULL,
 	seller_id INT NOT NULL,
 	sum	DECIMAL(13,2) NOT NULL,
-	date DATE NOT NULL,
+	date timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	status_id INT NOT NULL,
 
 	FOREIGN KEY (status_id) REFERENCES deal_status(id), 

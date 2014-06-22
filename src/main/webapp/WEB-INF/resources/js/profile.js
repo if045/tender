@@ -15,6 +15,15 @@ $(document).ready(function() {
     mapDropdownData(CATEGORIES_URL, '#populate_locations_edit_dropdown');
     mapDropdownData(LOCATIONS_URL, "#populate_categories_edit_dropdown");
 
+    $.getJSON(NEW_DEALS_URL, function(data){
+        var newDealsNumber = data.dealsNumber;
+
+        if(newDealsNumber > 0) {
+            $('.new_deal_notification').html("&nbsp;+"+newDealsNumber);
+        } else {
+            $('.new_deal_notification').html("");
+        }
+    });
 });
 
 function mapDropdownData(url, id) {
