@@ -14,7 +14,7 @@
                             <h4>Comment</h4>
                         </div>
                         <div class="col-sm-12">
-                            <textarea id="conflict_comment" class="form-control" rows="5" name="comment"></textarea>
+                            <textarea id="conflict_comment" class="form-control" rows="5" name="comment" maxlength='100' placeholder="Please enter your comment here (less than 100 chars)"></textarea>
                         </div>
                     </div>
                 </form>
