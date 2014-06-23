@@ -130,21 +130,21 @@
                         <thead>
                         <tr>
                             <th align="center" id="tender_title">
-                                <span class="glyphicon glyphicon-chevron-down sortable"><span>Title</span></span>
+                                <span class="glyphicon sortable"><span>Title</span></span>
                             </th>
                             <th align="center" id="tender_author">
-                                <span class="glyphicon glyphicon-chevron-down sortable"><span>Author</span></span>
+                                <span class="glyphicon sortable"><span>Author</span></span>
                             </th>
                             <th align="center" id="tender_category"><span>Category</span></th>
                             <th align="center" id="tender_location"><span>Location</span></th>
                             <th align="center" id="tender_suitable_price">
-                                <span class="glyphicon glyphicon-chevron-down sortable"><span>Suitable Price</span></span>
+                                <span class="glyphicon sortable"><span>Suitable Price</span></span>
                             </th>
                             <th align="center" id="tender_status">
-                                <span class="glyphicon glyphicon-chevron-down sortable"><span>Status</span></span>
+                                <span class="glyphicon sortable"><span>Status</span></span>
                             </th>
                             <th align="center" id="tender_proposals">
-                                <span class="glyphicon glyphicon-chevron-down sortable"><span>Proposals</span></span>
+                                <span class="glyphicon sortable"><span>Proposals</span></span>
                             </th>
                             <th align="center" id="tender_action"><span>Action</span></th>
                         </tr>

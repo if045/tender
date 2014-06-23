@@ -17,7 +17,7 @@ public class Address {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy= GenerationType.AUTO)
-    private int id;
+    private Integer id;
 
     @Column(name = "city", length = ADDRESS_CITY_LENGTH)
     private String city;
@@ -26,10 +26,10 @@ public class Address {
     private String street;
 
     @Column(name = "building_number")
-    private int buildingNumber;
+    private String buildingNumber;
 
     @Column(name = "postcode")
-    private int postcode;
+    private Integer postcode;
 
     @OneToOne(mappedBy="address")
     public Company company;
@@ -42,11 +42,11 @@ public class Address {
         this.company = company;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -66,19 +66,19 @@ public class Address {
         this.street = street;
     }
 
-    public int getBuildingNumber() {
+    public String getBuildingNumber() {
         return buildingNumber;
     }
 
-    public void setBuildingNumber(int buildingNumber) {
+    public void setBuildingNumber(String buildingNumber) {
         this.buildingNumber = buildingNumber;
     }
 
-    public int getPostcode() {
+    public Integer getPostcode() {
         return postcode;
     }
 
-    public void setPostcode(int postcode) {
+    public void setPostcode(Integer postcode) {
         this.postcode = postcode;
     }
 }

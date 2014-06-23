@@ -1,7 +1,6 @@
         var pageSize = DEFAULT_PAGE_SIZE;
         var currPageNumber = 0;
         var ENTER_BUTTON_CODE =13;
-        var TENDERS_QUANTITY= 0;
 
         var sortDirection = false;
         var orderBy = DEFAULT_SORT_FIELD;
@@ -136,17 +135,10 @@
 
             $('#search_tenders').keypress(function(e) {
                 if (e.keyCode == ENTER_BUTTON_CODE) {
-                    if (this.value!=""){
-                        applyFilters();
-                        pageSize = TENDERS_QUANTITY;
-                        currPageNumber = 0;
-                        showPage(currPageNumber);
-                    }else {
                         applyFilters();
                         pageSize = $('#pagination_itemsnum').val();
                         currPageNumber = 0;
                         showPage(currPageNumber);
-                    }
                     return false;
                 }
             });
@@ -356,7 +348,9 @@
                                 '<ul class="dropdown-menu">'+
                                 '<li><a href="/tenderView/' + data[i].id + '">View</a></li>';
                             if (data[i].roles.toString().search('CUSTOMER')!=-1){
-                                html += '<li><a href="#" data-toggle="modal" data-target="#close_tender_mod_wind" onclick="writeCloseTenderId(' + data[i].id + ')">Close</a></li>';
+                                if (data[i].userId.toString()==data[i].authorId.toString()){
+                                    html += '<li><a href="#" data-toggle="modal" data-target="#close_tender_mod_wind" onclick="writeCloseTenderId(' + data[i].id + ')">Close</a></li>';
+                                }
                             }
                             if (data[i].roles.toString().search('SELLER')!=-1){
                                 html += '<li><a href="#" data-toggle="modal" data-target="#createProposalWindow" onclick="showUnits(' + data[i].id + ')">Create proposal</a></li>';
@@ -479,7 +473,6 @@
 
                 success: function(data) {
                     var dataSize = data.tendersNumber;
-                    TENDERS_QUANTITY = dataSize;
                     var pageNumber = Math.ceil(dataSize / pageSize);
 
                     if(dataSize > 0 && pageSize < dataSize) {
@@ -519,7 +512,7 @@
             sortDirection = (orderBy == orderByField) ? !sortDirection : false;
             orderBy = orderByField;
 
-            $('#tender_items .sortable').addClass('glyphicon-chevron-down').removeClass('glyphicon-chevron-up');
+            $('#tender_items .sortable').removeClass('glyphicon-chevron-up').removeClass('glyphicon-chevron-down');
             if(sortDirection == false) {
                 $('#'+elementId+' .sortable').addClass('glyphicon-chevron-up').removeClass('glyphicon-chevron-down');
             } else {
