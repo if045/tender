@@ -16,4 +16,6 @@ public interface ProposalService {
     Proposal save(Proposal proposal);
 
     void deleteById(Integer id);
+
+    Long getNewProposalsNumberForCustomerId(Integer id);
 }

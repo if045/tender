@@ -28,6 +28,7 @@
     <script type="text/javascript" src='<c:url value="../resources/js/star-rating.min.js"/>'></script>
     <script type="text/javascript" src='<c:url value="../resources/js/registration.js"/>'></script>
     <script type="text/javascript" src='<c:url value="../resources/js/profile.js"/>'></script>
+    <script type='text/javascript' src='<c:url value="../resources/js/header.js"/>'></script>
 
 </head>
 

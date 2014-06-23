@@ -211,6 +211,7 @@ CREATE TABLE proposal (
 	description	TEXT,
 	seller_id INT  NOT NULL,
 	tender_id INT  NOT NULL,
+	tender_author_saw BOOLEAN DEFAULT false NOT NULL,
 
 	FOREIGN KEY (seller_id) REFERENCES user(id),
 	FOREIGN KEY (tender_id) REFERENCES tender(id),

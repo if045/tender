@@ -30,6 +30,7 @@
     <script type='text/javascript' src='<c:url value="../resources/js/tenders.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/conflict.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/deals.js"/>'></script>
+    <script type='text/javascript' src='<c:url value="../resources/js/header.js"/>'></script>
 </head>
 <body>
     <div class="container">

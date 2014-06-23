@@ -374,6 +374,7 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
         proposal.setDiscountCurrency(proposalSaveDto.getDiscountCurrency());
         proposal.setDiscountPercentage(proposalSaveDto.getDiscountPercentage());
         proposal.setDescription(proposalSaveDto.getDescription());
+        proposal.setTenderAuthorSaw(false);
         Proposal savedProposal = proposalService.save(proposal);
 
         List<Bid> bids = new ArrayList<>();

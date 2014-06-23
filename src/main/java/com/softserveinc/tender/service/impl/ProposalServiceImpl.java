@@ -11,6 +11,7 @@ import java.util.List;
 
 @Service
 public class ProposalServiceImpl implements ProposalService {
+    public static final String TENDER_CLOSE_STATUS = "Close";
 
     @Autowired
     private ProposalRepository proposalRepository;
@@ -39,4 +40,10 @@ public class ProposalServiceImpl implements ProposalService {
     public void deleteById(Integer id) {
         proposalRepository.delete(id);
     }
+
+    @Override
+    public Long getNewProposalsNumberForCustomerId(Integer id) {
+        return proposalRepository.findNewProposalsNumberForCustomerId(id, TENDER_CLOSE_STATUS);
+    }
+
 }

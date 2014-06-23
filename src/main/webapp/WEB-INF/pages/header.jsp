@@ -8,7 +8,7 @@
                 <li><a class="navbar-brand" href="/tendersHome">UATender</a></li>
                 <security:authorize access="hasAnyRole('CUSTOMER','SELLER')">
                     <li>
-                        <button id="my_tenders_btn" type="button" class="btn btn-default nav_button"
+                        <button id="my_tenders_btn" type="button" class="btn btn-info nav_button"
                                onclick="goToMyTenders()" disabled>My tenders</button>
                     </li>
                 </security:authorize>

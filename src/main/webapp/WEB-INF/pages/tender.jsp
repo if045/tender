@@ -30,6 +30,7 @@
     <script type='text/javascript' src='<c:url value="../resources/js/tender.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/tenderview.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/addTenderModal.js"/>'></script>
+    <script type='text/javascript' src='<c:url value="../resources/js/header.js"/>'></script>
 </head>
 <body>
     <div class="container">
