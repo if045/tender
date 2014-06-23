@@ -38,6 +38,7 @@ function showDeals() {
         url: DEALS_URL,
         type: "GET",
         data:  queryParams,
+        async: false,
         dataType:'json',
 
         success: function(data) {
@@ -83,6 +84,7 @@ function showDeals() {
         url: MYDEALS_DATE_URL,
         type: "PUT",
         dataType: "json",
+        async: false,
         success:function(data) {
             $('.new_deal_notification').html("");
         }
