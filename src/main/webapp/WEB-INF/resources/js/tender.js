@@ -12,8 +12,6 @@ $(document).ready(function () {
         startDate: '-3d'
     });
 
-    $("#my_tenders_btn").attr("disabled", "disabled");
-
     $('.sortable').on("click", function(){
         console.log(this);
             $( ".sortable" ).each(function( i ) {

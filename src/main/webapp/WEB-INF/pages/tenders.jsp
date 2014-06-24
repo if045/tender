@@ -25,9 +25,10 @@
     <script type='text/javascript' src='<c:url value="../resources/js/select2.min.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/jquery.validate.min.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/validations.js"/>'></script>
+    <script type='text/javascript' src='<c:url value="../resources/js/cookie.js"/>'></script>
+
     <script type='text/javascript' src='<c:url value="../resources/js/constants.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/proposal.js"/>'></script>
-
     <script type='text/javascript' src='<c:url value="../resources/js/tenders.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/addTenderModal.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/header.js"/>'></script>

@@ -166,7 +166,7 @@
             if($("#date_to").val()!="" && $("#date_to").val() != undefined){
                 queryParams += (queryParams.length==0)?"maxDate="+$("#date_to").val():"&maxDate="+$("#date_to").val();
             }
-            if ($("#CURRENT_USER_ROLE").val() != "" && roleFlag) {
+            if ($("#CURRENT_USER_ROLE").val() != "" && getCookie("roleFlag") == "true") {
                 queryParams += "&userRole=" + $("#CURRENT_USER_ROLE").val();
             }
             showPagination(queryParams);
@@ -187,7 +187,7 @@
 
                     if(dataSize > 0) {
                         for (var i = 0; i < dataSize; i++) {
-                            html += '<tr class="'+((data[i].haveNewProposal)?"info":"")+'"><td align="center">' + data[i].title + '</td>' +
+                            html += '<tr class="'+((data[i].haveNewProposal && getCookie("roleFlag") == "true")?"info":"")+'"><td align="center">' + data[i].title + '</td>' +
                                 '<td align="center">' + data[i].authorName + '</td>' +
                                 '<td align="center">' + data[i].categories + '</td>';
                                 if (data[i].locations.toString().split(',').length>2){
@@ -310,7 +310,7 @@
             if($('#search_tenders').val()!=""){
                 str += (str.length==0)?"searchParam="+$('#search_tenders').val():"&searchParam="+$('#search_tenders').val();
             }
-            if ($("#CURRENT_USER_ROLE").val() != "" && roleFlag) {
+            if ($("#CURRENT_USER_ROLE").val() != "" && getCookie("roleFlag") == "true") {
                 str += "&userRole=" + $("#CURRENT_USER_ROLE").val();
             }
 
@@ -330,7 +330,7 @@
 
                     if(dataSize > 0) {
                         for (var i = 0; i < dataSize; i++) {
-                            html += '<tr class="'+((data[i].haveNewProposal)?"info":"")+'"><td align="center">' + data[i].title + '</td>' +
+                            html += '<tr class="'+((data[i].haveNewProposal && getCookie("roleFlag") == "true")?"info":"")+'"><td align="center">' + data[i].title + '</td>' +
                                 '<td align="center">' + data[i].authorName + '</td>' +
                                 '<td align="center">' + data[i].categories + '</td>';
                             if (data[i].locations.toString().split(',').length>2){
@@ -522,12 +522,8 @@
             applyFilters();
         }
 
-        function goToMyTenders() {
-            //window.location.href = "/tendersHome";
-            roleFlag = true;
-            showTenders();
-        }
-        
         function goToUserProfilePage() {
             window.location.href = USER_PROFILE_PAGE_URL;
         }
+
+

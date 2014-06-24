@@ -5,7 +5,7 @@
     <div class="container-fluid">
         <div class="navbar-header">
             <ul class="nav navbar-nav navbar-left nav_buttons">
-                <li><a class="navbar-brand" href="/tendersHome">UATender</a></li>
+                <li><a class="navbar-brand" href="#" onclick="goToHomePage();">UATender</a></li>
                 <security:authorize access="hasAnyRole('CUSTOMER','SELLER')">
                     <li>
                         <button id="my_tenders_btn" type="button" class="btn btn-info nav_button"
@@ -37,7 +37,7 @@
                     <li><a href="/login">Log in</a></li>
                 </security:authorize>
                 <security:authorize access="isAuthenticated()">
-                    <li><a href="/logout">Log out</a></li>
+                    <li><a href="#" onclick="goLogOut()">Log out</a></li>
                 </security:authorize>
                 <security:authorize access="isAuthenticated()">
                     <li><li><a class="glyphicon glyphicon-user" onclick="goToUserProfilePage()"></a></li></li>

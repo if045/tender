@@ -6,3 +6,26 @@ $(document).ready(function () {
          }
     });
 });
+
+function goToMyTenders() {
+    var options = {};
+    options.path = "/";
+    setCookie("roleFlag", "true", options);
+    window.location.href = HOME_PAGE_URL;
+}
+
+function goToHomePage() {
+    deleteCookie("roleFlag");
+    var options = {};
+    options.path = "/";
+    setCookie("roleFlag", "false", options);
+    window.location.href = HOME_PAGE_URL;
+}
+
+function goLogOut() {
+    deleteCookie("roleFlag");
+    var options = {};
+    options.path = "/";
+    setCookie("roleFlag", "false", options);
+    window.location.href = LOG_OUT;
+}

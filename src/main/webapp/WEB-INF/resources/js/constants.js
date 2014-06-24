@@ -53,4 +53,5 @@ var CONFLICTS = "/conflicts";
 USER_PROFILE_PAGE_URL = "/user/profile";
 
 var NEW_PROPOSAL_URL = "/new";
+var LOG_OUT = "/logout";
 
