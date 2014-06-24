@@ -5,6 +5,10 @@ var sendToServer = '';
 $(document).ready(function() {
     $('#createTenderWindow').on('shown.bs.modal', function () {
         $('.datepicker').addClass('modal_datepicker');
+        var currentDate = getCurrentDate();
+        $('#create_tender_enddate').data({date: currentDate});
+        $('#create_tender_enddate').datepicker('update');
+        $('#create_tender_enddate').datepicker().children('input').val(currentDate);
 
         $("#radio_group").change(function() {
             if ($("#create_tender_unit_newitem").val()!=""){
