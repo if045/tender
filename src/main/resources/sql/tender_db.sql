@@ -85,8 +85,8 @@ CREATE TABLE address (
 	id INT NOT NULL AUTO_INCREMENT,
 	city VARCHAR(30),
 	street VARCHAR(30),
-	building_number INT,
-	postcode INT,
+	building_number VARCHAR(5) DEFAULT NULL,
+	postcode INT DEFAULT NULL,
 	
 	PRIMARY KEY (id)
 
@@ -96,7 +96,7 @@ CREATE TABLE company (
 
 	id INT NOT NULL AUTO_INCREMENT,
 	name VARCHAR(50),
-	srn INT,
+	srn INT DEFAULT NULL,
 	email VARCHAR(30) NOT NULL,
 	logo LONGBLOB,
 	address_id INT NOT NULL,

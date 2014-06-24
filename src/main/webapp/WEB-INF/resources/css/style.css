@@ -271,3 +271,11 @@ textarea {
     font-weight: bold;
     padding-left: 3px;
 }
+
+.deal_action_field {
+    width: 100px;
+}
+
+#deal_date {
+    width: 150px;
+}
