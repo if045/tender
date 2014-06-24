@@ -46,4 +46,9 @@ public class ProposalServiceImpl implements ProposalService {
         return proposalRepository.findNewProposalsNumberForCustomerId(id, TENDER_CLOSE_STATUS);
     }
 
+    @Override
+    public Long getTenderNewProposalsForCustomer(Integer tenderId) {
+        return proposalRepository.findTenderNewProposalsForCustomer(tenderId);
+    }
+
 }

@@ -188,6 +188,9 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
             tenderDto.setUserId(userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).getId());
         }
         tenderDto.setRoles(roles);
+        if (proposalService.getTenderNewProposalsForCustomer(tender.getId()) > 0) {
+            tenderDto.setHaveNewProposal(true);
+        }
         return tenderDto;
     }
 

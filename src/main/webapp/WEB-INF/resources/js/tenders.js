@@ -187,7 +187,7 @@
 
                     if(dataSize > 0) {
                         for (var i = 0; i < dataSize; i++) {
-                            html += '<tr><td align="center">' + data[i].title + '</td>' +
+                            html += '<tr class="'+((data[i].haveNewProposal)?"info":"")+'"><td align="center">' + data[i].title + '</td>' +
                                 '<td align="center">' + data[i].authorName + '</td>' +
                                 '<td align="center">' + data[i].categories + '</td>';
                                 if (data[i].locations.toString().split(',').length>2){
@@ -330,7 +330,7 @@
 
                     if(dataSize > 0) {
                         for (var i = 0; i < dataSize; i++) {
-                            html += '<tr><td align="center">' + data[i].title + '</td>' +
+                            html += '<tr class="'+((data[i].haveNewProposal)?"info":"")+'"><td align="center">' + data[i].title + '</td>' +
                                 '<td align="center">' + data[i].authorName + '</td>' +
                                 '<td align="center">' + data[i].categories + '</td>';
                             if (data[i].locations.toString().split(',').length>2){

@@ -18,5 +18,10 @@ public interface ProposalRepository extends JpaRepository<Proposal, Integer> {
             "WHERE t.id = p.tender.id AND t.author.id = :customerId AND p.tenderAuthorSaw = false " +
             "AND t.status.name <> :closeTenderStatus")
     Long findNewProposalsNumberForCustomerId(@Param("customerId")Integer customerId,
-                                             @Param("closeTenderStatus")String tenderCloseStatus);
+                                             @Param("closeTenderStatus")String closeTenderStatus);
+
+    @Query("SELECT COUNT(p) FROM Proposal p " +
+            "WHERE p.tender.id = :tenderId AND p.tenderAuthorSaw = false")
+    Long findTenderNewProposalsForCustomer(@Param("tenderId") Integer tenderId);
+
 }

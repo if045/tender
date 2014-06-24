@@ -21,6 +21,7 @@ public class TenderDto {
     private List<String> roles;
     private Integer authorId;
     private Integer userId;
+    private Boolean haveNewProposal;
 
     public Integer getAuthorId() {
         return authorId;
@@ -132,5 +133,13 @@ public class TenderDto {
 
     public void setSuitablePrice(BigDecimal suitablePrice) {
         this.suitablePrice = suitablePrice;
+    }
+
+    public Boolean getHaveNewProposal() {
+        return haveNewProposal;
+    }
+
+    public void setHaveNewProposal(Boolean haveNewProposal) {
+        this.haveNewProposal = haveNewProposal;
     }
 }

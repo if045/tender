@@ -18,4 +18,5 @@ public interface ProposalService {
     void deleteById(Integer id);
 
     Long getNewProposalsNumberForCustomerId(Integer id);
+    Long getTenderNewProposalsForCustomer(Integer tenderId);
 }
