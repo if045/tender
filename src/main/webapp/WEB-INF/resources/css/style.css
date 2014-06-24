@@ -265,3 +265,11 @@ textarea {
 #tender_status {
     width:80px;
 }
+
+.deal_action_field {
+    width: 100px;
+}
+
+#deal_date {
+    width: 150px;
+}

@@ -64,11 +64,21 @@
                         <table class="table table-bordered table-striped" id="units">
                             <thead>
                                 <tr>
-                                    <th>Tender title</th>
-                                    <th>Date</th>
-                                    <th>Business Partner</th>
-                                    <th>Status</th>
-                                    <th>Sum</th>
+                                    <th id="deal_title">
+                                        <span class="glyphicon sortable"><span>Tender title</span></span>
+                                    </th>
+                                    <th id="deal_date">
+                                        <span class="glyphicon sortable glyphicon-chevron-down"><span>Date</span></span>
+                                    </th>
+                                    <th id="deal_partner">
+                                        <span class="glyphicon sortable"><span>Business Partner</span></span>
+                                    </th>
+                                    <th id="deal_status">
+                                        <span class="glyphicon sortable"><span>Status</span></span>
+                                    </th>
+                                    <th id="deal_sum">
+                                        <span class="glyphicon sortable"><span>Sum</span></span>
+                                    </th>
                                     <th class="deal_action_field">Action</th>
                                 </tr>
                             </thead>

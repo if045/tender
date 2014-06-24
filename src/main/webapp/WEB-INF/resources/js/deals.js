@@ -1,6 +1,9 @@
 var pageSize = DEFAULT_PAGE_SIZE;
 var currPageNumber = 0;
 
+var dealSortDirection = false;
+var dealOrderBy = DEFAULT_DEALS_SORT_FIELD;
+
 $(document).ready(function() {
     $('#endDate, #create_tender_enddate').datepicker({
         format: 'mm-dd-yyyy',
@@ -22,6 +25,22 @@ $(document).ready(function() {
             return false;
         }
     });
+
+    $("#deal_title").click(function(){
+        sortDeals("proposal.tender.title","deal_title");
+    });
+
+    $("#deal_date").click(function(){
+        sortDeals("date","deal_date");
+    });
+
+    $("#deal_status").click(function(){
+        sortDeals("status.name","deal_status");
+    });
+
+    $("#deal_sum").click(function(){
+        sortDeals("sum","deal_sum");
+    });
 });
 
 function showDeals() {
@@ -30,7 +49,8 @@ function showDeals() {
     showDealsPagination(queryParams);
     
     queryParams += (queryParams.length==0)?"pageSize="+pageSize:"&pageSize="+pageSize;
-    queryParams += "&pageNumber="+currPageNumber;
+    queryParams += "&pageNumber=" + currPageNumber + "&sortDirection=" +
+                                                         ((dealSortDirection)?"desc":"asc") + "&orderBy=" + dealOrderBy;
 
     if($('#search_deals').val()!=""){
         queryParams += (queryParams.length==0)?"searchParam="+$('#search_deals').val():"&searchParam="+$('#search_deals').val();
@@ -159,5 +179,19 @@ function showDealsPagination(queryParams) {
 
 function showDealsPage(pageNumber) {
     currPageNumber = pageNumber;
+    showDeals();
+}
+
+function sortDeals(orderByField, elementId) {
+    dealSortDirection = (dealOrderBy == orderByField) ? !dealSortDirection : false;
+    dealOrderBy = orderByField;
+
+    $('#deal_items .sortable').removeClass('glyphicon-chevron-up').removeClass('glyphicon-chevron-down');
+    if(dealSortDirection == false) {
+        $('#'+elementId+' .sortable').addClass('glyphicon-chevron-up').removeClass('glyphicon-chevron-down');
+    } else {
+        $('#'+elementId+' .sortable').addClass('glyphicon-chevron-down').removeClass('glyphicon-chevron-up');
+    }
+
     showDeals();
 }
