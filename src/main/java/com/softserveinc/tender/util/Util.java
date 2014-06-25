@@ -1,5 +1,8 @@
 package com.softserveinc.tender.util;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -18,5 +21,9 @@ public class Util {
             e.getMessage();
         }
         return date;
+    }
+
+    public static String getUserLogin() {
+        return SecurityContextHolder.getContext().getAuthentication().getName();
     }
 }
