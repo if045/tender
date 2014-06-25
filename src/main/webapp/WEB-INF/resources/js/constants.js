@@ -20,11 +20,9 @@ var PROPOSALS_URL = "/proposals";
 var UNITS_URL = '/units';
 var BIDS_URL = '/bids';
 
-/*Constants for registration.js*/
+/*Constants for user.js*/
 var ROLES_URL = "roles/users";
-var HOME_PAGE_URL = "/tendersHome";
 var REGISTRATION_PAGE_URL = "/registration";
-var USER_DATA_URL = "/user/registration";
 var ERROR_MESSAGE = "Please type data correctly";
 var SELLER_ID = 3;
 var LEGAL_PERSON = "L";
@@ -34,7 +32,7 @@ var SELLER_REGISTRATION_URL = "/user/registration/seller/legal";
 var CUSTOMER_REGISTRATION_URL = "/user/registration/customer/legal";
 var PRIVATE_SELLER_REGISTRATION_URL = "/user/registration/seller/private";
 var PRIVATE_CUSTOMER_REGISTRATION_URL = "/user/registration/customer/private";
-/*Constants for registration.js*/
+/*Constants for user.js*/
 
 /*Constants for tenders pagination*/
 var DEFAULT_PAGE_SIZE = 10;
@@ -48,4 +46,5 @@ var DEALS ="/deals/";
 var CONFLICTS = "/conflicts";
 
 USER_PROFILE_PAGE_URL = "/user/profile";
+USER_PROFILE_DATA_URL = "/user/profile/data";
 

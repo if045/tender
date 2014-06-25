@@ -24,6 +24,7 @@ $(document).ready(function() {
     showCompanyInfoPanelData();
     showTradeSphereInfoPanelData();
     showRating();
+    checkPerson();
 });
 
 function mapDropdownData(url, id) {
@@ -40,6 +41,7 @@ function mapDropdownData(url, id) {
     });
 }
 
+// Registration logic
 function addRegisteredUser() {
     var newJson;
     var url;
@@ -212,7 +214,7 @@ function goToLoginPage() {
     window.location.href = LOGIN_PAGE_URL;
 }
 
-// TODO
+// Fill profile logic
 function showUserPersonalInfoPanelData() {
     $.getJSON(USER_PROFILE_DATA_URL, function(data){
 
@@ -223,25 +225,15 @@ function showUserPersonalInfoPanelData() {
         var birthday = checkNullData(data.personalInfoDto.profileDto.birthday);
         var person = checkNullData(data.personalInfoDto.profileDto.person);
 
-        if(person == "L") {
-            person = "Legal";
-        }
-        if(person == "P") {
-            person = "Private";
-        }
+        person = checkPerson(person);
 
-        var roles;
+        var roles = '';
         var length = data.personalInfoDto.userDto.rolesNames.length;
 
         for(var i = 0; i < length; i++){
-            roles = data.personalInfoDto.userDto.rolesNames[i].name;
+            if(i == 0) roles += data.personalInfoDto.userDto.rolesNames[i].name;
+            else roles += ', ' + data.personalInfoDto.userDto.rolesNames[i].name;
         }
-
-/*        if(person == "P") {
-            document.getElementById("company_info").setAttribute('hidden', 'true');
-        } else {
-            document.getElementById("company_info").setAttribute('hidden', 'false');
-        }*/
 
         $('#first_name_info').html(firstName);
         $('#last_name_info').html(lastName);
@@ -280,15 +272,17 @@ function showTradeSphereInfoPanelData() {
         var i;
         var categories = '';
         var locations = '';
-        var categoriesLength = data.tradeSphereDto.categoryDto.length;
-        var locationsLength = data.tradeSphereDto.locationDto.length;
+        var categoriesLength = data.tradeSphereDto.categoriesDto.length;
+        var locationsLength = data.tradeSphereDto.locationsDto.length;
 
         for(i = 0; i < categoriesLength; i++){
-            categories += data.tradeSphereDto.categoryDto[i].name;
+            if(i == 0) categories += data.tradeSphereDto.categoriesDto[i].name;
+            else categories += ', ' + data.tradeSphereDto.categoriesDto[i].name;
         }
 
         for(i = 0; i < locationsLength; i++){
-            locations += data.tradeSphereDto.locationDto[i].name;
+            if(i == 0) locations += data.tradeSphereDto.locationsDto[i].name;
+            else locations += ', ' + data.tradeSphereDto.locationsDto[i].name;
         }
 
         $('#locations_info').html(locations);
@@ -319,9 +313,9 @@ function showRating() {
         averageSpeed = speedDegree / ratingLength;
         averageLogistic = logisticDegree / ratingLength;
 
-        $("#communication_rating").rating('update', averageCommunication);
-        $("#speed_rating").rating('update', averageSpeed);
-        $("#logistic_rating").rating('update', averageLogistic);
+        $("#communication_rating").rating('update', roundHalf(averageCommunication));
+        $("#speed_rating").rating('update', roundHalf(averageSpeed));
+        $("#logistic_rating").rating('update', roundHalf(averageLogistic));
     });
 }
 
@@ -329,4 +323,19 @@ function checkNullData(value) {
     if(value == null) return "---";
     return value;
 }
-// TODO
+
+function roundHalf(num) {
+    num = Math.round(num*2)/2;
+    return num;
+}
+
+function checkPerson(person) {
+    if(person == PRIVATE_PERSON) {
+        document.getElementById("company_info").setAttribute('hidden', 'true');
+        return "Private";
+    }
+    if(person == LEGAL_PERSON) {
+        document.getElementById("company_info").removeAttribute('hidden');
+        return "Legal";
+    }
+}
