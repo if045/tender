@@ -398,15 +398,15 @@ INSERT INTO bid (price, date, proposal_id, unit_id) VALUES
   (760.00, CURDATE(), 10, 30);
 
 INSERT INTO deal (bid_id, proposal_id, customer_id, seller_id, sum, date, status_id) VALUES
-  (3, 1, 2, 1, 55000.00, CURDATE(), 1),
-  (2, 3, 5, 2, 40000.00, CURDATE(), 1),
-  (5, 4, 4, 5, 400000.00, CURDATE(), 2),
-  (10, 6, 2, 6, 25000.00, CURDATE(), 2),
-  (4, 2, 5, 3, 1000.00, CURDATE(), 2),
-  (4, 8, 4, 7, 240000.00, CURDATE(), 1),
-  (1, 4, 5, 2, 1250500.00, CURDATE(), 1),
-  (9, 9, 6, 3, 56000.00, CURDATE(), 3),
-  (6, 6, 6, 7, 95600.00, CURDATE(), 3);
+  (3, 1, 2, 1, 55000.00, CURRENT_TIMESTAMP(), 1),
+  (2, 3, 5, 2, 40000.00, CURRENT_TIMESTAMP(), 1),
+  (5, 4, 4, 5, 400000.00, CURRENT_TIMESTAMP(), 2),
+  (10, 6, 2, 6, 25000.00, CURRENT_TIMESTAMP(), 2),
+  (4, 2, 5, 3, 1000.00, CURRENT_TIMESTAMP(), 2),
+  (4, 8, 4, 7, 240000.00, CURRENT_TIMESTAMP(), 1),
+  (1, 4, 5, 2, 1250500.00, CURRENT_TIMESTAMP(), 1),
+  (9, 9, 6, 3, 56000.00, CURRENT_TIMESTAMP(), 3),
+  (6, 6, 6, 7, 95600.00, CURRENT_TIMESTAMP(), 3);
 
 INSERT INTO conflict (moderator_id, bid_id, description, status_id) VALUE
   (1, 1, 'text1', 1),

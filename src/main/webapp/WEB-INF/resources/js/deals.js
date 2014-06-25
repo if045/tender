@@ -58,6 +58,7 @@ function showDeals() {
         url: DEALS_URL,
         type: "GET",
         data:  queryParams,
+        async: false,
         dataType:'json',
 
         success: function(data) {
@@ -66,7 +67,7 @@ function showDeals() {
 
             if(dataSize > 0) {
                 for (var i = 0; i < dataSize; i++) {
-                    html += '<tr><td align="center">' + data[i].title + '</td>' +
+                    html += '<tr class="'+((data[i].newDeal)?"info":"")+'"><td align="center">' + data[i].title + '</td>' +
                         '<td align="center">' + unixTimeConverter(data[i].date) + '</td>' +
                         '<td align="center">' + data[i].businessPartner + '</td>' +
                         '<td align="center">' + data[i].status + '</td>' +
@@ -87,6 +88,7 @@ function showDeals() {
                 $('#deal_items').show();
                 $('#deals').html(html);
                 $('#pagination').show();
+                $('.new_deal_notification').html("");
             } else {
                 $('#deals_user_message').html('<h4>No deals found</h4>').show();
                 $('#deal_items').hide();
@@ -95,6 +97,16 @@ function showDeals() {
         },
         error:function(){
             alert("ERROR");
+        }
+    });
+
+    $.ajax({
+        url: MYDEALS_DATE_URL,
+        type: "PUT",
+        dataType: "json",
+        async: false,
+        success:function(data) {
+            $('.new_deal_notification').html("");
         }
     });
 }

@@ -27,7 +27,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 
@@ -63,6 +65,31 @@ public class DealServiceFacadeImpl implements DealServiceFacade {
         }
 
         return mapDeals(deals);
+    }
+
+    @Override
+    public DealsNumberDto getNewDealsNumber() {
+        Long newDealsNumber = 0L;
+
+        for (Role role : userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).getRoles()) {
+            if (role.getName().equals("SELLER")) {
+                newDealsNumber = dealService.getNewDealsNumberForSeller(userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).getId());
+            }
+        }
+
+        DealsNumberDto dealsNumberDto = new DealsNumberDto();
+        dealsNumberDto.setDealsNumber(newDealsNumber);
+
+        return  dealsNumberDto;
+    }
+
+    @Override
+    public void updateMyDealsDate() {
+        User currentUser = userService.findUserById(userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).getId());
+        Calendar calendar = Calendar.getInstance();
+        Timestamp myDealsDate = new Timestamp(calendar.getTime().getTime());
+        currentUser.setMyDealsDate(myDealsDate);
+        userService.saveUser(currentUser);
     }
 
     @Override
@@ -117,6 +144,12 @@ public class DealServiceFacadeImpl implements DealServiceFacade {
             }
         }
         dealDto.setBusinessPartner(businessPartner);
+
+        Timestamp myDealsDate = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).getMyDealsDate();
+        Timestamp dealDate = new Timestamp(deal.getDate().getTime());
+        if(dealDate.after(myDealsDate)) {
+            dealDto.setNewDeal(true);
+        }
 
         return dealDto;
     }
