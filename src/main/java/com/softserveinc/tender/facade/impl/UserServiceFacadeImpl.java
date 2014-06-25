@@ -17,7 +17,7 @@ import com.softserveinc.tender.entity.Location;
 import com.softserveinc.tender.entity.Profile;
 import com.softserveinc.tender.entity.Role;
 import com.softserveinc.tender.entity.User;
-import com.softserveinc.tender.facade.RegistrationServiceFacade;
+import com.softserveinc.tender.facade.UserServiceFacade;
 import com.softserveinc.tender.service.AddressService;
 import com.softserveinc.tender.service.CategoryService;
 import com.softserveinc.tender.service.CompanyService;
@@ -31,7 +31,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.jws.soap.SOAPBinding;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Date;
@@ -43,7 +42,7 @@ import static com.softserveinc.tender.util.Constants.ENABLED_USER;
 
 @Service("registrationServiceFacade")
 @Transactional
-public class RegistrationServiceFacadeImpl implements RegistrationServiceFacade{
+public class UserServiceFacadeImpl implements UserServiceFacade {
 
     @Autowired
     private ModelMapper modelMapper;

@@ -9,7 +9,7 @@ import com.softserveinc.tender.entity.User;
 
 import java.util.List;
 
-public interface RegistrationServiceFacade {
+public interface UserServiceFacade {
 
     List<RoleDto> findUsersRoles();
     User saveSeller(SellerRegistrationDataDto sellerData);
