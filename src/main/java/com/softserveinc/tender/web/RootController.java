@@ -34,6 +34,11 @@ public class RootController {
         return "registration";
     }
 
+    @RequestMapping(value = "/moderatorView")
+    public String moderatorView() {
+        return "moderatorView";
+    }
+
     @RequestMapping("/")
     public String home() {
         return "redirect:/tendersHome";
