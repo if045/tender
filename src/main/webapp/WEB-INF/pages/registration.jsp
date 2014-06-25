@@ -26,7 +26,7 @@
     <script type='text/javascript' src='<c:url value="../resources/js/jquery.validate.min.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/validations.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/constants.js"/>'></script>
-    <script type='text/javascript' src='<c:url value="../resources/js/registration.js"/>'></script>
+    <script type='text/javascript' src='<c:url value="../resources/js/user.js"/>'></script>
 </head>
 
 <body>
