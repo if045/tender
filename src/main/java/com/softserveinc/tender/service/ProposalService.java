@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface ProposalService {
 
-    public List<Proposal> findByTenderId(Integer id);
+    List<Proposal> findByTenderId(Integer id);
 
     List<Proposal> findBySeller(User seller);
 

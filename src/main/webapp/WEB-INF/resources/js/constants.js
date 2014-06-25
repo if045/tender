@@ -17,6 +17,7 @@ var DEALS_NUMBER_URL = '/deals/number';
 /*Constants for deals.js*/
 
 var PROPOSALS_URL = "/proposals";
+var SET_AUTHOR_SAW = "/setAuthorSaw";
 var UNITS_URL = '/units';
 var BIDS_URL = '/bids';
 
