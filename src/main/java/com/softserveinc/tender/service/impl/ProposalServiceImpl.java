@@ -11,7 +11,6 @@ import java.util.List;
 
 @Service
 public class ProposalServiceImpl implements ProposalService {
-    public static final String TENDER_CLOSE_STATUS = "Close";
 
     @Autowired
     private ProposalRepository proposalRepository;
@@ -43,7 +42,7 @@ public class ProposalServiceImpl implements ProposalService {
 
     @Override
     public Long getNewProposalsNumberForCustomerId(Integer id) {
-        return proposalRepository.findNewProposalsNumberForCustomerId(id, TENDER_CLOSE_STATUS);
+        return proposalRepository.findNewProposalsNumberForCustomerId(id);
     }
 
     @Override

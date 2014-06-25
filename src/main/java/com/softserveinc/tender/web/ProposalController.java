@@ -14,9 +14,11 @@ public class ProposalController {
     @Autowired
     private ProposalServiceFacade proposalServiceFacade;
 
-    @RequestMapping(value = "/new", method = RequestMethod.GET)
-    public @ResponseBody Long getNewProposalsNumber(){
-        return proposalServiceFacade.getNewProposalsNumber();
+    @RequestMapping(method = RequestMethod.GET)
+    public @ResponseBody Long getNewProposalsNumber(@RequestParam("isNew") boolean isNew){
+        if (isNew) {
+            return proposalServiceFacade.getNewProposalsNumber();
+        } else return 0L;
     }
 
     @RequestMapping(value = "/setAuthorSaw", method = RequestMethod.PUT)

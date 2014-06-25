@@ -33,7 +33,7 @@ public class TenderServiceImpl implements TenderService {
 
     @Override
     public List<Tender> findByCustomParameters(TenderFilter tenderFilter, Pageable pageable) {
-        checkRolesFilter(tenderFilter);
+        setProfileIdIntoFilter(tenderFilter);
         return tenderRepository.findByCustomParameters(tenderFilter.getTenderTitle(), tenderFilter.getMinPrice(),
                 tenderFilter.getMaxPrice(),
                 tenderFilter.getStatuses(), tenderFilter.getCategories(),
@@ -48,7 +48,7 @@ public class TenderServiceImpl implements TenderService {
 
     @Override
     public Long getTendersNumber(TenderFilter tenderFilter) {
-        checkRolesFilter(tenderFilter);
+        setProfileIdIntoFilter(tenderFilter);
         return tenderRepository.getTendersNumber(tenderFilter.getTenderTitle(), tenderFilter.getMinPrice(),
                 tenderFilter.getMaxPrice(),
                 tenderFilter.getStatuses(), tenderFilter.getCategories(),
@@ -76,7 +76,7 @@ public class TenderServiceImpl implements TenderService {
         return tenderRepository.saveAndFlush(tender);
     }
 
-    private TenderFilter checkRolesFilter(TenderFilter tenderFilter) {
+    private TenderFilter setProfileIdIntoFilter(TenderFilter tenderFilter) {
         if (tenderFilter.getUserRole() != null) {
             tenderFilter.setProfileId(profileService.findProfileByUserLogin(SecurityContextHolder.getContext()
                     .getAuthentication().getName()).getId());

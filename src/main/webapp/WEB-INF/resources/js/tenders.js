@@ -4,7 +4,6 @@
 
         var sortDirection = false;
         var orderBy = DEFAULT_SORT_FIELD;
-        var roleFlag = false;
 
         $(document).ready(function() {
             $('#startDate, #endDate, #create_tender_enddate').datepicker({

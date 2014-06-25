@@ -1,5 +1,7 @@
 package com.softserveinc.tender.repo;
 
+import com.softserveinc.tender.entity.template.Role;
+
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
@@ -30,7 +32,6 @@ public class TenderFilter {
     private Character type;
     private Integer typeFlag;
 
-   // private Integer userTendersFlag;
     private Integer profileId;
     private Integer sellerTendersFlag;
     private Integer customerTendersFlag;
@@ -103,15 +104,14 @@ public class TenderFilter {
             setSearchFlag(0);
             this.tenderTitle = PERCENT + tenderTitle.toLowerCase().trim() + PERCENT;
         }
-        //this.userTendersFlag = userTendersFlag;
         this.userRole = userRole;
         if (userRole == null) {
             setSellerTendersFlag(1);
             setCustomerTendersFlag(1);
-        } else if (userRole.equals("CUSTOMER")) {
+        } else if (userRole.equals(Role.CUSTOMER.toString())) {
             setCustomerTendersFlag(0);
             setSellerTendersFlag(1);
-        } else if (userRole.equals("SELLER")) {
+        } else if (userRole.equals(Role.SELLER.toString())) {
             setSellerTendersFlag(0);
             setCustomerTendersFlag(1);
         }
@@ -268,14 +268,6 @@ public class TenderFilter {
     public void setMaxDate(Date maxDate) {
         this.maxDate = maxDate;
     }
-
-    /*public Integer getUserTendersFlag() {
-        return userTendersFlag;
-    }
-
-    public void setUserTendersFlag(Integer userTendersFlag) {
-        this.userTendersFlag = userTendersFlag;
-    }*/
 
     public Integer getProfileId() {
         return profileId;
