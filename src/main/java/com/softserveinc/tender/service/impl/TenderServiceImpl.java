@@ -2,11 +2,13 @@ package com.softserveinc.tender.service.impl;
 
 import com.softserveinc.tender.entity.Tender;
 import com.softserveinc.tender.entity.TenderStatus;
+import com.softserveinc.tender.entity.template.Role;
 import com.softserveinc.tender.repo.TenderFilter;
 import com.softserveinc.tender.repo.TenderRepository;
 import com.softserveinc.tender.service.ProfileService;
 import com.softserveinc.tender.service.TenderService;
 import com.softserveinc.tender.service.TenderStatusService;
+import com.softserveinc.tender.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -23,6 +25,9 @@ public class TenderServiceImpl implements TenderService {
 
     @Autowired
     private TenderStatusService tenderStatusService;
+
+    @Autowired
+    private UserService userService;
 
     @Autowired
     private ProfileService profileService;
@@ -77,7 +82,10 @@ public class TenderServiceImpl implements TenderService {
     }
 
     private TenderFilter setProfileIdIntoFilter(TenderFilter tenderFilter) {
-        if (tenderFilter.getUserRole() != null) {
+        if (tenderFilter.getUserRole() != null && tenderFilter.getUserRole().equals(Role.SELLER.toString())) {
+            tenderFilter.setProfileId(userService.findByLogin(SecurityContextHolder.getContext()
+                    .getAuthentication().getName()).getId());
+        } else if (tenderFilter.getUserRole() != null && tenderFilter.getUserRole().equals(Role.CUSTOMER.toString())) {
             tenderFilter.setProfileId(profileService.findProfileByUserLogin(SecurityContextHolder.getContext()
                     .getAuthentication().getName()).getId());
         }

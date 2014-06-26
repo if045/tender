@@ -170,6 +170,10 @@
         function showTenders() {
             var queryParams = "";
 
+            if (getCookie("userRole") != undefined) {
+                $("#CURRENT_USER_ROLE").val(getCookie("userRole"));
+            }
+
             if($("#date_from").val()!="" && $("#date_from").val() != undefined){
                 queryParams += (queryParams.length==0)?"minDate="+$("#date_from").val():"&minDate="+$("#date_from").val();
             }
@@ -197,20 +201,12 @@
                     var roleSwitcherButton = '';
                     var createTenderButton = '';
                     var loggedUserName = '';
-                    if (data[0].roles[0]!=null){
-                        var allcookies = document.cookie;
-                        var cookiearray  = allcookies.split(';');
-                        for (var i=0; i<cookiearray.length; i++){
-                            var name = cookiearray[i].split('=')[0];
-                            var value = cookiearray[i].split('=')[1];
-                            if (name.toString()=="userRole"){
-                                CURRENT_ROLE = value;
-                            }
-                        }
+                    if (dataSize != 0 && data[0].roles[0]!=null){
+                       CURRENT_ROLE = getCookie("userRole");
                     }else{
-                        clearMyCookie('userRole');
+                        deleteCookie("userRole");
                     }
-                    if ((CURRENT_ROLE==""|CURRENT_ROLE == undefined)&data[0].roles[0]!=null){
+                    if ((CURRENT_ROLE==""|CURRENT_ROLE == undefined) && dataSize != 0 && data[0].roles[0]!=null){
                         CURRENT_ROLE = data[0].roles[0].toString();
                     }
                     if(dataSize > 0) {
@@ -562,14 +558,13 @@
         }
 
         function roleSwitcher(){
+            var options = {};
+            options.path = "/";
             if (CURRENT_ROLE.search('CUSTOMER')!=-1){
-                 var cookievalue= 'SELLER;';
-                 document.cookie="userRole=" + cookievalue;
+                setCookie("userRole", "SELLER", options);
             }else if (CURRENT_ROLE.search('SELLER')!=-1){
-                 var cookievalue= 'CUSTOMER;';
-                 document.cookie="userRole=" + cookievalue;
+                setCookie("userRole", "CUSTOMER", options);
             }
-            showTenders();
             window.location.href = "/tendersHome"
         }
         function clearMyCookie(cookie_name){
