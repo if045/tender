@@ -34,9 +34,9 @@ public class RootController {
         return "registration";
     }
 
-    @RequestMapping(value = "/moderatorView")
+    @RequestMapping(value = "/moderatorHome")
     public String moderatorView() {
-        return "moderatorView";
+        return "/moderatorHome";
     }
 
     @RequestMapping("/")

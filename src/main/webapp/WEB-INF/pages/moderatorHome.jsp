@@ -10,7 +10,7 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Moderator view</title>
+    <title>Moderator Home</title>
 
     <link rel="stylesheet" type="text/css" media="screen" href='<c:url value="../resources/css/bootstrap.min.css"/>'/>
     <link rel="stylesheet" type="text/css" media="screen" href='<c:url value="../resources/css/style.css"/>'/>
@@ -260,31 +260,37 @@
             <div class="tab-pane" id="addCategory">
                 <div class="col-md-4">
                     <div>
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-default">Category</button>
-                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                                <span class="caret"></span>
-                                <span class="sr-only">Toggle Dropdown</span>
-                            </button>
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="#">Another category</a></li>
-                                <li><a href="#">Another category</a></li>
-                                <li><a href="#">Some else category</a></li>
-                            </ul>
+                        <div class="control-group">
+                            <select id="category" class="form-control pull-right items_number_dropdown">
+                                <option value="5" selected>Category</option>
+                                <option value="10">Another category</option>
+                                <option value="15">Another category</option>
+                                <option value="20">Another category</option>
+                            </select>
                         </div>
                     </div>
                     <div>
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-default">Sub category</button>
-                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                                <span class="caret"></span>
-                                <span class="sr-only">Toggle Dropdown</span>
-                            </button>
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="#">Another category</a></li>
-                                <li><a href="#">Another category</a></li>
-                                <li><a href="#">Some else category</a></li>
-                            </ul>
+                        <div>
+                            <div class="control-group">
+                                <select id="sub_category" class="form-control pull-right items_number_dropdown">
+                                    <option value="5" selected>Sub category</option>
+                                    <option value="10">Another category</option>
+                                    <option value="15">Another category</option>
+                                    <option value="20">Another category</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                            <div class="control-group">
+                                <select id="sub_sub_category" class="form-control pull-right items_number_dropdown">
+                                    <option value="5" selected>Sub sub category</option>
+                                    <option value="10">Another category</option>
+                                    <option value="15">Another category</option>
+                                    <option value="20">Another category</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
                 </div>
