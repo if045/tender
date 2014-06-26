@@ -29,6 +29,11 @@ public class RootController {
         return "deals";
     }
 
+    @RequestMapping("/moderatorHome")
+    public String moderator() {
+        return "moderator";
+    }
+
     @RequestMapping(value = "/registration")
     public String registration() {
         return "registration";
