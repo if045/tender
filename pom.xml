@@ -196,6 +196,13 @@
           <artifactId>spring-security-taglibs</artifactId>
           <version>${spring.security.version}</version>
       </dependency>
+
+      <!--Role Filter-->
+      <dependency>
+          <groupId>org.tuckey</groupId>
+          <artifactId>urlrewritefilter</artifactId>
+          <version>4.0.3</version>
+      </dependency>
   </dependencies>
 
   <build>

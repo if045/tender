@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlrewrite>
+    <rule>
+        <condition type="user-in-role">CUSTOMER</condition>
+        <from>/login_success</from>
+        <to type="redirect">tendersHome</to>
+    </rule>
+    <rule>
+        <condition type="user-in-role">SELLER</condition>
+        <from>/login_success</from>
+        <to type="redirect">tendersHome</to>
+    </rule>
+    <rule>
+        <condition type="user-in-role">MODERATOR</condition>
+        <from>/login_success</from>
+        <to type="redirect">moderatorHome</to>
+    </rule>
+    <rule>
+        <condition type="user-in-role">ADMIN</condition>
+        <from>/login_success</from>
+        <to type="redirect">adminHome</to>
+    </rule>
+</urlrewrite>
