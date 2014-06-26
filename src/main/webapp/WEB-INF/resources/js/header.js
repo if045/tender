@@ -29,3 +29,15 @@ function goLogOut() {
     setCookie("roleFlag", "false", options);
     window.location.href = LOG_OUT;
 }
+
+function goToUserProfilePage() {
+    window.location.href = USER_PROFILE_PAGE_URL;
+}
+
+function goToRegistrationPage() {
+    window.location.href = REGISTRATION_PAGE_URL;
+}
+
+function goToMyDealsPage() {
+    window.location.href = MYDEALS_PAGE_URL;
+}

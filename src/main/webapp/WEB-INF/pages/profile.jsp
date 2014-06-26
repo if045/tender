@@ -26,9 +26,10 @@
     <script type='text/javascript' src='<c:url value="../resources/js/validations.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/constants.js"/>'></script>
     <script type="text/javascript" src='<c:url value="../resources/js/star-rating.min.js"/>'></script>
-    <script type="text/javascript" src='<c:url value="../resources/js/registration.js"/>'></script>
-    <script type="text/javascript" src='<c:url value="../resources/js/profile.js"/>'></script>
+
     <script type='text/javascript' src='<c:url value="../resources/js/header.js"/>'></script>
+    <script type="text/javascript" src='<c:url value="../resources/js/user.js"/>'></script>
+    <script type="text/javascript" src='<c:url value="../resources/js/cookie.js"/>'></script>
 
 </head>
 
@@ -74,30 +75,31 @@
                                         </div>
                                         <div id="collapseRating" class="panel-collapse collapse in">
                                             <div class="panel-body">
-                                                <div class="row">
-                                                    <div class="col-sm-1">
-                                                        <div class="input-group">
-                                                            <div class="form-group">
-                                                                <h4 class="col-sm-6 control-label">Communication</h4>
-                                                                <div class="col-sm-2">
-                                                                    <input type="number" class="rating" min="0" max="5" step="0.5" data-size="xs" data-show-clear="false" data-show-caption="false">
-                                                                </div>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <h4 class="col-sm-6 control-label">Speed</h4>
-                                                                <div class="col-sm-2">
-                                                                    <input type="number" class="rating" min="0" max="5" step="0.5" data-size="xs" data-show-clear="false" data-show-caption="false">
-                                                                </div>
-                                                            </div>
-                                                            <div class="form-group text-left">
-                                                                <h4 class="col-sm-6 control-label">Logistic</h4>
-                                                                <div class="col-sm-2">
-                                                                    <input type="number" class="rating" min="0" max="5" step="0.5" data-size="xs" data-show-clear="false" data-show-caption="false">
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                <dl class="dl-horizontal">
+                                                    <dt> <p class="text-left"> <strong> Communication </strong> </p> </dt>
+                                                    <dd>
+                                                        <input type="number" class="rating" min="0" max="5" step="0.5"
+                                                               data-size="xs" data-show-clear="false"
+                                                               data-show-caption="false" data-readonly="true" value=""
+                                                               id="communication_rating">
+                                                    </dd>
+
+                                                    <dt> <p class="text-left"> <strong> Speed </strong> </p> </dt>
+                                                    <dd>
+                                                        <input type="number" class="rating" min="0" max="5" step="0.5"
+                                                               data-size="xs" data-show-clear="false"
+                                                               data-show-caption="false" data-readonly="true" value=""
+                                                               id="speed_rating">
+                                                    </dd>
+
+                                                    <dt> <p class="text-left"> <strong> Logistic </strong> </p> </dt>
+                                                    <dd>
+                                                        <input type="number" class="rating" min="0" max="5" step="0.5"
+                                                               data-size="xs" data-show-clear="false"
+                                                               data-show-caption="false" data-readonly="true" value=""
+                                                               id="logistic_rating">
+                                                    </dd>
+                                                </dl>
                                             </div>
                                         </div>
                                     </div>
@@ -111,7 +113,7 @@
 
                                 <div class="panel-group" id="accordion">
                                     <!-- Personal info -->
-                                    <div class="panel panel-info">
+                                    <div class="panel panel-info" id="personal_info">
                                         <div class="panel-heading">
                                             <h4 class="panel-title">
                                                 <a data-toggle="collapse" href="#collapsePerson">
@@ -121,68 +123,36 @@
                                         </div>
                                         <div id="collapsePerson" class="panel-collapse collapse in">
                                             <div class="panel-body">
+                                                <dl class="dl-horizontal">
+                                                    <dt> <p class="text-left"> <strong> First name </strong> </p> </dt>
+                                                    <dd> <p class="text-left"> <em id="first_name_info"> </em> </p> </dd>
+
+                                                    <dt> <p class="text-left"> <strong> Last name </strong> </p> </dt>
+                                                    <dd> <p class="text-left"> <em id="last_name_info"> </em> </p> </dd>
+
+                                                    <dt> <p class="text-left"> <strong> Role </strong> </p> </dt>
+                                                    <dd> <p class="text-left"> <em id="roles_info"> </em> </p> </dd>
+
+                                                    <dt> <p class="text-left"> <strong> E-mail </strong> </p> </dt>
+                                                    <dd> <p class="text-left"> <a href="mailto:#" id="login_info"> </a> </p> </dd>
+
+                                                    <dt> <p class="text-left"> <strong> Phone number </strong> </p> </dt>
+                                                    <dd> <p class="text-left"> <em id="telephone_info"> </em> </p> </dd>
+
+                                                    <dt> <p class="text-left"> <strong> Birthday </strong> </p> </dt>
+                                                    <dd> <p class="text-left"> <em id="birthday_info"> </em> </p> </dd>
+
+                                                    <dt> <p class="text-left"> <strong> Person </strong> </p> </dt>
+                                                    <dd> <p class="text-left"> <em id="person_info"> </em> </p> </dd>
+                                                </dl>
                                                 <div class="row">
-                                                    <div class="col-sm-1">
-                                                        <div class="input-group leftbackdown">
-                                                            <div class="row">
-                                                                <div class="col-md-8">
-                                                                    <h4> First name: </h4>
-                                                                </div>
-                                                                <div class="col-md-4">
-                                                                    <h4> Slavik </h4>
-                                                                </div>
-                                                            </div>
-                                                            <div class="row">
-                                                                <div class="col-md-8">
-                                                                    <h4> Last name: </h4>
-                                                                </div>
-                                                                <div class="col-md-4">
-                                                                    <h4> Kynyk </h4>
-                                                                </div>
-                                                            </div>
-                                                            <div class="row">
-                                                                <div class="col-md-8">
-                                                                    <h4> Email: </h4>
-                                                                </div>
-                                                                <div class="col-md-4">
-                                                                    <h4> GUSbYa@gmail.com </h4>
-                                                                </div>
-                                                            </div>
-                                                            <div class="row">
-                                                                <div class="col-md-8">
-                                                                    <h4> Phone number: </h4>
-                                                                </div>
-                                                                <div class="col-md-4">
-                                                                    <h4> 0941243745 </h4>
-                                                                </div>
-                                                            </div>
-                                                            <div class="row">
-                                                                <div class="col-md-8">
-                                                                    <h4> Birthday: </h4>
-                                                                </div>
-                                                                <div class="col-md-4">
-                                                                    <h4> 1991/01/09 </h4>
-                                                                </div>
-                                                            </div>
-                                                            <div class="row">
-                                                                <div class="col-md-8">
-                                                                    <h4> Person </h4>
-                                                                </div>
-                                                                <div class="col-md-4">
-                                                                    <h4> Legal person </h4>
-                                                                </div>
-                                                            </div>
-                                                            <div class="row">
-                                                                <div class="col-md-8">
-                                                                    <button type="button"
-                                                                            class="btn btn-primary btn-lg"
-                                                                            data-toggle="modal"
-                                                                            data-target="#editProfile">
-                                                                        Edit
-                                                                    </button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
+                                                    <div class="col-md-8">
+                                                        <button type="button"
+                                                                class="btn btn-primary btn-lg"
+                                                                data-toggle="modal"
+                                                                data-target="#editProfile">
+                                                            Edit
+                                                        </button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -191,7 +161,7 @@
                                     <!-- Personal info -->
 
                                     <!-- Company info -->
-                                    <div class="panel panel-info">
+                                    <div class="panel panel-info" id="company_info">
                                         <div class="panel-heading">
                                             <h4 class="panel-title">
                                                 <a data-toggle="collapse" href="#collapseCompany">
@@ -201,76 +171,36 @@
                                         </div>
                                         <div id="collapseCompany" class="panel-collapse collapse in">
                                             <div class="panel-body">
+                                                <dl class="dl-horizontal">
+                                                    <dt> <p class="text-left"> <strong> Company name </strong> </p> </dt>
+                                                    <dd> <p class="text-left"> <em id="company_name_info"> </em> </p> </dd>
+
+                                                    <dt> <p class="text-left"> <strong> City </strong> </p> </dt>
+                                                    <dd> <p class="text-left"> <em id="city_info"> </em> </p> </dd>
+
+                                                    <dt> <p class="text-left"> <strong> Street </strong> </p> </dt>
+                                                    <dd> <p class="text-left"> <em id="street_info"> </em> </p> </dd>
+
+                                                    <dt> <p class="text-left"> <strong> Building number </strong> </p> </dt>
+                                                    <dd> <p class="text-left"> <em id="build_number_info"> </em> </p> </dd>
+
+                                                    <dt> <p class="text-left"> <strong> Postcode </strong> </p> </dt>
+                                                    <dd> <p class="text-left"> <em id="postcode_info"> </em> </p> </dd>
+
+                                                    <dt> <p class="text-left"> <strong> E-mail </strong> </p> </dt>
+                                                    <dd> <p class="text-left"> <a href="mailto:#" id="email_info"> </a> </p> </dd>
+
+                                                    <dt> <p class="text-left"> <strong> SRN </strong> </p> </dt>
+                                                    <dd> <p class="text-left"> <em id="srn_info"> </em> </p> </dd>
+                                                </dl>
                                                 <div class="row">
-                                                    <div class="col-sm-1">
-                                                        <div class="input-group">
-                                                            <div class="row">
-                                                                <div class="col-md-6">
-                                                                    <h4> Company name: </h4>
-                                                                </div>
-                                                                <div class="col-md-6">
-                                                                    <h4> GUSbCompany </h4>
-                                                                </div>
-                                                            </div>
-                                                            <div class="row">
-                                                                <div class="col-md-6">
-                                                                    <h4> City: </h4>
-                                                                </div>
-                                                                <div class="col-md-6">
-                                                                    <h4> Ivano-Frankivsk </h4>
-                                                                </div>
-                                                            </div>
-                                                            <div class="row">
-                                                                <div class="col-md-6">
-                                                                    <h4> Street: </h4>
-                                                                </div>
-                                                                <div class="col-md-6">
-                                                                    <h4> Mazepy </h4>
-                                                                </div>
-                                                            </div>
-                                                            <div class="row">
-                                                                <div class="col-md-6">
-                                                                    <h4> Building number: </h4>
-                                                                </div>
-                                                                <div class="col-md-6">
-                                                                    <h4> 10 </h4>
-                                                                </div>
-                                                            </div>
-                                                            <div class="row">
-                                                                <div class="col-md-6">
-                                                                    <h4> Postcode: </h4>
-                                                                </div>
-                                                                <div class="col-md-6">
-                                                                    <h4> 834634 </h4>
-                                                                </div>
-                                                            </div>
-                                                            <div class="row">
-                                                                <div class="col-md-6">
-                                                                    <h4> Email </h4>
-                                                                </div>
-                                                                <div class="col-md-6">
-                                                                    <h4> GUSbCompany@gmail.com </h4>
-                                                                </div>
-                                                            </div>
-                                                            <div class="row">
-                                                                <div class="col-md-6">
-                                                                    <h4> SRN number </h4>
-                                                                </div>
-                                                                <div class="col-md-6">
-                                                                    <h4> 4534636 </h4>
-                                                                </div>
-                                                            </div>
-                                                            <div class="row">
-                                                                <div class="col-md-8">
-                                                                    <button type="button"
-                                                                            class="btn btn-primary btn-lg"
-                                                                            data-toggle="modal"
-                                                                            data-target="#editProfile">
-                                                                        Edit
-                                                                    </button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
+                                                    <div class="col-md-8">
+                                                        <button type="button"
+                                                                class="btn btn-primary btn-lg"
+                                                                data-toggle="modal"
+                                                                data-target="#editProfile">
+                                                            Edit
+                                                        </button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -278,53 +208,40 @@
                                     </div>
                                     <!-- Company info -->
 
-                                    <!-- Trade Sphere info -->
-                                    <div class="panel panel-info">
-                                        <div class="panel-heading">
-                                            <h4 class="panel-title">
-                                                <a data-toggle="collapse" href="#collapseTradeSphere">
-                                                    Trade Sphere info
-                                                </a>
-                                            </h4>
-                                        </div>
-                                        <div id="collapseTradeSphere" class="panel-collapse collapse in">
-                                            <div class="panel-body">
-                                                <div class="row">
-                                                    <div class="col-sm-1">
-                                                        <div class="input-group">
-                                                            <div class="row">
-                                                                <div class="col-md-8">
-                                                                    <h4> Locations: </h4>
-                                                                </div>
-                                                                <div class="col-md-4">
-                                                                    <h4> Lviv, Ivano-Frankivsk, Kiiv </h4>
-                                                                </div>
-                                                            </div>
-                                                            <div class="row">
-                                                                <div class="col-md-8">
-                                                                    <h4> Categories </h4>
-                                                                </div>
-                                                                <div class="col-md-4">
-                                                                    <h4> Computers, Giutars, Drums </h4>
-                                                                </div>
-                                                            </div>
-                                                            <div class="row">
-                                                                <div class="col-md-8">
-                                                                    <button type="button"
-                                                                            class="btn btn-primary btn-lg"
-                                                                            data-toggle="modal"
-                                                                            data-target="#editProfile">
-                                                                        Edit
-                                                                    </button>
-                                                                </div>
-                                                            </div>
+                                    <security:authorize access="hasRole('SELLER')">
+                                        <!-- Trade Sphere info -->
+                                        <div class="panel panel-info">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                    <a data-toggle="collapse" href="#collapseTradeSphere">
+                                                        Trade Sphere info
+                                                    </a>
+                                                </h4>
+                                            </div>
+                                            <div id="collapseTradeSphere" class="panel-collapse collapse in">
+                                                <div class="panel-body">
+                                                    <dl class="dl-horizontal">
+                                                        <dt> <p class="text-left"> <strong> Locations </strong> </p> </dt>
+                                                        <dd> <p class="text-left"> <em id="locations_info"> </em> </p> </dd>
+
+                                                        <dt> <p class="text-left"> <strong> Categories </strong> </p> </dt>
+                                                        <dd> <p class="text-left"> <em id="categories_info"> </em> </p> </dd>
+                                                    </dl>
+                                                    <div class="row">
+                                                        <div class="col-md-8">
+                                                            <button type="button"
+                                                                    class="btn btn-primary btn-lg"
+                                                                    data-toggle="modal"
+                                                                    data-target="#editProfile">
+                                                                Edit
+                                                            </button>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <!-- Company info -->
+                                        <!-- Trade Sphere info -->
+                                    </security:authorize>
                                 </div>
                             </div>
                         </form>

@@ -194,6 +194,13 @@ function showInfo(){
         $('#locations').html(locationsHtml);
         locs = data.locations;
         USER_ROLE=data.roles.toString();
+        var saveButtonOnTenderViewPage = '';
+        if (data.userId != null) {
+            if (data.userId.toString() == data.authorId.toString()) {
+                saveButtonOnTenderViewPage = '<button type="submit" class="btn btn-primary col-md-1 col-md-offset-10" id="save_tender_button" onclick="saveTenderAfterUpdate();" disabled>Save</button>'
+            }
+        }
+        $('#save_button_on_tender_view_page').html(saveButtonOnTenderViewPage);
     });
 }
 

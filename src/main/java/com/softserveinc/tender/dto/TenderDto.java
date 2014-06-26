@@ -22,6 +22,24 @@ public class TenderDto {
     private Integer authorId;
     private Integer userId;
     private Boolean haveNewProposal;
+    private Integer roleCount;
+    private String loggedUserName;
+
+    public String getLoggedUserName() {
+        return loggedUserName;
+    }
+
+    public void setLoggedUserName(String loggedUserName) {
+        this.loggedUserName = loggedUserName;
+    }
+
+    public Integer getRoleCount() {
+        return roleCount;
+    }
+
+    public void setRoleCount(Integer roleCount) {
+        this.roleCount = roleCount;
+    }
 
     public Integer getAuthorId() {
         return authorId;

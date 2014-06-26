@@ -9,7 +9,7 @@
                 <security:authorize access="hasAnyRole('CUSTOMER','SELLER')">
                     <li>
                         <button id="my_tenders_btn" type="button" class="btn btn-info nav_button"
-                               onclick="goToMyTenders()" disabled>My tenders</button>
+                               onclick="goToMyTenders()">My tenders</button>
                     </li>
                 </security:authorize>
                 <security:authorize access="hasAnyRole('CUSTOMER','SELLER')">
@@ -17,8 +17,6 @@
                                     deals<span class="new_deal_notification"></span></button></li>
                 </security:authorize>
                 <security:authorize access="hasRole('CUSTOMER')">
-                    <li><button type="button" class="btn btn-default nav_button" data-toggle="modal"
-                                 data-target="#createTenderWindow">Create tender</button></li>
                     <input id="CURRENT_USER_ROLE" value="CUSTOMER" hidden=""/>
                 </security:authorize>
                 <security:authorize access="hasRole('SELLER')">
@@ -28,11 +26,13 @@
                     <input id="CURRENT_USER_ROLE" value="" hidden=""/>
                 </security:authorize>
 
+                <li id="create_tender_button_onHeader"></li>
             </ul>
         </div>
 
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav navbar-right">
+                <li id="role_switcher_button"></li>
                 <security:authorize access="! isAuthenticated()">
                     <li><a href="/login">Log in</a></li>
                 </security:authorize>
@@ -40,7 +40,11 @@
                     <li><a href="#" onclick="goLogOut()">Log out</a></li>
                 </security:authorize>
                 <security:authorize access="isAuthenticated()">
-                    <li><li><a class="glyphicon glyphicon-user" onclick="goToUserProfilePage()"></a></li></li>
+                    <li>
+                        <ul style="padding-left: 40px"><a class="glyphicon glyphicon-user"
+                                                       onclick="goToUserProfilePage()"></a></ul>
+                        <ul id="logged_user_name" style="padding-left: 0px"></ul>
+                    </li>
                 </security:authorize>
                 <security:authorize access="! isAuthenticated()">
                     <li><button type="button" class="btn btn-default nav_button" onclick="goToRegistrationPage()">Sign up</button></li>

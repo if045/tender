@@ -79,10 +79,7 @@
                 <!-- information about tender -->
 
                 <div class="row col-md-12">
-                    <security:authorize access="hasRole('CUSTOMER')">
-                        <button type="submit" class="btn btn-primary col-md-1 col-md-offset-10"
-                                id="save_tender_button" onclick="saveTenderAfterUpdate();" disabled>Save</button>
-                    </security:authorize>
+                    <div id="save_button_on_tender_view_page"></div>
                 </div>
 
                 <div class="row">

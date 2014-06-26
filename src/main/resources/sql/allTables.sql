@@ -507,3 +507,14 @@ INSERT INTO checked_profile (profile_id, moderator_id, status_id) VALUES
   (13, 19, 3),
   (14, 19, 3),
   (15, 19, 3);
+
+INSERT INTO feedback (user_id, profile_id, communication, speed, logistic, comment) VALUES
+  (5,  1, 3, 4, 5, ''),
+  (6,  1, 5, 4, 3, ''),
+  (7,  1, 1, 2, 3, ''),
+  (8,  1, 4, 5, 2, ''),
+  (9,  1, 4, 3, 2, ''),
+  (10, 1, 3, 3, 3, ''),
+  (11, 1, 2, 4, 5, ''),
+  (12, 1, 3, 4, 5, ''),
+  (13, 1, 1, 1, 1, '');
