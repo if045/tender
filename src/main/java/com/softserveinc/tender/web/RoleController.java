@@ -1,7 +1,7 @@
 package com.softserveinc.tender.web;
 
 import com.softserveinc.tender.dto.RoleDto;
-import com.softserveinc.tender.facade.RegistrationServiceFacade;
+import com.softserveinc.tender.facade.UserServiceFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,10 +15,10 @@ import java.util.List;
 public class RoleController {
 
     @Autowired
-    private RegistrationServiceFacade registrationServiceFacade;
+    private UserServiceFacade userServiceFacade;
 
     @RequestMapping(value = "/users", method = RequestMethod.GET)
     public @ResponseBody List<RoleDto> findUsersRoles() {
-        return registrationServiceFacade.findUsersRoles();
+        return userServiceFacade.findUsersRoles();
     }
 }
