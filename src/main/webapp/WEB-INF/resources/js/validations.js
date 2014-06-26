@@ -85,12 +85,18 @@ $(document).ready(function () {
         return this.optional(element) || /^[a-z]+$/i.test(value);
     }, "Please enter only letters");
 
+    jQuery.validator.addMethod("password", function(value) {
+        return /^[A-Za-z0-9\d=!]*$/.test(value) // consists of only these
+            && /[a-z]/.test(value) // has a lowercase letter
+            && /\d/.test(value); // has a digit
+    }, "Please enter only letters");
+
     registrationPageValidation();
 });
 
 function registrationPageValidation() {
 
-    $('form').validate({
+    $("#user_data_validation").validate({
         rules: {
             login: {
                 email: true,
@@ -100,7 +106,8 @@ function registrationPageValidation() {
 
             password: {
                 required: true,
-                minlength: 6
+                minlength: 6,
+                password: true
             },
 
             confirm_password: {
@@ -145,6 +152,68 @@ function registrationPageValidation() {
 
         unhighlight: function(element) {
             $(element).closest('.form-group').removeClass('has-error').addClass('has-success');
+        },
+
+        errorElement: 'span',
+        errorClass: 'help-block',
+
+        errorPlacement: function(error, element) {
+            if(element.parent('.input-group').length) {
+                error.insertAfter(element.parent());
+            } else {
+                error.insertAfter(element);
+            }
+        }
+    });
+
+    $("#company_data_validation").validate({
+        rules: {
+            company_name: {
+                minlength: 3,
+                maxlength: 50,
+                lettersonly: true
+            },
+
+            city: {
+                minlength: 3,
+                maxlength: 30,
+                lettersonly: true
+            },
+
+            street: {
+                minlength: 3,
+                maxlength: 30,
+                lettersonly: true
+            },
+
+            building_number: {
+                maxlength: 5
+            },
+
+            postcode: {
+                digits: true
+            },
+
+            email: {
+                email: true,
+                maxlength: 30
+            },
+
+            srn_number: {
+                digits: true
+            }
+        },
+
+        messages : {
+
+        },
+
+        highlight: function(element) {
+            $(element).closest('.form-group').addClass('has-error');
+        },
+
+        unhighlight: function(element) {
+            $(element).closest('.form-group').removeClass('has-error');
         },
 
         errorElement: 'span',

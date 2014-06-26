@@ -43,6 +43,12 @@ public class DealServiceImpl implements DealService {
         }
         return dealRepository.findAllDealsForSeller(id,pageable, tenderTitle, searchFlag);
     }
+
+    @Override
+    public Long getNewDealsNumberForSeller(Integer id) {
+        return dealRepository.getNewDealsNumberForSeller(id);
+    }
+
     @Override
     public Long getDealsNumberForCustomer(Integer id) {
         return dealRepository.getDealsNumberForCustomer(id);

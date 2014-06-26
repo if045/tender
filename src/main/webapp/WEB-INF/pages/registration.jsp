@@ -43,7 +43,7 @@
                     <h1 class="panel-title">Sign up</h1>
                 </div>
 
-                <form>
+                <form id="user_data_validation">
                     <div class="row">
                         <!-- User's log in data -->
                         <div id="login_panel" class="col-md-4">
@@ -216,7 +216,7 @@
                             <!-- Panel -->
                         </div>
                         <!-- Trade sphere data -->
-
+                    <form id="company_data_validation">
                         <!-- Company data -->
                         <div id="company_panel" class="col-md-8" hidden="hidden">
                             <div class="panel panel-info">
@@ -245,7 +245,7 @@
                                                         <span class="input-group-addon"></span>
                                                         <input name="street" id="street" type="text" class="form-control" placeholder="Street">
                                                         <span class="input-group-addon"></span>
-                                                        <input name="building_namber" id="building_number" type="text" class="form-control" placeholder="Building number">
+                                                        <input name="building_number" id="building_number" type="text" class="form-control" placeholder="Building number">
                                                         <span class="input-group-addon"></span>
                                                         <input name="postcode" id="postcode" type="text" class="form-control" placeholder="Postcode">
                                                     </div>
@@ -286,7 +286,7 @@
                             <!-- Panel -->
                         </div>
                         <!-- Company data -->
-
+                    </form>
                         <!-- Agreement and confirm -->
                         <div class="col-md-8">
                             <div class="panel">

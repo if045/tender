@@ -1,6 +1,9 @@
 var pageSize = DEFAULT_PAGE_SIZE;
 var currPageNumber = 0;
 
+var dealSortDirection = false;
+var dealOrderBy = DEFAULT_DEALS_SORT_FIELD;
+
 $(document).ready(function() {
     $('#endDate, #create_tender_enddate').datepicker({
         format: 'mm-dd-yyyy',
@@ -20,6 +23,22 @@ $(document).ready(function() {
             return false;
         }
     });
+
+    $("#deal_title").click(function(){
+        sortDeals("proposal.tender.title","deal_title");
+    });
+
+    $("#deal_date").click(function(){
+        sortDeals("date","deal_date");
+    });
+
+    $("#deal_status").click(function(){
+        sortDeals("status.name","deal_status");
+    });
+
+    $("#deal_sum").click(function(){
+        sortDeals("sum","deal_sum");
+    });
 });
 
 function showDeals() {
@@ -28,7 +47,8 @@ function showDeals() {
     showDealsPagination(queryParams);
     
     queryParams += (queryParams.length==0)?"pageSize="+pageSize:"&pageSize="+pageSize;
-    queryParams += "&pageNumber="+currPageNumber;
+    queryParams += "&pageNumber=" + currPageNumber + "&sortDirection=" +
+                                                         ((dealSortDirection)?"desc":"asc") + "&orderBy=" + dealOrderBy;
 
     if($('#search_deals').val()!=""){
         queryParams += (queryParams.length==0)?"searchParam="+$('#search_deals').val():"&searchParam="+$('#search_deals').val();
@@ -38,6 +58,7 @@ function showDeals() {
         url: DEALS_URL,
         type: "GET",
         data:  queryParams,
+        async: false,
         dataType:'json',
 
         success: function(data) {
@@ -46,7 +67,7 @@ function showDeals() {
 
             if(dataSize > 0) {
                 for (var i = 0; i < dataSize; i++) {
-                    html += '<tr><td align="center">' + data[i].title + '</td>' +
+                    html += '<tr class="'+((data[i].newDeal)?"info":"")+'"><td align="center">' + data[i].title + '</td>' +
                         '<td align="center">' + unixTimeConverter(data[i].date) + '</td>' +
                         '<td align="center">' + data[i].businessPartner + '</td>' +
                         '<td align="center">' + data[i].status + '</td>' +
@@ -67,6 +88,7 @@ function showDeals() {
                 $('#deal_items').show();
                 $('#deals').html(html);
                 $('#pagination').show();
+                $('.new_deal_notification').html("");
             } else {
                 $('#deals_user_message').html('<h4>No deals found</h4>').show();
                 $('#deal_items').hide();
@@ -75,6 +97,16 @@ function showDeals() {
         },
         error:function(){
             alert("ERROR");
+        }
+    });
+
+    $.ajax({
+        url: MYDEALS_DATE_URL,
+        type: "PUT",
+        dataType: "json",
+        async: false,
+        success:function(data) {
+            $('.new_deal_notification').html("");
         }
     });
 }
@@ -157,5 +189,19 @@ function showDealsPagination(queryParams) {
 
 function showDealsPage(pageNumber) {
     currPageNumber = pageNumber;
+    showDeals();
+}
+
+function sortDeals(orderByField, elementId) {
+    dealSortDirection = (dealOrderBy == orderByField) ? !dealSortDirection : false;
+    dealOrderBy = orderByField;
+
+    $('#deal_items .sortable').removeClass('glyphicon-chevron-up').removeClass('glyphicon-chevron-down');
+    if(dealSortDirection == false) {
+        $('#'+elementId+' .sortable').addClass('glyphicon-chevron-up').removeClass('glyphicon-chevron-down');
+    } else {
+        $('#'+elementId+' .sortable').addClass('glyphicon-chevron-down').removeClass('glyphicon-chevron-up');
+    }
+
     showDeals();
 }

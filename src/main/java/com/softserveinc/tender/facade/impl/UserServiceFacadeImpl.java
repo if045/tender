@@ -47,6 +47,7 @@ import static com.softserveinc.tender.util.Util.formatDate;
 import static com.softserveinc.tender.util.Constants.CHECKED_USER;
 import static com.softserveinc.tender.util.Constants.ENABLED_USER;
 import static com.softserveinc.tender.util.Util.getUserLogin;
+import static com.softserveinc.tender.util.Util.setCurrentTimeStamp;
 
 @Service("registrationServiceFacade")
 @Transactional
@@ -150,9 +151,12 @@ public class UserServiceFacadeImpl implements UserServiceFacade {
     private Company mapCompany(CompanyDto companyDto, Address address) {
         Company company = new Company();
 
+        if(!companyDto.getSrnNumber().equals("")){
+            company.setSrn(Integer.valueOf(companyDto.getSrnNumber()));
+        }
+
         company.setName(companyDto.getName());
         company.setEmail(companyDto.getEmail());
-        company.setSrn(Integer.valueOf(companyDto.getSrnNumber()));
         company.setAddress(addressService.findById(address.getId()));
 
         return company;
@@ -202,10 +206,12 @@ public class UserServiceFacadeImpl implements UserServiceFacade {
     private Address mapAddress(AddressDto addressDto) {
         Address address = new Address();
 
+        if(!addressDto.getPostcode().equals("")){
+            address.setPostcode(Integer.valueOf(addressDto.getPostcode()));
+        }
         address.setCity(addressDto.getCity());
         address.setStreet(addressDto.getStreet());
-        address.setBuildingNumber(Integer.valueOf(addressDto.getBuildingNumber()));
-        address.setPostcode(Integer.valueOf(addressDto.getPostcode()));
+        address.setBuildingNumber(addressDto.getBuildingNumber());
 
         return address;
     }
@@ -244,6 +250,7 @@ public class UserServiceFacadeImpl implements UserServiceFacade {
         user.setSellerLocations(locations);
         user.setCreateDate(new Date());
         user.setEnabled(ENABLED_USER);
+        user.setMyDealsDate(setCurrentTimeStamp());
 
         return user;
     }
@@ -262,6 +269,7 @@ public class UserServiceFacadeImpl implements UserServiceFacade {
         user.setRoles(roles);
         user.setCreateDate(new Date());
         user.setEnabled(ENABLED_USER);
+        user.setMyDealsDate(setCurrentTimeStamp());
 
         return user;
     }

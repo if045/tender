@@ -74,7 +74,8 @@ CREATE TABLE user (
 	login VARCHAR(30) UNIQUE NOT NULL,
 	password VARCHAR(15) NOT NULL,
 	create_date DATE NOT NULL,
-	enabled TINYINT NOT NULL DEFAULT 1 ,
+	enabled TINYINT NOT NULL DEFAULT 1,
+	 MyDealsDate timestamp DEFAULT CURRENT_TIMESTAMP,
 
 	PRIMARY KEY(id)
 );
@@ -84,8 +85,8 @@ CREATE TABLE address (
 	id INT NOT NULL AUTO_INCREMENT,
 	city VARCHAR(30),
 	street VARCHAR(30),
-	building_number INT,
-	postcode INT,
+	building_number VARCHAR(5) DEFAULT NULL,
+	postcode INT DEFAULT NULL,
 	
 	PRIMARY KEY (id)
 
@@ -95,7 +96,7 @@ CREATE TABLE company (
 
 	id INT NOT NULL AUTO_INCREMENT,
 	name VARCHAR(50),
-	srn INT,
+	srn INT DEFAULT NULL,
 	email VARCHAR(30) NOT NULL,
 	logo LONGBLOB,
 	address_id INT NOT NULL,
@@ -290,7 +291,7 @@ CREATE TABLE deal (
 	customer_id INT NOT NULL,
 	seller_id INT NOT NULL,
 	sum	DECIMAL(13,2) NOT NULL,
-	date DATE NOT NULL,
+	date timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	status_id INT NOT NULL,
 
 	FOREIGN KEY (status_id) REFERENCES deal_status(id), 

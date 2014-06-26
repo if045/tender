@@ -2,6 +2,8 @@ package com.softserveinc.tender.service;
 
 import com.softserveinc.tender.entity.Deal;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.query.Param;
+
 import java.util.List;
 
 public interface DealService {
@@ -10,6 +12,7 @@ public interface DealService {
     List<Deal> findAllDealsForSeller(Pageable pageable,Integer id, String tenderTitle);
     Long getDealsNumberForCustomer(Integer id);
     Long getDealsNumberForSeller(Integer id);
+    Long getNewDealsNumberForSeller(Integer id);
     Deal findDealById(Integer id);
     Deal saveDeal(Deal deal);
     void updateDealWithStatus(Integer dealId, String statusName);

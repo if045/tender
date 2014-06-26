@@ -53,9 +53,4 @@ public class UserController {
     public @ResponseBody UsersProfileDataDto showUserProfileData() {
         return userServiceFacade.findUsersProfileInfo();
     }
-
-    @RequestMapping(value = "/roles", method = RequestMethod.GET)
-    public @ResponseBody List<RoleDto> findUsersRoles() {
-        return userServiceFacade.findUsersRoles();
-    }
 }

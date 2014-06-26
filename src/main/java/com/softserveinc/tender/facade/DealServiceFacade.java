@@ -13,6 +13,8 @@ import java.util.List;
 public interface DealServiceFacade {
 
     List<DealDto> findAllDeals(Pageable pageable, String tenderTitle);
+    DealsNumberDto getNewDealsNumber();
+    void updateMyDealsDate();
     DealsNumberDto getDealsNumber();
     void updateDealWithStatus(Integer dealId, String statusName);
     ConflictDto saveConflict(ConflictSaveDto conflictSaveDto);
