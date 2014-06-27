@@ -53,6 +53,14 @@ import static com.softserveinc.tender.util.Util.setCurrentTimeStamp;
 @Transactional
 public class UserServiceFacadeImpl implements UserServiceFacade {
 
+    public static final String CUSTOMER = "CUSTOMER";
+    public static final String MODERATOR = "MODERATOR";
+    public static final String ADMIN = "ADMIN";
+    public static final String SELLER = "SELLER";
+    public static final String CUSTOMER_AND_SELLER_HOME_PAGE = "tenders";
+    public static final String MODERATOR_HOME_PAGE = "moderatorHome";
+    public static final String ADMINISTRATOR_HOME_PAGE = "administratorHome";
+
     @Autowired
     private ModelMapper modelMapper;
 
@@ -80,7 +88,8 @@ public class UserServiceFacadeImpl implements UserServiceFacade {
     // registration logic
     @Override
     public List<RoleDto> findUsersRoles() {
-        Type targetListType = new TypeToken<List<RoleDto>>(){}.getType();
+        Type targetListType = new TypeToken<List<RoleDto>>() {
+        }.getType();
         return modelMapper.map(roleService.findUsersRoles(), targetListType);
     }
 
@@ -151,7 +160,7 @@ public class UserServiceFacadeImpl implements UserServiceFacade {
     private Company mapCompany(CompanyDto companyDto, Address address) {
         Company company = new Company();
 
-        if(!companyDto.getSrnNumber().equals("")){
+        if (!companyDto.getSrnNumber().equals("")) {
             company.setSrn(Integer.valueOf(companyDto.getSrnNumber()));
         }
 
@@ -206,7 +215,7 @@ public class UserServiceFacadeImpl implements UserServiceFacade {
     private Address mapAddress(AddressDto addressDto) {
         Address address = new Address();
 
-        if(!addressDto.getPostcode().equals("")){
+        if (!addressDto.getPostcode().equals("")) {
             address.setPostcode(Integer.valueOf(addressDto.getPostcode()));
         }
         address.setCity(addressDto.getCity());
@@ -231,15 +240,15 @@ public class UserServiceFacadeImpl implements UserServiceFacade {
 
         User user = new User();
 
-        for(Integer id : userDto.getRoles()) {
+        for (Integer id : userDto.getRoles()) {
             roles.add(roleService.findRoleById(id));
         }
 
-        for(Integer id : tradeSphereDto.getCategories()) {
+        for (Integer id : tradeSphereDto.getCategories()) {
             categories.add(categoryService.findCategoryById(id));
         }
 
-        for(Integer id : tradeSphereDto.getLocations()) {
+        for (Integer id : tradeSphereDto.getLocations()) {
             locations.add(locationService.findById(id));
         }
 
@@ -260,7 +269,7 @@ public class UserServiceFacadeImpl implements UserServiceFacade {
 
         User user = new User();
 
-        for(Integer id : userDto.getRoles()) {
+        for (Integer id : userDto.getRoles()) {
             roles.add(roleService.findRoleById(id));
         }
 
@@ -278,6 +287,27 @@ public class UserServiceFacadeImpl implements UserServiceFacade {
     @Override
     public UsersProfileDataDto findUsersProfileInfo() {
         return mapUserProfileData(userService.findByLogin(getUserLogin()));
+    }
+
+    @Override
+    public String getHomePage() {
+        List<Role> roles = userService.findByLogin(getUserLogin()).getRoles();
+        String homePage = null;
+        if (roles.size() == 1) {
+            if (roles.get(0).getName().equals(CUSTOMER) || roles.get(0).getName().equals(SELLER)) {
+                homePage = CUSTOMER_AND_SELLER_HOME_PAGE;
+            } else if (roles.get(0).getName().equals(MODERATOR)) {
+                homePage = MODERATOR_HOME_PAGE;
+            } else if (roles.get(0).getName().equals(ADMIN)) {
+                homePage = ADMINISTRATOR_HOME_PAGE;
+            }
+        }
+        if (roles.size() == 2) {
+            if (roles.get(0).getName().equals(CUSTOMER) || roles.get(0).getName().equals(SELLER)) {
+                homePage = CUSTOMER_AND_SELLER_HOME_PAGE;
+            }
+        }
+        return homePage;
     }
 
     private UsersProfileDataDto mapUserProfileData(User user) {
@@ -305,7 +335,7 @@ public class UserServiceFacadeImpl implements UserServiceFacade {
     private CompanyDto mapCompany(User user) {
         CompanyDto companyDto = new CompanyDto();
 
-        if(user.getProfile().getPerson() == LEGAL_PERSON) {
+        if (user.getProfile().getPerson() == LEGAL_PERSON) {
             companyDto.setName(user.getProfile().getCompany().getName());
             companyDto.setEmail(user.getProfile().getCompany().getEmail());
             companyDto.setSrnNumber(String.valueOf(user.getProfile().getCompany().getSrn()));
@@ -327,7 +357,7 @@ public class UserServiceFacadeImpl implements UserServiceFacade {
     private List<RoleDto> mapRoles(User user) {
         List<RoleDto> roles = new ArrayList<>();
 
-        for(Role role : user.getRoles()) {
+        for (Role role : user.getRoles()) {
             roles.add(mapRole(role));
         }
         return roles;
@@ -375,7 +405,7 @@ public class UserServiceFacadeImpl implements UserServiceFacade {
     private List<CategoryDto> mapCategories(User user) {
         List<CategoryDto> categories = new ArrayList<>();
 
-        for(Category category : user.getSellerCategories()) {
+        for (Category category : user.getSellerCategories()) {
             categories.add(mapCategory(category));
         }
         return categories;
@@ -393,7 +423,7 @@ public class UserServiceFacadeImpl implements UserServiceFacade {
     private List<LocationDto> mapLocations(User user) {
         List<LocationDto> locations = new ArrayList<>();
 
-        for(Location location : user.getSellerLocations()) {
+        for (Location location : user.getSellerLocations()) {
             locations.add(mapLocation(location));
         }
         return locations;
@@ -411,7 +441,7 @@ public class UserServiceFacadeImpl implements UserServiceFacade {
     private List<RatingDto> mapRatings(User user) {
         List<RatingDto> ratings = new ArrayList<>();
 
-        for(Feedback feedback : user.getProfile().getFeedbacks()) {
+        for (Feedback feedback : user.getProfile().getFeedbacks()) {
             ratings.add(mapRating(feedback));
         }
         return ratings;

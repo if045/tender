@@ -14,7 +14,7 @@
         <access-denied-handler error-page="/403" />
         <form-login login-page="/login"
                     authentication-failure-url="/login?error"
-                    default-target-url="/tendersHome" />
+                    default-target-url="/loginSuccess" />
         <logout logout-url="/logout" />
     </http>
 

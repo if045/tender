@@ -18,4 +18,6 @@ public interface UserServiceFacade {
     User savePrivateSeller(PrivateSellerRegistrationDataDto sellerData);
     User savePrivateCustomer(PrivateCustomerRegistrationDataDto customerData);
     UsersProfileDataDto findUsersProfileInfo();
+
+    String getHomePage();
 }
