@@ -25,12 +25,12 @@ public class ProfileServiceFacadeImpl implements ProfileServiceFacade {
 
     @Override
     public List<ProfileDto> findAllProfiles() {
-        List<Profile> profiles = profileService.findAll();
+        List<Profile> profiles = profileService.findAllProfiles();
 
         return mapProfiles(profiles);
     }
 
-    public List<ProfileDto> mapProfiles(List<Profile> profiles) {
+    private List<ProfileDto> mapProfiles(List<Profile> profiles) {
         List<ProfileDto> profileDtos = new ArrayList<>();
         for (Profile profile : profiles) {
             profileDtos.add(mapProfile(profile));
@@ -39,15 +39,15 @@ public class ProfileServiceFacadeImpl implements ProfileServiceFacade {
         return profileDtos;
     }
 
-    public ProfileDto mapProfile(Profile profile) {
+    private ProfileDto mapProfile(Profile profile) {
         ProfileDto profileDto = new ProfileDto();
-        profileDto.setUserId(profile.getUser().getId());
         profileDto.setBirthday(profile.getBirthday().toString());
         profileDto.setFirstName(profile.getFirstName());
         profileDto.setLastName(profile.getLastName());
         profileDto.setTelephone(profile.getTelephone());
         profileDto.setPerson(profile.getPerson());
         profileDto.setCompanyId(profile.getCompany().getId());
+        profileDto.setUserId(profile.getUser().getId());
 
         return profileDto;
     }

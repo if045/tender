@@ -14,8 +14,8 @@ public class ProfileServiceImpl implements ProfileService {
     private ProfileRepository profileRepository;
 
     @Override
-    public List<Profile> findAll() {
-        return profileRepository.findAll();
+    public List<Profile> findAllProfiles() {
+        return profileRepository.findAllProfiles();
     }
 
     @Override
