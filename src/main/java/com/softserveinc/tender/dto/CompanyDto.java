@@ -2,10 +2,19 @@ package com.softserveinc.tender.dto;
 
 public class CompanyDto {
 
+    private Integer id;
     private String name;
     private String srnNumber;
     private String email;
     private AddressDto addressDto;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
