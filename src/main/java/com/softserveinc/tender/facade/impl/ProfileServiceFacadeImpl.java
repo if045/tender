@@ -47,6 +47,9 @@ public class ProfileServiceFacadeImpl implements ProfileServiceFacade {
         profileDto.setTelephone(profile.getTelephone());
         profileDto.setPerson(profile.getPerson());
         profileDto.setUserId(profile.getUser().getId());
+        if(profile.getCompany() != null) {
+            profileDto.setCompanyId(profile.getCompany().getId());
+        }
 
         return profileDto;
     }
