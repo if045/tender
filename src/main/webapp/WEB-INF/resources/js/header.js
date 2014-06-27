@@ -6,15 +6,15 @@ $(document).ready(function () {
         var options = {};
         options.path = "/";
         setCookie("roleNumber", data.roles.length, options);
-        var role = data.roles[0].toString()
-        if (getCookie("userRole") == undefined) {
+        var role = data.roles[0].toString();
+        if (getCookie("userRole") == "undefined") {
             setCookie("userRole", role, options)
         }
         setCookie("login", data.login, options);
 
-        if (getCookie("userRole") != undefined){
+        if (getCookie("userRole") != "undefined"){
             CURRENT_ROLE = getCookie("userRole");
-        }else{
+        } else {
             deleteCookie("userRole");
         }
         if (getCookie("roleNumber") != 0) {
@@ -61,11 +61,10 @@ function goToHomePage() {
 }
 
 function goLogOut() {
-    deleteCookie("roleFlag");
     var options = {};
     options.path = "/";
     setCookie("roleFlag", "false", options);
-    deleteCookie("userRole");
+    setCookie("userRole", undefined, options);
     window.location.href = LOG_OUT;
 }
 
@@ -86,7 +85,7 @@ function roleSwitcher(){
     options.path = "/";
     if (CURRENT_ROLE.search(CUSTOMER) != -1){
         setCookie("userRole", SELLER, options);
-    }else if (CURRENT_ROLE.search(SELLER)!=-1){
+    }else if (CURRENT_ROLE.search(SELLER)!= -1){
         setCookie("userRole", CUSTOMER, options);
     }
     window.location.href = HOME_PAGE_URL;
