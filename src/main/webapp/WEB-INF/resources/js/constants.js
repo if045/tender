@@ -51,10 +51,12 @@ var DEFAULT_SORT_FIELD = "createDate";
 var DEFAULT_DEALS_SORT_FIELD = "date";
 
 /*Constants for conflict*/
-var DEALS ="/deals/";
+var DEALS = "/deals/";
 var CONFLICTS = "/conflicts";
 
 
 var LOG_OUT = "/logout";
 var HOME_PAGE_URL = "/tendersHome";
 
+/*Constants for moderatorHomePage*/
+var MODERATOR_URL = "/moderator"
