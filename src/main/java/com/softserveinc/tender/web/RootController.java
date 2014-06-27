@@ -30,18 +30,13 @@ public class RootController {
     }
 
     @RequestMapping("/moderatorHome")
-    public String moderator() {
-        return "moderator";
+    public String moderatorHome() {
+        return "moderatorHome";
     }
 
     @RequestMapping(value = "/registration")
     public String registration() {
         return "registration";
-    }
-
-    @RequestMapping(value = "/moderatorHome")
-    public String moderatorView() {
-        return "/moderatorHome";
     }
 
     @RequestMapping("/")
