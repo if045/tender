@@ -6,7 +6,6 @@
         var orderBy = DEFAULT_SORT_FIELD;
         var CURRENT_ROLE = '';
 
-
         $(document).ready(function() {
             $('#startDate, #endDate, #create_tender_enddate').datepicker({
                 format: 'yyyy/mm/dd',
@@ -14,6 +13,9 @@
             });
 
             initializeDateFilter();
+            if ($("#CURRENT_USER_ROLE").val() != "") {
+                $("#my_tenders_btn").removeAttr("disabled");
+            }
 
             $("#category_filter").select2({
                 placeholder: "All categories"
@@ -168,13 +170,19 @@
         function showTenders() {
             var queryParams = "";
 
+            if (getCookie("userRole") != undefined) {
+                $("#CURRENT_USER_ROLE").val(getCookie("userRole"));
+            }
+
             if($("#date_from").val()!="" && $("#date_from").val() != undefined){
                 queryParams += (queryParams.length==0)?"minDate="+$("#date_from").val():"&minDate="+$("#date_from").val();
             }
             if($("#date_to").val()!="" && $("#date_to").val() != undefined){
                 queryParams += (queryParams.length==0)?"maxDate="+$("#date_to").val():"&maxDate="+$("#date_to").val();
             }
-
+            if ($("#CURRENT_USER_ROLE").val() != "" && getCookie("roleFlag") == "true") {
+                queryParams += "&userRole=" + $("#CURRENT_USER_ROLE").val();
+            }
             showPagination(queryParams);
 
             queryParams += (queryParams.length==0)?"pageSize="+pageSize:"&pageSize="+pageSize;
@@ -193,25 +201,17 @@
                     var roleSwitcherButton = '';
                     var createTenderButton = '';
                     var loggedUserName = '';
-                    if (data[0].roles[0]!=null){
-                        var allcookies = document.cookie;
-                        var cookiearray  = allcookies.split(';');
-                        for (var i=0; i<cookiearray.length; i++){
-                            var name = cookiearray[i].split('=')[0];
-                            var value = cookiearray[i].split('=')[1];
-                            if (name.toString()=="userRole"){
-                                CURRENT_ROLE = value;
-                            }
-                        }
+                    if (dataSize != 0 && data[0].roles[0]!=null){
+                       CURRENT_ROLE = getCookie("userRole");
                     }else{
-                        clearMyCookie('userRole');
+                        deleteCookie("userRole");
                     }
-                    if ((CURRENT_ROLE==""|CURRENT_ROLE == undefined)&data[0].roles[0]!=null){
+                    if ((CURRENT_ROLE==""|CURRENT_ROLE == undefined) && dataSize != 0 && data[0].roles[0]!=null){
                         CURRENT_ROLE = data[0].roles[0].toString();
                     }
                     if(dataSize > 0) {
                         for (var i = 0; i < dataSize; i++) {
-                            html += '<tr><td align="center">' + data[i].title + '</td>' +
+                            html += '<tr class="'+((data[i].haveNewProposal && getCookie("roleFlag") == "true")?"info":"")+'"><td align="center">' + data[i].title + '</td>' +
                                 '<td align="center">' + data[i].authorName + '</td>' +
                                 '<td align="center">' + data[i].categories + '</td>';
                                 if (data[i].locations.toString().split(',').length>2){
@@ -348,6 +348,9 @@
             if($('#search_tenders').val()!=""){
                 str += (str.length==0)?"searchParam="+$('#search_tenders').val():"&searchParam="+$('#search_tenders').val();
             }
+            if ($("#CURRENT_USER_ROLE").val() != "" && getCookie("roleFlag") == "true") {
+                str += "&userRole=" + $("#CURRENT_USER_ROLE").val();
+            }
 
             showPagination(str);
             str += (str.length==0)?"pageSize="+pageSize:"&pageSize="+pageSize;
@@ -368,7 +371,7 @@
                     }
                     if(dataSize > 0) {
                         for (var i = 0; i < dataSize; i++) {
-                            html += '<tr><td align="center">' + data[i].title + '</td>' +
+                            html += '<tr class="'+((data[i].haveNewProposal && getCookie("roleFlag") == "true")?"info":"")+'"><td align="center">' + data[i].title + '</td>' +
                                 '<td align="center">' + data[i].authorName + '</td>' +
                                 '<td align="center">' + data[i].categories + '</td>';
                             if (data[i].locations.toString().split(',').length>2){
@@ -495,14 +498,6 @@
             return year + '/' + month + '/' + day;
         }
 
-        function goToRegistrationPage() {
-            window.location.href = REGISTRATION_PAGE_URL;
-        }
-
-        function goToMyDealsPage() {
-            window.location.href = MYDEALS_PAGE_URL;
-        }
-
         function showPagination(queryParams) {
             $.ajax({
                 url: TENDERS_NUMBER,
@@ -562,19 +557,14 @@
             applyFilters();
         }
 
-        function goToUserProfilePage() {
-            window.location.href = USER_PROFILE_PAGE_URL;
-        }
-
         function roleSwitcher(){
+            var options = {};
+            options.path = "/";
             if (CURRENT_ROLE.search('CUSTOMER')!=-1){
-                 var cookievalue= 'SELLER;';
-                 document.cookie="userRole=" + cookievalue;
+                setCookie("userRole", "SELLER", options);
             }else if (CURRENT_ROLE.search('SELLER')!=-1){
-                 var cookievalue= 'CUSTOMER;';
-                 document.cookie="userRole=" + cookievalue;
+                setCookie("userRole", "CUSTOMER", options);
             }
-            showTenders();
             window.location.href = "/tendersHome"
         }
         function clearMyCookie(cookie_name){

@@ -26,7 +26,10 @@
     <script type='text/javascript' src='<c:url value="../resources/js/validations.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/constants.js"/>'></script>
     <script type="text/javascript" src='<c:url value="../resources/js/star-rating.min.js"/>'></script>
+
+    <script type='text/javascript' src='<c:url value="../resources/js/header.js"/>'></script>
     <script type="text/javascript" src='<c:url value="../resources/js/user.js"/>'></script>
+    <script type="text/javascript" src='<c:url value="../resources/js/cookie.js"/>'></script>
 
 </head>
 

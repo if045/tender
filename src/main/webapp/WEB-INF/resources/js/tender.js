@@ -70,6 +70,11 @@ function showProposals() {
         Proposals = data.slice(0);
         showProposalsTable(Proposals);
     });
+    //Update proposal field author saw
+    $.ajax({
+        url: PROPOSALS_URL + SET_AUTHOR_SAW + "?tenderId=" + tenderId.substring(1),
+        type: "PUT"
+    });
 }
 
 function buildUnitTable(data){

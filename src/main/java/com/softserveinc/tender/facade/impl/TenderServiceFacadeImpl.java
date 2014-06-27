@@ -130,7 +130,6 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
         Long tendersNumber = tenderService.getTendersNumber(tenderFilter);
         TendersNumberDto tendersNumberDto = new TendersNumberDto();
         tendersNumberDto.setTendersNumber(tendersNumber);
-
         return tendersNumberDto;
     }
 
@@ -157,6 +156,7 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
         List<String> locations = new ArrayList<>();
         Set<String> categories = new HashSet<>();
         List<String> roles = new ArrayList<>();
+        String userLogin = SecurityContextHolder.getContext().getAuthentication().getName();
 
         tenderDto.setId(tender.getId());
         tenderDto.setTitle(tender.getTitle());
@@ -179,8 +179,8 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
         if (tender.getDescription()!=null){
             tenderDto.setDescription(tender.getDescription());
         }
-        if (SecurityContextHolder.getContext().getAuthentication().getName()!="anonymousUser"){
-            for (Role role:userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).getRoles()){
+        if (userLogin!="anonymousUser"){
+            for (Role role:userService.findByLogin(userLogin).getRoles()){
                 roles.add(role.getName());
             }
         }
@@ -192,10 +192,16 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
             tenderDto.setLoggedUserName(SecurityContextHolder.getContext().getAuthentication().getName());
         }
         tenderDto.setAuthorId(tender.getAuthor().getUser().getId());
-        if (SecurityContextHolder.getContext().getAuthentication().getName()!="anonymousUser"){
-            tenderDto.setUserId(userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).getId());
+        if (userLogin!="anonymousUser"){
+            tenderDto.setUserId(userService.findByLogin(userLogin).getId());
+
+            if (tender.getAuthor().getId().equals(profileService.findProfileByUserLogin(userLogin).getId()) &&
+                    proposalService.getTenderNewProposalsForCustomer(tender.getId()) > 0) {
+                tenderDto.setHaveNewProposal(true);
+            }
         }
         tenderDto.setRoles(roles);
+
         return tenderDto;
     }
 
@@ -382,6 +388,7 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
         proposal.setDiscountCurrency(proposalSaveDto.getDiscountCurrency());
         proposal.setDiscountPercentage(proposalSaveDto.getDiscountPercentage());
         proposal.setDescription(proposalSaveDto.getDescription());
+        proposal.setTenderAuthorSaw(false);
         Proposal savedProposal = proposalService.save(proposal);
 
         List<Bid> bids = new ArrayList<>();

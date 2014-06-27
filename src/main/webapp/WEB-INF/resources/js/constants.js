@@ -20,6 +20,7 @@ var DEALS_NUMBER_URL = '/deals/number';
 /*Constants for deals.js*/
 
 var PROPOSALS_URL = "/proposals";
+var SET_AUTHOR_SAW = "/setAuthorSaw";
 var UNITS_URL = '/units';
 var BIDS_URL = '/bids';
 
@@ -53,4 +54,7 @@ var DEFAULT_DEALS_SORT_FIELD = "date";
 var DEALS ="/deals/";
 var CONFLICTS = "/conflicts";
 
+
+var LOG_OUT = "/logout";
+var HOME_PAGE_URL = "/tendersHome";
 
