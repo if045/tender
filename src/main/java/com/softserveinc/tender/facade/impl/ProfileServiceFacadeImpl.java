@@ -27,10 +27,10 @@ public class ProfileServiceFacadeImpl implements ProfileServiceFacade {
     public List<ProfileDto> findAllProfiles() {
         List<Profile> profiles = profileService.findAll();
 
-        return mapDeals(profiles);
+        return mapProfiles(profiles);
     }
 
-    public List<ProfileDto> mapDeals(List<Profile> profiles) {
+    public List<ProfileDto> mapProfiles(List<Profile> profiles) {
         List<ProfileDto> profileDtos = new ArrayList<>();
         for (Profile profile : profiles) {
             profileDtos.add(mapProfile(profile));
