@@ -5,6 +5,7 @@ import com.softserveinc.tender.dto.CategoryDto;
 import com.softserveinc.tender.dto.CompanyDto;
 import com.softserveinc.tender.dto.CustomerRegistrationDataDto;
 import com.softserveinc.tender.dto.LocationDto;
+import com.softserveinc.tender.dto.LoggedUserDto;
 import com.softserveinc.tender.dto.PersonalInfoDto;
 import com.softserveinc.tender.dto.PrivateCustomerRegistrationDataDto;
 import com.softserveinc.tender.dto.PrivateSellerRegistrationDataDto;
@@ -34,6 +35,7 @@ import com.softserveinc.tender.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -278,6 +280,23 @@ public class UserServiceFacadeImpl implements UserServiceFacade {
     @Override
     public UsersProfileDataDto findUsersProfileInfo() {
         return mapUserProfileData(userService.findByLogin(getUserLogin()));
+    }
+
+    @Override
+    public LoggedUserDto getLoggedUserInfo() {
+        LoggedUserDto loggedUserDto=new LoggedUserDto();
+        List<String> roles = new ArrayList<>();
+        String userLogin = SecurityContextHolder.getContext().getAuthentication().getName();
+        if (userLogin!="anonymousUser"){
+            for (Role role:userService.findByLogin(userLogin).getRoles()){
+                roles.add(role.getName());
+            }
+            /*loggedUserDto.setRoleCount(userService.findByLogin(SecurityContextHolder.getContext().getAuthentication()
+                    .getName()).getRoles().size());*/
+            loggedUserDto.setLogin(SecurityContextHolder.getContext().getAuthentication().getName());
+        }
+        loggedUserDto.setRoles(roles);
+        return loggedUserDto;
     }
 
     private UsersProfileDataDto mapUserProfileData(User user) {
