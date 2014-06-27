@@ -19,16 +19,16 @@ function showUsersProfiles() {
             if(dataSize > 0) {
                 for (var i = 0; i < dataSize; i++) {
                     html += '<tr><td align="center">' + data[i].firstName + ' ' + data[i].lastName + '</td>' +
-                        '<td align="center">' + data[i].userId + '</td>' +
+                        '<td align="center"><a href="mailto:' + data[i].userLogin + '">' + data[i].userLogin + '</a></td>' +
                         '<td align="center">' + data[i].telephone + '</td>' +
                         '<td align="center">' +
                         '<div class="btn-group">' +
                         '<button data-toggle="dropdown" class="btn btn-default dropdown-toggle">Status<span class="caret"></span></button>' +
                         '<ul class="dropdown-menu">' +
-                        '<li><a href="#" data-toggle="modal" data-target="#moderator_profile_unchecked" onclick="setProfileStatus(' + data[i].userId + ',"unchecked");">Unchecked</a></li>' +
-                        '<li><a href="#" data-toggle="modal" data-target="#moderator_profile_checked" onclick="setProfileStatus(' + data[i].userId + ',"checked");">Checked</a></li>' +
-                        '<li><a href="#" data-toggle="modal" data-target="#moderator_profile_inprogress" onclick="setProfileStatus(' + data[i].userId + ',"inprogress");">In progress</a></li>' +
-                        '<li><a href="#" data-toggle="modal" data-target="#moderator_profile_denied" onclick="setProfileStatus(' + data[i].userId + ',"denied");">Denied</a></li>' +
+                        '<li><a href="#" data-toggle="modal" data-target="#moderator_profile_unchecked" onclick="setProfileStatus('+data[i].userId+',\'unchecked\');">Unchecked</a></li>' +
+                        '<li><a href="#" data-toggle="modal" data-target="#moderator_profile_checked" onclick="setProfileStatus(' + data[i].userId + ',\'checked\');">Checked</a></li>' +
+                        '<li><a href="#" data-toggle="modal" data-target="#moderator_profile_inprogress" onclick="setProfileStatus(' + data[i].userId + ',\'inprogress\');">In progress</a></li>' +
+                        '<li><a href="#" data-toggle="modal" data-target="#moderator_profile_denied" onclick="setProfileStatus(' + data[i].userId + ',\'denied\');">Denied</a></li>' +
                         '</ul>' +
                         '</div>' +
                         '</td></tr>';
@@ -43,6 +43,23 @@ function showUsersProfiles() {
                 $('#moderator_profile_items').hide();
                 $('#moderator_profile_pagination').hide();
             }
+        }
+    });
+}
+
+function setProfileStatus(userId, status) {
+    alert("uid: "+userId+"; status: "+status);
+    var queryParams = '';
+
+    $.ajax({
+        url: MODERATOR_PROFILE_STATUS_URL,
+        type: "GET",
+        data:  queryParams,
+        dataType:'json',
+
+        success: function(data) {
+            var dataSize = data.length;
+            alert(data);
         }
     });
 }
