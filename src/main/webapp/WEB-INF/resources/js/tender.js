@@ -104,6 +104,7 @@ function buildUnitTable(data){
                 '</td></tr>';
         }else{
             html += '</tr>';
+            $('.js-actionDeal').attr("hidden", "hidden");
         }
     }
     $('#unitsTable').html(html);
@@ -270,12 +271,13 @@ function showProposalsTable(propsArray, unitsArray) {
                     '<td class="js-highlightUnits" propId="' + propsArray[i].id +'">' + propsArray[i].numberOfBids + '</td>' +
                     '<td class="js-highlightUnits" propId="' + propsArray[i].id +'">' + propsArray[i].totalBidsPrice + '</td>';
                     //This button should only be available to the customer
-                    if (USER_ROLE.search('CUSTOMER')!=-1&LOGGED_USER_ID!=null) {
+                    if (USER_ROLE.search(CUSTOMER) != -1 && LOGGED_USER_ID != null) {
                         html += '<td align="center">' +
                             '<button type="submit" class="btn' + buttonStyle + '" onclick="createProposalDeal(' + propsArray[i].id + ')">Deal</button>' +
                             '</td></tr>';
                     }else{
                         html += '</tr>';
+                        $('.js-actionDeal').attr("hidden", "hidden");
                     }
             }
         }

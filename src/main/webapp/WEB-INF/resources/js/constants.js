@@ -63,3 +63,6 @@ var USER_URL = "/user";
 /*variables*/
 var CURRENT_ROLE = '';
 
+/*user roles*/
+var CUSTOMER = "CUSTOMER";
+var SELLER = "SELLER";

@@ -340,7 +340,7 @@
                     var html = '';
                     var dataSize = data.length;
                     var roleSwitcherButton = '';
-                    if (CURRENT_ROLE=="" && getCookie("userRole") != undefined){
+                    if (CURRENT_ROLE == "" && getCookie("userRole") != undefined){
                         CURRENT_ROLE = getCookie("userRole");
                     }
                     if(dataSize > 0) {
@@ -362,13 +362,13 @@
                                 '<button data-toggle="dropdown" class="btn btn-default dropdown-toggle">Action<span class="caret"></span></button>' +
                                 '<ul class="dropdown-menu">'+
                                 '<li><a href="/tenderView/' + data[i].id + '">View</a></li>';
-                            if (CURRENT_ROLE.search('CUSTOMER')!=-1){
-                                if (data[i].userId.toString()==data[i].authorId.toString()){
+                            if (CURRENT_ROLE.search(CUSTOMER) != -1){
+                                if (data[i].userId.toString() == data[i].authorId.toString()){
                                     html += '<li><a href="#" data-toggle="modal" data-target="#close_tender_mod_wind" onclick="writeCloseTenderId(' + data[i].id + ')">Close</a></li>';
                                 }
                                 roleSwitcherButton = '<button type="button" class="btn btn-default nav_button" onclick="roleSwitcher()">Switch to Seller View</button>';
                             }
-                            if (CURRENT_ROLE.search('SELLER')!=-1){
+                            if (CURRENT_ROLE.search(SELLER) != -1){
                                 html += '<li><a href="#" data-toggle="modal" data-target="#createProposalWindow" onclick="showUnits(' + data[i].id + ')">Create proposal</a></li>';
                                 roleSwitcherButton = '<button type="button" class="btn btn-default nav_button" onclick="roleSwitcher()">Switch to Customer View</button>';
                             }
