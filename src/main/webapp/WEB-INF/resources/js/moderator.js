@@ -23,11 +23,12 @@ function showUsersProfiles() {
                         '<td align="center">' + data[i].telephone + '</td>' +
                         '<td align="center">' +
                         '<div class="btn-group">' +
-                        '<button data-toggle="dropdown" class="btn btn-default dropdown-toggle">Action<span class="caret"></span></button>' +
+                        '<button data-toggle="dropdown" class="btn btn-default dropdown-toggle">Status<span class="caret"></span></button>' +
                         '<ul class="dropdown-menu">' +
-                        '<li><a href="#" data-toggle="modal" data-target="#feedback_mod_wind" onclick="writeFeedbackId(' + data[i].userId + ')">Feedback</a></li>' +
-                        '<li><a href="#" data-toggle="modal" data-target="#conflict_mod_wind" onclick="writeConflictId(' + data[i].userId + ')">Conflict</a></li>' +
-                        '<li><a href="#" data-toggle="modal" data-target="#close_deal_mod_wind" onclick="writeCloseDealId(' + data[i].userId + ')">Close</a></li>' +
+                        '<li><a href="#" data-toggle="modal" data-target="#moderator_profile_unchecked" onclick="setProfileStatus(' + data[i].userId + ',"unchecked");">Unchecked</a></li>' +
+                        '<li><a href="#" data-toggle="modal" data-target="#moderator_profile_checked" onclick="setProfileStatus(' + data[i].userId + ',"checked");">Checked</a></li>' +
+                        '<li><a href="#" data-toggle="modal" data-target="#moderator_profile_inprogress" onclick="setProfileStatus(' + data[i].userId + ',"inprogress");">In progress</a></li>' +
+                        '<li><a href="#" data-toggle="modal" data-target="#moderator_profile_denied" onclick="setProfileStatus(' + data[i].userId + ',"denied");">Denied</a></li>' +
                         '</ul>' +
                         '</div>' +
                         '</td></tr>';

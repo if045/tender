@@ -162,7 +162,7 @@
                                 <th align="center" id="moderator_profile_telephone">
                                     <span>Telephone</span>
                                 </th>
-                                <th align="center" id="moderator_profile_action"><span>Options</span></th>
+                                <th align="center" id="moderator_profile_action"><span>Action</span></th>
                             </tr>
                             </thead>
                             <tbody id="moderator_profiles"></tbody>
