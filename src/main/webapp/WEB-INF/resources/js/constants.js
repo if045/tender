@@ -53,4 +53,9 @@ var DEFAULT_DEALS_SORT_FIELD = "date";
 var DEALS ="/deals/";
 var CONFLICTS = "/conflicts";
 
+/*Constants for moderator.js*/
+var MODERATOR_PAGE_URL = "/moderatorHome";
+var MODERATOR_PROFILE_DATA_URL = "/moderator/profiles";
+/*Constants for moderator.js*/
+
 
