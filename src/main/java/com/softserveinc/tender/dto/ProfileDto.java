@@ -19,6 +19,7 @@ public class ProfileDto {
     private Character person;
     private String birthday;
     private Integer userId;
+    private String userLogin;
     private Integer companyId;
 
     public String getFirstName() {
@@ -75,5 +76,13 @@ public class ProfileDto {
 
     public void setCompanyId(Integer companyId) {
         this.companyId = companyId;
+    }
+
+    public String getUserLogin() {
+        return userLogin;
+    }
+
+    public void setUserLogin(String userLogin) {
+        this.userLogin = userLogin;
     }
 }

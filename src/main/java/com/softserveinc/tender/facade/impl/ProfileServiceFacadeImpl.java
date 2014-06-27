@@ -23,6 +23,9 @@ public class ProfileServiceFacadeImpl implements ProfileServiceFacade {
     @Autowired
     private ProfileService profileService;
 
+    @Autowired
+    private UserService userService;
+
     @Override
     public List<ProfileDto> findAllProfiles() {
         List<Profile> profiles = profileService.findAllProfiles();
@@ -50,6 +53,7 @@ public class ProfileServiceFacadeImpl implements ProfileServiceFacade {
         if(profile.getCompany() != null) {
             profileDto.setCompanyId(profile.getCompany().getId());
         }
+        profileDto.setUserLogin(userService.findUserById(profile.getUser().getId()).getLogin());
 
         return profileDto;
     }
