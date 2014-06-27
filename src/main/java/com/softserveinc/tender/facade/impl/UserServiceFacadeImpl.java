@@ -291,8 +291,6 @@ public class UserServiceFacadeImpl implements UserServiceFacade {
             for (Role role:userService.findByLogin(userLogin).getRoles()){
                 roles.add(role.getName());
             }
-            /*loggedUserDto.setRoleCount(userService.findByLogin(SecurityContextHolder.getContext().getAuthentication()
-                    .getName()).getRoles().size());*/
             loggedUserDto.setLogin(SecurityContextHolder.getContext().getAuthentication().getName());
         }
         loggedUserDto.setRoles(roles);
