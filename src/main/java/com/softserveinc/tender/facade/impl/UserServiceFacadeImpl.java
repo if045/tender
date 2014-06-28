@@ -23,6 +23,7 @@ import com.softserveinc.tender.entity.Location;
 import com.softserveinc.tender.entity.Profile;
 import com.softserveinc.tender.entity.Role;
 import com.softserveinc.tender.entity.User;
+import com.softserveinc.tender.entity.template.Roles;
 import com.softserveinc.tender.facade.UserServiceFacade;
 import com.softserveinc.tender.service.AddressService;
 import com.softserveinc.tender.service.CategoryService;
@@ -51,10 +52,6 @@ import static com.softserveinc.tender.util.Util.setCurrentTimeStamp;
 import static com.softserveinc.tender.util.Constants.CUSTOMER_AND_SELLER_HOME_PAGE;
 import static com.softserveinc.tender.util.Constants.MODERATOR_HOME_PAGE;
 import static com.softserveinc.tender.util.Constants.ADMINISTRATOR_HOME_PAGE;
-import static com.softserveinc.tender.util.Constants.CUSTOMER;
-import static com.softserveinc.tender.util.Constants.MODERATOR;
-import static com.softserveinc.tender.util.Constants.ADMIN;
-import static com.softserveinc.tender.util.Constants.SELLER;
 
 @Service("registrationServiceFacade")
 @Transactional
@@ -293,16 +290,18 @@ public class UserServiceFacadeImpl implements UserServiceFacade {
         List<Role> roles = userService.findByLogin(getUserLogin()).getRoles();
         String homePage = null;
         if (roles.size() == 1) {
-            if (roles.get(0).getName().equals(CUSTOMER) || roles.get(0).getName().equals(SELLER)) {
+            if (roles.get(0).getName().equals(Roles.CUSTOMER.toString()) ||
+                    roles.get(0).getName().equals(Roles.SELLER.toString())) {
                 homePage = CUSTOMER_AND_SELLER_HOME_PAGE;
-            } else if (roles.get(0).getName().equals(MODERATOR)) {
+            } else if (roles.get(0).getName().equals(Roles.MODERATOR.toString())) {
                 homePage = MODERATOR_HOME_PAGE;
-            } else if (roles.get(0).getName().equals(ADMIN)) {
+            } else if (roles.get(0).getName().equals(Roles.ADMIN.toString())) {
                 homePage = ADMINISTRATOR_HOME_PAGE;
             }
         }
         if (roles.size() == 2) {
-            if (roles.get(0).getName().equals(CUSTOMER) || roles.get(0).getName().equals(SELLER)) {
+            if (roles.get(0).getName().equals(Roles.CUSTOMER.toString()) ||
+                    roles.get(0).getName().equals(Roles.SELLER.toString())) {
                 homePage = CUSTOMER_AND_SELLER_HOME_PAGE;
             }
         }
