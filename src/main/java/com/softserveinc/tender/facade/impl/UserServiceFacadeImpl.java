@@ -48,18 +48,17 @@ import static com.softserveinc.tender.util.Constants.CHECKED_USER;
 import static com.softserveinc.tender.util.Constants.ENABLED_USER;
 import static com.softserveinc.tender.util.Util.getUserLogin;
 import static com.softserveinc.tender.util.Util.setCurrentTimeStamp;
+import static com.softserveinc.tender.util.Constants.CUSTOMER_AND_SELLER_HOME_PAGE;
+import static com.softserveinc.tender.util.Constants.MODERATOR_HOME_PAGE;
+import static com.softserveinc.tender.util.Constants.ADMINISTRATOR_HOME_PAGE;
+import static com.softserveinc.tender.util.Constants.CUSTOMER;
+import static com.softserveinc.tender.util.Constants.MODERATOR;
+import static com.softserveinc.tender.util.Constants.ADMIN;
+import static com.softserveinc.tender.util.Constants.SELLER;
 
 @Service("registrationServiceFacade")
 @Transactional
 public class UserServiceFacadeImpl implements UserServiceFacade {
-
-    public static final String CUSTOMER = "CUSTOMER";
-    public static final String MODERATOR = "MODERATOR";
-    public static final String ADMIN = "ADMIN";
-    public static final String SELLER = "SELLER";
-    public static final String CUSTOMER_AND_SELLER_HOME_PAGE = "tenders";
-    public static final String MODERATOR_HOME_PAGE = "moderatorHome";
-    public static final String ADMINISTRATOR_HOME_PAGE = "administratorHome";
 
     @Autowired
     private ModelMapper modelMapper;
