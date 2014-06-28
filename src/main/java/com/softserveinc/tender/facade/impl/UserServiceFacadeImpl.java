@@ -33,11 +33,9 @@ import com.softserveinc.tender.service.ProfileService;
 import com.softserveinc.tender.service.RoleService;
 import com.softserveinc.tender.service.UserService;
 import com.softserveinc.tender.util.Constants;
-import com.softserveinc.tender.util.Util;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -288,7 +286,7 @@ public class UserServiceFacadeImpl implements UserServiceFacade {
     public LoggedUserDto getLoggedUserInfo() {
         LoggedUserDto loggedUserDto=new LoggedUserDto();
         List<String> roles = new ArrayList<>();
-        String userLogin = Util.getUserLogin();
+        String userLogin = getUserLogin();
         if (!userLogin.equals(Constants.UNKNOWN_USER)){
             for (Role role:userService.findByLogin(userLogin).getRoles()){
                 roles.add(role.getName());

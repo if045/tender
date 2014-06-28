@@ -20,7 +20,6 @@ import com.softserveinc.tender.entity.Deal;
 import com.softserveinc.tender.entity.Item;
 import com.softserveinc.tender.entity.Location;
 import com.softserveinc.tender.entity.Proposal;
-import com.softserveinc.tender.entity.Role;
 import com.softserveinc.tender.entity.Tender;
 import com.softserveinc.tender.entity.TenderStatus;
 import com.softserveinc.tender.entity.Unit;
@@ -41,7 +40,6 @@ import com.softserveinc.tender.service.TenderStatusService;
 import com.softserveinc.tender.service.UnitService;
 import com.softserveinc.tender.service.UserService;
 import com.softserveinc.tender.service.impl.MailService;
-import com.softserveinc.tender.util.Util;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,6 +58,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import static com.softserveinc.tender.util.Util.getUserLogin;
 
 @Service("tenderServiceFacade")
 @Transactional
@@ -156,7 +156,7 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
         TenderDto tenderDto = new TenderDto();
         List<String> locations = new ArrayList<>();
         Set<String> categories = new HashSet<>();
-        String userLogin = Util.getUserLogin();
+        String userLogin = getUserLogin();
 
         tenderDto.setId(tender.getId());
         tenderDto.setTitle(tender.getTitle());
