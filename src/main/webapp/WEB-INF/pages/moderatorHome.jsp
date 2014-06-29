@@ -253,5 +253,27 @@
     </div>
     <!--main-->
 </div>
+
+<!--Profile status updating confirm-->
+<div class="modal fade" id="moderator_profile_status" tabindex="-1" role="dialog" hidden="">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header"><button class="close" type="button" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Confirm</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" role="form">
+                    <h4>Do you want to update profile status?</h4>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button id="confirm_button" class="btn btn-primary" type="button" onclick="setProfileStatus(userId, status);">Yes</button>
+                <button class="btn btn-default" type="button" data-dismiss="modal">No</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Profile status updating confirm-->
+
 </body>
 </html>
