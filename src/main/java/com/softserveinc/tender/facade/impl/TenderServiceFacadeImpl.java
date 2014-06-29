@@ -254,7 +254,7 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
         return categoryDtos;
     }
 
-    private CategoryDto mapCategory(Category category) {
+    public CategoryDto mapCategory(Category category) {
         CategoryDto categoryDto = new CategoryDto();
         categoryDto.setId(category.getId());
         categoryDto.setName(category.getName());
