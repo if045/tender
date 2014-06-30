@@ -25,10 +25,10 @@ function showUsersProfiles() {
                         '<div class="btn-group">' +
                         '<button data-toggle="dropdown" class="btn btn-default dropdown-toggle">Status<span class="caret"></span></button>' +
                         '<ul class="dropdown-menu">' +
-                        '<li><a href="#" data-toggle="modal" data-target="#moderator_profile_status" onclick="addConfirmListender(\'confirm_button\',' + data[i].userId + ',\'Unchecked\');">Unchecked</a></li>' +
-                        '<li><a href="#" data-toggle="modal" data-target="#moderator_profile_status" onclick="addConfirmListender(\'confirm_button\',' + data[i].userId + ',\'Checked\');">Checked</a></li>' +
-                        '<li><a href="#" data-toggle="modal" data-target="#moderator_profile_status" onclick="addConfirmListender(\'confirm_button\',' + data[i].userId + ',\'In progress\');">In progress</a></li>' +
-                        '<li><a href="#" data-toggle="modal" data-target="#moderator_profile_status" onclick="addConfirmListender(\'confirm_button\',' + data[i].userId + ',\'Denied\');">Denied</a></li>' +
+                        '<li class="'+((data[i].status=="Unchecked")?"moderator_profile_status":"")+'"><a href="#" data-toggle="modal" data-target="#moderator_profile_status" onclick="addConfirmListender(\'confirm_button\',' + data[i].userId + ',\'Unchecked\');">Unchecked</a></li>' +
+                        '<li class="'+((data[i].status=="Checked")?"moderator_profile_status":"")+'"><a href="#" data-toggle="modal" data-target="#moderator_profile_status" onclick="addConfirmListender(\'confirm_button\',' + data[i].userId + ',\'Checked\');">Checked</a></li>' +
+                        '<li class="'+((data[i].status=="In progress")?"moderator_profile_status":"")+'"><a href="#" data-toggle="modal" data-target="#moderator_profile_status" onclick="addConfirmListender(\'confirm_button\',' + data[i].userId + ',\'In progress\');">In progress</a></li>' +
+                        '<li class="'+((data[i].status=="Denied")?"moderator_profile_status":"")+'"><a href="#" data-toggle="modal" data-target="#moderator_profile_status" onclick="addConfirmListender(\'confirm_button\',' + data[i].userId + ',\'Denied\');">Denied</a></li>' +
                         '</ul>' +
                         '</div>' +
                         '</td></tr>';

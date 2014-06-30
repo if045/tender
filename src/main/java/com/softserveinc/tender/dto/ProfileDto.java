@@ -21,6 +21,7 @@ public class ProfileDto {
     private Integer userId;
     private String userLogin;
     private Integer companyId;
+    private String status;
 
     public String getFirstName() {
         return firstName;
@@ -84,5 +85,13 @@ public class ProfileDto {
 
     public void setUserLogin(String userLogin) {
         this.userLogin = userLogin;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

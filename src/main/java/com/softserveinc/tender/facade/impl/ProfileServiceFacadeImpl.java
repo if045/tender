@@ -89,6 +89,11 @@ public class ProfileServiceFacadeImpl implements ProfileServiceFacade {
         }
         profileDto.setUserLogin(userService.findUserById(profile.getUser().getId()).getLogin());
 
+        CheckedProfile checkedProfile = checkedProfileService.findCheckedProfileByProfileId(profile.getId());
+        if(checkedProfile != null) {
+            profileDto.setStatus(checkedProfile.getStatus().getName());
+        }
+
         return profileDto;
     }
 }

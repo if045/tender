@@ -280,4 +280,8 @@ textarea {
     width: 150px;
 }
 
+.moderator_profile_status {
+    background-color: rgb(172, 196, 247);
+}
+
 
