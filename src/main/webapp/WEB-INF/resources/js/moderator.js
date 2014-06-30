@@ -25,10 +25,10 @@ function showUsersProfiles() {
                         '<div class="btn-group">' +
                         '<button data-toggle="dropdown" class="btn btn-default dropdown-toggle">Status<span class="caret"></span></button>' +
                         '<ul class="dropdown-menu">' +
-                        '<li><a href="#" data-toggle="modal" data-target="#moderator_profile_status" onclick="addConfirmListender(\'confirm_button\','+data[i].userId+',\'unchecked\');">Unchecked</a></li>' +
-                        '<li><a href="#" data-toggle="modal" data-target="#moderator_profile_status" onclick="addConfirmListender(\'confirm_button\',' + data[i].userId + ',\'checked\');">Checked</a></li>' +
-                        '<li><a href="#" data-toggle="modal" data-target="#moderator_profile_status" onclick="addConfirmListender(\'confirm_button\',' + data[i].userId + ',\'inprogress\');">In progress</a></li>' +
-                        '<li><a href="#" data-toggle="modal" data-target="#moderator_profile_status" onclick="addConfirmListender(\'confirm_button\',' + data[i].userId + ',\'denied\');">Denied</a></li>' +
+                        '<li><a href="#" data-toggle="modal" data-target="#moderator_profile_status" onclick="addConfirmListender(\'confirm_button\',' + data[i].userId + ',\'Unchecked\');">Unchecked</a></li>' +
+                        '<li><a href="#" data-toggle="modal" data-target="#moderator_profile_status" onclick="addConfirmListender(\'confirm_button\',' + data[i].userId + ',\'Checked\');">Checked</a></li>' +
+                        '<li><a href="#" data-toggle="modal" data-target="#moderator_profile_status" onclick="addConfirmListender(\'confirm_button\',' + data[i].userId + ',\'In progress\');">In progress</a></li>' +
+                        '<li><a href="#" data-toggle="modal" data-target="#moderator_profile_status" onclick="addConfirmListender(\'confirm_button\',' + data[i].userId + ',\'Denied\');">Denied</a></li>' +
                         '</ul>' +
                         '</div>' +
                         '</td></tr>';
@@ -55,19 +55,17 @@ function addConfirmListender(buttonId,userId,status) {
     });
 }
 
-function setProfileStatus(userId, status) {
-    alert("uid: "+userId+"; status: "+status);
-    var queryParams = '';
+function setProfileStatus(userId, statusName) {
+    var queryParams = 'statusName='+statusName;
 
     $.ajax({
-        url: MODERATOR_PROFILE_STATUS_URL,
-        type: "PUT",
+        url: MODERATOR_PROFILE_STATUS_URL + '/' + userId,
+        type: "POST",
         data:  queryParams,
         dataType:'json',
 
         success: function(data) {
-            var dataSize = data.length;
-            alert(data);
+            showUsersProfiles();
         }
     });
 }

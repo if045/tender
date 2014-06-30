@@ -11,7 +11,7 @@
 USE tender;
 
 INSERT INTO checked_status (name) VALUES
-  ('Open'),
+  ('Unchecked'),
   ('In progress'),
   ('Checked'),
   ('Denied');

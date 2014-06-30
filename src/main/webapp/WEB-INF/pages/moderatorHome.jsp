@@ -267,7 +267,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button id="confirm_button" class="btn btn-primary" type="button" onclick="setProfileStatus(userId, status);">Yes</button>
+                <button id="confirm_button" class="btn btn-primary" type="button">Yes</button>
                 <button class="btn btn-default" type="button" data-dismiss="modal">No</button>
             </div>
         </div>
