@@ -272,10 +272,16 @@ textarea {
     padding-left: 3px;
 }
 
-.deal_action_field {
+.deal_action_field, #moderator_profile_action {
     width: 100px;
 }
 
 #deal_date {
     width: 150px;
 }
+
+.moderator_profile_status {
+    background-color: rgb(172, 196, 247);
+}
+
+

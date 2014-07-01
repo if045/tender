@@ -54,6 +54,12 @@ var DEFAULT_DEALS_SORT_FIELD = "date";
 var DEALS = "/deals/";
 var CONFLICTS = "/conflicts";
 
+/*Constants for moderator.js*/
+var MODERATOR_PAGE_URL = "/moderatorHome";
+var MODERATOR_PROFILE_DATA_URL = "/moderator/profiles";
+var MODERATOR_PROFILE_STATUS_URL = "/moderator/profilestatus";
+/*Constants for moderator.js*/
+
 
 var LOG_OUT = "/logout";
 var HOME_PAGE_URL = "/tendersHome";
