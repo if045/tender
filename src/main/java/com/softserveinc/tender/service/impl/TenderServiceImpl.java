@@ -2,7 +2,7 @@ package com.softserveinc.tender.service.impl;
 
 import com.softserveinc.tender.entity.Tender;
 import com.softserveinc.tender.entity.TenderStatus;
-import com.softserveinc.tender.entity.template.Role;
+import com.softserveinc.tender.entity.template.Roles;
 import com.softserveinc.tender.repo.TenderFilter;
 import com.softserveinc.tender.repo.TenderRepository;
 import com.softserveinc.tender.service.ProfileService;
@@ -82,10 +82,10 @@ public class TenderServiceImpl implements TenderService {
     }
 
     private TenderFilter setProfileIdIntoFilter(TenderFilter tenderFilter) {
-        if (tenderFilter.getUserRole() != null && tenderFilter.getUserRole().equals(Role.SELLER.toString())) {
+        if (tenderFilter.getUserRole() != null && tenderFilter.getUserRole().equals(Roles.SELLER.toString())) {
             tenderFilter.setProfileId(userService.findByLogin(SecurityContextHolder.getContext()
                     .getAuthentication().getName()).getId());
-        } else if (tenderFilter.getUserRole() != null && tenderFilter.getUserRole().equals(Role.CUSTOMER.toString())) {
+        } else if (tenderFilter.getUserRole() != null && tenderFilter.getUserRole().equals(Roles.CUSTOMER.toString())) {
             tenderFilter.setProfileId(profileService.findProfileByUserLogin(SecurityContextHolder.getContext()
                     .getAuthentication().getName()).getId());
         }
