@@ -7,6 +7,5 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 public interface CheckedStatusRepository extends JpaRepository<CheckedStatus, Integer> {
-    @Query("select c from CheckedStatus c where c.name = :statusName")
-    CheckedStatus findByName(@Param("statusName")String statusName);
+    CheckedStatus findByName(String statusName);
 }
