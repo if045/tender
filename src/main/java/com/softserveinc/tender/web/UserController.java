@@ -1,6 +1,7 @@
 package com.softserveinc.tender.web;
 
 import com.softserveinc.tender.dto.CustomerRegistrationDataDto;
+import com.softserveinc.tender.dto.LoggedUserDto;
 import com.softserveinc.tender.dto.PrivateCustomerRegistrationDataDto;
 import com.softserveinc.tender.dto.PrivateSellerRegistrationDataDto;
 import com.softserveinc.tender.dto.RoleDto;
@@ -52,5 +53,10 @@ public class UserController {
     @RequestMapping(value = "/profile/data", method = RequestMethod.GET)
     public @ResponseBody UsersProfileDataDto showUserProfileData() {
         return userServiceFacade.findUsersProfileInfo();
+    }
+
+    @RequestMapping(value = "/loggedUserInfo", method = RequestMethod.GET)
+    public @ResponseBody LoggedUserDto getLoggedUserInfo() {
+        return userServiceFacade.getLoggedUserInfo();
     }
 }

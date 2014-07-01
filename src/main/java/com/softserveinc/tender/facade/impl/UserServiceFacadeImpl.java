@@ -5,6 +5,7 @@ import com.softserveinc.tender.dto.CategoryDto;
 import com.softserveinc.tender.dto.CompanyDto;
 import com.softserveinc.tender.dto.CustomerRegistrationDataDto;
 import com.softserveinc.tender.dto.LocationDto;
+import com.softserveinc.tender.dto.LoggedUserDto;
 import com.softserveinc.tender.dto.PersonalInfoDto;
 import com.softserveinc.tender.dto.PrivateCustomerRegistrationDataDto;
 import com.softserveinc.tender.dto.PrivateSellerRegistrationDataDto;
@@ -31,6 +32,7 @@ import com.softserveinc.tender.service.LocationService;
 import com.softserveinc.tender.service.ProfileService;
 import com.softserveinc.tender.service.RoleService;
 import com.softserveinc.tender.service.UserService;
+import com.softserveinc.tender.util.Constants;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -278,6 +280,21 @@ public class UserServiceFacadeImpl implements UserServiceFacade {
     @Override
     public UsersProfileDataDto findUsersProfileInfo() {
         return mapUserProfileData(userService.findByLogin(getUserLogin()));
+    }
+
+    @Override
+    public LoggedUserDto getLoggedUserInfo() {
+        LoggedUserDto loggedUserDto=new LoggedUserDto();
+        List<String> roles = new ArrayList<>();
+        String userLogin = getUserLogin();
+        if (!userLogin.equals(Constants.UNKNOWN_USER)){
+            for (Role role:userService.findByLogin(userLogin).getRoles()){
+                roles.add(role.getName());
+            }
+            loggedUserDto.setLogin(userLogin);
+        }
+        loggedUserDto.setRoles(roles);
+        return loggedUserDto;
     }
 
     private UsersProfileDataDto mapUserProfileData(User user) {

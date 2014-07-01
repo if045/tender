@@ -35,5 +35,8 @@ function setCookie(name, value, options) {
 }
 
 function deleteCookie(name) {
-    setCookie(name, "", { expires: -1 })
+    /*setCookie(name, "", { expires: -1 })*/
+    var cookie_date = new Date ( );
+    cookie_date.setTime ( cookie_date.getTime() - 1 );
+    document.cookie = name += "=; expires=" + cookie_date.toGMTString();
 }
