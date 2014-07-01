@@ -9,6 +9,7 @@ import com.softserveinc.tender.service.CheckedProfileService;
 import com.softserveinc.tender.service.CheckedStatusService;
 import com.softserveinc.tender.service.ProfileService;
 import com.softserveinc.tender.service.UserService;
+import com.softserveinc.tender.util.Util;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -59,7 +60,7 @@ public class ProfileServiceFacadeImpl implements ProfileServiceFacade {
                 checkedProfile = new CheckedProfile();
                 checkedProfile.setProfile(profile);
             }
-            checkedProfile.setModerator(userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()));
+            checkedProfile.setModerator(userService.findByLogin(Util.getUserLogin()));
             checkedProfile.setStatus(checkedStatusService.findByName(statusName));
             checkedProfileService.save(checkedProfile);
         }

@@ -11,6 +11,7 @@
     <http use-expressions="true" auto-config="true">
         <intercept-url pattern="/mydeals" access="hasAnyRole('CUSTOMER','SELLER')" />
         <intercept-url pattern="/mytenders" access="hasAnyRole('CUSTOMER','SELLER')" />
+        <intercept-url pattern="/moderatorHome" access="hasAnyRole('MODERATOR')" />
         <access-denied-handler error-page="/403" />
         <form-login login-page="/login"
                     authentication-failure-url="/login?error"
