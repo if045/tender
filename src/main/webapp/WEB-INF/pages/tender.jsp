@@ -98,9 +98,7 @@
                                 <th><span class="sortable" name="quantity">Quantity</span></th>
                                 <th>Bids</th>
                                 <th>Seller price</th>
-                                <security:authorize access="hasRole('CUSTOMER')">
-                                    <th>Deal</th>
-                                </security:authorize>
+                                <th class="js-actionDeal">Deal</th>
                             </thead>
                             <tbody id="unitsTable"></tbody>
                         </table>
@@ -112,9 +110,7 @@
                                 <th>Seller</th>
                                 <th>Units</th>
                                 <th>Total price</th>
-                                <security:authorize access="hasRole('CUSTOMER')">
-                                    <th>Deal</th>
-                                </security:authorize>
+                                <th class="js-actionDeal">Deal</th>
                             </thead>
                             <tbody id="proposals"/>
                         </table>

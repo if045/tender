@@ -57,4 +57,12 @@ var CONFLICTS = "/conflicts";
 
 var LOG_OUT = "/logout";
 var HOME_PAGE_URL = "/tendersHome";
+var USER_INFO_URL = "/loggedUserInfo";
+var USER_URL = "/user";
 
+/*variables*/
+var CURRENT_ROLE = '';
+
+/*user roles*/
+var CUSTOMER = "CUSTOMER";
+var SELLER = "SELLER";
