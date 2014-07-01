@@ -14,8 +14,8 @@ public class ConflictServiceImpl implements ConflictService{
     private ConflictRepository conflictRepository;
 
     @Override
-    public List<Conflict> findAll() {
-        return conflictRepository.findAll();
+    public List<Conflict> findAllByModeratorId(Integer id) {
+        return conflictRepository.findByModeratorId(id);
     }
 
     @Override

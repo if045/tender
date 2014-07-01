@@ -18,6 +18,10 @@
     <script type='text/javascript' src='<c:url value="../resources/js/jquery-2.1.1.min.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/bootstrap.min.js"/>'></script>
 
+    <script type='text/javascript' src='<c:url value="../resources/js/constants.js"/>'></script>
+    <script type='text/javascript' src='<c:url value="../resources/js/moderator.js"/>'></script>
+
+
 </head>
 <body>
 
@@ -79,25 +83,7 @@
                                 <th align="center" id="options_action"><span>Options</span></th>
                             </tr>
                             </thead>
-                            <tbody>
-                            <tr>
-                                <td>Title1</td><td>Name1</td><td>Name1</td><td><button class="btn btn-default" type="button">Action</button></td>
-                            </tr>
-                            <tr>
-                                <td>Title2</td><td>Name2</td><td>Name2</td><td><button class="btn btn-default" type="button">Action</button></td>
-                            </tr>
-                            <tr>
-                                <td>Title3</td><td>Name3</td><td>Name3</td><td><button class="btn btn-default" type="button">Action</button></td>
-                            </tr>
-                            <tr>
-                                <td>Title4</td><td>Name4</td><td>Name4</td><td><button class="btn btn-default" type="button">Action</button></td>
-                            </tr>
-                            <tr>
-                                <td>Title5</td><td>Name5</td><td>Name5</td><td><button class="btn btn-default" type="button">Action</button></td>
-                            </tr>
-                            <tr>
-                                <td>Title6</td><td>Name6</td><td>Name6</td><td><button class="btn btn-default" type="button">Action</button></td>
-                            </tr>
+                            <tbody id="conflict_table">
                             </tbody>
                         </table>
                         <!-- table-->
