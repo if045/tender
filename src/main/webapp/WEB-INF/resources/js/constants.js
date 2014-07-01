@@ -20,6 +20,7 @@ var DEALS_NUMBER_URL = '/deals/number';
 /*Constants for deals.js*/
 
 var PROPOSALS_URL = "/proposals";
+var SET_AUTHOR_SAW = "/setAuthorSaw";
 var UNITS_URL = '/units';
 var BIDS_URL = '/bids';
 
@@ -50,7 +51,7 @@ var DEFAULT_SORT_FIELD = "createDate";
 var DEFAULT_DEALS_SORT_FIELD = "date";
 
 /*Constants for conflict*/
-var DEALS ="/deals/";
+var DEALS = "/deals/";
 var CONFLICTS = "/conflicts";
 
 /*Constants for moderator.js*/
@@ -59,4 +60,20 @@ var MODERATOR_PROFILE_DATA_URL = "/moderator/profiles";
 var MODERATOR_PROFILE_STATUS_URL = "/moderator/profilestatus";
 /*Constants for moderator.js*/
 
+
+var LOG_OUT = "/logout";
+var HOME_PAGE_URL = "/tendersHome";
+var USER_INFO_URL = "/loggedUserInfo";
+var USER_URL = "/user";
+
+
+/*Constants for moderatorHomePage*/
+var MODERATOR_URL = "/moderator"
+
+/*variables*/
+var CURRENT_ROLE = '';
+
+/*user roles*/
+var CUSTOMER = "CUSTOMER";
+var SELLER = "SELLER";
 

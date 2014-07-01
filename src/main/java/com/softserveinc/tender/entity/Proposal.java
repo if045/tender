@@ -41,6 +41,9 @@ public class Proposal {
     @OneToMany(mappedBy = "proposal")
     private List<Bid> bids;
 
+    @Column(name = "tender_author_saw")
+    private Boolean tenderAuthorSaw;
+
     public Integer getId() {
         return id;
     }
@@ -95,5 +98,13 @@ public class Proposal {
 
     public void setBids(List<Bid> bids) {
         this.bids = bids;
+    }
+
+    public Boolean getTenderAuthorSaw() {
+        return tenderAuthorSaw;
+    }
+
+    public void setTenderAuthorSaw(Boolean tenderAuthorSaw) {
+        this.tenderAuthorSaw = tenderAuthorSaw;
     }
 }

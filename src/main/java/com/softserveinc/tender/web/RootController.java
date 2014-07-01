@@ -1,5 +1,7 @@
 package com.softserveinc.tender.web;
 
+import com.softserveinc.tender.facade.UserServiceFacade;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -13,6 +15,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class RootController {
+
+    @Autowired
+    private UserServiceFacade userServiceFacade;
 
     @RequestMapping("/tendersHome")
     public String getAllTenders() {
@@ -70,6 +75,11 @@ public class RootController {
         }
         model.setViewName("403");
         return model;
+    }
+
+    @RequestMapping("/loginSuccess")
+    public String getHomePage() {
+        return userServiceFacade.getHomePage();
     }
 
 }
