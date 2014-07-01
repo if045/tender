@@ -157,7 +157,7 @@
                     <div id="moderator_profile_pagination" class="row">
                         <div class="col-md-12">
                             <div class="pull-right">
-                                <ul class="moderator_profile_page_pagination page_pagination pull-right"></ul>
+                                <ul class="moderator_profile_page_pagination page_pagination pagination pull-right"></ul>
                             </div>
                             <div class="pull-right">
                                 <div class="control-group">
@@ -174,7 +174,6 @@
                             </div>
                         </div>
                     </div>
-
                     <!-- pagination -->
                 </div>
             </div>

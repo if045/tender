@@ -9,7 +9,7 @@ $(document).ready(function() {
     populateConflictTable();
 
     $('#moderator_profilesnum').on('change', function() {
-        moderatorProfileCurrPageSize = this.value;
+        moderatorProfilePageSize = $('#moderator_profilesnum').val();
         moderatorProfileCurrPageNumber = 0;
         showProfilesPage(moderatorProfileCurrPageNumber);
     });
@@ -140,7 +140,7 @@ function showProfilesPagination(queryParams) {
                 }
                 html += '<li class="'+((moderatorProfileCurrPageNumber==pageNumber-1)?"disabled":"")+'"><a id="profiles_next_page" href="#">&raquo;</a></li>';
 
-                $('.page_pagination').html(html).show();
+                $('.moderator_profile_page_pagination').html(html).show();
                 $('#moderator_profile_pagination').show();
 
                 if(moderatorProfileCurrPageNumber != 0) {
@@ -151,7 +151,7 @@ function showProfilesPagination(queryParams) {
                     document.getElementById('profiles_next_page').setAttribute("onclick", "showProfilesPage("+(moderatorProfileCurrPageNumber+1)+");");
                 }
             } else {
-                $('moderator_profile_pagination').hide();
+                $('#moderator_profile_pagination').hide();
             }
         },
         error:function(){
