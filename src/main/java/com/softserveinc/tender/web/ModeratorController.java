@@ -41,8 +41,7 @@ public class ModeratorController {
 
     @PreAuthorize("hasRole('MODERATOR')")
     @RequestMapping(value = "/profilesnumber", method = RequestMethod.GET)
-    public @ResponseBody
-    ProfilesNumberDto getDealsNumber(@RequestParam(value = "searchParam",required = false) String searchParam) {
+    public @ResponseBody ProfilesNumberDto getDealsNumber(@RequestParam(value = "searchParam",required = false) String searchParam) {
         return profileFacade.getProfilesNumber(searchParam);
     }
 

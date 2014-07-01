@@ -136,15 +136,17 @@
                             <thead>
                             <tr>
                                 <th align="center" id="moderator_profile_title">
-                                    <span>Profile</span>
+                                    <span class="glyphicon sortable"><span>Profile</span></span>
                                 </th>
                                 <th align="center" id="moderator_profile_login">
-                                    <span>User login</span>
+                                    <span class="glyphicon sortable glyphicon-chevron-down"><span>User login</span></span>
                                 </th>
                                 <th align="center" id="moderator_profile_telephone">
-                                    <span>Telephone</span>
+                                    <span class="glyphicon sortable"><span>Telephone</span></span>
                                 </th>
-                                <th align="center" id="moderator_profile_action"><span>Action</span></th>
+                                <th align="center" id="moderator_profile_action">
+                                    <span class="glyphicon sortable"><span>Action</span></span>
+                                </th>
                             </tr>
                             </thead>
                             <tbody id="moderator_profiles"></tbody>
