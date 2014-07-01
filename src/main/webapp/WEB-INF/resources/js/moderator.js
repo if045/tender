@@ -25,12 +25,19 @@ $(document).ready(function() {
     $("#moderator_profile_telephone").click(function(){
         sortUsersProfiles("telephone","moderator_profile_telephone");
     });
+
+    $('#search_profiles').keypress(function(e) {
+        if (e.keyCode == ENTER_BUTTON_CODE) {
+            showUsersProfiles();
+            return false;
+        }
+    });
 });
 
 function showUsersProfiles() {
     var queryParams = '';
 
-    if($('#search_deals').val()!=""){
+    if($('#search_profiles').val()!=""){
         queryParams += (queryParams.length==0)?"searchParam="+$('#search_profiles').val():"&searchParam="+$('#search_profiles').val();
     }
 
