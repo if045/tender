@@ -154,7 +154,7 @@ public class DealServiceFacadeImpl implements DealServiceFacade {
         return dealDto;
     }
 
-    private ConflictDto mapConflict(Conflict conflict) {
+    public ConflictDto mapConflict(Conflict conflict) {
         ConflictDto conflictDto = new ConflictDto();
         conflictDto.setId(conflict.getId());
         conflictDto.setBidId(conflict.getBid().getId());
@@ -181,7 +181,7 @@ public class DealServiceFacadeImpl implements DealServiceFacade {
         return mapConflict(savedConflict);
     }
 
-    private FeedbackDto mapFeedback(Feedback feedback) {
+    public FeedbackDto mapFeedback(Feedback feedback) {
         FeedbackDto feedbackDto = new FeedbackDto();
         feedbackDto.setId(feedback.getId());
         feedbackDto.setProfileId(feedback.getProfile().getId());
