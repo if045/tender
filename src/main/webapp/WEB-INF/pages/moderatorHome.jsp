@@ -20,10 +20,6 @@
     <script type='text/javascript' src='<c:url value="../resources/js/constants.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/moderator.js"/>'></script>
 
-    <script type='text/javascript' src='<c:url value="../resources/js/constants.js"/>'></script>
-    <script type='text/javascript' src='<c:url value="../resources/js/moderator.js"/>'></script>
-
-
 </head>
 <body>
 
