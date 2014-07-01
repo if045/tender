@@ -1,5 +1,6 @@
 package com.softserveinc.tender.web;
 
+import com.softserveinc.tender.entity.template.Roles;
 import com.softserveinc.tender.facade.ProposalServiceFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,8 +16,9 @@ public class ProposalController {
     private ProposalServiceFacade proposalServiceFacade;
 
     @RequestMapping(method = RequestMethod.GET)
-    public @ResponseBody Long getNewProposalsNumber(@RequestParam("isNew") boolean isNew){
-        if (isNew) {
+    public @ResponseBody Long getNewProposalsNumber(@RequestParam("isNew") boolean isNew,
+                                                    @RequestParam("userRole") String userRole){
+        if (isNew && userRole.equals(Roles.CUSTOMER.toString())) {
             return proposalServiceFacade.getNewProposalsNumber();
         } else return 0L;
     }
