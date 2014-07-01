@@ -1,10 +1,44 @@
+var moderatorProfilePageSize = DEFAULT_PAGE_SIZE;
+var moderatorProfileCurrPageNumber = 0;
+
+var moderatorProfileSortDirection = false;
+var moderatorProfileOrderBy = MODERATOR_PROFIL_DEFAULT_SORT_FIELD;
+
 $(document).ready(function() {
     showUsersProfiles();
     populateConflictTable();
+
+    $('#moderator_profilesnum').on('change', function() {
+        moderatorProfileCurrPageSize = this.value;
+        moderatorProfileCurrPageNumber = 0;
+        showProfilesPage(moderatorProfileCurrPageNumber);
+    });
+
+    $("#moderator_profile_title").click(function(){
+        sortUsersProfiles("firstName","moderator_profile_title");
+    });
+
+    $("#moderator_profile_login").click(function(){
+        sortUsersProfiles("user.login","moderator_profile_login");
+    });
+
+    $("#moderator_profile_telephone").click(function(){
+        sortUsersProfiles("telephone","moderator_profile_telephone");
+    });
 });
 
 function showUsersProfiles() {
     var queryParams = '';
+
+    if($('#search_deals').val()!=""){
+        queryParams += (queryParams.length==0)?"searchParam="+$('#search_profiles').val():"&searchParam="+$('#search_profiles').val();
+    }
+
+    showProfilesPagination(queryParams);
+
+    queryParams += (queryParams.length==0)?"pageSize="+moderatorProfilePageSize:"&pageSize="+moderatorProfilePageSize;
+    queryParams += "&pageNumber=" + moderatorProfileCurrPageNumber + "&sortDirection=" +
+        ((moderatorProfileSortDirection)?"desc":"asc") + "&orderBy=" + moderatorProfileOrderBy;
 
     $.ajax({
         url: MODERATOR_PROFILE_DATA_URL,
@@ -86,3 +120,61 @@ function populateConflictTable() {
     });
 }
 
+function showProfilesPagination(queryParams) {
+    $.ajax({
+        url: MODERATOR_PROFILES_NUMBER_URL,
+        async: false,
+        type: "GET",
+        data:  queryParams,
+        dataType:'json',
+
+        success: function(data) {
+            var dataSize = data.profilesNumber;
+            var pageNumber = Math.ceil(dataSize / moderatorProfilePageSize);
+
+            if(dataSize > 0 && moderatorProfilePageSize < dataSize) {
+                var html = '';
+                html += '<li class="'+((moderatorProfileCurrPageNumber==0)?"disabled":"")+'"><a id="profiles_prev_page" href="#">&laquo;</a></li>';
+                for(var z=1;z<=pageNumber;z++) {
+                    html += '<li class="'+((moderatorProfileCurrPageNumber==z-1)?"active":"")+'"><a href="#" onclick="showProfilesPage('+(z-1)+');">'+z+'</a></li>';
+                }
+                html += '<li class="'+((moderatorProfileCurrPageNumber==pageNumber-1)?"disabled":"")+'"><a id="profiles_next_page" href="#">&raquo;</a></li>';
+
+                $('.page_pagination').html(html).show();
+                $('#moderator_profile_pagination').show();
+
+                if(moderatorProfileCurrPageNumber != 0) {
+                    document.getElementById('profiles_prev_page').setAttribute("onclick", "showProfilesPage("+(moderatorProfileCurrPageNumber-1)+");");
+                }
+
+                if(moderatorProfileCurrPageNumber != pageNumber-1) {
+                    document.getElementById('profiles_next_page').setAttribute("onclick", "showProfilesPage("+(moderatorProfileCurrPageNumber+1)+");");
+                }
+            } else {
+                $('moderator_profile_pagination').hide();
+            }
+        },
+        error:function(){
+            $('#moderator_profile_pagination').hide();
+        }
+    });
+}
+
+function showProfilesPage(pageNumber) {
+    moderatorProfileCurrPageNumber = pageNumber;
+    showUsersProfiles();
+}
+
+function sortUsersProfiles(orderByField, elementId) {
+    moderatorProfileSortDirection = (moderatorProfileOrderBy == orderByField) ? !moderatorProfileSortDirection : false;
+    moderatorProfileOrderBy = orderByField;
+
+    $('#moderator_profile_items .sortable').removeClass('glyphicon-chevron-up').removeClass('glyphicon-chevron-down');
+    if(moderatorProfileSortDirection == false) {
+        $('#'+elementId+' .sortable').addClass('glyphicon-chevron-up').removeClass('glyphicon-chevron-down');
+    } else {
+        $('#'+elementId+' .sortable').addClass('glyphicon-chevron-down').removeClass('glyphicon-chevron-up');
+    }
+
+    showUsersProfiles();
+}

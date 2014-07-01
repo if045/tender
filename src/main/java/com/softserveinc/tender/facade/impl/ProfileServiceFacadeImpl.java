@@ -1,6 +1,7 @@
 package com.softserveinc.tender.facade.impl;
 
 import com.softserveinc.tender.dto.ProfileDto;
+import com.softserveinc.tender.dto.ProfilesNumberDto;
 import com.softserveinc.tender.entity.CheckedProfile;
 import com.softserveinc.tender.entity.CheckedStatus;
 import com.softserveinc.tender.entity.Profile;
@@ -12,6 +13,7 @@ import com.softserveinc.tender.service.UserService;
 import com.softserveinc.tender.util.Util;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -38,10 +40,19 @@ public class ProfileServiceFacadeImpl implements ProfileServiceFacade {
     private UserService userService;
 
     @Override
-    public List<ProfileDto> findAllProfiles() {
-        List<Profile> profiles = profileService.findAllProfiles();
+    public List<ProfileDto> findAllProfiles(Pageable pageable, String searchParam) {
+        List<Profile> profiles = profileService.findAllProfiles(pageable, searchParam);
 
         return mapProfiles(profiles);
+    }
+
+    @Override
+    public ProfilesNumberDto getProfilesNumber(String searchParam) {
+        Long profilesNumber = profileService.getProfilesNumber(searchParam);
+        ProfilesNumberDto profilesNumberDto = new ProfilesNumberDto();
+        profilesNumberDto.setProfilesNumber(profilesNumber);
+
+        return  profilesNumberDto;
     }
 
     @Override

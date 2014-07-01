@@ -120,7 +120,7 @@
                         <div class="pull-right">
                             <form id="search_form_for_profile" class="navbar-form navbar-right" role="search">
                                 <div class="form-group">
-                                    <input id="search_tenders_by_login" type="text" class="form-control"
+                                    <input id="search_profiles" type="text" class="form-control"
                                            placeholder="Search by login...">
                                 </div>
                             </form>
@@ -155,11 +155,11 @@
                     <div id="moderator_profile_pagination" class="row">
                         <div class="col-md-12">
                             <div class="pull-right">
-                                <ul class="pagination page_pagination pull-right"></ul>
+                                <ul class="moderator_profile_page_pagination page_pagination pull-right"></ul>
                             </div>
                             <div class="pull-right">
                                 <div class="control-group">
-                                    <select id="moderator_profile_pagination_itemsnum" class="form-control pull-right items_number_dropdown">
+                                    <select id="moderator_profilesnum" class="form-control pull-right items_number_dropdown">
                                         <option value="5">5</option>
                                         <option value="10" selected>10</option>
                                         <option value="15">15</option>
