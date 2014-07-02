@@ -29,7 +29,9 @@
                                             <div class="form-group has-feedback">
                                                 <div class="input-group">
                                                     <span class="input-group-addon glyphicon glyphicon-pencil"></span>
-                                                    <input name="first_name" type="text" class="form-control required-field" placeholder="First name">
+                                                    <input name="first_name" id="first_name_to_update"
+                                                           type="text" class="form-control required-field"
+                                                           placeholder="First name">
                                                 </div>
                                             </div>
                                         </div>
@@ -40,7 +42,9 @@
                                             <div class="form-group has-feedback">
                                                 <div class="input-group">
                                                     <span class="input-group-addon glyphicon glyphicon-pencil"></span>
-                                                    <input name="last_name" type="text" class="form-control required-field" placeholder="Last name">
+                                                    <input name="last_name" id="last_name_to_update"
+                                                           type="text" class="form-control required-field"
+                                                           placeholder="Last name">
                                                 </div>
                                             </div>
                                         </div>
@@ -51,7 +55,9 @@
                                             <div class="form-group has-feedback">
                                                 <div class="input-group">
                                                     <span class="input-group-addon glyphicon glyphicon-earphone"></span>
-                                                    <input name="phone_number" type="tel" class="form-control required-field" placeholder="Phone number">
+                                                    <input name="phone_number" id="phone_to_update"
+                                                           type="tel" class="form-control required-field"
+                                                           placeholder="Phone number">
                                                 </div>
                                             </div>
                                         </div>
@@ -73,17 +79,24 @@
                                             <div class="input-group date pull-left" id="birth_date"
                                                  data-date-format="dd-mm-yyyy">
                                                 <span class="input-group-addon fa glyphicon glyphicon-calendar"></span>
-                                                <input class="form-control" type="text" value="" placeholder="Birth date">
+                                                <input class="form-control" id="birth_to_update"
+                                                       type="text" value="" placeholder="Birth date">
                                             </div>
                                         </div>
                                     </div>
 
                                     <div class="row backdown radio-toolbar">
                                         <div class="col-md-4">
-                                            <input type="radio" name="person" value="legal"><span id="legal-radio" class="required-radio"> Legal person</span>
+                                            <input id="legal_to_update" type="radio" name="person" value="legal">
+                                                <span id="legal-radio" class="required-radio">
+                                                    Legal person
+                                                </span>
                                         </div>
                                         <div class="col-md-5">
-                                            <input type="radio" name="person" value="private"><span id="private-radio" class="required-radio"> Private person</span>
+                                            <input id="private_to_update" type="radio" name="person" value="private">
+                                                <span id="private-radio" class="required-radio">
+                                                    Private person
+                                                </span>
                                         </div>
                                     </div>
                                 </div>
@@ -110,7 +123,9 @@
                                             <div class="form-group has-feedback">
                                                 <div class="input-group">
                                                     <span class="input-group-addon glyphicon glyphicon-user"></span>
-                                                    <input name="login" type="text" class="form-control required-field" placeholder="User name (email)">
+                                                    <input name="login" id="login_to_update"
+                                                           type="text" class="form-control required-field"
+                                                           placeholder="User name (email)">
                                                 </div>
                                             </div>
                                         </div>
@@ -121,7 +136,9 @@
                                             <div class="form-group has-feedback">
                                                 <div class="input-group">
                                                     <span class="input-group-addon glyphicon glyphicon-wrench"></span>
-                                                    <input name="password" type="password" class="form-control required-field" placeholder="Password">
+                                                    <input name="password" id="password_to_update"
+                                                           type="password" class="form-control required-field"
+                                                           placeholder="Password">
                                                 </div>
                                             </div>
                                         </div>
@@ -132,7 +149,9 @@
                                             <div class="form-group has-feedback">
                                                 <div class="input-group">
                                                     <span class="input-group-addon glyphicon glyphicon-wrench"></span>
-                                                    <input name="confirm_password" type="password" class="form-control required-field" placeholder="Confirm password">
+                                                    <input name="confirm_password" id="confirm_password_to_update"
+                                                           type="password" class="form-control required-field"
+                                                           placeholder="Confirm password">
                                                 </div>
                                             </div>
                                         </div>
@@ -252,7 +271,7 @@
             </div>
             <div class="modal-footer">
                 <div class="row">
-                    <button type="button" class="btn btn-success">Confirm</button>
+                    <button type="button" onclick="updateUserData()" class="btn btn-success">Confirm</button>
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
                 </div>
             </div>

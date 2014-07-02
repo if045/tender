@@ -378,3 +378,58 @@ function showEditTradeSpherePanel() {
     $(".company-info").attr("hidden", "hidden");
     $(".trade-sphere-info").removeAttr("hidden");
 }
+
+function updateUserData() {
+    var newJson = $.parseJSON(buildPersonalDataJSON());
+
+    var url = USER_PERSONAL_DATA_URL;
+
+    $.ajax({
+        url: url,
+        type: "PUT",
+        data:  JSON.stringify(newJson),
+        dataType:'json',
+        contentType: 'application/json',
+
+        success: function(data) {
+            goToUserProfilePage();
+        },
+
+        error: function(){
+            alert(ERROR_MESSAGE);
+        }
+    });
+}
+
+function buildPersonalDataJSON() {
+    return '{' + buildUserPersonalData() + ',' + buildProfileUpdateData() + '}';
+}
+
+function buildUserPersonalData() {
+    var login = $('#login_to_update').val();
+    var password = $('#password_to_update').val();
+
+    return '"login":"'    + login    + '",' +
+           '"password":"' + password + '"';
+}
+
+function buildProfileUpdateData() {
+    var firstNme = $('#first_name_to_update').val();
+    var lastName = $('#last_name_to_update').val();
+    var birthday = $('#birth_to_update').val();
+    var phoneNumber = $('#phone_to_update').val();
+    var person;
+
+    if($('#legal_to_update').is(":checked")) {
+        person = LEGAL_PERSON;
+    } else if($('#private_to_update').is(":checked")) {
+        person = PRIVATE_PERSON;
+    }
+
+    return '"profileDto":{' +
+        '"firstName":"'  + firstNme    + '",' +
+        '"lastName":"'   + lastName    + '",' +
+        '"birthday":"'   + birthday    + '",' +
+        '"telephone":"'  + phoneNumber + '",' +
+        '"person":"'     + person      + '"}';
+}
