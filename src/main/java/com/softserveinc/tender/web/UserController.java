@@ -1,6 +1,7 @@
 package com.softserveinc.tender.web;
 
 import com.softserveinc.tender.dto.CustomerRegistrationDataDto;
+import com.softserveinc.tender.dto.LoggedUserDto;
 import com.softserveinc.tender.dto.PrivateCustomerRegistrationDataDto;
 import com.softserveinc.tender.dto.PrivateSellerRegistrationDataDto;
 import com.softserveinc.tender.dto.SellerRegistrationDataDto;
@@ -55,5 +56,10 @@ public class UserController {
     @RequestMapping(value = "/update/data", method = RequestMethod.PUT, consumes = "application/json")
     public @ResponseBody User updateUserProfileData(@RequestBody UserPersonalDataDto userPersonalData) {
         return userServiceFacade.updateUserData(userPersonalData);
+    }
+
+    @RequestMapping(value = "/loggedUserInfo", method = RequestMethod.GET)
+    public @ResponseBody LoggedUserDto getLoggedUserInfo() {
+        return userServiceFacade.getLoggedUserInfo();
     }
 }

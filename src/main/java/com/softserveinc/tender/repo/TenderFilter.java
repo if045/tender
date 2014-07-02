@@ -1,5 +1,7 @@
 package com.softserveinc.tender.repo;
 
+import com.softserveinc.tender.entity.template.Roles;
+
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
@@ -30,6 +32,11 @@ public class TenderFilter {
     private Character type;
     private Integer typeFlag;
 
+    private Integer profileId;
+    private Integer sellerTendersFlag;
+    private Integer customerTendersFlag;
+    private String userRole;
+
     public TenderFilter(Set<Integer> categories) {
         if (categories == null) {
             setCategoryFlag(1);
@@ -55,7 +62,8 @@ public class TenderFilter {
     }
 
     public TenderFilter(BigDecimal minPrice, BigDecimal maxPrice, Set<Integer> categories, List<Integer> locations,
-                        List<Integer> items, List<Integer> statuses, Date minDate, Date maxDate, String tenderTitle) {
+                        List<Integer> items, List<Integer> statuses, Date minDate, Date maxDate, String tenderTitle,
+                        String userRole) {
 
         if (minPrice == null & maxPrice == null) {
             setPriceFlag(1);
@@ -96,7 +104,17 @@ public class TenderFilter {
             setSearchFlag(0);
             this.tenderTitle = PERCENT + tenderTitle.toLowerCase().trim() + PERCENT;
         }
-
+        this.userRole = userRole;
+        if (userRole == null) {
+            setSellerTendersFlag(1);
+            setCustomerTendersFlag(1);
+        } else if (userRole.equals(Roles.CUSTOMER.toString())) {
+            setCustomerTendersFlag(0);
+            setSellerTendersFlag(1);
+        } else if (userRole.equals(Roles.SELLER.toString())) {
+            setSellerTendersFlag(0);
+            setCustomerTendersFlag(1);
+        }
     }
 
     public String getTenderTitle() {
@@ -249,5 +267,37 @@ public class TenderFilter {
 
     public void setMaxDate(Date maxDate) {
         this.maxDate = maxDate;
+    }
+
+    public Integer getProfileId() {
+        return profileId;
+    }
+
+    public void setProfileId(Integer profileId) {
+        this.profileId = profileId;
+    }
+
+    public Integer getSellerTendersFlag() {
+        return sellerTendersFlag;
+    }
+
+    public void setSellerTendersFlag(Integer sellerTendersFlag) {
+        this.sellerTendersFlag = sellerTendersFlag;
+    }
+
+    public Integer getCustomerTendersFlag() {
+        return customerTendersFlag;
+    }
+
+    public void setCustomerTendersFlag(Integer customerTendersFlag) {
+        this.customerTendersFlag = customerTendersFlag;
+    }
+
+    public String getUserRole() {
+        return userRole;
+    }
+
+    public void setUserRole(String userRole) {
+        this.userRole = userRole;
     }
 }

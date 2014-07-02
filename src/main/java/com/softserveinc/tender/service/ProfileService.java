@@ -5,7 +5,7 @@ import java.util.List;
 
 public interface ProfileService {
 
-    List<Profile> findAll();
+    List<Profile> findAllProfiles();
     Profile findProfileById(int id);
     Profile findProfileByUserLogin(String login);
     Profile saveProfile(Profile profile);

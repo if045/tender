@@ -4,6 +4,10 @@ var sendToServer = '';
 
 $(document).ready(function() {
     $('#createTenderWindow').on('shown.bs.modal', function () {
+        $('#create_tender_enddate').datepicker({
+            format: 'yyyy/mm/dd',
+            startDate: '+1d'
+        });
         $('.datepicker').addClass('modal_datepicker');
         var currentDate = getCurrentDate();
         $('#create_tender_enddate').data({date: currentDate});

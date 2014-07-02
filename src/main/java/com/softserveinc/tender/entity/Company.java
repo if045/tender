@@ -37,6 +37,9 @@ public class Company {
     @JoinColumn(name="address_id")
     private Address address;
 
+    @OneToOne(mappedBy = "company")
+    private Profile profile;
+
     public int getId() {
         return id;
     }

@@ -5,14 +5,27 @@
     <div class="container-fluid">
         <div class="navbar-header">
             <ul class="nav navbar-nav navbar-left nav_buttons">
-                <li><a class="navbar-brand" href="/tendersHome">UATender</a></li>
+                <li><a class="navbar-brand" href="#" onclick="goToHomePage();">UATender</a></li>
                 <security:authorize access="hasAnyRole('CUSTOMER','SELLER')">
-                    <li><button type="button" class="btn btn-default nav_button" disabled>My tenders</button></li>
+                    <li>
+                        <button id="my_tenders_btn" type="button" class="btn btn-info nav_button"
+                               onclick="goToMyTenders()">My tenders</button>
+                    </li>
                 </security:authorize>
                 <security:authorize access="hasAnyRole('CUSTOMER','SELLER')">
                     <li><button type="button" class="btn btn-default nav_button" onclick="goToMyDealsPage();">My
                                     deals<span class="new_deal_notification"></span></button></li>
                 </security:authorize>
+                <security:authorize access="hasRole('CUSTOMER')">
+                    <input id="CURRENT_USER_ROLE" value="CUSTOMER" hidden=""/>
+                </security:authorize>
+                <security:authorize access="hasRole('SELLER')">
+                    <input id="CURRENT_USER_ROLE" value="SELLER" hidden=""/>
+                </security:authorize>
+                <security:authorize access="! isAuthenticated()">
+                    <input id="CURRENT_USER_ROLE" value="" hidden=""/>
+                </security:authorize>
+
                 <li id="create_tender_button_onHeader"></li>
             </ul>
         </div>
@@ -24,7 +37,7 @@
                     <li><a href="/login">Log in</a></li>
                 </security:authorize>
                 <security:authorize access="isAuthenticated()">
-                    <li><a href="/logout">Log out</a></li>
+                    <li><a href="#" onclick="goLogOut()">Log out</a></li>
                 </security:authorize>
                 <security:authorize access="isAuthenticated()">
                     <li>

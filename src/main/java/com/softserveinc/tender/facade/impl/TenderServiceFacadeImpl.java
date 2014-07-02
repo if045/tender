@@ -20,7 +20,6 @@ import com.softserveinc.tender.entity.Deal;
 import com.softserveinc.tender.entity.Item;
 import com.softserveinc.tender.entity.Location;
 import com.softserveinc.tender.entity.Proposal;
-import com.softserveinc.tender.entity.Role;
 import com.softserveinc.tender.entity.Tender;
 import com.softserveinc.tender.entity.TenderStatus;
 import com.softserveinc.tender.entity.Unit;
@@ -59,6 +58,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import static com.softserveinc.tender.util.Util.getUserLogin;
 
 @Service("tenderServiceFacade")
 @Transactional
@@ -130,7 +131,6 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
         Long tendersNumber = tenderService.getTendersNumber(tenderFilter);
         TendersNumberDto tendersNumberDto = new TendersNumberDto();
         tendersNumberDto.setTendersNumber(tendersNumber);
-
         return tendersNumberDto;
     }
 
@@ -156,7 +156,7 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
         TenderDto tenderDto = new TenderDto();
         List<String> locations = new ArrayList<>();
         Set<String> categories = new HashSet<>();
-        List<String> roles = new ArrayList<>();
+        String userLogin = getUserLogin();
 
         tenderDto.setId(tender.getId());
         tenderDto.setTitle(tender.getTitle());
@@ -179,23 +179,17 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
         if (tender.getDescription()!=null){
             tenderDto.setDescription(tender.getDescription());
         }
-        if (SecurityContextHolder.getContext().getAuthentication().getName()!="anonymousUser"){
-            for (Role role:userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).getRoles()){
-                roles.add(role.getName());
+
+        tenderDto.setAuthorId(tender.getAuthor().getUser().getId());
+        if (userLogin!="anonymousUser"){
+            tenderDto.setUserId(userService.findByLogin(userLogin).getId());
+
+            if (tender.getAuthor().getId().equals(profileService.findProfileByUserLogin(userLogin).getId()) &&
+                    proposalService.getTenderNewProposalsForCustomer(tender.getId()) > 0) {
+                tenderDto.setHaveNewProposal(true);
             }
         }
-        if (SecurityContextHolder.getContext().getAuthentication().getName()!="anonymousUser"){
-            tenderDto.setRoleCount(userService.findByLogin(SecurityContextHolder.getContext().getAuthentication()
-            .getName()).getRoles().size());
-        }
-        if (SecurityContextHolder.getContext().getAuthentication().getName()!="anonymousUser"){
-            tenderDto.setLoggedUserName(SecurityContextHolder.getContext().getAuthentication().getName());
-        }
-        tenderDto.setAuthorId(tender.getAuthor().getUser().getId());
-        if (SecurityContextHolder.getContext().getAuthentication().getName()!="anonymousUser"){
-            tenderDto.setUserId(userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).getId());
-        }
-        tenderDto.setRoles(roles);
+
         return tenderDto;
     }
 
@@ -382,6 +376,7 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
         proposal.setDiscountCurrency(proposalSaveDto.getDiscountCurrency());
         proposal.setDiscountPercentage(proposalSaveDto.getDiscountPercentage());
         proposal.setDescription(proposalSaveDto.getDescription());
+        proposal.setTenderAuthorSaw(false);
         Proposal savedProposal = proposalService.save(proposal);
 
         List<Bid> bids = new ArrayList<>();
