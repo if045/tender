@@ -152,7 +152,9 @@
                                                         <button type="button"
                                                                 class="btn btn-primary btn-lg"
                                                                 data-toggle="modal"
-                                                                data-target="#editProfile">
+                                                                data-target="#editProfile"
+                                                                onclick="showEditPersonalPanel()"
+                                                                id="edit_personal_info">
                                                             Edit
                                                         </button>
                                                     </div>
@@ -200,7 +202,9 @@
                                                         <button type="button"
                                                                 class="btn btn-primary btn-lg"
                                                                 data-toggle="modal"
-                                                                data-target="#editProfile">
+                                                                data-target="#editProfile"
+                                                                onclick="showEditCompanyPanel()"
+                                                                id="edit_company_info">
                                                             Edit
                                                         </button>
                                                     </div>
@@ -234,7 +238,9 @@
                                                             <button type="button"
                                                                     class="btn btn-primary btn-lg"
                                                                     data-toggle="modal"
-                                                                    data-target="#editProfile">
+                                                                    data-target="#editProfile"
+                                                                    onclick="showEditTradeSpherePanel()"
+                                                                    id="edit_trade_sphere_info">
                                                                 Edit
                                                             </button>
                                                         </div>

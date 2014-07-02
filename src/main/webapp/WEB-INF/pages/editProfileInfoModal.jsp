@@ -16,7 +16,7 @@
             <div class="modal-body">
 
                 <%-- Edit user data --%>
-                <div class="row">
+                <div class="row personal-info" hidden="hidden">
                     <div>
                         <div class="panel panel-info">
                             <div class="panel-heading">
@@ -97,7 +97,7 @@
                 <%--Edit user data--%>
 
                 <%-- Edit user credentials --%>
-                <div class="row">
+                <div class="row personal-info" hidden="hidden">
                     <div>
                         <div class="panel panel-danger">
                             <div class="panel-heading">
@@ -145,7 +145,7 @@
                 <%-- Edit user credentials --%>
 
                 <%--Edit company data--%>
-                <div class="row">
+                <div class="row company-info" hidden="hidden">
                     <div>
                         <div class="panel panel-info">
                             <div class="panel-heading">
@@ -217,7 +217,7 @@
                 <%--Edit company data--%>
 
                 <%--Edit trade sphere--%>
-                <div class="row">
+                <div class="row trade-sphere-info" hidden="hidden">
                     <div>
                         <div class="panel panel-info">
                             <div class="panel-heading">

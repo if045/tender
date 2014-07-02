@@ -25,6 +25,9 @@ $(document).ready(function() {
     showTradeSphereInfoPanelData();
     showRating();
     checkPerson();
+    showEditPersonalPanel();
+    showEditCompanyPanel();
+    showEditTradeSpherePanel();
 });
 
 function mapDropdownData(url, id) {
@@ -355,4 +358,23 @@ function checkPerson(person) {
         document.getElementById("company_info").removeAttribute('hidden');
         return "Legal";
     }
+}
+
+// Edit profile logic
+function showEditPersonalPanel() {
+    $(".personal-info").removeAttr("hidden");
+    $(".company-info").attr("hidden", "hidden");
+    $(".trade-sphere-info").attr("hidden", "hidden");
+}
+
+function showEditCompanyPanel() {
+    $(".personal-info").attr("hidden", "hidden");
+    $(".company-info").removeAttr("hidden");
+    $(".trade-sphere-info").attr("hidden", "hidden");
+}
+
+function showEditTradeSpherePanel() {
+    $(".personal-info").attr("hidden", "hidden");
+    $(".company-info").attr("hidden", "hidden");
+    $(".trade-sphere-info").removeAttr("hidden");
 }
