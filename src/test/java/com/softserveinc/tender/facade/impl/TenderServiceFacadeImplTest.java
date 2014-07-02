@@ -1,3 +1,5 @@
+package com.softserveinc.tender.facade.impl;
+
 import com.softserveinc.tender.dto.CategoryDto;
 import com.softserveinc.tender.entity.Category;
 import com.softserveinc.tender.facade.impl.TenderServiceFacadeImpl;
