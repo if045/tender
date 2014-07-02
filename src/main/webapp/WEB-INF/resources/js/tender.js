@@ -5,6 +5,7 @@ var Units = [];
 var Proposals = [];
 var highLightedElement;
 var USER_ROLE;
+var LOGGED_USER_ID ='';
 
 $(document).ready(function () {
     $('#endDate').datepicker({
@@ -95,7 +96,7 @@ function buildUnitTable(data){
             '<td>' + data[i].quantity + ' ' + data[i].measurementName + '</td>' +
             '<td>' + data[i].numberOfBids + '</td>' +
         '<td class="js-sellerPrice" id="seller_price_' + data[i].id + '"></td>';
-        if (USER_ROLE.search('CUSTOMER')!=-1) {
+        if (USER_ROLE.search('CUSTOMER')!=-1&LOGGED_USER_ID!=null) {
             html += '<td align="center">' +
                 '<input  hidden="" type="text" id="selected_proposal_id_' + data[i].id + '"/>' +
                 '<input  hidden="" type="text" id="selected_bid_id_' + data[i].id + '"/>' +
@@ -103,6 +104,7 @@ function buildUnitTable(data){
                 '</td></tr>';
         }else{
             html += '</tr>';
+            $('.js-actionDeal').attr("hidden", "hidden");
         }
     }
     $('#unitsTable').html(html);
@@ -193,7 +195,12 @@ function showInfo(){
         locationsHtml += '<p class="form-control-static col-md-9" id="locations" rel="tooltip">' + locations + '</p>';
         $('#locations').html(locationsHtml);
         locs = data.locations;
-        USER_ROLE=data.roles.toString();
+        if (getCookie("userRole") != undefined){
+            USER_ROLE=getCookie("userRole");
+        }else{
+            USER_ROLE = '';
+            deleteCookie("userRole");
+        }
         var saveButtonOnTenderViewPage = '';
         if (data.userId != null) {
             if (data.userId.toString() == data.authorId.toString()) {
@@ -201,6 +208,7 @@ function showInfo(){
             }
         }
         $('#save_button_on_tender_view_page').html(saveButtonOnTenderViewPage);
+        LOGGED_USER_ID = data.userId
     });
 }
 
@@ -263,12 +271,13 @@ function showProposalsTable(propsArray, unitsArray) {
                     '<td class="js-highlightUnits" propId="' + propsArray[i].id +'">' + propsArray[i].numberOfBids + '</td>' +
                     '<td class="js-highlightUnits" propId="' + propsArray[i].id +'">' + propsArray[i].totalBidsPrice + '</td>';
                     //This button should only be available to the customer
-                    if (USER_ROLE.search('CUSTOMER')!=-1) {
+                    if (USER_ROLE.search(CUSTOMER) != -1 && LOGGED_USER_ID != null) {
                         html += '<td align="center">' +
                             '<button type="submit" class="btn' + buttonStyle + '" onclick="createProposalDeal(' + propsArray[i].id + ')">Deal</button>' +
                             '</td></tr>';
                     }else{
                         html += '</tr>';
+                        $('.js-actionDeal').attr("hidden", "hidden");
                     }
             }
         }

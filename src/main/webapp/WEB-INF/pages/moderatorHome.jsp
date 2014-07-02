@@ -17,6 +17,8 @@
 
     <script type='text/javascript' src='<c:url value="../resources/js/jquery-2.1.1.min.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/bootstrap.min.js"/>'></script>
+    <script type='text/javascript' src='<c:url value="../resources/js/constants.js"/>'></script>
+    <script type='text/javascript' src='<c:url value="../resources/js/moderator.js"/>'></script>
 
 </head>
 <body>
@@ -79,25 +81,7 @@
                                 <th align="center" id="options_action"><span>Options</span></th>
                             </tr>
                             </thead>
-                            <tbody>
-                            <tr>
-                                <td>Title1</td><td>Name1</td><td>Name1</td><td><button class="btn btn-default" type="button">Action</button></td>
-                            </tr>
-                            <tr>
-                                <td>Title2</td><td>Name2</td><td>Name2</td><td><button class="btn btn-default" type="button">Action</button></td>
-                            </tr>
-                            <tr>
-                                <td>Title3</td><td>Name3</td><td>Name3</td><td><button class="btn btn-default" type="button">Action</button></td>
-                            </tr>
-                            <tr>
-                                <td>Title4</td><td>Name4</td><td>Name4</td><td><button class="btn btn-default" type="button">Action</button></td>
-                            </tr>
-                            <tr>
-                                <td>Title5</td><td>Name5</td><td>Name5</td><td><button class="btn btn-default" type="button">Action</button></td>
-                            </tr>
-                            <tr>
-                                <td>Title6</td><td>Name6</td><td>Name6</td><td><button class="btn btn-default" type="button">Action</button></td>
-                            </tr>
+                            <tbody id="conflict_table">
                             </tbody>
                         </table>
                         <!-- table-->
@@ -145,99 +129,37 @@
                 </div>
                 <!-- search -->
                 <!-- table -->
-                <div id="profile_check" class="row">
-                    <table class="table table-bordered table-striped">
-                        <thead>
-                        <tr>
-                            <th align="center" id="profile_title">
-                                <span>Profile</span>
-                            </th>
-                            <th align="center" id="user_login_for_moder">
-                                <span>User login</span>
-                            </th>
-                            <th align="center" id="telephone">
-                                <span>Telephone</span>
-                            </th>
-                            <th align="center" id="options_action_for"><span>Options</span></th>
-                        </tr>
-                        </thead>
-                        <tbody>
+                <div id="profile_check" class="">
+                    <div id="moderator_profile_message"></div>
+                    <div id="moderator_profile_items">
+                        <table class="table table-bordered table-striped">
+                            <thead>
                             <tr>
-                                <td>Profile</td><td>Email</td><td>Telephone</td>
-                                <td>
-                                    <div class="btn-group">
-                                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                                            Status <span class="caret"></span>
-                                        </button>
-                                        <ul class="dropdown-menu" role="menu">
-                                            <li><a href="#">Unchecked</a></li>
-                                            <li><a href="#">Checked</a></li>
-                                            <li><a href="#">In progres</a></li>
-                                            <li><a href="#">Denied</a></li>
-                                        </ul>
-                                    </div>
-                                </td>
+                                <th align="center" id="moderator_profile_title">
+                                    <span>Profile</span>
+                                </th>
+                                <th align="center" id="moderator_profile_login">
+                                    <span>User login</span>
+                                </th>
+                                <th align="center" id="moderator_profile_telephone">
+                                    <span>Telephone</span>
+                                </th>
+                                <th align="center" id="moderator_profile_action"><span>Action</span></th>
                             </tr>
-                            <tr>
-                                <td>Profile2</td><td>Email2</td><td>Telephone2</td>
-                                <td>
-                                    <div class="btn-group">
-                                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                                            Status <span class="caret"></span>
-                                        </button>
-                                        <ul class="dropdown-menu" role="menu">
-                                            <li><a href="#">Unchecked</a></li>
-                                            <li><a href="#">Checked</a></li>
-                                            <li><a href="#">In progres</a></li>
-                                            <li><a href="#">Denied</a></li>
-                                        </ul>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Profile3</td><td>Email3</td><td>Telephone3</td>
-                                <td>
-                                    <div class="btn-group">
-                                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                                            Status <span class="caret"></span>
-                                        </button>
-                                        <ul class="dropdown-menu" role="menu">
-                                            <li><a href="#">Unchecked</a></li>
-                                            <li><a href="#">Checked</a></li>
-                                            <li><a href="#">In progres</a></li>
-                                            <li><a href="#">Denied</a></li>
-                                        </ul>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Profile4</td><td>Email4</td><td>Telephone4</td>
-                                <td>
-                                    <div class="btn-group">
-                                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                                            Status <span class="caret"></span>
-                                        </button>
-                                        <ul class="dropdown-menu" role="menu">
-                                            <li><a href="#">Unchecked</a></li>
-                                            <li><a href="#">Checked</a></li>
-                                            <li><a href="#">In progres</a></li>
-                                            <li><a href="#">Denied</a></li>
-                                        </ul>
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody id="moderator_profiles"></tbody>
+                        </table>
+                    </div>
                     <!-- table -->
                     <!-- pagination -->
-                    <div id="pagination" class="row">
+                    <div id="moderator_profile_pagination" class="row">
                         <div class="col-md-12">
                             <div class="pull-right">
                                 <ul class="pagination page_pagination pull-right"></ul>
                             </div>
                             <div class="pull-right">
                                 <div class="control-group">
-                                    <select id="pagination_items_num" class="form-control pull-right items_number_dropdown">
+                                    <select id="moderator_profile_pagination_itemsnum" class="form-control pull-right items_number_dropdown">
                                         <option value="5">5</option>
                                         <option value="10" selected>10</option>
                                         <option value="15">15</option>
@@ -313,5 +235,27 @@
     </div>
     <!--main-->
 </div>
+
+<!--Profile status updating confirm-->
+<div class="modal fade" id="moderator_profile_status" tabindex="-1" role="dialog" hidden="">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header"><button class="close" type="button" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Confirm</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" role="form">
+                    <h4>Do you want to update profile status?</h4>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button id="confirm_button" class="btn btn-primary" type="button">Yes</button>
+                <button class="btn btn-default" type="button" data-dismiss="modal">No</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Profile status updating confirm-->
+
 </body>
 </html>

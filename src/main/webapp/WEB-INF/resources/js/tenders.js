@@ -4,10 +4,9 @@
 
         var sortDirection = false;
         var orderBy = DEFAULT_SORT_FIELD;
-        var CURRENT_ROLE = '';
 
         $(document).ready(function() {
-            $('#startDate, #endDate, #create_tender_enddate').datepicker({
+            $('#startDate, #endDate').datepicker({
                 format: 'yyyy/mm/dd',
                 startDate: '-5y'
             });
@@ -198,17 +197,7 @@
                 success: function(data) {
                     var html = '';
                     var dataSize = data.length;
-                    var roleSwitcherButton = '';
-                    var createTenderButton = '';
-                    var loggedUserName = '';
-                    if (dataSize != 0 && data[0].roles[0]!=null){
-                       CURRENT_ROLE = getCookie("userRole");
-                    }else{
-                        deleteCookie("userRole");
-                    }
-                    if ((CURRENT_ROLE==""|CURRENT_ROLE == undefined) && dataSize != 0 && data[0].roles[0]!=null){
-                        CURRENT_ROLE = data[0].roles[0].toString();
-                    }
+
                     if(dataSize > 0) {
                         for (var i = 0; i < dataSize; i++) {
                             html += '<tr class="'+((data[i].haveNewProposal && getCookie("roleFlag") == "true")?"info":"")+'"><td align="center">' + data[i].title + '</td>' +
@@ -240,22 +229,7 @@
                                 '</div>' +
                                 '</td></tr>';
                         }
-                        if (CURRENT_ROLE.search('CUSTOMER')!=-1&(data[0].roleCount>1)){
-                            roleSwitcherButton = '<button type="button" class="btn btn-default nav_button" onclick="roleSwitcher()">Switch to Seller View</button>';
-                        }else if (CURRENT_ROLE.search('SELLER')!=-1&(data[0].roleCount>1)){
-                            roleSwitcherButton = '<button type="button" class="btn btn-default nav_button" onclick="roleSwitcher()">Switch to Customer View</button>';
-                        }
-                        if (CURRENT_ROLE.search('CUSTOMER')!=-1&(data[0].roleCount=1)){
-                            createTenderButton = '<button type="button" class="btn btn-default nav_button" data-toggle="modal" data-target="#createTenderWindow">Create tender</button>'
-                        }else if (CURRENT_ROLE.search('SELLER')!=-1&(data[0].roleCount=1)){
-                            createTenderButton = '';
-                        }
-                        if (data[0].loggedUserName!=null){
-                            loggedUserName = '<h6>'+data[0].loggedUserName+'</h6>'
-                        }
-                        $('#logged_user_name').html(loggedUserName);
-                        $('#role_switcher_button').html(roleSwitcherButton);
-                        $('#create_tender_button_onHeader').html(createTenderButton);
+
                         $('#user_message').html('');
                         $('#tender_items').show();
                         $('#tenders').html(html);
@@ -366,8 +340,8 @@
                     var html = '';
                     var dataSize = data.length;
                     var roleSwitcherButton = '';
-                    if (CURRENT_ROLE==""&data[0].roles!=null){
-                        CURRENT_ROLE = data[0].roles.toString();
+                    if (CURRENT_ROLE == "" && getCookie("userRole") != undefined){
+                        CURRENT_ROLE = getCookie("userRole");
                     }
                     if(dataSize > 0) {
                         for (var i = 0; i < dataSize; i++) {
@@ -388,13 +362,13 @@
                                 '<button data-toggle="dropdown" class="btn btn-default dropdown-toggle">Action<span class="caret"></span></button>' +
                                 '<ul class="dropdown-menu">'+
                                 '<li><a href="/tenderView/' + data[i].id + '">View</a></li>';
-                            if (CURRENT_ROLE.search('CUSTOMER')!=-1){
-                                if (data[i].userId.toString()==data[i].authorId.toString()){
+                            if (CURRENT_ROLE.search(CUSTOMER) != -1){
+                                if (data[i].userId.toString() == data[i].authorId.toString()){
                                     html += '<li><a href="#" data-toggle="modal" data-target="#close_tender_mod_wind" onclick="writeCloseTenderId(' + data[i].id + ')">Close</a></li>';
                                 }
                                 roleSwitcherButton = '<button type="button" class="btn btn-default nav_button" onclick="roleSwitcher()">Switch to Seller View</button>';
                             }
-                            if (CURRENT_ROLE.search('SELLER')!=-1){
+                            if (CURRENT_ROLE.search(SELLER) != -1){
                                 html += '<li><a href="#" data-toggle="modal" data-target="#createProposalWindow" onclick="showUnits(' + data[i].id + ')">Create proposal</a></li>';
                                 roleSwitcherButton = '<button type="button" class="btn btn-default nav_button" onclick="roleSwitcher()">Switch to Customer View</button>';
                             }
@@ -555,21 +529,5 @@
             }
 
             applyFilters();
-        }
-
-        function roleSwitcher(){
-            var options = {};
-            options.path = "/";
-            if (CURRENT_ROLE.search('CUSTOMER')!=-1){
-                setCookie("userRole", "SELLER", options);
-            }else if (CURRENT_ROLE.search('SELLER')!=-1){
-                setCookie("userRole", "CUSTOMER", options);
-            }
-            window.location.href = "/tendersHome"
-        }
-        function clearMyCookie(cookie_name){
-            var cookie_date = new Date ( );
-            cookie_date.setTime ( cookie_date.getTime() - 1 );
-            document.cookie = cookie_name += "=; expires=" + cookie_date.toGMTString();
         }
 

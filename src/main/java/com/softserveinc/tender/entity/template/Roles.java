@@ -1,8 +1,8 @@
 package com.softserveinc.tender.entity.template;
 
-public enum Role {
+public enum Roles {
     SELLER,
     CUSTOMER,
     MODERATOR,
-    ADMINISTRATOR,
+    ADMIN,
 }

@@ -1,6 +1,6 @@
 package com.softserveinc.tender.repo;
 
-import com.softserveinc.tender.entity.template.Role;
+import com.softserveinc.tender.entity.template.Roles;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -108,10 +108,10 @@ public class TenderFilter {
         if (userRole == null) {
             setSellerTendersFlag(1);
             setCustomerTendersFlag(1);
-        } else if (userRole.equals(Role.CUSTOMER.toString())) {
+        } else if (userRole.equals(Roles.CUSTOMER.toString())) {
             setCustomerTendersFlag(0);
             setSellerTendersFlag(1);
-        } else if (userRole.equals(Role.SELLER.toString())) {
+        } else if (userRole.equals(Roles.SELLER.toString())) {
             setSellerTendersFlag(0);
             setCustomerTendersFlag(1);
         }
