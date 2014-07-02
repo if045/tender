@@ -59,7 +59,7 @@ var MODERATOR_PAGE_URL = "/moderatorHome";
 var MODERATOR_PROFILE_DATA_URL = "/moderator/profiles";
 var MODERATOR_PROFILE_STATUS_URL = "/moderator/profilestatus";
 var MODERATOR_PROFILES_NUMBER_URL = "/moderator/profilesnumber";
-var MODERATOR_PROFIL_DEFAULT_SORT_FIELD = "user.login";
+var MODERATOR_PROFILE_DEFAULT_SORT_FIELD = "user.login";
 /*Constants for moderator.js*/
 
 

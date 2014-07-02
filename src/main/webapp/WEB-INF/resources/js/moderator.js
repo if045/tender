@@ -2,7 +2,7 @@ var moderatorProfilePageSize = DEFAULT_PAGE_SIZE;
 var moderatorProfileCurrPageNumber = 0;
 
 var moderatorProfileSortDirection = false;
-var moderatorProfileOrderBy = MODERATOR_PROFIL_DEFAULT_SORT_FIELD;
+var moderatorProfileOrderBy = MODERATOR_PROFILE_DEFAULT_SORT_FIELD;
 var ENTER_BUTTON_CODE = 13;
 
 $(document).ready(function() {
