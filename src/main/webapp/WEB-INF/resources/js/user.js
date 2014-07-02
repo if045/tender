@@ -382,7 +382,7 @@ function showEditTradeSpherePanel() {
 function updateUserData() {
     var newJson = $.parseJSON(buildPersonalDataJSON());
 
-    var url = "/user/update/data";
+    var url = USER_PERSONAL_DATA_URL;
 
     $.ajax({
         url: url,

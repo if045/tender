@@ -38,9 +38,7 @@ var PRIVATE_SELLER_REGISTRATION_URL = "/user/registration/seller/private";
 var PRIVATE_CUSTOMER_REGISTRATION_URL = "/user/registration/customer/private";
 USER_PROFILE_PAGE_URL = "/user/profile";
 USER_PROFILE_DATA_URL = "/user/profile/data";
-/*
 USER_PERSONAL_DATA_URL = "/user/update/data";
-*/
 /*Constants for user.js*/
 
 /*Constants for tenders pagination*/
