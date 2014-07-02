@@ -3,6 +3,7 @@ var moderatorProfileCurrPageNumber = 0;
 
 var moderatorProfileSortDirection = false;
 var moderatorProfileOrderBy = MODERATOR_PROFIL_DEFAULT_SORT_FIELD;
+var ENTER_BUTTON_CODE = 13;
 
 $(document).ready(function() {
     showUsersProfiles();
@@ -28,7 +29,9 @@ $(document).ready(function() {
 
     $('#search_profiles').keypress(function(e) {
         if (e.keyCode == ENTER_BUTTON_CODE) {
-            showUsersProfiles();
+            moderatorProfilePageSize = $('#moderator_profilesnum').val();
+            moderatorProfileCurrPageNumber = 0;
+            showProfilesPage(moderatorProfileCurrPageNumber);
             return false;
         }
     });
@@ -158,6 +161,7 @@ function showProfilesPagination(queryParams) {
                     document.getElementById('profiles_next_page').setAttribute("onclick", "showProfilesPage("+(moderatorProfileCurrPageNumber+1)+");");
                 }
             } else {
+                $('.moderator_profile_page_pagination').html('').hide();
                 $('#moderator_profile_pagination').hide();
             }
         },
