@@ -285,4 +285,12 @@ textarea {
     background-color: rgb(172, 196, 247);
 }
 
+#moderator_profile_telephone {
+    width: 230px;
+}
+
+#moderator_profile_title {
+    width: 335px;
+}
+
 
