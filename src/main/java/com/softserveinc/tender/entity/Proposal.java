@@ -30,7 +30,7 @@ public class Proposal {
     private Tender tender;
 
     @Column(name = "discount_percentage")
-    private BigDecimal discountPercentage;
+    private Double discountPercentage;
 
     @Column(name = "discount_currency")
     private BigDecimal discountCurrency;
@@ -40,6 +40,9 @@ public class Proposal {
 
     @OneToMany(mappedBy = "proposal")
     private List<Bid> bids;
+
+    @Column(name = "tender_author_saw")
+    private Boolean tenderAuthorSaw;
 
     public Integer getId() {
         return id;
@@ -65,11 +68,11 @@ public class Proposal {
         this.tender = tender;
     }
 
-    public BigDecimal getDiscountPercentage() {
+    public Double getDiscountPercentage() {
         return discountPercentage;
     }
 
-    public void setDiscountPercentage(BigDecimal discountPercentage) {
+    public void setDiscountPercentage(Double discountPercentage) {
         this.discountPercentage = discountPercentage;
     }
 
@@ -95,5 +98,13 @@ public class Proposal {
 
     public void setBids(List<Bid> bids) {
         this.bids = bids;
+    }
+
+    public Boolean getTenderAuthorSaw() {
+        return tenderAuthorSaw;
+    }
+
+    public void setTenderAuthorSaw(Boolean tenderAuthorSaw) {
+        this.tenderAuthorSaw = tenderAuthorSaw;
     }
 }

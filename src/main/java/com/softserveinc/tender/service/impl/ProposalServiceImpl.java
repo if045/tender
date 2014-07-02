@@ -31,12 +31,23 @@ public class ProposalServiceImpl implements ProposalService {
     }
 
     @Override
-    public void save(Proposal proposal) {
-        proposalRepository.save(proposal);
+    public Proposal save(Proposal proposal) {
+       return proposalRepository.save(proposal);
     }
 
     @Override
     public void deleteById(Integer id) {
         proposalRepository.delete(id);
     }
+
+    @Override
+    public Long getNewProposalsNumberForCustomerId(Integer id) {
+        return proposalRepository.findNewProposalsNumberForCustomerId(id);
+    }
+
+    @Override
+    public Long getTenderNewProposalsForCustomer(Integer tenderId) {
+        return proposalRepository.findTenderNewProposalsForCustomer(tenderId);
+    }
+
 }

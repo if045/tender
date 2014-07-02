@@ -7,5 +7,5 @@ public interface CheckedStatusService {
 
     List<CheckedStatus> findAll();
     CheckedStatus findById(int id);
-
+    CheckedStatus findByName(String statusName);
 }

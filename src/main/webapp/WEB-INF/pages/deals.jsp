@@ -4,6 +4,7 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
+<%@taglib uri="http://www.springframework.org/security/tags" prefix="security"%>
 
 <!DOCTYPE html>
 <html>
@@ -15,14 +16,22 @@
     <link rel="stylesheet" type="text/css" media="screen" href='<c:url value="../resources/css/datepicker.css"/>'/>
     <link rel="stylesheet" type="text/css" media="screen" href='<c:url value="../resources/css/select2.css"/>'/>
     <link rel="stylesheet" type="text/css" media="screen" href='<c:url value="../resources/css/style.css"/>'/>
+    <link rel="stylesheet" type="text/css" media="screen" href='<c:url value="../resources/css/star-rating.min.css"/>'/>
 
     <script type='text/javascript' src='<c:url value="../resources/js/jquery-2.1.1.min.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/bootstrap.min.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/bootstrap-datepicker.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/select2.min.js"/>'></script>
+    <script type='text/javascript' src='<c:url value="../resources/js/cookie.js"/>'></script>
+    <script type="text/javascript" src='<c:url value="../resources/js/star-rating.min.js"/>'></script>
 
+    <script type='text/javascript' src='<c:url value="../resources/js/constants.js"/>'></script>
+    <script type='text/javascript' src='<c:url value="../resources/js/feedback.js"/>'></script>
+    <script type='text/javascript' src='<c:url value="../resources/js/addTenderModal.js"/>'></script>
+    <script type='text/javascript' src='<c:url value="../resources/js/tenders.js"/>'></script>
+    <script type='text/javascript' src='<c:url value="../resources/js/conflict.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/deals.js"/>'></script>
-    <script type='text/javascript' src='<c:url value="../resources/js/modalwindows.js"/>'></script>
+    <script type='text/javascript' src='<c:url value="../resources/js/header.js"/>'></script>
 </head>
 <body>
     <div class="container">
@@ -42,7 +51,7 @@
                         <div class="pull-right">
                             <form id="search_form" class="navbar-form navbar-right" role="search">
                                 <div class="form-group">
-                                    <input id="search_input" type="text" class="form-control" placeholder="Search...">
+                                    <input id="search_deals" type="text" class="form-control" placeholder="Search by tender title...">
                                 </div>
                             </form>
                         </div>
@@ -50,82 +59,48 @@
                 </div>
 
                 <!-- information about deals -->
-                <div class="row">
+                <div id="deals_user_message"></div>
+                <div id="deal_items" class="row">
                     <div class="col-md-12">
                         <table class="table table-bordered table-striped" id="units">
-                            <tr>
-                                <th>Tender title</th>
-                                <th>Date</th>
-                                <th>Business Partner</th>
-                                <th>Status</th>
-                                <th>Sum</th>
-                                <th class="deal_action_field">Action</th>
-                            </tr>
-                            <tr>
-                                <td align="center">Cegla</td>
-                                <td align="center">03/09/2014</td>
-                                <td align="center">name</td>
-                                <td align="center">Open</td>
-                                <td align="center">40000</td>
-                                <td align="center">
-                                    <select class="form-control items_number_dropdown action_button">
-                                        <option value="">Action</option>
-                                        <option value="done' + data[i].id + '">Done</option>
-                                        <option value="conflict' + data[i].id + '">Conflict</option>
-                                        <option value="feedback' + data[i].id + '">Feedback</option>
-                                    </select>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td align="center">Cegla</td>
-                                <td align="center">03/09/2014</td>
-                                <td align="center">name</td>
-                                <td align="center">Open</td>
-                                <td align="center">60000</td>
-                                <td align="center">
-                                    <select class="form-control items_number_dropdown action_button">
-                                        <option value="">Action</option>
-                                        <option value="done' + data[i].id + '">Done</option>
-                                        <option value="conflict' + data[i].id + '">Conflict</option>
-                                        <option value="feedback' + data[i].id + '">Feedback</option>
-                                    </select>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td align="center">Cegla</td>
-                                <td align="center">03/08/2014</td>
-                                <td align="center">name</td>
-                                <td align="center">Open</td>
-                                <td align="center">40000</td>
-                                <td align="center">
-                                    <select class="form-control items_number_dropdown action_button">
-                                        <option value="">Action</option>
-                                        <option value="done' + data[i].id + '">Done</option>
-                                        <option value="conflict' + data[i].id + '">Conflict</option>
-                                        <option value="feedback' + data[i].id + '">Feedback</option>
-                                    </select>
-                                </td>
-                            </tr>
+                            <thead>
+                                <tr>
+                                    <th id="deal_title">
+                                        <span class="glyphicon sortable"><span>Tender title</span></span>
+                                    </th>
+                                    <th id="deal_date">
+                                        <span class="glyphicon sortable glyphicon-chevron-down"><span>Date</span></span>
+                                    </th>
+                                    <th id="deal_partner">
+                                        <span class="glyphicon sortable"><span>Business Partner</span></span>
+                                    </th>
+                                    <th id="deal_status">
+                                        <span class="glyphicon sortable"><span>Status</span></span>
+                                    </th>
+                                    <th id="deal_sum">
+                                        <span class="glyphicon sortable"><span>Sum</span></span>
+                                    </th>
+                                    <th class="deal_action_field">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="deals"></tbody>
                         </table>
                     </div>
                 </div>
+
                 <!-- pagination -->
-                <div class="row">
+                <div id="pagination" class="row">
                     <div class="col-md-12">
                         <div class="pull-right">
-                            <ul class="pagination page_pagination pull-right">
-                                <li><a href="#">&laquo;</a></li>
-                                <li><a href="#">1</a></li>
-                                <li><a href="#">2</a></li>
-                                <li><a href="#">&laquo;</a></li>
-                            </ul>
+                            <ul class="pagination page_pagination pull-right"></ul>
                         </div>
                         <div class="pull-right">
                             <div class="control-group">
-                                <select class="form-control pull-right items_number_dropdown">
-                                    <option>10</option>
-                                    <option>15</option>
-                                    <option>20</option>
+                                <select id="pagination_dealsnum" class="form-control pull-right items_number_dropdown">
+                                    <option value="5">5</option>
+                                    <option value="10" selected>10</option>
+                                    <option value="15">15</option>
+                                    <option value="20">20</option>
                                 </select>
                             </div>
                         </div>
@@ -144,8 +119,42 @@
     </div>
 
 <!--create tender modal -->
-<jsp:include page="createtender.jsp"/>
+<jsp:include page="createTender.jsp"/>
 <!--create tender modal -->
+
+<!--action button conflict-->
+<jsp:include page="conflict.jsp"/>
+<!--action button conflict-->
+
+<!--action button feedback-->
+<jsp:include page="feedback.jsp"/>
+<!--action button feedback-->
+
+<!-- new tender modal window -->
+<jsp:include page="newTenderCreated.jsp"/>
+<!-- new tender modal window -->
+
+<!-- close deal modal window -->
+<div class="modal fade" id="close_deal_mod_wind" tabindex="-1" role="dialog" hidden="">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header"><button class="close" type="button" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Attention</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" role="form">
+                    <h4>Are you sure you want to close this deal?</h4>
+                    <input id="close_deal_id" type="text" value="" hidden=""/>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" type="button" onclick="closeDeal();">Yes</button>
+                <button class="btn btn-default" type="button" data-dismiss="modal">No</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- close deal modal window -->
 
 </body>
 </html>

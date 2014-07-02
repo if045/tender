@@ -1,11 +1,21 @@
 package com.softserveinc.tender.service;
 
 import com.softserveinc.tender.entity.Deal;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.query.Param;
+
 import java.util.List;
 
 public interface DealService {
 
-    List<Deal> findAllDeals();
+    List<Deal> findAllDealsForCustomer(Pageable pageable,Integer id, String tenderTitle);
+    List<Deal> findAllDealsForSeller(Pageable pageable,Integer id, String tenderTitle);
+    Long getDealsNumberForCustomer(Integer id);
+    Long getDealsNumberForSeller(Integer id);
+    Long getNewDealsNumberForSeller(Integer id);
     Deal findDealById(Integer id);
-    void saveDeal(Deal deal);
+    Deal saveDeal(Deal deal);
+    void updateDealWithStatus(Integer dealId, String statusName);
+    List<Deal> findByProposalId(Integer proposalId);
+    List<Deal> findByUnitId(Integer unitId);
 }

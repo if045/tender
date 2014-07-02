@@ -14,13 +14,17 @@ public class ConflictServiceImpl implements ConflictService{
     private ConflictRepository conflictRepository;
 
     @Override
-    public List<Conflict> findAll() {
-        return conflictRepository.findAll();
+    public List<Conflict> findAllByModeratorId(Integer id) {
+        return conflictRepository.findByModeratorId(id);
     }
 
     @Override
     public Conflict findById(int id) {
         return conflictRepository.findOne(id);
+    }
+    @Override
+    public Conflict save(Conflict conflict){
+        return conflictRepository.save(conflict);
     }
 
 }

@@ -4,6 +4,7 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
+<%@taglib uri="http://www.springframework.org/security/tags" prefix="security"%>
 
 <!DOCTYPE html>
 <html>
@@ -15,15 +16,22 @@
     <link rel="stylesheet" type="text/css" media="screen" href='<c:url value="../resources/css/datepicker.css"/>'/>
     <link rel="stylesheet" type="text/css" media="screen" href='<c:url value="../resources/css/select2.css"/>'/>
     <link rel="stylesheet" type="text/css" media="screen" href='<c:url value="../resources/css/style.css"/>'/>
+    <link rel="stylesheet" type="text/css" media="screen" href='<c:url value="../resources/css/fixedTendersTables.css"/>'/>
 
+    <script type='text/javascript' src='<c:url value="../resources/js/constants.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/jquery-2.1.1.min.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/bootstrap.min.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/bootstrap-datepicker.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/select2.min.js"/>'></script>
-    <script type='text/javascript' src='<c:url value="../resources/js/tender.js"/>'></script>
+    <script type='text/javascript' src='<c:url value="../resources/js/jquery.validate.min.js"/>'></script>
+    <script type='text/javascript' src='<c:url value="../resources/js/validations.js"/>'></script>
+    <script type='text/javascript' src='<c:url value="../resources/js/cookie.js"/>'></script>
 
+    <script type='text/javascript' src='<c:url value="../resources/js/tenders.js"/>'></script>
+    <script type='text/javascript' src='<c:url value="../resources/js/tender.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/tenderview.js"/>'></script>
-    <script type='text/javascript' src='<c:url value="../resources/js/modalwindows.js"/>'></script>
+    <script type='text/javascript' src='<c:url value="../resources/js/addTenderModal.js"/>'></script>
+    <script type='text/javascript' src='<c:url value="../resources/js/header.js"/>'></script>
 </head>
 <body>
     <div class="container">
@@ -35,54 +43,43 @@
             <!--main-->
             <div class="page_body">
                 <!-- content -->
-                <div class="col-md-12">
-                    <div class="row">
-                        <div class="pull-left">
-                            <h3>Tender title</h3>
-                        </div>
-                    </div>
+                <div class="row col-md-12 pull-left">
+                    <div id="tender_title_onTenderViewPage"></div>
                 </div>
 
-            <!-- information about tender -->
-                <form class="form-horizontal col-md-7" role="form">
-                    <div class="form-group">
-                        <label for="endDate" class="col-md-4 control-label">End date</label>
-                        <div class="col-md-5">
-                            <div class="input-group date" id="endDate" data-date="" data-date-format="dd-mm-yyyy">
-                                <input id="date_to" class="form-control custom_datepicker" size="10" type="text" value="">
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-                            </div>
+                <!-- information about tender -->
+                <form class="form-horizontal" role="form" id="edit_tender_form">
+                    <div class="form-group col-md-3">
+                        <label for="endDate" class="control-label col-md-5">End date</label>
+                        <div class="input-group date col-md-7" id="endDate" data-date="" data-date-format="dd-mm-yyyy">
+                            <input id="date_to" class="form-control custom_datepicker" size="10" type="text" value="">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                         </div>
+                        <label for="suitablePrice" class="control-label col-md-5">Suitable price</label>
+                        <div id="suitablePrice"></div>
                     </div>
-                    <div class="form-group">
-                        <label for="status" class="col-md-4 control-label">Status</label>
-                        <div class="col-md-2">
-                            <select id="status" class="form-control selectpicker"></select>
+
+                    <div class="form-group col-md-3">
+                        <label for="status" class="control-label col-md-3">Status</label>
+                        <div class="col-md-8">
+                            <select id="status" class="form-control"></select>
                         </div>
+                        <label for="locations" class="control-label col-md-3">Locations</label>
+                        <div id="locations"></div>
                     </div>
-                    <div class="form-group">
-                        <label for="suitablePrice" class="col-md-4 control-label">Suitable price</label>
-                        <p class="form-control-static col-md-2" id="suitablePrice">0000.00</p>
-                    </div>
-                    <div class="form-group">
-                        <label for="locations" class="col-md-4 control-label">Locations</label>
-                        <p class="form-control-static col-md-4" id="locations">Some locations</p>
-                        <button type="submit" class="btn btn-default col-md-1 col-md-offset-1">Save</button>
-                    </div>
-                    <div class="form-group">
-                        <label for="description" class="col-md-4 control-label">Description</label>
-                        <div class="col-md-6">
-                            <textarea id="description" class="form-control" rows="3">There is some description</textarea>
+
+                    <div class="form-group col-md-6">
+                        <label for="description" class="control-label col-md-2">Description</label>
+                        <div class="col-md-10">
+                            <textarea id="description" class="form-control" rows="2" name="description"></textarea>
                         </div>
                     </div>
                 </form>
 
-                <div class="right" hidden="">
-                    <div class="row">
-                        <div class="col-md-5">
-                            <textarea id="proposalDescription" class="form-control" rows="3" disabled>There is proposal description and some allowance</textarea>
-                        </div>
-                    </div>
+                <!-- information about tender -->
+
+                <div class="row col-md-12">
+                    <div id="save_button_on_tender_view_page"></div>
                 </div>
 
                 <div class="row">
@@ -91,50 +88,29 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-md-7">
-                        <table class="table table-bordered table-striped" id="units">
-                            <tr>
-                                <td align="center"><span class="glyphicon glyphicon-check"></span></td>
-                                <th>Name</th>
-                                <th>Type</th>
-                                <th>Category</th>
-                                <th>Quantity</th>
+                    <div class="col-md-7 height">
+                        <table class="table table-bordered table-striped fancyTable" id="units">
+                            <thead>
+                                <td align="center"><input type="checkbox" onchange="checkAll()" id="ch_box_head"></td>
+                                <th><span class="sortable asc glyphicon glyphicon-chevron-up" name="item.name">Name</span></th>
+                                <th><span class="sortable" name="item.type">Type</span></th>
+                                <th><span class="sortable" name="item.category">Category</span></th>
+                                <th><span class="sortable" name="quantity">Quantity</span></th>
                                 <th>Bids</th>
                                 <th>Seller price</th>
-                                <th>Deal</th>
-                            </tr>
-                            <tr>
-                                <td align="center"><input type="checkbox"></td>
-                                <td align="center">Bricks</td>
-                                <td align="center">P</td>
-                                <td align="center">Building</td>
-                                <td align="center">23 kg</td>
-                                <td align="center">4</td>
-                                <td align="center"></td>
-                                <td align="center"><button type="submit" class="btn btn-default" disabled>Deal</button></td>
-                            </tr>
-                            <c:forEach var="unit" items="${units}">
-                                <tr>
-                                    <td align="center"><input type="checkbox"></td>
-                                    <td align="center"><c:out value="${unit.name}"/></td>
-                                    <td align="center"><c:out value="${unit.type}"/></td>
-                                    <td align="center"><c:out value="${unit.category}"/></td>
-                                    <td align="center"><c:out value="${unit.quantity} ${unit.measurement}"/></td>
-                                    <td align="center"><c:out value="${unit.bids}"/></td>
-                                    <td align="center"></td>
-                                    <td align="center"><button type="submit" class="btn btn-default" disabled>Deal</button></td>
-                                </tr>
-                            </c:forEach>
+                                <th class="js-actionDeal">Deal</th>
+                            </thead>
+                            <tbody id="unitsTable"></tbody>
                         </table>
                     </div>
 
-                    <div class="col-md-4">
+                    <div class="col-md-4 height">
                         <table class="table table-bordered table-striped" id="head_proposals">
                             <thead>
                                 <th>Seller</th>
-                                <th>Bids</th>
+                                <th>Units</th>
                                 <th>Total price</th>
-                                <th>Deal</th>
+                                <th class="js-actionDeal">Deal</th>
                             </thead>
                             <tbody id="proposals"/>
                         </table>
@@ -149,10 +125,12 @@
                         <label for="message" class="col-md-6 control-label">AuthorName dd/mm/yyyy hh:mm</label>
                         <textarea id="message" class="form-control" rows="3" disabled>Message from this author</textarea>
                     </div>
-                    <%--<div class="col-md-5">
+                    <div class="col-md-5">
+                        <label for="proposalDescription" class="col-md-6 control-label">Proposal description</label>
                         <textarea id="proposalDescription" class="form-control" rows="3" disabled>There is proposal description and some allowance</textarea>
-                    </div>--%>
+                    </div>
                 </div>
+                <!--main-->
             </div>
             <!--footer -->
             <jsp:include page="footer.jsp"/>
@@ -160,9 +138,53 @@
         </div>
     </div>
 
+    <!-- success create deal modal window -->
+    <div class="modal fade" id="success_create_deal" tabindex="-1" role="dialog" hidden="">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header"><button class="close" type="button" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Success</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" role="form">
+                        <h5>You have successfully signed an agreement!</h5>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" type="button" data-dismiss="modal">Good</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- success create deal modal window -->
+
 <!--create tender modal -->
-<jsp:include page="createtender.jsp"/>
+<jsp:include page="createTender.jsp"/>
 <!--create tender modal -->
+
+<!-- new tender modal window -->
+<jsp:include page="newTenderCreated.jsp"/>
+<!-- new tender modal window -->
+
+    <!-- successfully update tender info -->
+    <div class="modal fade" id="success_update_tender_info" tabindex="-1" role="dialog" hidden="">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header"><button class="close" type="button" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Success</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" role="form">
+                        <h5>You have successfully update tender info!</h5>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" type="button" data-dismiss="modal">Good</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- successfully update tender info  -->
 
 </body>
 </html>

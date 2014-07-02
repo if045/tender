@@ -7,13 +7,16 @@ import java.util.List;
 
 public interface ProposalService {
 
-    public List<Proposal> findByTenderId(Integer id);
+    List<Proposal> findByTenderId(Integer id);
 
     List<Proposal> findBySeller(User seller);
 
     Proposal findById(Integer id);
 
-    void save(Proposal proposal);
+    Proposal save(Proposal proposal);
 
     void deleteById(Integer id);
+
+    Long getNewProposalsNumberForCustomerId(Integer id);
+    Long getTenderNewProposalsForCustomer(Integer tenderId);
 }

@@ -5,7 +5,9 @@ import java.util.List;
 
 public interface ConflictService {
 
-    List<Conflict> findAll();
+    List<Conflict> findAllByModeratorId(Integer id);
     Conflict findById(int id);
+    Conflict save(Conflict conflict);
+
 
 }

@@ -17,6 +17,34 @@ public class TenderDto {
     private List<String> locations;
     private Set<String> categories;
     private Integer proposals;
+    private String description;
+    private Integer authorId;
+    private Integer userId;
+    private Boolean haveNewProposal;
+
+    public Integer getAuthorId() {
+        return authorId;
+    }
+
+    public void setAuthorId(Integer authorId) {
+        this.authorId = authorId;
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
     public List<String> getLocations() {
         return locations;
@@ -96,5 +124,13 @@ public class TenderDto {
 
     public void setSuitablePrice(BigDecimal suitablePrice) {
         this.suitablePrice = suitablePrice;
+    }
+
+    public Boolean getHaveNewProposal() {
+        return haveNewProposal;
+    }
+
+    public void setHaveNewProposal(Boolean haveNewProposal) {
+        this.haveNewProposal = haveNewProposal;
     }
 }

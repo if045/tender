@@ -12,6 +12,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
@@ -30,6 +31,9 @@ public class User {
     @Column(name = "create_date", nullable = false)
     @Temporal(value = TemporalType.DATE)
     private Date createDate;
+
+    @Column(name = "MyDealsDate", nullable = false)
+    private Timestamp myDealsDate;
 
     @Column(name = "login", nullable = false, unique = true, length = 30)
     private String login;
@@ -53,6 +57,17 @@ public class User {
     @OneToOne(mappedBy = "user")
     private Profile profile;
 
+    @Column(name = "enabled", nullable = false)
+    private Boolean enabled;
+
+    public Boolean getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
+    }
+
     public Integer getId() {
         return id;
     }
@@ -75,6 +90,14 @@ public class User {
 
     public void setCreateDate(Date createDate) {
         this.createDate = createDate;
+    }
+
+    public Timestamp getMyDealsDate() {
+        return myDealsDate;
+    }
+
+    public void setMyDealsDate(Timestamp myDealsDate) {
+        this.myDealsDate = myDealsDate;
     }
 
     public String getLogin() {

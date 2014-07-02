@@ -19,7 +19,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public Category findCategoryById(int id) {
+    public Category findCategoryById(Integer id) {
         return categoryRepository.findOne(id);
     }
 
@@ -32,4 +32,10 @@ public class CategoryServiceImpl implements CategoryService {
     public List<Category> findAllWithCategory() {
         return categoryRepository.findCategoriesWithTenders();
     }
+
+    @Override
+    public Category findByName(String name) {
+        return categoryRepository.findByName(name);
+    }
+
 }

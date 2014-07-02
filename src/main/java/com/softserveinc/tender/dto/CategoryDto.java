@@ -4,14 +4,14 @@ public class CategoryDto {
 
     private Integer id;
     private String name;
-    private Integer parent;
+    private Integer parentId;
 
-    public Integer getParent() {
-        return parent;
+    public Integer getParentId() {
+        return parentId;
     }
 
-    public void setParent(Integer parent) {
-        this.parent = parent;
+    public void setParentId(Integer parentId) {
+        this.parentId = parentId;
     }
 
     public Integer getId() {

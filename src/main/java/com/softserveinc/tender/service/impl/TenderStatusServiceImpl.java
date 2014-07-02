@@ -10,8 +10,6 @@ import java.util.List;
 @Service
 public class TenderStatusServiceImpl implements TenderStatusService{
 
-    private final Boolean ACTIVE_TENDERS_STATUSES = true;
-
     @Autowired
     private TenderStatusRepository tenderStatusRepository;
 
@@ -23,5 +21,10 @@ public class TenderStatusServiceImpl implements TenderStatusService{
     @Override
     public TenderStatus findTenderStatusById(Integer id) {
         return tenderStatusRepository.findOne(id);
+    }
+
+    @Override
+    public TenderStatus findByName(String name) {
+        return tenderStatusRepository.findByName(name);
     }
 }

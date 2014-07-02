@@ -1,5 +1,7 @@
 package com.softserveinc.tender.repo;
 
+import com.softserveinc.tender.entity.template.Roles;
+
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
@@ -7,6 +9,7 @@ import java.util.Set;
 
 public class TenderFilter {
 
+    public static final String PERCENT = "%";
     private BigDecimal minPrice;
     private BigDecimal maxPrice;
     private Set<Integer> categories;
@@ -15,6 +18,7 @@ public class TenderFilter {
     private List<Integer> statuses;
     private Date minDate;
     private Date maxDate;
+    private String tenderTitle;
 
     private Integer categoryFlag;
     private Integer itemFlag;
@@ -22,17 +26,53 @@ public class TenderFilter {
     private Integer statusFlag;
     private Integer dataFlag;
     private Integer priceFlag;
+    private Integer searchFlag;
 
-    public TenderFilter(BigDecimal minPrice, BigDecimal maxPrice, Set<Integer> categories, List<Integer> locations, List<Integer> items, List<Integer> statuses, Date minDate, Date maxDate) {
+    private Integer categoryId;
+    private Character type;
+    private Integer typeFlag;
 
-        if (minPrice==null&maxPrice==null){
+    private Integer profileId;
+    private Integer sellerTendersFlag;
+    private Integer customerTendersFlag;
+    private String userRole;
+
+    public TenderFilter(Set<Integer> categories) {
+        if (categories == null) {
+            setCategoryFlag(1);
+        } else {
+            this.categories = categories;
+            setCategoryFlag(0);
+        }
+    }
+
+    public TenderFilter(Integer categoryId, Character type) {
+        if (categoryId == null) {
+            setCategoryFlag(1);
+        } else {
+            this.categoryId = categoryId;
+            setCategoryFlag(0);
+        }
+        if (type == null) {
+            setTypeFlag(1);
+        } else {
+            this.type = type;
+            setTypeFlag(0);
+        }
+    }
+
+    public TenderFilter(BigDecimal minPrice, BigDecimal maxPrice, Set<Integer> categories, List<Integer> locations,
+                        List<Integer> items, List<Integer> statuses, Date minDate, Date maxDate, String tenderTitle,
+                        String userRole) {
+
+        if (minPrice == null & maxPrice == null) {
             setPriceFlag(1);
-        }else {
-            this.minPrice=minPrice;
-            this.maxPrice=maxPrice;
+        } else {
+            this.minPrice = minPrice;
+            this.maxPrice = maxPrice;
             setPriceFlag(0);
         }
-        if (categories==null) {
+        if (categories == null) {
             setCategoryFlag(1);
         } else {
             this.categories = categories;
@@ -56,8 +96,65 @@ public class TenderFilter {
             setStatusFlag(0);
             this.statuses = statuses;
         }
-        this.minDate = (minDate != null) ? minDate : new Date((new Date().getTime()) - 604800000l);
-        this.maxDate = (maxDate != null) ? maxDate : new Date();
+        this.minDate = (minDate != null) ? minDate : new Date();
+        this.maxDate = (maxDate != null) ? maxDate : new Date((new Date().getTime()) + 2419200000l);
+        if (tenderTitle == null) {
+            setSearchFlag(1);
+        } else {
+            setSearchFlag(0);
+            this.tenderTitle = PERCENT + tenderTitle.toLowerCase().trim() + PERCENT;
+        }
+        this.userRole = userRole;
+        if (userRole == null) {
+            setSellerTendersFlag(1);
+            setCustomerTendersFlag(1);
+        } else if (userRole.equals(Roles.CUSTOMER.toString())) {
+            setCustomerTendersFlag(0);
+            setSellerTendersFlag(1);
+        } else if (userRole.equals(Roles.SELLER.toString())) {
+            setSellerTendersFlag(0);
+            setCustomerTendersFlag(1);
+        }
+    }
+
+    public String getTenderTitle() {
+        return tenderTitle;
+    }
+
+    public void setTenderTitle(String tenderTitle) {
+        this.tenderTitle = tenderTitle;
+    }
+
+    public Integer getSearchFlag() {
+        return searchFlag;
+    }
+
+    public void setSearchFlag(Integer searchFlag) {
+        this.searchFlag = searchFlag;
+    }
+
+    public Integer getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(Integer categoryId) {
+        this.categoryId = categoryId;
+    }
+
+    public Character getType() {
+        return type;
+    }
+
+    public void setType(Character type) {
+        this.type = type;
+    }
+
+    public Integer getTypeFlag() {
+        return typeFlag;
+    }
+
+    public void setTypeFlag(Integer typeFlag) {
+        this.typeFlag = typeFlag;
     }
 
     public Integer getPriceFlag() {
@@ -170,5 +267,37 @@ public class TenderFilter {
 
     public void setMaxDate(Date maxDate) {
         this.maxDate = maxDate;
+    }
+
+    public Integer getProfileId() {
+        return profileId;
+    }
+
+    public void setProfileId(Integer profileId) {
+        this.profileId = profileId;
+    }
+
+    public Integer getSellerTendersFlag() {
+        return sellerTendersFlag;
+    }
+
+    public void setSellerTendersFlag(Integer sellerTendersFlag) {
+        this.sellerTendersFlag = sellerTendersFlag;
+    }
+
+    public Integer getCustomerTendersFlag() {
+        return customerTendersFlag;
+    }
+
+    public void setCustomerTendersFlag(Integer customerTendersFlag) {
+        this.customerTendersFlag = customerTendersFlag;
+    }
+
+    public String getUserRole() {
+        return userRole;
+    }
+
+    public void setUserRole(String userRole) {
+        this.userRole = userRole;
     }
 }

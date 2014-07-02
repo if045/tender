@@ -14,8 +14,8 @@ public class ProfileServiceImpl implements ProfileService {
     private ProfileRepository profileRepository;
 
     @Override
-    public List<Profile> findAll() {
-        return profileRepository.findAll();
+    public List<Profile> findAllProfiles() {
+        return profileRepository.findAllProfiles();
     }
 
     @Override
@@ -24,7 +24,12 @@ public class ProfileServiceImpl implements ProfileService {
     }
 
     @Override
-    public void saveProfile(Profile profile) {
-        profileRepository.save(profile);
+    public Profile saveProfile(Profile profile) {
+        return profileRepository.save(profile);
+    }
+
+    @Override
+    public Profile findProfileByUserLogin(String login) {
+        return profileRepository.findByUserLogin(login);
     }
 }

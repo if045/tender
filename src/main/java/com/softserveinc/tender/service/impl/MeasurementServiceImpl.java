@@ -14,7 +14,7 @@ public class MeasurementServiceImpl implements MeasurementService {
     private MeasurementRepository measurementRepository;
 
     @Override
-    public List<Measurement> findAllMeasurements() {
+    public List<Measurement> findAll() {
         return measurementRepository.findAll();
     }
 
@@ -26,5 +26,10 @@ public class MeasurementServiceImpl implements MeasurementService {
     @Override
     public void saveMeasurement(Measurement measurement) {
         measurementRepository.save(measurement);
+    }
+
+    @Override
+    public Measurement findByName(String name) {
+        return measurementRepository.findByName(name);
     }
 }

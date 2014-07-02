@@ -37,6 +37,9 @@ public class Company {
     @JoinColumn(name="address_id")
     private Address address;
 
+    @OneToOne(mappedBy = "company")
+    private Profile profile;
+
     public int getId() {
         return id;
     }
@@ -81,7 +84,7 @@ public class Company {
         return address;
     }
 
-    public void setBook(Address address) {
+    public void setAddress(Address address) {
         this.address = address;
     }
 }
