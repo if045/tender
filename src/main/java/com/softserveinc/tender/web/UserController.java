@@ -3,8 +3,8 @@ package com.softserveinc.tender.web;
 import com.softserveinc.tender.dto.CustomerRegistrationDataDto;
 import com.softserveinc.tender.dto.PrivateCustomerRegistrationDataDto;
 import com.softserveinc.tender.dto.PrivateSellerRegistrationDataDto;
-import com.softserveinc.tender.dto.RoleDto;
 import com.softserveinc.tender.dto.SellerRegistrationDataDto;
+import com.softserveinc.tender.dto.UserPersonalDataDto;
 import com.softserveinc.tender.dto.UsersProfileDataDto;
 import com.softserveinc.tender.entity.User;
 import com.softserveinc.tender.facade.UserServiceFacade;
@@ -14,8 +14,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import java.util.List;
 
 @Controller
 @RequestMapping("/user")
@@ -52,5 +50,10 @@ public class UserController {
     @RequestMapping(value = "/profile/data", method = RequestMethod.GET)
     public @ResponseBody UsersProfileDataDto showUserProfileData() {
         return userServiceFacade.findUsersProfileInfo();
+    }
+
+    @RequestMapping(value = "/update/data", method = RequestMethod.PUT, consumes = "application/json")
+    public @ResponseBody User updateUserProfileData(@RequestBody UserPersonalDataDto userPersonalData) {
+        return userServiceFacade.updateUserData(userPersonalData);
     }
 }

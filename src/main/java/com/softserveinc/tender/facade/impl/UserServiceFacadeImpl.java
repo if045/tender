@@ -14,6 +14,7 @@ import com.softserveinc.tender.dto.RoleDto;
 import com.softserveinc.tender.dto.SellerRegistrationDataDto;
 import com.softserveinc.tender.dto.TradeSphereDto;
 import com.softserveinc.tender.dto.UserDto;
+import com.softserveinc.tender.dto.UserPersonalDataDto;
 import com.softserveinc.tender.dto.UsersProfileDataDto;
 import com.softserveinc.tender.entity.Address;
 import com.softserveinc.tender.entity.Category;
@@ -425,5 +426,49 @@ public class UserServiceFacadeImpl implements UserServiceFacade {
         ratingDto.setSpeed(feedback.getSpeed());
 
         return ratingDto;
+    }
+
+    // Update profile logic
+    @Override
+    public User updateUserData(UserPersonalDataDto userPersonalData) {
+        User user = userService.findByLogin(getUserLogin());
+
+        profileService.saveProfile(mapProfile(userPersonalData, user));
+
+        return userService.saveUser(mapUser(userPersonalData, user));
+    }
+
+    private User mapUser(UserPersonalDataDto personalData, User user) {
+
+        if(!personalData.getLogin().equals("")) {
+            user.setLogin(personalData.getLogin());
+        }
+        if(!personalData.getPassword().equals("")) {
+            user.setPassword(personalData.getPassword());
+        }
+
+        return user;
+    }
+
+    private Profile mapProfile(UserPersonalDataDto personalData, User user) {
+        Profile profile = profileService.findProfileById(user.getProfile().getId());
+
+        if(!personalData.getProfileDto().getFirstName().equals("")) {
+            profile.setFirstName(personalData.getProfileDto().getFirstName());
+        }
+        if(!personalData.getProfileDto().getLastName().equals("")) {
+            profile.setLastName((personalData.getProfileDto().getLastName()));
+        }
+        if(!personalData.getProfileDto().getTelephone().equals("")){
+            profile.setTelephone(personalData.getProfileDto().getTelephone());
+        }
+        if(!personalData.getProfileDto().getBirthday().equals("")){
+            profile.setBirthday(formatDate(personalData.getProfileDto().getBirthday()));
+        }
+        if(!personalData.getProfileDto().getPerson().equals("")){
+            profile.setPerson(personalData.getProfileDto().getPerson());
+        }
+
+        return profile;
     }
 }

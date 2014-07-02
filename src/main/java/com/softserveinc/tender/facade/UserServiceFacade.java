@@ -5,6 +5,7 @@ import com.softserveinc.tender.dto.PrivateCustomerRegistrationDataDto;
 import com.softserveinc.tender.dto.PrivateSellerRegistrationDataDto;
 import com.softserveinc.tender.dto.RoleDto;
 import com.softserveinc.tender.dto.SellerRegistrationDataDto;
+import com.softserveinc.tender.dto.UserPersonalDataDto;
 import com.softserveinc.tender.dto.UsersProfileDataDto;
 import com.softserveinc.tender.entity.User;
 
@@ -18,4 +19,5 @@ public interface UserServiceFacade {
     User savePrivateSeller(PrivateSellerRegistrationDataDto sellerData);
     User savePrivateCustomer(PrivateCustomerRegistrationDataDto customerData);
     UsersProfileDataDto findUsersProfileInfo();
+    User updateUserData(UserPersonalDataDto userPersonalData);
 }
