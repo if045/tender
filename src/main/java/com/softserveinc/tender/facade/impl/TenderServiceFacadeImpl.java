@@ -40,6 +40,10 @@ import com.softserveinc.tender.service.TenderStatusService;
 import com.softserveinc.tender.service.UnitService;
 import com.softserveinc.tender.service.UserService;
 import com.softserveinc.tender.service.impl.MailService;
+import com.softserveinc.tender.util.UtilMapper;
+import org.modelmapper.AbstractConverter;
+import org.modelmapper.AbstractProvider;
+import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
 import org.modelmapper.TypeToken;
@@ -49,8 +53,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.security.Provider;
 import java.util.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -71,6 +77,9 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
 
     @Autowired
     private ModelMapper modelMapper;
+
+    @Autowired
+    private UtilMapper myModelMapper;
 
     @Autowired
     private ItemService itemService;
@@ -333,27 +342,16 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
 
     private List<ProposalDto> mapTendersProposals(Integer tenderId) {
         List<ProposalDto> proposalDtos = new ArrayList<>();
-        modelMapper.addMappings(new PropertyMap<Bid, BidDto>() {
+        /*modelMapper.addMappings(new PropertyMap<Bid, BidDto>() {
             @Override
             protected void configure() {
                 map().setBidId(source.getId());
             }
-        });
+        });*/
 
-        modelMapper.addMappings(new PropertyMap<Proposal, ProposalDto>() {
-            @Override
-            protected void configure() {
-                map().setFullName(source.getSeller().getProfile().getFirstName());
-                map().setNumberOfBids(source.getBids().size());
-                //map().setTotalBidsPrice(map().countTotalBidsPrice(source));
-                map().setTotalBidsPrice(12.55);
-                //map().setHaveDeals(dealService.findByProposalId(source.getId()).size() > 0);
-                map().setHaveDeals(true);
-            }
-        });
         for (Proposal proposal : proposalService.findByTenderId(tenderId)) {
-           // proposalDtos.add(mapTenderProposal(proposal));
-            proposalDtos.add(modelMapper.map(proposal, ProposalDto.class));
+            //proposalDtos.add(mapTenderProposal(proposal));
+            proposalDtos.add(myModelMapper.map(proposal, ProposalDto.class));
         }
         return proposalDtos;
     }
@@ -372,13 +370,13 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
         List<BidDto> bidDtos = new ArrayList<>();
 
         for (Bid bid : proposal.getBids()) {
-           /* BidDto bidDto = new BidDto();
+            /*BidDto bidDto = new BidDto();
             bidDto.setBidId(bid.getId());
             bidDto.setUnitId(bid.getUnit().getId());
             bidDto.setPrice(bid.getPrice());
             bidDtos.add(bidDto);*/
 
-            bidDtos.add(modelMapper.map(bid, BidDto.class));
+            bidDtos.add(myModelMapper.map(bid, BidDto.class));
         }
         proposalDto.setBidDtos(bidDtos);
         proposalDto.setHaveDeals(dealService.findByProposalId(proposal.getId()).size() > 0);
