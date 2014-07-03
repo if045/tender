@@ -156,6 +156,13 @@
                                             </div>
                                         </div>
                                     </div>
+
+                                    <div class="modal-footer">
+                                        <div class="row">
+                                            <button type="button" onclick="updateUserData()" class="btn btn-success">Confirm</button>
+                                            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -225,6 +232,13 @@
                                             </div>
                                         </div>
                                     </div>
+
+                                    <div class="modal-footer">
+                                        <div class="row">
+                                            <button type="button" onclick="updateCompanyData()" class="btn btn-success">Confirm</button>
+                                            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                                        </div>
+                                    </div>
                                 </div>
                                 <!-- Panel group -->
                             </div>
@@ -260,6 +274,13 @@
                                         </div>
                                     </div>
                                 </div>
+
+                                <div class="modal-footer">
+                                    <div class="row">
+                                        <button type="button" onclick="updateTradeSphereData()" class="btn btn-success">Confirm</button>
+                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                                    </div>
+                                </div>
                                 <!-- Panel group -->
                             </div>
                             <!-- Panel body -->
@@ -268,12 +289,6 @@
                     </div>
                 </div>
                 <%--Edit trade sphere--%>
-            </div>
-            <div class="modal-footer">
-                <div class="row">
-                    <button type="button" onclick="updateUserData()" class="btn btn-success">Confirm</button>
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-                </div>
             </div>
         </div>
     </div>
