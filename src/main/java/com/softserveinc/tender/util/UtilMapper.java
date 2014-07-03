@@ -3,6 +3,7 @@ package com.softserveinc.tender.util;
 import com.softserveinc.tender.dto.BidDto;
 import com.softserveinc.tender.dto.ProposalDto;
 import com.softserveinc.tender.entity.Bid;
+import com.softserveinc.tender.entity.Profile;
 import com.softserveinc.tender.entity.Proposal;
 import com.softserveinc.tender.service.DealService;
 import org.modelmapper.AbstractConverter;
@@ -10,8 +11,6 @@ import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -51,10 +50,17 @@ public class UtilMapper extends ModelMapper{
                 }
             };
 
+            Converter<Profile, String> toFullName = new AbstractConverter<Profile, String>() {
+                @Override
+                protected String convert(Profile source) {
+                    return source.getFirstName() + " " + source.getLastName();
+                }
+            };
+
             @Override
             protected void configure() {
-                map().setFullName(source.getSeller().getProfile().getFirstName());
                 map().setNumberOfBids(source.getBids().size());
+                using(toFullName).map(source.getSeller().getProfile()).setFullName(null);
                 using(toTotalBidPrice).map(source.getBids()).setTotalBidsPrice(null);
                 using(toHaveDeals).map(source.getId()).setHaveDeals(null);
             }

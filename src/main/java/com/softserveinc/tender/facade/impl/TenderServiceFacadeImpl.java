@@ -40,6 +40,7 @@ import com.softserveinc.tender.service.TenderStatusService;
 import com.softserveinc.tender.service.UnitService;
 import com.softserveinc.tender.service.UserService;
 import com.softserveinc.tender.service.impl.MailService;
+import com.softserveinc.tender.util.Util;
 import com.softserveinc.tender.util.UtilMapper;
 import org.modelmapper.AbstractConverter;
 import org.modelmapper.AbstractProvider;
@@ -342,16 +343,18 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
 
     private List<ProposalDto> mapTendersProposals(Integer tenderId) {
         List<ProposalDto> proposalDtos = new ArrayList<>();
-        /*modelMapper.addMappings(new PropertyMap<Bid, BidDto>() {
-            @Override
-            protected void configure() {
-                map().setBidId(source.getId());
-            }
-        });*/
 
+        ProposalDto proposalDto;
         for (Proposal proposal : proposalService.findByTenderId(tenderId)) {
-            //proposalDtos.add(mapTenderProposal(proposal));
-            proposalDtos.add(myModelMapper.map(proposal, ProposalDto.class));
+            proposalDto = myModelMapper.map(proposal, ProposalDto.class);
+            List<BidDto> bidDtos = new ArrayList<>();
+
+            for (Bid bid : proposal.getBids()) {
+                bidDtos.add(myModelMapper.map(bid, BidDto.class));
+            }
+
+            proposalDto.setBidDtos(bidDtos);
+            proposalDtos.add(proposalDto);
         }
         return proposalDtos;
     }
