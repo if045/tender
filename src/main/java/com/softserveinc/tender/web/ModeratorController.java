@@ -1,7 +1,6 @@
 package com.softserveinc.tender.web;
 
 import com.softserveinc.tender.dto.ProfileDto;
-import com.softserveinc.tender.dto.ProfilesNumberDto;
 import com.softserveinc.tender.facade.ProfileServiceFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -41,7 +40,7 @@ public class ModeratorController {
 
     @PreAuthorize("hasRole('MODERATOR')")
     @RequestMapping(value = "/profilesnumber", method = RequestMethod.GET)
-    public @ResponseBody ProfilesNumberDto getDealsNumber(@RequestParam(value = "searchParam",required = false) String searchParam) {
+    public @ResponseBody Long getDealsNumber(@RequestParam(value = "searchParam",required = false) String searchParam) {
         return profileFacade.getProfilesNumber(searchParam);
     }
 

@@ -1,7 +1,6 @@
 package com.softserveinc.tender.facade.impl;
 
 import com.softserveinc.tender.dto.ProfileDto;
-import com.softserveinc.tender.dto.ProfilesNumberDto;
 import com.softserveinc.tender.entity.CheckedProfile;
 import com.softserveinc.tender.entity.CheckedStatus;
 import com.softserveinc.tender.entity.Profile;
@@ -47,12 +46,8 @@ public class ProfileServiceFacadeImpl implements ProfileServiceFacade {
     }
 
     @Override
-    public ProfilesNumberDto getProfilesNumber(String searchParam) {
-        Long profilesNumber = profileService.getProfilesNumber(searchParam);
-        ProfilesNumberDto profilesNumberDto = new ProfilesNumberDto();
-        profilesNumberDto.setProfilesNumber(profilesNumber);
-
-        return  profilesNumberDto;
+    public Long getProfilesNumber(String searchParam) {
+        return profileService.getProfilesNumber(searchParam);
     }
 
     @Override

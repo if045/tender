@@ -139,7 +139,7 @@ function showProfilesPagination(queryParams) {
         dataType:'json',
 
         success: function(data) {
-            var dataSize = data.profilesNumber;
+            var dataSize = data;
             var pageNumber = Math.ceil(dataSize / moderatorProfilePageSize);
 
             if(dataSize > 0 && moderatorProfilePageSize < dataSize) {
