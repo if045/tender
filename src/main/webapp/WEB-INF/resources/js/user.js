@@ -404,7 +404,7 @@ function updateUserData() {
 function updateCompanyData() {
     var newJson = $.parseJSON(buildCompanyDataJSON());
 
-    var url = "";                                          // TODO company data url
+    var url = USER_UPDATE_COMPANY_URL;
 
     $.ajax({
         url: url,
@@ -487,13 +487,12 @@ function buildCompanyDataJSON() {
     var email = $('#email_to_update').val();
     var srnNumber = $('#srn_number_to_update').val();
 
-    return '"companyDto":{' +
-        '"name":"' + companyName + '",' +
-        '"srnNumber":"' + srnNumber + '",' +
-        '"email":"' + email + '",' +
+    return '{"name":"'      + companyName + '",' +
+        '"srnNumber":"'     + srnNumber + '",' +
+        '"email":"'         + email + '",' +
         '"addressDto":{' +
-        '"city":"' + city+ '",' +
-        '"street":"' + street + '",' +
-        '"buildingNumber":"' +buildingNumber+ '",' +
-        '"postcode":"' + postcode +'"}}';
+            '"city":"'              + city+ '",' +
+            '"street":"'            + street + '",' +
+            '"buildingNumber":"'    + buildingNumber + '",' +
+            '"postcode":"'          + postcode +'"}}';
 }
