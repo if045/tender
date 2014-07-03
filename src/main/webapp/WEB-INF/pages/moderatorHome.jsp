@@ -17,24 +17,19 @@
 
     <script type='text/javascript' src='<c:url value="../resources/js/jquery-2.1.1.min.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/bootstrap.min.js"/>'></script>
+    <script type='text/javascript' src='<c:url value="../resources/js/cookie.js"/>'></script>
+
     <script type='text/javascript' src='<c:url value="../resources/js/constants.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/moderator.js"/>'></script>
+    <script type='text/javascript' src='<c:url value="../resources/js/header.js"/>'></script>
 
 </head>
 <body>
 
 <div class="container">
-    <div class="row-header">
-        <nav class="navbar navbar-default" role="navigation">
-            <div class="collapse navbar-collapse">
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="">Switch to admin</a></li>
-                    <li><a class="glyphicon glyphicon-user" onclick=""></a></li>
-                    <li><button type="button" class="btn btn-default nav_button" onclick="">Sign up</button></li>
-                </ul>
-            </div>
-        </nav>
-    </div>
+    <!--navigation-->
+    <jsp:include page="header.jsp"/>
+    <!--navigation-->
 
     <!--main-->
 
@@ -70,7 +65,7 @@
                             <thead>
                             <tr>
                                 <th align="center" id="tender_title">
-                                    <span>Title</span>
+                                    <span>Tender title</span>
                                 </th>
                                 <th align="center" id="customer_name">
                                     <span>Customer name</span>

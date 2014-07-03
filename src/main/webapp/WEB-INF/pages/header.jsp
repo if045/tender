@@ -5,7 +5,9 @@
     <div class="container-fluid">
         <div class="navbar-header">
             <ul class="nav navbar-nav navbar-left nav_buttons">
-                <li><a class="navbar-brand" href="#" onclick="goToHomePage();">UATender</a></li>
+                <security:authorize access="hasAnyRole('CUSTOMER','SELLER')">
+                    <li><a class="navbar-brand" href="#" onclick="goToHomePage();">UATender</a></li>
+                </security:authorize>
                 <security:authorize access="hasAnyRole('CUSTOMER','SELLER')">
                     <li>
                         <button id="my_tenders_btn" type="button" class="btn btn-info nav_button"
