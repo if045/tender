@@ -352,6 +352,7 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
             for (Bid bid : proposal.getBids()) {
                 bidDtos.add(myModelMapper.map(bid, BidDto.class));
             }
+           // bidDtos = (List<BidDto>)Util.mapObjects(proposal.getBids(), BidDto.class);
 
             proposalDto.setBidDtos(bidDtos);
             proposalDtos.add(proposalDto);

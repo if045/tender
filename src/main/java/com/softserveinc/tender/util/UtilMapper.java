@@ -15,7 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.math.BigDecimal;
 import java.util.List;
 
-public class UtilMapper extends ModelMapper{
+public class UtilMapper extends ModelMapper {
     @Autowired
     private DealService dealService;
 
@@ -66,7 +66,4 @@ public class UtilMapper extends ModelMapper{
             }
         });
     }
-
-    public static Object mapObject(Object source, Object destination){return null;}
-    public static List<Object> mapObjects(List<Object> source, Object destination){return null;}
 }

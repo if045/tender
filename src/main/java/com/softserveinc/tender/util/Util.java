@@ -15,8 +15,8 @@ import java.util.List;
 import static com.softserveinc.tender.util.Constants.DATE_PATTERN;
 
 public class Util {
-   /* @Autowired
-    private static UtilMapper myModelMapper;*/
+    @Autowired
+    private static UtilMapper myModelMapper;
 
     public static Date formatDate(String dateValue) {
         SimpleDateFormat formatter = new SimpleDateFormat(DATE_PATTERN);
@@ -39,11 +39,28 @@ public class Util {
         return SecurityContextHolder.getContext().getAuthentication().getName();
     }
 
-   /* public static List<Object> mapObjects(List<?> source, Class destination){
+    public static List<?> mapObjects(List<?> source, Class destination) {
         List<Object> result = new ArrayList<>();
-        for (Object obj: source) {
+
+        for (Object obj : source) {
             result.add(myModelMapper.map(obj, destination));
         }
         return result;
+    }
+
+   /* public static List<?> mapObjects(List<?> source, String objectClass, Class destination) {
+        List<Object> result = new ArrayList<>();
+        Object odj;
+        for (Object obj : source) {
+            try {
+                obj = myModelMapper.map((Class.forName(objectClass))obj, destination);
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+            result.add(obj);
+        }
+        return result;
     }*/
+
+
 }
