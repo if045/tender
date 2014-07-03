@@ -477,3 +477,23 @@ function buildProfileUpdateData() {
         '"telephone":"'  + phoneNumber + '",' +
         '"person":"'     + person      + '"}';
 }
+
+function buildCompanyDataJSON() {
+    var companyName = $('#company_name_to_update').val();
+    var city = $('#city_to_update').val();
+    var street = $('#street_to_update').val();
+    var buildingNumber = $('#building_number_to_update').val();
+    var postcode = $('#postcode_to_update').val();
+    var email = $('#email_to_update').val();
+    var srnNumber = $('#srn_number_to_update').val();
+
+    return '"companyDto":{' +
+        '"name":"' + companyName + '",' +
+        '"srnNumber":"' + srnNumber + '",' +
+        '"email":"' + email + '",' +
+        '"addressDto":{' +
+        '"city":"' + city+ '",' +
+        '"street":"' + street + '",' +
+        '"buildingNumber":"' +buildingNumber+ '",' +
+        '"postcode":"' + postcode +'"}}';
+}
