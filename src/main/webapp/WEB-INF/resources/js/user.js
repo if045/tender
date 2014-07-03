@@ -401,6 +401,50 @@ function updateUserData() {
     });
 }
 
+function updateCompanyData() {
+    var newJson = $.parseJSON(buildCompanyDataJSON());
+
+    var url = "";                                          // TODO company data url
+
+    $.ajax({
+        url: url,
+        type: "PUT",
+        data:  JSON.stringify(newJson),
+        dataType:'json',
+        contentType: 'application/json',
+
+        success: function(data) {
+            goToUserProfilePage();
+        },
+
+        error: function(){
+            alert(ERROR_MESSAGE);
+        }
+    });
+}
+
+function updateTradeSphereData() {
+    var newJson = $.parseJSON(buildTradeSphereDataJSON());
+
+    var url = "";                                           // TODO trade sphere data url
+
+    $.ajax({
+        url: url,
+        type: "PUT",
+        data:  JSON.stringify(newJson),
+        dataType:'json',
+        contentType: 'application/json',
+
+        success: function(data) {
+            goToUserProfilePage();
+        },
+
+        error: function(){
+            alert(ERROR_MESSAGE);
+        }
+    });
+}
+
 function buildPersonalDataJSON() {
     return '{' + buildUserPersonalData() + ',' + buildProfileUpdateData() + '}';
 }
