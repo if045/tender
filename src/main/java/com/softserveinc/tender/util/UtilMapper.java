@@ -12,16 +12,19 @@ import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.lang.reflect.Type;
 import java.math.BigDecimal;
 import java.util.List;
 
-public class UtilMapper extends ModelMapper {
+public class UtilMapper implements Convertible {
+    private ModelMapper nativeModelMapper;
+
     @Autowired
     private DealService dealService;
 
     public UtilMapper() {
         //Mapping for Bid into BidDto
-        this.addMappings(new PropertyMap<Bid, BidDto>() {
+        nativeModelMapper.addMappings(new PropertyMap<Bid, BidDto>() {
             @Override
             protected void configure() {
                 map().setBidId(source.getId());
@@ -29,7 +32,7 @@ public class UtilMapper extends ModelMapper {
         });
 
         //Mapping for Proposal into ProposalDto
-        this.addMappings(new PropertyMap<Proposal, ProposalDto>() {
+        nativeModelMapper.addMappings(new PropertyMap<Proposal, ProposalDto>() {
             Converter<List<Bid>, Double> toTotalBidPrice = new AbstractConverter<List<Bid>, Double>() {
                 @Override
                 protected Double convert(List<Bid> source) {
@@ -65,5 +68,16 @@ public class UtilMapper extends ModelMapper {
                 using(toHaveDeals).map(source.getId()).setHaveDeals(null);
             }
         });
+    }
+
+
+    @Override
+    public <S, D> D mapObject(S source, Class<D> destinationType) {
+        return nativeModelMapper.map(source, destinationType);
+    }
+
+    @Override
+    public <S, D> List<D> mapObjects(List<S> source, D destination) {
+        return null;
     }
 }

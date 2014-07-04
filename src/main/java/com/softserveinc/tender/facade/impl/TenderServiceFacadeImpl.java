@@ -346,11 +346,11 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
 
         ProposalDto proposalDto;
         for (Proposal proposal : proposalService.findByTenderId(tenderId)) {
-            proposalDto = myModelMapper.map(proposal, ProposalDto.class);
+            proposalDto = myModelMapper.mapObject(proposal, ProposalDto.class);
             List<BidDto> bidDtos = new ArrayList<>();
 
             for (Bid bid : proposal.getBids()) {
-                bidDtos.add(myModelMapper.map(bid, BidDto.class));
+                bidDtos.add(myModelMapper.mapObject(bid, BidDto.class));
             }
            // bidDtos = (List<BidDto>)Util.mapObjects(proposal.getBids(), BidDto.class);
 
@@ -380,7 +380,7 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
             bidDto.setPrice(bid.getPrice());
             bidDtos.add(bidDto);*/
 
-            bidDtos.add(myModelMapper.map(bid, BidDto.class));
+            bidDtos.add(myModelMapper.mapObject(bid, BidDto.class));
         }
         proposalDto.setBidDtos(bidDtos);
         proposalDto.setHaveDeals(dealService.findByProposalId(proposal.getId()).size() > 0);

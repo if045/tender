@@ -39,7 +39,7 @@ public class Util {
         return SecurityContextHolder.getContext().getAuthentication().getName();
     }
 
-    public static List<?> mapObjects(List<?> source, Class destination) {
+   /* public static List<?> mapObjects(List<?> source, Class destination) {
         List<Object> result = new ArrayList<>();
 
         for (Object obj : source) {
@@ -48,7 +48,7 @@ public class Util {
         return result;
     }
 
-   /* public static List<?> mapObjects(List<?> source, String objectClass, Class destination) {
+    public static List<?> mapObjects(List<?> source, String objectClass, Class destination) {
         List<Object> result = new ArrayList<>();
         Object odj;
         for (Object obj : source) {
@@ -60,7 +60,7 @@ public class Util {
             result.add(obj);
         }
         return result;
-    }*/
-
+    }
+*/
 
 }
