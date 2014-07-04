@@ -104,6 +104,11 @@
                     </div>
                 </div>
             </div>
+
+            <!--action button-->
+            <jsp:include page="moderatorAction.jsp"/>
+            <!--action button-->
+
             <!-- conflict-tab content-->
 
             <!-- new-profile-tab content-->

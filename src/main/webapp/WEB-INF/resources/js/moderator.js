@@ -123,7 +123,7 @@ function populateConflictTable() {
             html += '<tr><td align="center">' + data[i].title + '</td>' +
                 '<td align="center">' + data[i].customerName + '</td>' +
                 '<td align="center">' + data[i].sellerName + '</td>' +
-                '<td align="center"><button class="btn btn-default" type="button">Action</button></td></tr>';
+                '<td align="center"><a href="#" data-toggle="modal" data-target="#moderator_conflict_mod_wind" button class="btn btn-default" type="button" data-dismiss="modal" onclick="writeModeratorConflictId();">Cancel</a></button></td></tr>';
         }
 
         $('#conflict_table').html(html);
