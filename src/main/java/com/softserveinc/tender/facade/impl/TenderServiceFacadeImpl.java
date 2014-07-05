@@ -40,13 +40,8 @@ import com.softserveinc.tender.service.TenderStatusService;
 import com.softserveinc.tender.service.UnitService;
 import com.softserveinc.tender.service.UserService;
 import com.softserveinc.tender.service.impl.MailService;
-import com.softserveinc.tender.util.Util;
 import com.softserveinc.tender.util.UtilMapper;
-import org.modelmapper.AbstractConverter;
-import org.modelmapper.AbstractProvider;
-import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
-import org.modelmapper.PropertyMap;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -54,10 +49,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.math.BigDecimal;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.security.Provider;
 import java.util.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -80,7 +73,7 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
     private ModelMapper modelMapper;
 
     @Autowired
-    private UtilMapper myModelMapper;
+    private UtilMapper utilMapper;
 
     @Autowired
     private ItemService itemService;
@@ -342,22 +335,7 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
     }
 
     private List<ProposalDto> mapTendersProposals(Integer tenderId) {
-        List<ProposalDto> proposalDtos = new ArrayList<>();
-
-        ProposalDto proposalDto;
-        for (Proposal proposal : proposalService.findByTenderId(tenderId)) {
-            proposalDto = myModelMapper.mapObject(proposal, ProposalDto.class);
-            List<BidDto> bidDtos = new ArrayList<>();
-
-            for (Bid bid : proposal.getBids()) {
-                bidDtos.add(myModelMapper.mapObject(bid, BidDto.class));
-            }
-           // bidDtos = (List<BidDto>)Util.mapObjects(proposal.getBids(), BidDto.class);
-
-            proposalDto.setBidDtos(bidDtos);
-            proposalDtos.add(proposalDto);
-        }
-        return proposalDtos;
+        return utilMapper.mapObjects(proposalService.findByTenderId(tenderId), ProposalDto.class);
     }
 
     private ProposalDto mapTenderProposal(Proposal proposal) {
@@ -380,7 +358,7 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
             bidDto.setPrice(bid.getPrice());
             bidDtos.add(bidDto);*/
 
-            bidDtos.add(myModelMapper.mapObject(bid, BidDto.class));
+            bidDtos.add(utilMapper.mapObject(bid, BidDto.class));
         }
         proposalDto.setBidDtos(bidDtos);
         proposalDto.setHaveDeals(dealService.findByProposalId(proposal.getId()).size() > 0);
