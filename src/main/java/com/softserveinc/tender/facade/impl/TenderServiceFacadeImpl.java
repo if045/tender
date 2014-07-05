@@ -1,6 +1,5 @@
 package com.softserveinc.tender.facade.impl;
 
-import com.softserveinc.tender.dto.BidDto;
 import com.softserveinc.tender.dto.BidSaveDto;
 import com.softserveinc.tender.dto.CategoryDto;
 import com.softserveinc.tender.dto.DealDto;
@@ -56,9 +55,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import static com.softserveinc.tender.util.Util.getUserLogin;
 
@@ -127,7 +124,7 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
     @Override
     public List<TenderDto> findByCustomParams(TenderFilter tenderFilter, Pageable pageable) {
         List<Tender> tenders = tenderService.findByCustomParameters(tenderFilter, pageable);
-        return mapTenders(tenders);
+        return utilMapper.mapObjects(tenders, TenderDto.class);
     }
 
     @Override
@@ -146,55 +143,6 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
     public List<ItemDto> findTendersItems(TenderFilter tenderFilter) {
         Type targetListType = new TypeToken<List<ItemDto>>(){}.getType();
         return modelMapper.map(itemService.findAllItemsByTenders(tenderFilter), targetListType);
-    }
-
-    private List<TenderDto> mapTenders(List<Tender> tenders) {
-        List<TenderDto> tenderDtos = new ArrayList<>();
-        for (Tender tender : tenders) {
-            tenderDtos.add(mapTender(tender));
-        }
-        return tenderDtos;
-    }
-
-    private TenderDto mapTender(Tender tender) {
-        TenderDto tenderDto = new TenderDto();
-        List<String> locations = new ArrayList<>();
-        Set<String> categories = new HashSet<>();
-        String userLogin = getUserLogin();
-
-        tenderDto.setId(tender.getId());
-        tenderDto.setTitle(tender.getTitle());
-        tenderDto.setAuthorName(tender.getAuthor().getFirstName());
-        tenderDto.setCreateDate(tender.getCreateDate());
-        tenderDto.setEndDate(tender.getEndDate());
-        tenderDto.setStatus(tender.getStatus().getName());
-        tenderDto.setSuitablePrice(tender.getSuitablePrice());
-
-        for (Location location : tender.getLocations()) {
-            locations.add(location.getName());
-        }
-        tenderDto.setLocations(locations);
-
-        for (Unit unit : tender.getUnits()) {
-            categories.add(unit.getItem().getCategory().getName());
-        }
-        tenderDto.setCategories(categories);
-        if (tender.getProposals()!=null){tenderDto.setProposals(tender.getProposals().size());}
-        if (tender.getDescription()!=null){
-            tenderDto.setDescription(tender.getDescription());
-        }
-
-        tenderDto.setAuthorId(tender.getAuthor().getUser().getId());
-        if (userLogin!="anonymousUser"){
-            tenderDto.setUserId(userService.findByLogin(userLogin).getId());
-
-            if (tender.getAuthor().getId().equals(profileService.findProfileByUserLogin(userLogin).getId()) &&
-                    proposalService.getTenderNewProposalsForCustomer(tender.getId()) > 0) {
-                tenderDto.setHaveNewProposal(true);
-            }
-        }
-
-        return tenderDto;
     }
 
     @Override
@@ -312,7 +260,7 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
             units.add(unitService.save(unit));
         }
         savedTender.setUnits(units);
-        return mapTender(savedTender);
+        return utilMapper.mapObject(savedTender, TenderDto.class);
     }
 
     public TenderDto updateTender(Integer tenderId, String statusName, String endDate, String description) {
@@ -327,7 +275,7 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
                 e.printStackTrace();
             }
         }
-        return mapTender(tenderService.updateTender(tenderId, statusName, date, description));
+        return utilMapper.mapObject(tenderService.updateTender(tenderId, statusName, date, description), TenderDto.class);
     }
 
     public List<ProposalDto> findTendersProposals(Integer tenderId) {
@@ -374,7 +322,7 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
 
     @Override
     public TenderDto findOneById(Integer id) {
-        return mapTender(tenderService.findOne(id));
+        return utilMapper.mapObject(tenderService.findOne(id), TenderDto.class);
     }
 
     @Override

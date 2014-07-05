@@ -2,20 +2,31 @@ package com.softserveinc.tender.util;
 
 import com.softserveinc.tender.dto.BidDto;
 import com.softserveinc.tender.dto.ProposalDto;
+import com.softserveinc.tender.dto.TenderDto;
 import com.softserveinc.tender.entity.Bid;
+import com.softserveinc.tender.entity.Location;
 import com.softserveinc.tender.entity.Profile;
 import com.softserveinc.tender.entity.Proposal;
+import com.softserveinc.tender.entity.Tender;
+import com.softserveinc.tender.entity.Unit;
 import com.softserveinc.tender.service.DealService;
+import com.softserveinc.tender.service.ProfileService;
+import com.softserveinc.tender.service.ProposalService;
+import com.softserveinc.tender.service.UserService;
 import org.modelmapper.AbstractConverter;
+import org.modelmapper.Condition;
+import org.modelmapper.Conditions;
 import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
+import org.modelmapper.spi.MappingContext;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.lang.reflect.Type;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class UtilMapper implements Convertible {
     private ModelMapper nativeModelMapper = new ModelMapper();
@@ -23,7 +34,24 @@ public class UtilMapper implements Convertible {
     @Autowired
     private DealService dealService;
 
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private ProfileService profileService;
+
+    @Autowired
+    private ProposalService proposalService;
+
     public UtilMapper() {
+
+        final Converter<Profile, String> toFullName = new AbstractConverter<Profile, String>() {
+            @Override
+            protected String convert(Profile source) {
+                return source.getFirstName() + " " + source.getLastName();
+            }
+        };
+
         //Mapping for Bid into BidDto
         nativeModelMapper.addMappings(new PropertyMap<Bid, BidDto>() {
             @Override
@@ -54,13 +82,6 @@ public class UtilMapper implements Convertible {
                 }
             };
 
-            Converter<Profile, String> toFullName = new AbstractConverter<Profile, String>() {
-                @Override
-                protected String convert(Profile source) {
-                    return source.getFirstName() + " " + source.getLastName();
-                }
-            };
-
             Converter<List<Bid>, List<BidDto>> toBidDto = new AbstractConverter<List<Bid>, List<BidDto>>() {
                 @Override
                 protected List<BidDto> convert(List<Bid> source) {
@@ -75,6 +96,67 @@ public class UtilMapper implements Convertible {
                 using(toTotalBidPrice).map(source.getBids()).setTotalBidsPrice(null);
                 using(toHaveDeals).map(source.getId()).setHaveDeals(null);
                 using(toBidDto).map(source.getBids()).setBidDtos(null);
+            }
+        });
+
+        //Mapping for Tender into TenderDto
+        nativeModelMapper.addMappings(new PropertyMap<Tender, TenderDto>() {
+
+            Converter<List<Location>, List<String>> toLocations = new AbstractConverter<List<Location>, List<String>>() {
+                @Override
+                protected List<String> convert(List<Location> source) {
+                    List<String> locations = new ArrayList<>();
+                    for (Location location : source) {
+                        locations.add(location.getName());
+                    }
+                    return locations;
+                }
+            };
+
+            Converter<List<Unit>, Set<String>> toCategories = new AbstractConverter<List<Unit>, Set<String>>() {
+                @Override
+                protected Set<String> convert(List<Unit> source) {
+                    Set<String> categories = new HashSet<>();
+                    for (Unit unit : source) {
+                        categories.add(unit.getItem().getCategory().getName());
+                    }
+                    return categories;
+                }
+            };
+
+            Converter<Tender, Integer> toUserId = new AbstractConverter<Tender, Integer>() {
+                @Override
+                protected Integer convert(Tender source) {
+                    return userService.findByLogin(Util.getUserLogin()).getId();
+                }
+            };
+
+            Converter<Tender, Boolean> toHaveNewProposal = new AbstractConverter<Tender, Boolean>() {
+                @Override
+                protected Boolean convert(Tender source) {
+                    return source.getAuthor().equals(profileService.findProfileByUserLogin(Util.getUserLogin())) &&
+                            proposalService.getTenderNewProposalsForCustomer(source.getId()) > 0;
+                }
+            };
+
+            Condition isNotAnonymousUser = new Condition() {
+                @Override
+                public boolean applies(MappingContext context) {
+                    return !Util.getUserLogin().equals(Constants.UNKNOWN_USER);
+                }
+            };
+
+            @Override
+            protected void configure() {
+                using(toFullName).map(source.getAuthor()).setAuthorName(null);
+                map().setStatus(source.getStatus().getName());
+                using(toLocations).map(source.getLocations()).setLocations(null);
+                using(toCategories).map(source.getUnits()).setCategories(null);
+                when(Conditions.isNotNull()).map().setProposals(source.getProposals().size());
+                when(Conditions.isNotNull()).map().setDescription(source.getDescription());
+                map().setAuthorId(source.getAuthor().getUser().getId());
+                when(isNotAnonymousUser).using(toUserId).map(source).setUserId(null);
+                when(isNotAnonymousUser).using(toHaveNewProposal).map(source).setHaveNewProposal(null);
             }
         });
     }
