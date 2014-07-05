@@ -15,12 +15,16 @@ function showUnits(id) {
         unitsQuantity = data.length;
 
         for (var i = 0; i < len; i++) {
+            if (data[i].itemType == 'P')
+                var itemType = 'Product'
+            else if (data[i].itemType == 'S')
+                var itemType = 'Service';
             html += '<tr>' +
                 '<td>' + data[i].unitName + '<input  hidden="" type="text" value="' + data[i].id +'" id="unit_id_' + i + '"/>' + '</td>' +
-                '<td>' + data[i].itemType + '</td>' +
+                '<td>' + itemType + '</td>' +
                 '<td>' + data[i].categoryName + '</td>' +
                 '<td>' + data[i].quantity + ' ' + data[i].measurementName + '</td>' +
-                '<td>'+ '<input type="text" class="form-control" onchange="enableCreateButton()" id="' + i + '"/>' +'</td>' +
+                '<td><div class="input-group"><input placeholder="0.00" type="text" class="form-control" onchange="enableCreateButton()" id="' + i + '"/><span class="input-group-addon">UAH</span></div></td>' +
             '</tr>';
         }
         $('#tenderUnits').html(html);
