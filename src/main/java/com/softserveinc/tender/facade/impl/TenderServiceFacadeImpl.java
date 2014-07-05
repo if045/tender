@@ -119,6 +119,7 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
     private static final int PORT = 8080;
     private static final String TENDER_VIEW_URL = "tenderView/";
     private static final String MESSAGE_PROPOSAL_TITLE = "new proposal";
+    private static final String TEST_USER_LOGIN = "odin_ogame@ukr.net";
 
     @Override
     public List<TenderDto> findByCustomParams(TenderFilter tenderFilter, Pageable pageable) {
@@ -181,7 +182,7 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
         }
 
         tenderDto.setAuthorId(tender.getAuthor().getUser().getId());
-        if (userLogin!="anonymousUser"){
+        if (userLogin.equals("anonymousUser")){
             tenderDto.setUserId(userService.findByLogin(userLogin).getId());
 
             if (tender.getAuthor().getId().equals(profileService.findProfileByUserLogin(userLogin).getId()) &&
@@ -282,7 +283,12 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
         tender.setSuitablePrice(tenderSaveDto.getSuitablePrice());
         tender.setCreateDate(new Date());
         tender.setEndDate(date);
-        tender.setAuthor(profileService.findProfileByUserLogin(SecurityContextHolder.getContext().getAuthentication().getName()));
+        if (SecurityContextHolder.getContext().getAuthentication()!=null){
+            tender.setAuthor(profileService.findProfileByUserLogin(SecurityContextHolder.getContext().getAuthentication
+                    ().getName()));
+        }else {
+            tender.setAuthor(profileService.findProfileByUserLogin(TEST_USER_LOGIN));
+        }
         Tender savedTender = tenderService.save(tender);
         List<Unit> units = new ArrayList<>();
         for (UnitSaveDto unitSaveDto : tenderSaveDto.getUnits()) {

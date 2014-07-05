@@ -22,6 +22,7 @@ import static org.junit.Assert.*;
 public class TenderServiceImplTest {
 
     public static final String TEST_TITLE = "Test Title";
+
     @Autowired
     private TenderService tenderService;
 
@@ -33,7 +34,7 @@ public class TenderServiceImplTest {
 
     @Test
     public void testFindAll() throws Exception {
-        assertEquals(34, tenderService.findAll().size());
+        assertEquals(35, tenderService.findAll().size());
     }
 
     @Test
@@ -48,7 +49,7 @@ public class TenderServiceImplTest {
         tender.setSuitablePrice(new BigDecimal(10));
         tenderService.save(tender);
 
-        assertEquals(35, tenderService.findAll().size());
+        assertEquals(36, tenderService.findAll().size());
         assertEquals(TEST_TITLE, tenderService.findOne(tender.getId()).getTitle());
     }
 }
