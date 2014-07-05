@@ -474,12 +474,14 @@ public class UserServiceFacadeImpl implements UserServiceFacade {
 
     // Update profile logic
     @Override
-    public User updateUserData(UserPersonalDataDto userPersonalData) {
+    public UserPersonalDataDto updateUserData(UserPersonalDataDto userPersonalData) {
         User user = userService.findByLogin(getUserLogin());
 
         profileService.saveProfile(mapProfile(userPersonalData, user));
 
-        return userService.saveUser(mapUser(userPersonalData, user));
+        userService.saveUser(mapUser(userPersonalData, user));
+
+        return userPersonalData;
     }
 
     private User mapUser(UserPersonalDataDto personalData, User user) {
@@ -509,9 +511,7 @@ public class UserServiceFacadeImpl implements UserServiceFacade {
         if(!personalData.getProfileDto().getBirthday().equals("")){
             profile.setBirthday(formatDate(personalData.getProfileDto().getBirthday()));
         }
-        if(!personalData.getProfileDto().getPerson().equals("")){
-            profile.setPerson(personalData.getProfileDto().getPerson());
-        }
+        profile.setPerson(personalData.getProfileDto().getPerson());
 
         return profile;
     }

@@ -20,7 +20,7 @@ public interface UserServiceFacade {
     User savePrivateSeller(PrivateSellerRegistrationDataDto sellerData);
     User savePrivateCustomer(PrivateCustomerRegistrationDataDto customerData);
     UsersProfileDataDto findUsersProfileInfo();
-    User updateUserData(UserPersonalDataDto userPersonalData);
+    UserPersonalDataDto updateUserData(UserPersonalDataDto userPersonalData);
     String getHomePage();
     LoggedUserDto getLoggedUserInfo();
 }
