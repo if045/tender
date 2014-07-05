@@ -331,39 +331,7 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
     }
 
     public List<ProposalDto> findTendersProposals(Integer tenderId) {
-        return mapTendersProposals(tenderId);
-    }
-
-    private List<ProposalDto> mapTendersProposals(Integer tenderId) {
         return utilMapper.mapObjects(proposalService.findByTenderId(tenderId), ProposalDto.class);
-    }
-
-    private ProposalDto mapTenderProposal(Proposal proposal) {
-        ProposalDto proposalDto = new ProposalDto();
-
-        proposalDto.setId(proposal.getId());
-        proposalDto.setFullName(proposalDto.convertIntoFullName(proposal));
-        proposalDto.setNumberOfBids(proposal.getBids().size());
-        proposalDto.setTotalBidsPrice(proposalDto.countTotalBidsPrice(proposal));
-        proposalDto.setDescription(proposal.getDescription());
-        proposalDto.setDiscountCurrency(proposal.getDiscountCurrency());
-        proposalDto.setDiscountPercentage(proposal.getDiscountPercentage());
-
-        List<BidDto> bidDtos = new ArrayList<>();
-
-        for (Bid bid : proposal.getBids()) {
-            /*BidDto bidDto = new BidDto();
-            bidDto.setBidId(bid.getId());
-            bidDto.setUnitId(bid.getUnit().getId());
-            bidDto.setPrice(bid.getPrice());
-            bidDtos.add(bidDto);*/
-
-            bidDtos.add(utilMapper.mapObject(bid, BidDto.class));
-        }
-        proposalDto.setBidDtos(bidDtos);
-        proposalDto.setHaveDeals(dealService.findByProposalId(proposal.getId()).size() > 0);
-
-        return proposalDto;
     }
 
     @Override
@@ -401,7 +369,7 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
         } catch (UnknownHostException e) {
             e.printStackTrace();
         }
-        return mapTenderProposal(savedProposal);
+        return utilMapper.mapObject(savedProposal, ProposalDto.class);
     }
 
     @Override
