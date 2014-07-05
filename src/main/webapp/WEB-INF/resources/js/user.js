@@ -405,7 +405,7 @@ function updateUserData() {
 function updateCompanyData() {
     var newJson = $.parseJSON(buildCompanyDataJSON());
 
-    var url = "";                                          // TODO company data url
+    var url = USER_UPDATE_COMPANY_URL;
 
     $.ajax({
         url: url,
@@ -479,21 +479,40 @@ function buildProfileUpdateData() {
         '"person":"'     + person      + '"}';
 }
 
+function buildCompanyDataJSON() {
+    var companyName = $('#company_name_to_update').val();
+    var city = $('#city_to_update').val();
+    var street = $('#street_to_update').val();
+    var buildingNumber = $('#building_number_to_update').val();
+    var postcode = $('#postcode_to_update').val();
+    var email = $('#email_to_update').val();
+    var srnNumber = $('#srn_number_to_update').val();
+
+    return '{"name":"'      + companyName + '",' +
+        '"srnNumber":"'     + srnNumber + '",' +
+        '"email":"'         + email + '",' +
+        '"addressDto":{' +
+            '"city":"'              + city+ '",' +
+            '"street":"'            + street + '",' +
+            '"buildingNumber":"'    + buildingNumber + '",' +
+            '"postcode":"'          + postcode +'"}}';
+}
+
 function setDefaultPersonRadio() {
 
-    $.getJSON(USER_PROFILE_DATA_URL, function(data){
+    $.getJSON(USER_PROFILE_DATA_URL, function (data) {
         var person = data.personalInfoDto.profileDto.person;
 
         var value;
 
-        if(person == LEGAL_PERSON) {
+        if (person == LEGAL_PERSON) {
             value = 'legal';
-        } else if(person == PRIVATE_PERSON) {
+        } else if (person == PRIVATE_PERSON) {
             value = 'private';
         }
 
         var $radios = $('input:radio[name=person]');
-        if($radios.is(':checked') === false) {
+        if ($radios.is(':checked') === false) {
             $radios.filter('[value=' + value + ']').prop('checked', true);
         }
     });

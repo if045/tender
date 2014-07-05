@@ -184,7 +184,8 @@
                                             <div class="form-group has-feedback">
                                                 <div class="input-group">
                                                     <span class="input-group-addon glyphicon glyphicon-pencil"></span>
-                                                    <input name="company_name" type="text" class="form-control" placeholder="Name">
+                                                    <input id="company_name_to_update" name="company_name"
+                                                           type="text" class="form-control" placeholder="Name">
                                                 </div>
                                             </div>
                                         </div>
@@ -195,13 +196,17 @@
                                             <div class="form-group has-feedback">
                                                 <div class="input-group">
                                                     <span class="input-group-addon glyphicon glyphicon-home"></span>
-                                                    <input name="city" type="text" class="form-control" placeholder="City">
+                                                    <input id="city_to_update" name="city" type="text"
+                                                           class="form-control" placeholder="City">
                                                     <span class="input-group-addon"></span>
-                                                    <input name="street" type="text" class="form-control" placeholder="Street">
+                                                    <input id="street_to_update" name="street" type="text"
+                                                           class="form-control" placeholder="Street">
                                                     <span class="input-group-addon"></span>
-                                                    <input name="building_namber" type="text" class="form-control" placeholder="Building number">
+                                                    <input id="building_number_to_update" name="building_number"
+                                                           type="text" class="form-control" placeholder="Building number">
                                                     <span class="input-group-addon"></span>
-                                                    <input name="postcode" type="text" class="form-control" placeholder="Postcode">
+                                                    <input id="postcode_to_update" name="postcode" type="text"
+                                                           class="form-control" placeholder="Postcode">
                                                 </div>
                                             </div>
                                         </div>
@@ -212,9 +217,11 @@
                                             <div class="form-group has-feedback">
                                                 <div class="input-group">
                                                     <span class="input-group-addon">@</span>
-                                                    <input name="email" type="text" class="form-control" placeholder="Email">
+                                                    <input id="email_to_update" name="email" type="text"
+                                                           class="form-control" placeholder="Email">
                                                     <span class="input-group-addon"></span>
-                                                    <input name="srn_number" type="text" class="form-control" placeholder="SRN number">
+                                                    <input id="srn_number_to_update" name="srn_number" type="text"
+                                                           class="form-control" placeholder="SRN number">
                                                 </div>
                                             </div>
                                         </div>

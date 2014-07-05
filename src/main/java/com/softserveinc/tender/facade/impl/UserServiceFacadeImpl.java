@@ -515,4 +515,38 @@ public class UserServiceFacadeImpl implements UserServiceFacade {
 
         return profile;
     }
+
+    @Override
+    public CompanyDto updateUserCompanyData(CompanyDto companyDto) {
+        Profile profile = profileService.findProfileByUserLogin(getUserLogin());
+        Company company = profile.getCompany();
+        Address companyAddress = company.getAddress();
+
+        if (!companyDto.getName().equals("")) {
+            company.setName(companyDto.getName().trim());
+        }
+        if (!companyDto.getSrnNumber().equals("")) {
+            company.setSrn(Integer.parseInt(companyDto.getSrnNumber().trim()));
+        }
+        if (!companyDto.getEmail().equals("")) {
+            company.setEmail(companyDto.getEmail().trim());
+        }
+        Company savedCompany = companyService.save(company);
+
+        if (!companyDto.getAddressDto().getPostcode().equals("")) {
+            companyAddress.setPostcode(Integer.parseInt(companyDto.getAddressDto().getPostcode()));
+        }
+        if (!companyDto.getAddressDto().getCity().equals("")) {
+            companyAddress.setCity(companyDto.getAddressDto().getCity().trim());
+        }
+        if (!companyDto.getAddressDto().getStreet().equals("")) {
+            companyAddress.setStreet(companyDto.getAddressDto().getStreet().trim());
+        }
+        if (!companyDto.getAddressDto().getBuildingNumber().equals("")) {
+            companyAddress.setBuildingNumber(companyDto.getAddressDto().getBuildingNumber().trim());
+        }
+        Address savedAddress = addressService.save(companyAddress);
+        savedCompany.setAddress(savedAddress);
+        return mapCompany(userService.findByLogin(getUserLogin()));
+    }
 }
