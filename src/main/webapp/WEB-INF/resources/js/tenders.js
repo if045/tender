@@ -141,16 +141,6 @@
                     return false;
                 }
             });
-
-            $.getJSON(NEW_DEALS_URL, function(data){
-                var newDealsNumber = data.dealsNumber;
-
-                if(newDealsNumber > 0) {
-                    $('.new_deal_notification').html("&nbsp;+"+newDealsNumber);
-                } else {
-                    $('.new_deal_notification').html("");
-                }
-            });
         });
 
         function populateItemDropdown() {
