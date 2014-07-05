@@ -17,10 +17,11 @@ import java.util.Date;
 import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration("classpath:test/TenderServiceImplTest-context.xml")
+@ContextConfiguration("classpath:test-context.xml")
 @Transactional
 public class TenderServiceImplTest {
 
+    public static final String TEST_TITLE = "Test Title";
     @Autowired
     private TenderService tenderService;
 
@@ -39,8 +40,8 @@ public class TenderServiceImplTest {
     public void testSave() throws Exception {
         Tender tender = new Tender();
 
+        tender.setTitle(TEST_TITLE);
         tender.setAuthor(profileService.findProfileByUserLogin("odin_ogame@ukr.net"));
-        tender.setTitle("Test Title");
         tender.setCreateDate(new Date());
         tender.setEndDate(new Date());
         tender.setStatus(tenderStatusService.findByName("Open"));
@@ -48,6 +49,6 @@ public class TenderServiceImplTest {
         tenderService.save(tender);
 
         assertEquals(35, tenderService.findAll().size());
-        assertEquals("Test Title", tenderService.findOne(tender.getId()).getTitle());
+        assertEquals(TEST_TITLE, tenderService.findOne(tender.getId()).getTitle());
     }
 }
