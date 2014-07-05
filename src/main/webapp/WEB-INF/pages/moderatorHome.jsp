@@ -17,24 +17,19 @@
 
     <script type='text/javascript' src='<c:url value="../resources/js/jquery-2.1.1.min.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/bootstrap.min.js"/>'></script>
+    <script type='text/javascript' src='<c:url value="../resources/js/cookie.js"/>'></script>
+
     <script type='text/javascript' src='<c:url value="../resources/js/constants.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/moderator.js"/>'></script>
+    <script type='text/javascript' src='<c:url value="../resources/js/header.js"/>'></script>
 
 </head>
 <body>
 
 <div class="container">
-    <div class="row-header">
-        <nav class="navbar navbar-default" role="navigation">
-            <div class="collapse navbar-collapse">
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="">Switch to admin</a></li>
-                    <li><a class="glyphicon glyphicon-user" onclick=""></a></li>
-                    <li><button type="button" class="btn btn-default nav_button" onclick="">Sign up</button></li>
-                </ul>
-            </div>
-        </nav>
-    </div>
+    <!--navigation-->
+    <jsp:include page="header.jsp"/>
+    <!--navigation-->
 
     <!--main-->
 
@@ -70,7 +65,7 @@
                             <thead>
                             <tr>
                                 <th align="center" id="tender_title">
-                                    <span>Title</span>
+                                    <span>Tender title</span>
                                 </th>
                                 <th align="center" id="customer_name">
                                     <span>Customer name</span>
@@ -120,7 +115,7 @@
                         <div class="pull-right">
                             <form id="search_form_for_profile" class="navbar-form navbar-right" role="search">
                                 <div class="form-group">
-                                    <input id="search_tenders_by_login" type="text" class="form-control"
+                                    <input id="search_profiles" type="text" class="form-control"
                                            placeholder="Search by login...">
                                 </div>
                             </form>
@@ -136,15 +131,17 @@
                             <thead>
                             <tr>
                                 <th align="center" id="moderator_profile_title">
-                                    <span>Profile</span>
+                                    <span class="glyphicon sortable"><span>Profile</span></span>
                                 </th>
                                 <th align="center" id="moderator_profile_login">
-                                    <span>User login</span>
+                                    <span class="glyphicon sortable glyphicon-chevron-down"><span>User login</span></span>
                                 </th>
                                 <th align="center" id="moderator_profile_telephone">
-                                    <span>Telephone</span>
+                                    <span class="glyphicon sortable"><span>Telephone</span></span>
                                 </th>
-                                <th align="center" id="moderator_profile_action"><span>Action</span></th>
+                                <th align="center" id="moderator_profile_action">
+                                    <span class="glyphicon sortable"><span>Action</span></span>
+                                </th>
                             </tr>
                             </thead>
                             <tbody id="moderator_profiles"></tbody>
@@ -155,11 +152,11 @@
                     <div id="moderator_profile_pagination" class="row">
                         <div class="col-md-12">
                             <div class="pull-right">
-                                <ul class="pagination page_pagination pull-right"></ul>
+                                <ul class="moderator_profile_page_pagination page_pagination pagination pull-right"></ul>
                             </div>
                             <div class="pull-right">
                                 <div class="control-group">
-                                    <select id="moderator_profile_pagination_itemsnum" class="form-control pull-right items_number_dropdown">
+                                    <select id="moderator_profilesnum" class="form-control pull-right items_number_dropdown">
                                         <option value="5">5</option>
                                         <option value="10" selected>10</option>
                                         <option value="15">15</option>
@@ -172,7 +169,6 @@
                             </div>
                         </div>
                     </div>
-
                     <!-- pagination -->
                 </div>
             </div>
