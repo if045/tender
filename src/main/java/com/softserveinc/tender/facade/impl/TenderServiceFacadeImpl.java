@@ -148,29 +148,7 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
     @Override
     public List<UnitDto> findUnitsByTenderId(Integer tenderId, Pageable pageable) {
         List<Unit> units = unitService.findUnitsByTenderId(tenderId, pageable);
-        return mapUnits(units);
-    }
-
-    private UnitDto mapUnit(Unit unit) {
-        UnitDto unitDto=new UnitDto();
-        unitDto.setTenderId(unit.getTender().getId());
-        unitDto.setId(unit.getId());
-        unitDto.setUnitName(unit.getItem().getName());
-        unitDto.setItemType(unit.getItem().getType());
-        unitDto.setCategoryName(unit.getItem().getCategory().getName());
-        unitDto.setQuantity(unit.getQuantity());
-        unitDto.setMeasurementName(unit.getMeasurement().getName());
-        unitDto.setNumberOfBids(unit.getBids().size());
-        unitDto.setHaveDeals(dealService.findByUnitId(unit.getId()).size() > 0);
-        return unitDto;
-    }
-
-    private List<UnitDto> mapUnits(List<Unit> units){
-        List<UnitDto> unitDtos=new ArrayList<>();
-        for(Unit unit:units){
-            unitDtos.add(mapUnit(unit));
-        }
-        return unitDtos;
+        return utilMapper.mapObjects(units, UnitDto.class);
     }
 
     public List<LocationDto> findTendersLocations() {
