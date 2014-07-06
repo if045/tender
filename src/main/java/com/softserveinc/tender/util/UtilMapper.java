@@ -2,11 +2,13 @@ package com.softserveinc.tender.util;
 
 import com.softserveinc.tender.dto.BidDto;
 import com.softserveinc.tender.dto.CategoryDto;
+import com.softserveinc.tender.dto.ConflictDto;
 import com.softserveinc.tender.dto.ProposalDto;
 import com.softserveinc.tender.dto.TenderDto;
 import com.softserveinc.tender.dto.UnitDto;
 import com.softserveinc.tender.entity.Bid;
 import com.softserveinc.tender.entity.Category;
+import com.softserveinc.tender.entity.Conflict;
 import com.softserveinc.tender.entity.Location;
 import com.softserveinc.tender.entity.Profile;
 import com.softserveinc.tender.entity.Proposal;
@@ -186,6 +188,16 @@ public class UtilMapper implements Convertible {
             @Override
             protected void configure() {
                 when(Conditions.isNotNull()).map().setParentId(source.getParent().getId());
+            }
+        });
+
+        //Mapping for Conflict into ConflictDto
+        nativeModelMapper.addMappings(new PropertyMap<Conflict, ConflictDto>() {
+            @Override
+            protected void configure() {
+                map().setTitle(source.getBid().getProposal().getTender().getTitle());
+                using(toFullName).map(source.getBid().getProposal().getTender().getAuthor()).setCustomerName(null);
+                using(toFullName).map(source.getBid().getProposal().getSeller().getProfile()).setSellerName(null);
             }
         });
     }

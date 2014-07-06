@@ -19,11 +19,10 @@ import com.softserveinc.tender.service.ConflictService;
 import com.softserveinc.tender.service.DealService;
 import com.softserveinc.tender.service.FeedbackService;
 import com.softserveinc.tender.service.UserService;
-import org.modelmapper.ModelMapper;
+import com.softserveinc.tender.util.UtilMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -44,7 +43,7 @@ public class DealServiceFacadeImpl implements DealServiceFacade {
     private FeedbackService feedbackService;
 
     @Autowired
-    private ModelMapper modelMapper;
+    private UtilMapper utilMapper;
 
     @Autowired
     private ConflictService conflictService;
@@ -154,15 +153,6 @@ public class DealServiceFacadeImpl implements DealServiceFacade {
         return dealDto;
     }
 
-    private ConflictDto mapConflict(Conflict conflict) {
-        ConflictDto conflictDto = new ConflictDto();
-        conflictDto.setId(conflict.getId());
-        conflictDto.setBidId(conflict.getBid().getId());
-        conflictDto.setDescription(conflict.getDescription());
-        conflictDto.setStatusId(conflict.getStatus().getId());
-        return conflictDto;
-    }
-
     @Override
     public ConflictDto saveConflict(ConflictSaveDto conflictSaveDto) {
         Conflict conflict = new Conflict();
@@ -178,7 +168,7 @@ public class DealServiceFacadeImpl implements DealServiceFacade {
         conflict.setBid(bid);
 
         Conflict savedConflict = conflictService.save(conflict);
-        return mapConflict(savedConflict);
+        return utilMapper.mapObject(savedConflict, ConflictDto.class);
     }
 
     private FeedbackDto mapFeedback(Feedback feedback) {
