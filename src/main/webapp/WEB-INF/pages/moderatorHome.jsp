@@ -48,9 +48,9 @@
                     <div class="col-md-12 search_bar">
                         <div class="pull-left"></div>
                         <div class="pull-right">
-                            <form id="search_form" class="navbar-form navbar-right" role="search">
+                            <form id="search_form_for_conflicts" class="navbar-form navbar-right" role="search">
                                 <div class="form-group">
-                                    <input id="search_tenders_for_moderator" type="text" class="form-control"
+                                    <input id="search_conflicts" type="text" class="form-control"
                                            placeholder="Search by tender title...">
                                 </div>
                             </form>
@@ -60,7 +60,8 @@
                 <!-- search-->
                 <!-- table-->
                 <div id="conflict_for_moderator" class="row">
-                    <div class="col-md-12">
+                    <div id="moderator_conflicts_message"></div>
+                    <div class="col-md-12" id="moderator_conflicts_items">
                         <table class="table table-bordered table-striped">
                             <thead>
                             <tr>
@@ -76,19 +77,20 @@
                                 <th align="center" id="options_action"><span>Options</span></th>
                             </tr>
                             </thead>
-                            <tbody id="conflict_table">
-                            </tbody>
+                            <tbody id="conflict_table"></tbody>
                         </table>
                         <!-- table-->
                         <!-- pagination -->
-                        <div id="pagination_for_conflict" class="row">
+                        <div id="moderator_conflicts_pagination" class="row">
                             <div class="col-md-12">
                                 <div class="pull-right">
-                                    <ul class="pagination page_pagination pull-right"></ul>
+                                    <ul
+                                            class="moderator_conflicts_page_pagination page_pagination pagination pull-right"></ul>
                                 </div>
                                 <div class="pull-right">
                                     <div class="control-group">
-                                        <select id="pagination_items_num_conflict" class="form-control pull-right items_number_dropdown">
+                                        <select id="moderator_conflictsnum"
+                                                class="form-control pull-right items_number_dropdown">
                                             <option value="5">5</option>
                                             <option value="10" selected>10</option>
                                             <option value="15">15</option>

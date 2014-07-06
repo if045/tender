@@ -6,6 +6,7 @@ import com.softserveinc.tender.facade.ModeratorServiceFacade;
 import com.softserveinc.tender.service.ConflictService;
 import com.softserveinc.tender.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,7 +17,7 @@ import static com.softserveinc.tender.util.Util.getUserLogin;
 
 @Service("moderatorServiceFacade")
 @Transactional
-public class ModeratorServiceFacadeImpl implements ModeratorServiceFacade{
+public class ModeratorServiceFacadeImpl implements ModeratorServiceFacade {
 
     @Autowired
     private ConflictService conflictService;
@@ -25,9 +26,16 @@ public class ModeratorServiceFacadeImpl implements ModeratorServiceFacade{
     private UserService userService;
 
     @Override
-    public List<ConflictDto> getConflicts() {
-        List<Conflict> conflicts = conflictService.findAllByModeratorId(userService.findByLogin(getUserLogin()).getId());
+    public List<ConflictDto> getConflicts(Pageable pageable, String searchParam) {
+        List<Conflict> conflicts = conflictService.findAllByModeratorId(userService.findByLogin(getUserLogin()).getId
+                (), pageable, searchParam);
         return mapConflicts(conflicts);
+    }
+
+    @Override
+    public Long getConflictsNumber(String searchParam) {
+        return conflictService.getConflictsNumber(userService.findByLogin(getUserLogin()).getId
+                (), searchParam);
     }
 
     private List<ConflictDto> mapConflicts(List<Conflict> conflicts) {
