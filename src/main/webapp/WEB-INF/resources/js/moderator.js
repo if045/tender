@@ -74,7 +74,7 @@ function showUsersProfiles() {
                         if(z+1<userRolesNumber) userRoles += ', ';
                     }
 
-                    html += '<tr><td align="center">' + data[i].firstName + ' ' + data[i].lastName + '</td>' +
+                    html += '<tr><td align="center"><a href="/user/profile?userLogin='+data[i].userLogin+'" target="_blank">' + data[i].firstName + ' ' + data[i].lastName + '</a></td>' +
                         '<td align="center"><a href="mailto:' + data[i].userLogin + '">' + data[i].userLogin + '</a></td>' +
                         '<td align="center">' + data[i].telephone + '</td>' +
                         '<td align="center">' + userRoles + '</td>' +
