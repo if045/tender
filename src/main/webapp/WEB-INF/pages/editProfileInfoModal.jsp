@@ -88,13 +88,13 @@
                                     <div class="row backdown radio-toolbar">
                                         <div class="col-md-4">
                                             <input id="legal_to_update" type="radio" name="person" value="legal">
-                                                <span id="legal-radio" class="required-radio">
+                                                <span>
                                                     Legal person
                                                 </span>
                                         </div>
                                         <div class="col-md-5">
                                             <input id="private_to_update" type="radio" name="person" value="private">
-                                                <span id="private-radio" class="required-radio">
+                                                <span>
                                                     Private person
                                                 </span>
                                         </div>

@@ -28,6 +28,7 @@ $(document).ready(function() {
     showEditPersonalPanel();
     showEditCompanyPanel();
     showEditTradeSpherePanel();
+    setDefaultPersonRadio();
 });
 
 function mapDropdownData(url, id) {
@@ -495,4 +496,24 @@ function buildCompanyDataJSON() {
             '"street":"'            + street + '",' +
             '"buildingNumber":"'    + buildingNumber + '",' +
             '"postcode":"'          + postcode +'"}}';
+}
+
+function setDefaultPersonRadio() {
+
+    $.getJSON(USER_PROFILE_DATA_URL, function (data) {
+        var person = data.personalInfoDto.profileDto.person;
+
+        var value;
+
+        if (person == LEGAL_PERSON) {
+            value = 'legal';
+        } else if (person == PRIVATE_PERSON) {
+            value = 'private';
+        }
+
+        var $radios = $('input:radio[name=person]');
+        if ($radios.is(':checked') === false) {
+            $radios.filter('[value=' + value + ']').prop('checked', true);
+        }
+    });
 }

@@ -12,6 +12,7 @@ import com.softserveinc.tender.service.UserService;
 import com.softserveinc.tender.util.Util;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -38,10 +39,15 @@ public class ProfileServiceFacadeImpl implements ProfileServiceFacade {
     private UserService userService;
 
     @Override
-    public List<ProfileDto> findAllProfiles() {
-        List<Profile> profiles = profileService.findAllProfiles();
+    public List<ProfileDto> findAllProfiles(Pageable pageable, String searchParam) {
+        List<Profile> profiles = profileService.findAllProfiles(pageable, searchParam);
 
         return mapProfiles(profiles);
+    }
+
+    @Override
+    public Long getProfilesNumber(String searchParam) {
+        return profileService.getProfilesNumber(searchParam);
     }
 
     @Override

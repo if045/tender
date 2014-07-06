@@ -5,7 +5,9 @@
     <div class="container-fluid">
         <div class="navbar-header">
             <ul class="nav navbar-nav navbar-left nav_buttons">
-                <li><a class="navbar-brand" href="#" onclick="goToHomePage();">UATender</a></li>
+                <security:authorize access="hasAnyRole('CUSTOMER','SELLER')">
+                    <li><a class="navbar-brand" href="#" onclick="goToHomePage();">UATender</a></li>
+                </security:authorize>
                 <security:authorize access="hasAnyRole('CUSTOMER','SELLER')">
                     <li>
                         <button id="my_tenders_btn" type="button" class="btn btn-info nav_button"
@@ -13,8 +15,8 @@
                     </li>
                 </security:authorize>
                 <security:authorize access="hasAnyRole('CUSTOMER','SELLER')">
-                    <li><button type="button" class="btn btn-default nav_button" onclick="goToMyDealsPage();">My
-                                    deals<span class="new_deal_notification"></span></button></li>
+                    <li><button id="my_deals_btn" type="button" class="btn btn-info nav_button" onclick="goToMyDealsPage();">My
+                                    deals</button></li>
                 </security:authorize>
                 <security:authorize access="hasRole('CUSTOMER')">
                     <input id="CURRENT_USER_ROLE" value="CUSTOMER" hidden=""/>

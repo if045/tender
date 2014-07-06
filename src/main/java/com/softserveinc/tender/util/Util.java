@@ -1,6 +1,5 @@
 package com.softserveinc.tender.util;
 
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.sql.Timestamp;

@@ -55,7 +55,9 @@ public class UserController {
     }
 
     @RequestMapping(value = "/update/data", method = RequestMethod.PUT, consumes = "application/json")
-    public @ResponseBody User updateUserProfileData(@RequestBody UserPersonalDataDto userPersonalData) {
+    public @ResponseBody UserPersonalDataDto updateUserProfileData(@RequestBody UserPersonalDataDto userPersonalData) {
+        userServiceFacade.findUsersProfileInfo();
+
         return userServiceFacade.updateUserData(userPersonalData);
     }
 
