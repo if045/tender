@@ -285,6 +285,10 @@ textarea {
     background-color: rgb(172, 196, 247);
 }
 
+#moderator_profile_status {
+    width: 130px;
+}
+
 #moderator_profile_telephone {
     width: 230px;
 }
@@ -292,5 +296,15 @@ textarea {
 #moderator_profile_title {
     width: 335px;
 }
+
+#moderator_profile_roles {
+    width: 150px;
+    word-break: normal;
+}
+
+#add_moderator_btn {
+    margin-top: 8px;
+}
+
 
 

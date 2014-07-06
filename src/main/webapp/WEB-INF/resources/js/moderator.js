@@ -23,6 +23,10 @@ $(document).ready(function() {
         sortUsersProfiles("user.login","moderator_profile_login");
     });
 
+    $("#moderator_profile_status").click(function(){
+        sortUsersProfiles("checkedProfile.status.name","moderator_profile_status");
+    });
+
     $("#moderator_profile_telephone").click(function(){
         sortUsersProfiles("telephone","moderator_profile_telephone");
     });
@@ -63,17 +67,26 @@ function showUsersProfiles() {
 
             if(dataSize > 0) {
                 for (var i = 0; i < dataSize; i++) {
+                    var userRoles = '';
+                    var userRolesNumber = data[i].roles.length;
+                    for(var z=0;z<userRolesNumber;z++) {
+                        userRoles += data[i].roles[z].name;
+                        if(z+1<userRolesNumber) userRoles += ', ';
+                    }
+
                     html += '<tr><td align="center">' + data[i].firstName + ' ' + data[i].lastName + '</td>' +
                         '<td align="center"><a href="mailto:' + data[i].userLogin + '">' + data[i].userLogin + '</a></td>' +
                         '<td align="center">' + data[i].telephone + '</td>' +
+                        '<td align="center">' + userRoles + '</td>' +
+                        '<td align="center">' + data[i].status + '</td>' +
                         '<td align="center">' +
                         '<div class="btn-group">' +
                         '<button data-toggle="dropdown" class="btn btn-default dropdown-toggle">Status<span class="caret"></span></button>' +
                         '<ul class="dropdown-menu">' +
-                        '<li class="'+((data[i].status=="Unchecked")?"moderator_profile_status":"")+'"><a href="#" data-toggle="modal" data-target="#moderator_profile_status" onclick="addConfirmListender(\'confirm_button\',' + data[i].userId + ',\'Unchecked\');">Unchecked</a></li>' +
-                        '<li class="'+((data[i].status=="Checked")?"moderator_profile_status":"")+'"><a href="#" data-toggle="modal" data-target="#moderator_profile_status" onclick="addConfirmListender(\'confirm_button\',' + data[i].userId + ',\'Checked\');">Checked</a></li>' +
-                        '<li class="'+((data[i].status=="In progress")?"moderator_profile_status":"")+'"><a href="#" data-toggle="modal" data-target="#moderator_profile_status" onclick="addConfirmListender(\'confirm_button\',' + data[i].userId + ',\'In progress\');">In progress</a></li>' +
-                        '<li class="'+((data[i].status=="Denied")?"moderator_profile_status":"")+'"><a href="#" data-toggle="modal" data-target="#moderator_profile_status" onclick="addConfirmListender(\'confirm_button\',' + data[i].userId + ',\'Denied\');">Denied</a></li>' +
+                        '<li class="'+((data[i].status=="Unchecked")?"moderator_profile_status":"")+'"><a href="#" data-toggle="modal" data-target="#moderator_profile_status_confirm" onclick="addConfirmListender(\'confirm_button\',' + data[i].userId + ',\'Unchecked\');">Unchecked</a></li>' +
+                        '<li class="'+((data[i].status=="Checked")?"moderator_profile_status":"")+'"><a href="#" data-toggle="modal" data-target="#moderator_profile_status_confirm" onclick="addConfirmListender(\'confirm_button\',' + data[i].userId + ',\'Checked\');">Checked</a></li>' +
+                        '<li class="'+((data[i].status=="In progress")?"moderator_profile_status":"")+'"><a href="#" data-toggle="modal" data-target="#moderator_profile_status_confirm" onclick="addConfirmListender(\'confirm_button\',' + data[i].userId + ',\'In progress\');">In progress</a></li>' +
+                        '<li class="'+((data[i].status=="Denied")?"moderator_profile_status":"")+'"><a href="#" data-toggle="modal" data-target="#moderator_profile_status_confirm" onclick="addConfirmListender(\'confirm_button\',' + data[i].userId + ',\'Denied\');">Denied</a></li>' +
                         '</ul>' +
                         '</div>' +
                         '</td></tr>';
@@ -96,7 +109,7 @@ function addConfirmListender(buttonId,userId,status) {
     $("#"+buttonId).unbind('click');
     $("#"+buttonId).click(function(){
         setProfileStatus(userId, status);
-        $("#moderator_profile_status").modal('hide');
+        $("#moderator_profile_status_confirm").modal('hide');
     });
 }
 

@@ -3,6 +3,7 @@ package com.softserveinc.tender.dto;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 public class ProfileDto {
 
@@ -22,6 +23,7 @@ public class ProfileDto {
     private String userLogin;
     private Integer companyId;
     private String status;
+    private List<RoleDto> roles;
 
     public String getFirstName() {
         return firstName;
@@ -93,5 +95,13 @@ public class ProfileDto {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public List<RoleDto> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<RoleDto> roles) {
+        this.roles = roles;
     }
 }
