@@ -3,12 +3,14 @@ package com.softserveinc.tender.util;
 import com.softserveinc.tender.dto.BidDto;
 import com.softserveinc.tender.dto.CategoryDto;
 import com.softserveinc.tender.dto.ConflictDto;
+import com.softserveinc.tender.dto.FeedbackDto;
 import com.softserveinc.tender.dto.ProposalDto;
 import com.softserveinc.tender.dto.TenderDto;
 import com.softserveinc.tender.dto.UnitDto;
 import com.softserveinc.tender.entity.Bid;
 import com.softserveinc.tender.entity.Category;
 import com.softserveinc.tender.entity.Conflict;
+import com.softserveinc.tender.entity.Feedback;
 import com.softserveinc.tender.entity.Location;
 import com.softserveinc.tender.entity.Profile;
 import com.softserveinc.tender.entity.Proposal;
@@ -57,7 +59,7 @@ public class UtilMapper implements Convertible {
             }
         };
 
-        //Mapping for Bid into BidDto
+        //Mapping for Bid to BidDto
         nativeModelMapper.addMappings(new PropertyMap<Bid, BidDto>() {
             @Override
             protected void configure() {
@@ -65,7 +67,7 @@ public class UtilMapper implements Convertible {
             }
         });
 
-        //Mapping for Proposal into ProposalDto
+        //Mapping for Proposal to ProposalDto
         nativeModelMapper.addMappings(new PropertyMap<Proposal, ProposalDto>() {
             Converter<List<Bid>, Double> toTotalBidPrice = new AbstractConverter<List<Bid>, Double>() {
                 @Override
@@ -104,7 +106,7 @@ public class UtilMapper implements Convertible {
             }
         });
 
-        //Mapping for Tender into TenderDto
+        //Mapping for Tender to TenderDto
         nativeModelMapper.addMappings(new PropertyMap<Tender, TenderDto>() {
 
             Converter<List<Location>, List<String>> toLocations = new AbstractConverter<List<Location>, List<String>>() {
@@ -165,7 +167,7 @@ public class UtilMapper implements Convertible {
             }
         });
 
-        //Mapping for Unit into UnitDto
+        //Mapping for Unit to UnitDto
         nativeModelMapper.addMappings(new PropertyMap<Unit, UnitDto>() {
             Converter<Integer, Boolean> toHaveDeals = new AbstractConverter<Integer, Boolean>() {
                 @Override
@@ -183,7 +185,7 @@ public class UtilMapper implements Convertible {
             }
         });
 
-        //Mapping for Category into CategoryDto
+        //Mapping for Category to CategoryDto
         nativeModelMapper.addMappings(new PropertyMap<Category, CategoryDto>() {
             @Override
             protected void configure() {
@@ -191,7 +193,7 @@ public class UtilMapper implements Convertible {
             }
         });
 
-        //Mapping for Conflict into ConflictDto
+        //Mapping for Conflict to ConflictDto
         nativeModelMapper.addMappings(new PropertyMap<Conflict, ConflictDto>() {
             @Override
             protected void configure() {

@@ -171,18 +171,6 @@ public class DealServiceFacadeImpl implements DealServiceFacade {
         return utilMapper.mapObject(savedConflict, ConflictDto.class);
     }
 
-    private FeedbackDto mapFeedback(Feedback feedback) {
-        FeedbackDto feedbackDto = new FeedbackDto();
-        feedbackDto.setId(feedback.getId());
-        feedbackDto.setProfileId(feedback.getProfile().getId());
-        feedbackDto.setUserId(feedback.getUser().getId());
-        feedbackDto.setCommunication(feedback.getCommunication());
-        feedbackDto.setSpeed(feedback.getSpeed());
-        feedbackDto.setLogistic(feedback.getLogistic());
-        feedbackDto.setComment(feedback.getComment());
-        return feedbackDto;
-    }
-
     @Override
     public FeedbackDto saveFeedback(FeedbackSaveDto feedbackSaveDto) {
         Feedback feedback = new Feedback();
@@ -198,6 +186,6 @@ public class DealServiceFacadeImpl implements DealServiceFacade {
         feedback.setUser(user);
 
         Feedback savedFeedback = feedbackService.save(feedback);
-        return mapFeedback(savedFeedback);
+        return utilMapper.mapObject(savedFeedback, FeedbackDto.class);
     }
 }
