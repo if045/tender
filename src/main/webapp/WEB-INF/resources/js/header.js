@@ -43,6 +43,18 @@ $(document).ready(function () {
             }
         });
     });
+
+    if (getCookie("userRole") != undefined) {
+        $.getJSON(NEW_DEALS_URL, function (data) {
+            var newDealsNumber = data.dealsNumber;
+
+            if (newDealsNumber > 0) {
+                $('#my_deals_btn').html("My deals <span class='badge'>" + newDealsNumber + "</span>");
+            } else {
+                $('#my_deals_btn').html("My deals");
+            }
+        });
+    }
 });
 
 function goToMyTenders() {
