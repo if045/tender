@@ -51,6 +51,8 @@ public class ModeratorServiceFacadeImpl implements ModeratorServiceFacade {
         conflictDto.setTitle(conflict.getBid().getProposal().getTender().getTitle());
         conflictDto.setCustomerName(conflict.getBid().getProposal().getTender().getAuthor().getFirstName());
         conflictDto.setSellerName(conflict.getBid().getProposal().getSeller().getProfile().getFirstName());
+        conflictDto.setDescription(conflict.getDescription());
+        conflictDto.setStatus(conflict.getStatus().getName());
         return conflictDto;
     }
 }

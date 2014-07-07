@@ -74,6 +74,9 @@
                                 <th align="center" id="seller_name">
                                     <span>Seller name</span>
                                 </th>
+                                <th align="center" id="status_name">
+                                    <span>Status</span>
+                                </th>
                                 <th align="center" id="options_action"><span>Options</span></th>
                             </tr>
                             </thead>
