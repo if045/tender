@@ -92,6 +92,7 @@ $(document).ready(function () {
     }, "Please enter only letters");
 
     registrationPageValidation();
+    updateProfileValidation();
 });
 
 function registrationPageValidation() {
@@ -214,6 +215,138 @@ function registrationPageValidation() {
 
         unhighlight: function(element) {
             $(element).closest('.form-group').removeClass('has-error');
+        },
+
+        errorElement: 'span',
+        errorClass: 'help-block',
+
+        errorPlacement: function(error, element) {
+            if(element.parent('.input-group').length) {
+                error.insertAfter(element.parent());
+            } else {
+                error.insertAfter(element);
+            }
+        }
+    });
+}
+
+function updateProfileValidation() {
+    $("#profile_data_validation").validate({
+        rules: {
+            login: {
+                email: true,
+                maxlength: 30
+            },
+
+            password: {
+                minlength: 6,
+                password: true
+            },
+
+            confirm_password: {
+                equalTo: "#password"
+            },
+
+            first_name: {
+                minlength: 3,
+                maxlength: 20,
+                lettersonly: true
+            },
+
+            last_name: {
+                minlength: 3,
+                maxlength: 20,
+                lettersonly: true
+            },
+
+            phone_number: {
+                maxlength: 10,
+                minlength: 10,
+                digits: true
+            }
+        },
+
+        messages : {
+            first_name: {
+                lettersonly: "please enter your name correctly, like: John"
+            },
+            last_name: {
+                lettersonly: "please enter your name correctly, like: Doe"
+            }
+        },
+
+        highlight: function(element) {
+            $(element).closest('.form-group').addClass('has-error');
+            document.getElementById("personal-info").setAttribute('disabled', 'disabled');
+        },
+
+        unhighlight: function(element) {
+            $(element).closest('.form-group').removeClass('has-error');
+            document.getElementById("personal-info").removeAttribute('disabled');
+        },
+
+        errorElement: 'span',
+        errorClass: 'help-block',
+
+        errorPlacement: function(error, element) {
+            if(element.parent('.input-group').length) {
+                error.insertAfter(element.parent());
+            } else {
+                error.insertAfter(element);
+            }
+        }
+    });
+
+    $("#profile_company_data_validation").validate({
+        rules: {
+            company_name: {
+                minlength: 3,
+                maxlength: 50,
+                lettersonly: true
+            },
+
+            city: {
+                minlength: 3,
+                maxlength: 30,
+                lettersonly: true
+            },
+
+            street: {
+                minlength: 3,
+                maxlength: 30,
+                lettersonly: true
+            },
+
+            building_number: {
+                maxlength: 5
+            },
+
+            postcode: {
+                digits: true
+            },
+
+            email: {
+                email: true,
+                maxlength: 30
+            },
+
+            srn_number: {
+                digits: true
+            }
+        },
+
+        messages : {
+
+        },
+
+        highlight: function(element) {
+            $(element).closest('.form-group').addClass('has-error');
+            document.getElementById("company-info").setAttribute('disabled', 'disabled');
+        },
+
+        unhighlight: function(element) {
+            $(element).closest('.form-group').removeClass('has-error');
+            document.getElementById("company-info").removeAttribute('disabled');
         },
 
         errorElement: 'span',
