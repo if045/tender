@@ -248,8 +248,17 @@ function showUserPersonalInfoPanelData() {
         var length = data.personalInfoDto.userDto.rolesNames.length;
 
         for(var i = 0; i < length; i++){
-            if(i == 0) roles += data.personalInfoDto.userDto.rolesNames[i].name;
-            else roles += ', ' + data.personalInfoDto.userDto.rolesNames[i].name;
+            var role = data.personalInfoDto.userDto.rolesNames[i].name;
+
+            if(i == 0) roles += role;
+            else roles += ', ' + role;
+
+            if(role == CUSTOMER) {
+                document.getElementById("trade_sphere_info").setAttribute('hidden', 'true');
+            }
+            if(role == SELLER) {
+                document.getElementById("trade_sphere_info").removeAttribute('hidden');
+            }
         }
 
         $('#first_name_info').html(firstName);

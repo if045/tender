@@ -210,9 +210,8 @@
                                     </div>
                                     <!-- Company info -->
 
-                                    <security:authorize access="hasRole('SELLER')">
                                         <!-- Trade Sphere info -->
-                                        <div class="panel panel-info">
+                                        <div class="panel panel-info" id="trade_sphere_info">
                                             <div class="panel-heading">
                                                 <h4 class="panel-title">
                                                     <a data-toggle="collapse" href="#collapseTradeSphere">
@@ -243,7 +242,6 @@
                                             </div>
                                         </div>
                                         <!-- Trade Sphere info -->
-                                    </security:authorize>
                                 </div>
                             </div>
                         </form>
