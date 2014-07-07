@@ -212,7 +212,7 @@
                                     html += '<li><a href="#" data-toggle="modal" data-target="#close_tender_mod_wind" onclick="writeCloseTenderId(' + data[i].id + ')">Close</a></li>';
                                 }
                             }
-                            if (CURRENT_ROLE.search('SELLER')!=-1){
+                            if (CURRENT_ROLE.search('SELLER') != -1 && data[i].userId.toString() != data[i].authorId.toString()){
                                 html += '<li><a href="#" data-toggle="modal" data-target="#createProposalWindow" onclick="showUnits(' + data[i].id + ')">Create proposal</a></li>';
                             }
                             html +='</ul>' +
