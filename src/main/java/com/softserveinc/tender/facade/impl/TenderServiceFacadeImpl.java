@@ -182,7 +182,7 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
         }
 
         tenderDto.setAuthorId(tender.getAuthor().getUser().getId());
-        if (userLogin.equals("anonymousUser")){
+        if (!userLogin.equals("anonymousUser")){
             tenderDto.setUserId(userService.findByLogin(userLogin).getId());
 
             if (tender.getAuthor().getId().equals(profileService.findProfileByUserLogin(userLogin).getId()) &&

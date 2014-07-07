@@ -1,5 +1,6 @@
 package com.softserveinc.tender.facade.impl;
 
+import com.softserveinc.tender.dto.TenderDto;
 import com.softserveinc.tender.dto.TenderSaveDto;
 import com.softserveinc.tender.dto.UnitSaveDto;
 import com.softserveinc.tender.facade.TenderServiceFacade;
@@ -58,6 +59,9 @@ public class TenderServiceFacadeImplTest {
         tenderSaveDto.setEndDate(TEST_END_DATE);
         tenderSaveDto.setUnits(unitSaveDtos);
 
-        assertEquals(TEST_TITLE, tenderServiceFacade.saveTender(tenderSaveDto).getTitle());
+        TenderDto tenderDto = tenderServiceFacade.saveTender(tenderSaveDto);
+
+        assertEquals(TEST_TITLE, tenderDto.getTitle());
+        assertEquals(TEST_SUITABLE_PRICE, tenderDto.getSuitablePrice());
     }
 }
