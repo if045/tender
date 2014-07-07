@@ -36,7 +36,7 @@
     <div class="page_body">
         <ul class="nav nav-tabs" id="myTab">
             <li class="active"><a href="#conflict" data-toggle="tab">Conflicts</a></li>
-            <li><a href="#profile" data-toggle="tab">New Profiles</a></li>
+            <li><a href="#profile" data-toggle="tab">Users</a></li>
             <li><a href="#addCategory" data-toggle="tab">Add category </a></li>
         </ul>
 
@@ -116,7 +116,9 @@
                 <!-- search -->
                 <div class="row">
                     <div class="col-md-12 search_bar">
-                        <div class="pull-left"></div>
+                        <div class="pull-left">
+                            <button id="add_moderator_btn" class="btn btn-primary" type="button">Add moderator</button>
+                        </div>
                         <div class="pull-right">
                             <form id="search_form_for_profile" class="navbar-form navbar-right" role="search">
                                 <div class="form-group">
@@ -143,6 +145,12 @@
                                 </th>
                                 <th align="center" id="moderator_profile_telephone">
                                     <span class="glyphicon sortable"><span>Telephone</span></span>
+                                </th>
+                                <th align="center" id="moderator_profile_roles">
+                                    <span class="glyphicon sortable"><span>Roles</span></span>
+                                </th>
+                                <th align="center" id="moderator_profile_status">
+                                    <span class="glyphicon sortable"><span>Status</span></span>
                                 </th>
                                 <th align="center" id="moderator_profile_action">
                                     <span class="glyphicon sortable"><span>Action</span></span>
@@ -238,7 +246,7 @@
 </div>
 
 <!--Profile status updating confirm-->
-<div class="modal fade" id="moderator_profile_status" tabindex="-1" role="dialog" hidden="">
+<div class="modal fade" id="moderator_profile_status_confirm" tabindex="-1" role="dialog" hidden="">
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
             <div class="modal-header"><button class="close" type="button" data-dismiss="modal">&times;</button>
