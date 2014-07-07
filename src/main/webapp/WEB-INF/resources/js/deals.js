@@ -43,6 +43,10 @@ $(document).ready(function() {
 
 function showDeals() {
     var queryParams = '';
+    if(getCookie("userRole") != "undefined") {
+        var  userRole = getCookie("userRole");
+        queryParams += (queryParams.length==0)?"userRole=" + userRole : "&userRole=" + userRole;
+    }
     
     showDealsPagination(queryParams);
     
@@ -156,7 +160,7 @@ function showDealsPagination(queryParams) {
         dataType:'json',
 
         success: function(data) {
-            var dataSize = data.dealsNumber;
+            var dataSize = data;
             var pageNumber = Math.ceil(dataSize / pageSize);
 
             if(dataSize > 0 && pageSize < dataSize) {

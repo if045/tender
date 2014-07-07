@@ -12,10 +12,10 @@ import java.util.List;
 
 public interface DealServiceFacade {
 
-    List<DealDto> findAllDeals(Pageable pageable, String tenderTitle);
-    DealsNumberDto getNewDealsNumber();
+    List<DealDto> findAllDeals(Pageable pageable, String tenderTitle, String userRole);
+    Long getNewDealsNumber(String userRole);
     void updateMyDealsDate();
-    DealsNumberDto getDealsNumber();
+    Long getDealsNumber(String userRole);
     void updateDealWithStatus(Integer dealId, String statusName);
     ConflictDto saveConflict(ConflictSaveDto conflictSaveDto);
     List<DealDto> mapDeals(List<Deal> deals);

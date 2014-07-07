@@ -36,22 +36,22 @@ public class DealController {
                                                  @RequestParam(value = "pageSize",required = true) Integer pageSize,
                                                  @RequestParam(value = "orderBy", required = false, defaultValue = "date") String orderBy,
                                                  @RequestParam(value = "sortDirection", required = false, defaultValue = "DESC") String sortDirection,
-                                                 @RequestParam(value = "searchParam",required = false) String searchParam) {
+                                                 @RequestParam(value = "searchParam",required = false) String searchParam,
+                                                 @RequestParam(value = "userRole",required = false) String userRole) {
 
         Sort.Direction pageSortDirection = Sort.Direction.fromString(sortDirection);
 
-        return dealFacade.findAllDeals(new PageRequest(pageNumber, pageSize, pageSortDirection, orderBy), searchParam);
+        return dealFacade.findAllDeals(new PageRequest(pageNumber, pageSize, pageSortDirection, orderBy), searchParam, userRole);
     }
 
     @RequestMapping(value = "/number", method = RequestMethod.GET)
-    public @ResponseBody DealsNumberDto getDealsNumber() {
-         return dealFacade.getDealsNumber();
-
+    public @ResponseBody Long getDealsNumber(@RequestParam(value = "userRole",required = false) String userRole) {
+         return dealFacade.getDealsNumber(userRole);
     }
 
     @RequestMapping(value = "/newdeals", method = RequestMethod.GET)
-    public @ResponseBody DealsNumberDto getNewDealsNumber() {
-        return dealFacade.getNewDealsNumber();
+    public @ResponseBody Long getNewDealsNumber(@RequestParam(value = "userRole",required = false) String userRole) {
+        return dealFacade.getNewDealsNumber(userRole);
     }
 
     @RequestMapping(value = "/mydealsdate", method = RequestMethod.PUT)

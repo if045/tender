@@ -3,7 +3,6 @@ package com.softserveinc.tender.facade.impl;
 import com.softserveinc.tender.dto.ConflictDto;
 import com.softserveinc.tender.dto.ConflictSaveDto;
 import com.softserveinc.tender.dto.DealDto;
-import com.softserveinc.tender.dto.DealsNumberDto;
 import com.softserveinc.tender.dto.FeedbackDto;
 import com.softserveinc.tender.dto.FeedbackSaveDto;
 import com.softserveinc.tender.entity.Deal;
@@ -53,14 +52,16 @@ public class DealServiceFacadeImpl implements DealServiceFacade {
     private UserService userService;
 
     @Override
-    public List<DealDto> findAllDeals(Pageable pageable, String tenderTitle) {
+    public List<DealDto> findAllDeals(Pageable pageable, String tenderTitle, String userRole) {
         List<Deal> deals = null;
+
         for (Role role : userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).getRoles()) {
-            if (role.getName().equals("CUSTOMER")) {
+            if (role.getName().equals("CUSTOMER") && userRole.equals("CUSTOMER")) {
                 deals = dealService.findAllDealsForCustomer(pageable, userService.findByLogin(SecurityContextHolder
                         .getContext().getAuthentication().getName()).getId(), tenderTitle);
-            } else if (role.getName().equals("SELLER")){
-                deals = dealService.findAllDealsForSeller(pageable, userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).getId(), tenderTitle);
+            } else if (role.getName().equals("SELLER") && userRole.equals("SELLER")){
+                deals = dealService.findAllDealsForSeller(pageable, userService.findByLogin(SecurityContextHolder
+                        .getContext().getAuthentication().getName()).getId(), tenderTitle);
             }
         }
 
@@ -68,19 +69,16 @@ public class DealServiceFacadeImpl implements DealServiceFacade {
     }
 
     @Override
-    public DealsNumberDto getNewDealsNumber() {
+    public Long getNewDealsNumber(String userRole) {
         Long newDealsNumber = 0L;
 
         for (Role role : userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).getRoles()) {
-            if (role.getName().equals("SELLER")) {
+            if (role.getName().equals("SELLER") && userRole.equals("SELLER")) {
                 newDealsNumber = dealService.getNewDealsNumberForSeller(userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).getId());
             }
         }
 
-        DealsNumberDto dealsNumberDto = new DealsNumberDto();
-        dealsNumberDto.setDealsNumber(newDealsNumber);
-
-        return  dealsNumberDto;
+        return newDealsNumber;
     }
 
     @Override
@@ -93,21 +91,18 @@ public class DealServiceFacadeImpl implements DealServiceFacade {
     }
 
     @Override
-    public DealsNumberDto getDealsNumber() {
+    public Long getDealsNumber(String userRole) {
         Long dealsNumber = 0L;
 
         for (Role role : userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).getRoles()) {
-            if (role.getName().equals("CUSTOMER")) {
+            if (role.getName().equals("CUSTOMER") && userRole.equals("CUSTOMER")) {
                 dealsNumber = dealService.getDealsNumberForCustomer(userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).getId());
-            } else if (role.getName().equals("SELLER")){
+            } else if (role.getName().equals("SELLER") && userRole.equals("SELLER")){
                 dealsNumber = dealService.getDealsNumberForSeller(userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).getId());
             }
         }
 
-        DealsNumberDto dealsNumberDto = new DealsNumberDto();
-        dealsNumberDto.setDealsNumber(dealsNumber);
-
-        return dealsNumberDto;
+        return dealsNumber;
     }
 
     @Override
