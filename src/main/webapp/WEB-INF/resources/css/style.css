@@ -293,4 +293,18 @@ textarea {
     width: 335px;
 }
 
+#moderator_conflict_tender_title {
+    width: 300px;
+}
 
+#moderator_conflict_customer_name {
+    width: 250px;
+}
+
+#moderator_conflict_seller_name {
+    width: 250px;
+}
+
+#moderator_conflict_status_name {
+    width: 200px;
+}

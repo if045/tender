@@ -47,17 +47,21 @@ $(document).ready(function () {
         showConflictsPage(moderatorConflictsCurrPageNumber);
     });
 
-    /*    $("#moderator_profile_title").click(function(){
-     sortUsersProfiles("firstName","moderator_profile_title");
-     });
+    $("#moderator_conflict_tender_title").click(function () {
+        sortConflicts("bid.proposal.tender.title", "moderator_conflict_tender_title");
+    });
 
-     $("#moderator_profile_login").click(function(){
-     sortUsersProfiles("user.login","moderator_profile_login");
-     });
+    $("#moderator_conflict_customer_name").click(function () {
+        sortConflicts("bid.proposal.tender.author.firstName", "moderator_conflict_customer_name");
+    });
 
-     $("#moderator_profile_telephone").click(function(){
-     sortUsersProfiles("telephone","moderator_profile_telephone");
-     });*/
+    $("#moderator_conflict_seller_name").click(function () {
+        sortConflicts("bid.proposal.seller.profile.firstName", "moderator_conflict_seller_name");
+    });
+
+    $("#moderator_conflict_status_name").click(function () {
+        sortConflicts("status.name", "moderator_conflict_status_name");
+    });
 
     $('#search_conflicts').keypress(function (e) {
         if (e.keyCode == ENTER_BUTTON_CODE) {
@@ -298,4 +302,18 @@ function sortUsersProfiles(orderByField, elementId) {
     }
 
     showUsersProfiles();
+}
+
+function sortConflicts(orderByField, elementId) {
+    moderatorConflictsSortDirection = (moderatorConflictsOrderBy == orderByField) ? !moderatorConflictsSortDirection : false;
+    moderatorConflictsOrderBy = orderByField;
+
+    $('#moderator_conflicts_items .sortable').removeClass('glyphicon-chevron-up').removeClass('glyphicon-chevron-down');
+    if (moderatorConflictsSortDirection == false) {
+        $('#' + elementId + ' .sortable').addClass('glyphicon-chevron-up').removeClass('glyphicon-chevron-down');
+    } else {
+        $('#' + elementId + ' .sortable').addClass('glyphicon-chevron-down').removeClass('glyphicon-chevron-up');
+    }
+
+    showConflicts();
 }

@@ -65,17 +65,17 @@
                         <table class="table table-bordered table-striped">
                             <thead>
                             <tr>
-                                <th align="center" id="tender_title">
-                                    <span>Tender title</span>
+                                <th align="center" id="moderator_conflict_tender_title">
+                                    <span class="glyphicon sortable"><span>Tender title</span></span>
                                 </th>
-                                <th align="center" id="customer_name">
-                                    <span>Customer name</span>
+                                <th align="center" id="moderator_conflict_customer_name">
+                                    <span class="glyphicon sortable"><span>Customer name</span></span>
                                 </th>
-                                <th align="center" id="seller_name">
-                                    <span>Seller name</span>
+                                <th align="center" id="moderator_conflict_seller_name">
+                                    <span class="glyphicon sortable"><span>Seller name</span></span>
                                 </th>
-                                <th align="center" id="status_name">
-                                    <span>Status</span>
+                                <th align="center" id="moderator_conflict_status_name">
+                                    <span class="glyphicon sortable glyphicon-chevron-down"><span>Status</span></span>
                                 </th>
                                 <th align="center" id="options_action"><span>Options</span></th>
                             </tr>
