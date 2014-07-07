@@ -549,4 +549,25 @@ public class UserServiceFacadeImpl implements UserServiceFacade {
         savedCompany.setAddress(savedAddress);
         return mapCompany(userService.findByLogin(getUserLogin()));
     }
+
+    public TradeSphereDto updateTradeSphereData(TradeSphereDto tradeSphereDto) {
+        User user = userService.findByLogin(getUserLogin());
+        List<Category> categories = new ArrayList<>();
+        List<Location> locations = new ArrayList<>();
+
+        for (Integer id : tradeSphereDto.getCategories()) {
+            categories.add(categoryService.findCategoryById(id));
+        }
+
+        for (Integer id : tradeSphereDto.getLocations()) {
+            locations.add(locationService.findById(id));
+        }
+
+        user.setSellerCategories(categories);
+        user.setSellerLocations(locations);
+        userService.saveUser(user);
+
+        return tradeSphereDto;
+    }
+
 }
