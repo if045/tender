@@ -40,6 +40,7 @@ USER_PROFILE_PAGE_URL = "/user/profile";
 USER_PROFILE_DATA_URL = "/user/profile/data";
 USER_PERSONAL_DATA_URL = "/user/update/data";
 var USER_UPDATE_COMPANY_URL = "/user/update/companyData";
+var USER_UPDATE_TRADE_SPHERE_DATA = "/user/update/tradeSphere";
 /*Constants for user.js*/
 
 /*Constants for tenders pagination*/

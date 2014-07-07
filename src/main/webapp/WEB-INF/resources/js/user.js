@@ -1,3 +1,13 @@
+var preload_data = [
+    { id: 'user0', text: 'Disabled User', locked: true}
+    , { id: 'user1', text: 'Jane Doe'}
+    , { id: 'user2', text: 'John Doe', locked: true }
+    , { id: 'user3', text: 'Robert Paulson', locked: true }
+    , { id: 'user5', text: 'Spongebob Squarepants'}
+    , { id: 'user6', text: 'Planet Bob' }
+    , { id: 'user7', text: 'Inigo Montoya' }
+];
+
 $(document).ready(function() {
     $('#birth_date').datepicker({
         format: 'yyyy/mm/dd'
@@ -9,16 +19,25 @@ $(document).ready(function() {
 
     $("#populate_categories_dropdown").select2({
         placeholder: "Select categories"
-
     });
 
     $("#populate_locations_dropdown").select2({
         placeholder: "Select locations"
     });
 
+    $("#populate_update_categories_dropdown").select2({
+        placeholder: "update categories"
+    });
+
+    $("#populate_update_locations_dropdown").select2({
+        placeholder: "update locations"
+    });
+
     mapDropdownData(ROLES_URL, '#populate_roles_dropdown');
     mapDropdownData(CATEGORIES_URL, '#populate_categories_dropdown');
     mapDropdownData(LOCATIONS_URL, "#populate_locations_dropdown");
+    mapDropdownData(CATEGORIES_URL, '#populate_update_categories_dropdown');
+    mapDropdownData(LOCATIONS_URL, "#populate_update_locations_dropdown");
 
     showUserPersonalInfoPanelData();
     showCompanyInfoPanelData();
@@ -427,7 +446,7 @@ function updateCompanyData() {
 function updateTradeSphereData() {
     var newJson = $.parseJSON(buildTradeSphereDataJSON());
 
-    var url = "";                                           // TODO trade sphere data url
+    var url = USER_UPDATE_TRADE_SPHERE_DATA;
 
     $.ajax({
         url: url,
@@ -496,6 +515,15 @@ function buildCompanyDataJSON() {
             '"street":"'            + street + '",' +
             '"buildingNumber":"'    + buildingNumber + '",' +
             '"postcode":"'          + postcode +'"}}';
+}
+
+function buildTradeSphereDataJSON() {
+    var locations = $('#populate_update_locations_dropdown').val();
+    var categories = $('#populate_update_categories_dropdown').val();
+
+    return '{' +
+        '"locations":['  + locations  + '],' +
+        '"categories":[' + categories + ']}';
 }
 
 function setDefaultPersonRadio() {
