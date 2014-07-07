@@ -6,6 +6,7 @@ import com.softserveinc.tender.dto.LoggedUserDto;
 import com.softserveinc.tender.dto.PrivateCustomerRegistrationDataDto;
 import com.softserveinc.tender.dto.PrivateSellerRegistrationDataDto;
 import com.softserveinc.tender.dto.SellerRegistrationDataDto;
+import com.softserveinc.tender.dto.TradeSphereDto;
 import com.softserveinc.tender.dto.UserPersonalDataDto;
 import com.softserveinc.tender.dto.UsersProfileDataDto;
 import com.softserveinc.tender.entity.User;
@@ -69,5 +70,10 @@ public class UserController {
     @RequestMapping(value = "/update/companyData", method = RequestMethod.PUT, consumes = "application/json")
     public @ResponseBody CompanyDto updateUserCompanyData(@RequestBody CompanyDto companyDto) {
         return userServiceFacade.updateUserCompanyData(companyDto);
+    }
+
+    @RequestMapping(value = "/update/tradeSphere", method = RequestMethod.PUT, consumes = "application/json")
+    public @ResponseBody TradeSphereDto updateUserTradeSphereData(@RequestBody TradeSphereDto tradeSphereDto) {
+        return userServiceFacade.updateTradeSphereData(tradeSphereDto);
     }
 }
