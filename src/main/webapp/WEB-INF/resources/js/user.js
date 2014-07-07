@@ -1,13 +1,3 @@
-var preload_data = [
-    { id: 'user0', text: 'Disabled User', locked: true}
-    , { id: 'user1', text: 'Jane Doe'}
-    , { id: 'user2', text: 'John Doe', locked: true }
-    , { id: 'user3', text: 'Robert Paulson', locked: true }
-    , { id: 'user5', text: 'Spongebob Squarepants'}
-    , { id: 'user6', text: 'Planet Bob' }
-    , { id: 'user7', text: 'Inigo Montoya' }
-];
-
 $(document).ready(function() {
     $('#birth_date').datepicker({
         format: 'yyyy/mm/dd'
