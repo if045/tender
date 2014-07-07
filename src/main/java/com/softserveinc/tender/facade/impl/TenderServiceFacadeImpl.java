@@ -65,9 +65,6 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
     private TenderStatusService tenderStatusService;
 
     @Autowired
-    private ModelMapper modelMapper;
-
-    @Autowired
     private UtilMapper utilMapper;
 
     @Autowired
@@ -135,13 +132,11 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
     }
 
     public List<TenderStatusDto> findTendersStatuses() {
-        Type targetListType = new TypeToken<List<TenderStatusDto>>(){}.getType();
-        return modelMapper.map(tenderStatusService.findAllTendersStatuses(), targetListType);
+        return utilMapper.mapObjects(tenderStatusService.findAllTendersStatuses(), TenderStatusDto.class);
     }
 
     public List<ItemDto> findTendersItems(TenderFilter tenderFilter) {
-        Type targetListType = new TypeToken<List<ItemDto>>(){}.getType();
-        return modelMapper.map(itemService.findAllItemsByTenders(tenderFilter), targetListType);
+        return utilMapper.mapObjects(itemService.findAllItemsByTenders(tenderFilter), ItemDto.class);
     }
 
     @Override
@@ -151,11 +146,7 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
     }
 
     public List<LocationDto> findTendersLocations() {
-        List<LocationDto> locationDto = new ArrayList<>();
-        for (Location location : locationService.getTendersLocations()) {
-            locationDto.add(modelMapper.map(location, LocationDto.class));
-        }
-        return locationDto;
+        return utilMapper.mapObjects(locationService.getTendersLocations(), LocationDto.class);
     }
 
     public List<CategoryDto> findTendersCategories() {

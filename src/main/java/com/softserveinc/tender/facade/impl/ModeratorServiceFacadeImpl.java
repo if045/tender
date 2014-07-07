@@ -37,7 +37,6 @@ public class ModeratorServiceFacadeImpl implements ModeratorServiceFacade {
 
     @Override
     public Long getConflictsNumber(String searchParam) {
-        return conflictService.getConflictsNumber(userService.findByLogin(getUserLogin()).getId
-                (), searchParam);
+        return conflictService.getConflictsNumber(userService.findByLogin(getUserLogin()).getId(), searchParam);
     }
 }
