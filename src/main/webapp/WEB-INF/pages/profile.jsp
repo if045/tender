@@ -209,7 +209,6 @@
                                     </div>
                                     <!-- Company info -->
 
-                                    <security:authorize access="hasAnyRole('MODERATOR','SELLER')">
                                         <!-- Trade Sphere info -->
                                         <div class="panel panel-info" id="trade_sphere_info">
                                             <div class="panel-heading">
@@ -242,7 +241,6 @@
                                             </div>
                                         </div>
                                         <!-- Trade Sphere info -->
-                                    </security:authorize>
                                 </div>
                             </div>
                         </form>
