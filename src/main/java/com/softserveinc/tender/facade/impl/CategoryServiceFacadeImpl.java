@@ -1,15 +1,13 @@
 package com.softserveinc.tender.facade.impl;
 
 import com.softserveinc.tender.dto.CategoryDto;
-import com.softserveinc.tender.entity.Category;
 import com.softserveinc.tender.facade.CategoryServiceFacade;
 import com.softserveinc.tender.service.CategoryService;
-import org.modelmapper.ModelMapper;
+import com.softserveinc.tender.util.UtilMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service("categoryServiceFacade")
@@ -20,19 +18,10 @@ public class CategoryServiceFacadeImpl implements CategoryServiceFacade{
     private CategoryService categoryService;
 
     @Autowired
-    private ModelMapper modelMapper;
+    private UtilMapper utilMapper;
 
     @Override
     public List<CategoryDto> findCategories() {
-        List<Category> categories=categoryService.findAll();
-        return mapCategories(categories);
-    }
-
-    private List<CategoryDto> mapCategories(List<Category> categories) {
-        List<CategoryDto> categoryDtos = new ArrayList<>();
-        for (Category category : categories) {
-            categoryDtos.add(modelMapper.map(category, CategoryDto.class));
-        }
-        return categoryDtos;
+        return utilMapper.mapObjects(categoryService.findAll(), CategoryDto.class);
     }
 }

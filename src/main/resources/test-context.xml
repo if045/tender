@@ -13,6 +13,7 @@
     <mvc:resources mapping="/resources/**" location="/WEB-INF/resources/"/>
 
     <bean id="modelMapper" class="org.modelmapper.ModelMapper" />
+    <bean id="utilMapper" class="com.softserveinc.tender.util.UtilMapper" />
 
     <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
         <property name="host" value="smtp.gmail.com" />

@@ -1,6 +1,5 @@
 package com.softserveinc.tender.facade.impl;
 
-import com.softserveinc.tender.dto.BidDto;
 import com.softserveinc.tender.dto.BidSaveDto;
 import com.softserveinc.tender.dto.CategoryDto;
 import com.softserveinc.tender.dto.DealDto;
@@ -40,6 +39,7 @@ import com.softserveinc.tender.service.TenderStatusService;
 import com.softserveinc.tender.service.UnitService;
 import com.softserveinc.tender.service.UserService;
 import com.softserveinc.tender.service.impl.MailService;
+import com.softserveinc.tender.util.UtilMapper;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,11 +55,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-
-import static com.softserveinc.tender.util.Util.getUserLogin;
 
 @Service("tenderServiceFacade")
 @Transactional
@@ -69,7 +65,7 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
     private TenderStatusService tenderStatusService;
 
     @Autowired
-    private ModelMapper modelMapper;
+    private UtilMapper utilMapper;
 
     @Autowired
     private ItemService itemService;
@@ -124,7 +120,7 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
     @Override
     public List<TenderDto> findByCustomParams(TenderFilter tenderFilter, Pageable pageable) {
         List<Tender> tenders = tenderService.findByCustomParameters(tenderFilter, pageable);
-        return mapTenders(tenders);
+        return utilMapper.mapObjects(tenders, TenderDto.class);
     }
 
     @Override
@@ -136,122 +132,26 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
     }
 
     public List<TenderStatusDto> findTendersStatuses() {
-        Type targetListType = new TypeToken<List<TenderStatusDto>>(){}.getType();
-        return modelMapper.map(tenderStatusService.findAllTendersStatuses(), targetListType);
+        return utilMapper.mapObjects(tenderStatusService.findAllTendersStatuses(), TenderStatusDto.class);
     }
 
     public List<ItemDto> findTendersItems(TenderFilter tenderFilter) {
-        Type targetListType = new TypeToken<List<ItemDto>>(){}.getType();
-        return modelMapper.map(itemService.findAllItemsByTenders(tenderFilter), targetListType);
-    }
-
-    private List<TenderDto> mapTenders(List<Tender> tenders) {
-        List<TenderDto> tenderDtos = new ArrayList<>();
-        for (Tender tender : tenders) {
-            tenderDtos.add(mapTender(tender));
-        }
-        return tenderDtos;
-    }
-
-    private TenderDto mapTender(Tender tender) {
-        TenderDto tenderDto = new TenderDto();
-        List<String> locations = new ArrayList<>();
-        Set<String> categories = new HashSet<>();
-        String userLogin = getUserLogin();
-
-        tenderDto.setId(tender.getId());
-        tenderDto.setTitle(tender.getTitle());
-        tenderDto.setAuthorName(tender.getAuthor().getFirstName());
-        tenderDto.setCreateDate(tender.getCreateDate());
-        tenderDto.setEndDate(tender.getEndDate());
-        tenderDto.setStatus(tender.getStatus().getName());
-        tenderDto.setSuitablePrice(tender.getSuitablePrice());
-
-        for (Location location : tender.getLocations()) {
-            locations.add(location.getName());
-        }
-        tenderDto.setLocations(locations);
-
-        for (Unit unit : tender.getUnits()) {
-            categories.add(unit.getItem().getCategory().getName());
-        }
-        tenderDto.setCategories(categories);
-        if (tender.getProposals()!=null){tenderDto.setProposals(tender.getProposals().size());}
-        if (tender.getDescription()!=null){
-            tenderDto.setDescription(tender.getDescription());
-        }
-
-        tenderDto.setAuthorId(tender.getAuthor().getUser().getId());
-        if (!userLogin.equals("anonymousUser")){
-            tenderDto.setUserId(userService.findByLogin(userLogin).getId());
-
-            if (tender.getAuthor().getId().equals(profileService.findProfileByUserLogin(userLogin).getId()) &&
-                    proposalService.getTenderNewProposalsForCustomer(tender.getId()) > 0) {
-                tenderDto.setHaveNewProposal(true);
-            }
-        }
-
-        return tenderDto;
+        return utilMapper.mapObjects(itemService.findAllItemsByTenders(tenderFilter), ItemDto.class);
     }
 
     @Override
     public List<UnitDto> findUnitsByTenderId(Integer tenderId, Pageable pageable) {
         List<Unit> units = unitService.findUnitsByTenderId(tenderId, pageable);
-        return mapUnits(units);
-    }
-
-    private UnitDto mapUnit(Unit unit) {
-        UnitDto unitDto=new UnitDto();
-        unitDto.setTenderId(unit.getTender().getId());
-        unitDto.setId(unit.getId());
-        unitDto.setUnitName(unit.getItem().getName());
-        unitDto.setItemType(unit.getItem().getType());
-        unitDto.setCategoryName(unit.getItem().getCategory().getName());
-        unitDto.setQuantity(unit.getQuantity());
-        unitDto.setMeasurementName(unit.getMeasurement().getName());
-        unitDto.setNumberOfBids(unit.getBids().size());
-        unitDto.setHaveDeals(dealService.findByUnitId(unit.getId()).size() > 0);
-        return unitDto;
-    }
-
-    private List<UnitDto> mapUnits(List<Unit> units){
-        List<UnitDto> unitDtos=new ArrayList<>();
-        for(Unit unit:units){
-            unitDtos.add(mapUnit(unit));
-        }
-        return unitDtos;
+        return utilMapper.mapObjects(units, UnitDto.class);
     }
 
     public List<LocationDto> findTendersLocations() {
-        List<LocationDto> locationDto = new ArrayList<>();
-        for (Location location : locationService.getTendersLocations()) {
-            locationDto.add(modelMapper.map(location, LocationDto.class));
-        }
-        return locationDto;
+        return utilMapper.mapObjects(locationService.getTendersLocations(), LocationDto.class);
     }
 
     public List<CategoryDto> findTendersCategories() {
         List<Category> categories = categoryService.findAllWithCategory();
-        return mapCategories(categories);
-    }
-
-    private List<CategoryDto> mapCategories(List<Category> categories) {
-        List<CategoryDto> categoryDtos = new ArrayList<>();
-        for (Category category : categories) {
-            categoryDtos.add(mapCategory(category));
-        }
-        return categoryDtos;
-    }
-
-    public CategoryDto mapCategory(Category category) {
-        CategoryDto categoryDto = new CategoryDto();
-        categoryDto.setId(category.getId());
-        categoryDto.setName(category.getName());
-        if(category.getParent() != null) {
-            categoryDto.setParentId(category.getParent().getId());
-        }
-
-        return categoryDto;
+        return utilMapper.mapObjects(categories, CategoryDto.class);
     }
 
     @Override
@@ -314,7 +214,7 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
             units.add(unitService.save(unit));
         }
         savedTender.setUnits(units);
-        return mapTender(savedTender);
+        return utilMapper.mapObject(savedTender, TenderDto.class);
     }
 
     public TenderDto updateTender(Integer tenderId, String statusName, String endDate, String description) {
@@ -329,44 +229,11 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
                 e.printStackTrace();
             }
         }
-        return mapTender(tenderService.updateTender(tenderId, statusName, date, description));
+        return utilMapper.mapObject(tenderService.updateTender(tenderId, statusName, date, description), TenderDto.class);
     }
 
     public List<ProposalDto> findTendersProposals(Integer tenderId) {
-        return mapTendersProposals(tenderId);
-    }
-
-    private List<ProposalDto> mapTendersProposals(Integer tenderId) {
-        List<ProposalDto> proposalDtos = new ArrayList<>();
-        for (Proposal proposal : proposalService.findByTenderId(tenderId)) {
-            proposalDtos.add(mapTenderProposal(proposal));
-        }
-        return proposalDtos;
-    }
-
-    private ProposalDto mapTenderProposal(Proposal proposal) {
-        ProposalDto proposalDto = new ProposalDto();
-
-        proposalDto.setId(proposal.getId());
-        proposalDto.setFullName(proposalDto.convertIntoFullName(proposal));
-        proposalDto.setNumberOfBids(proposal.getBids().size());
-        proposalDto.setTotalBidsPrice(proposalDto.countTotalBidsPrice(proposal));
-        proposalDto.setDescription(proposal.getDescription());
-        proposalDto.setDiscountCurrency(proposal.getDiscountCurrency());
-        proposalDto.setDiscountPercentage(proposal.getDiscountPercentage());
-
-        List<BidDto> bidDtos = new ArrayList<>();
-        for (Bid bid : proposal.getBids()) {
-            BidDto bidDto = new BidDto();
-            bidDto.setBidId(bid.getId());
-            bidDto.setUnitId(bid.getUnit().getId());
-            bidDto.setPrice(bid.getPrice());
-            bidDtos.add(bidDto);
-        }
-        proposalDto.setBidDtos(bidDtos);
-        proposalDto.setHaveDeals(dealService.findByProposalId(proposal.getId()).size() > 0);
-
-        return proposalDto;
+        return utilMapper.mapObjects(proposalService.findByTenderId(tenderId), ProposalDto.class);
     }
 
     @Override
@@ -404,12 +271,12 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
         } catch (UnknownHostException e) {
             e.printStackTrace();
         }
-        return mapTenderProposal(savedProposal);
+        return utilMapper.mapObject(savedProposal, ProposalDto.class);
     }
 
     @Override
     public TenderDto findOneById(Integer id) {
-        return mapTender(tenderService.findOne(id));
+        return utilMapper.mapObject(tenderService.findOne(id), TenderDto.class);
     }
 
     @Override
