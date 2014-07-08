@@ -1,7 +1,6 @@
 package com.softserveinc.tender.service;
 
 import com.softserveinc.tender.entity.CheckedProfile;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
