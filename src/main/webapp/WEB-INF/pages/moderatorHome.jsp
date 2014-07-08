@@ -271,7 +271,7 @@
 </div>
 <!--Profile status updating confirm-->
 
-<!--Add moderator modeal window-->
+<!--Add moderator modal window-->
 <div class="modal fade" id="moderator_profile_add" tabindex="-1" role="dialog" hidden="">
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
@@ -292,7 +292,7 @@
         </div>
     </div>
 </div>
-<!--Add moderator modeal window-->
+<!--Add moderator modal window-->
 
 </body>
 </html>

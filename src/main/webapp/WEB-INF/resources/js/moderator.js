@@ -336,3 +336,21 @@ function sortConflicts(orderByField, elementId) {
 
     showConflicts();
 }
+
+function buildUserData() {
+    var login = $('#login').val();
+    var password = $('#password').val();
+    var roles = $('#populate_roles_dropdown').val();
+
+    var passwordChecked = passwordIsChecked(password);
+
+    if(!passwordChecked) {
+        alert("passwords are mismatched");
+        return;
+    }
+
+    return '"userDto":{'  +
+        '"roles":['    + roles    + '],' +
+        '"login":"'    + login    + '",' +
+        '"password":"' + password + '"}';
+}
