@@ -49,7 +49,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import static com.softserveinc.tender.util.Constants.CHECKED_PROFILE_OPEN_STATUS;
+import static com.softserveinc.tender.util.Constants.CHECKED_PROFILE_UNCHECKED_STATUS;
 import static com.softserveinc.tender.util.Constants.CHECKED_USER;
 import static com.softserveinc.tender.util.Constants.ENABLED_USER;
 import static com.softserveinc.tender.util.Constants.LEGAL_PERSON;
@@ -304,7 +304,7 @@ public class UserServiceFacadeImpl implements UserServiceFacade {
         CheckedProfile checkedProfile = new CheckedProfile();
 
         checkedProfile.setProfile(profileService.findProfileById(profile.getId()));
-        checkedProfile.setStatus(checkedStatusService.findByName(CHECKED_PROFILE_OPEN_STATUS));
+        checkedProfile.setStatus(checkedStatusService.findByName(CHECKED_PROFILE_UNCHECKED_STATUS));
         return checkedProfileService.save(checkedProfile);
     }
     // end of registration logic
