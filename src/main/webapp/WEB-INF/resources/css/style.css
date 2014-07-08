@@ -250,6 +250,7 @@ textarea {
 
 .sortable {
     font-weight: bold;
+    font-size: 12px;
 }
 
 .sortable span {
@@ -272,10 +273,55 @@ textarea {
     padding-left: 3px;
 }
 
-.deal_action_field {
+.deal_action_field, #moderator_profile_action {
     width: 100px;
 }
 
 #deal_date {
     width: 150px;
+}
+
+.moderator_profile_status {
+    background-color: rgb(172, 196, 247);
+}
+
+#moderator_profile_status {
+    width: 130px;
+}
+
+#moderator_profile_telephone {
+    width: 230px;
+}
+
+#moderator_profile_title {
+    width: 335px;
+}
+
+#moderator_conflict_mod_wind .modal-dialog {
+    width: 400px;
+}
+
+#moderator_profile_roles {
+    width: 150px;
+    word-break: normal;
+}
+
+#add_moderator_btn {
+    margin-top: 8px;
+}
+
+#moderator_conflict_tender_title {
+    width: 300px;
+}
+
+#moderator_conflict_customer_name {
+    width: 250px;
+}
+
+#moderator_conflict_seller_name {
+    width: 250px;
+}
+
+#moderator_conflict_status_name {
+    width: 200px;
 }

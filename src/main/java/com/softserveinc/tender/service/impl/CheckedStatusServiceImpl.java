@@ -24,7 +24,7 @@ public class CheckedStatusServiceImpl implements CheckedStatusService {
     }
 
     @Override
-    public CheckedStatus findByName(String status) {
-        return checkedStatusRepository.findByName(status);
+    public CheckedStatus findByName(String statusName) {
+        return checkedStatusRepository.findByName(statusName);
     }
 }

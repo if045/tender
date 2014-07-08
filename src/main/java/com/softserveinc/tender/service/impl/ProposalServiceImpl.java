@@ -39,4 +39,15 @@ public class ProposalServiceImpl implements ProposalService {
     public void deleteById(Integer id) {
         proposalRepository.delete(id);
     }
+
+    @Override
+    public Long getNewProposalsNumberForCustomerId(Integer id) {
+        return proposalRepository.findNewProposalsNumberForCustomerId(id);
+    }
+
+    @Override
+    public Long getTenderNewProposalsForCustomer(Integer tenderId) {
+        return proposalRepository.findTenderNewProposalsForCustomer(tenderId);
+    }
+
 }

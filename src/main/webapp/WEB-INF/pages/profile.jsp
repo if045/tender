@@ -26,7 +26,11 @@
     <script type='text/javascript' src='<c:url value="../resources/js/validations.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/constants.js"/>'></script>
     <script type="text/javascript" src='<c:url value="../resources/js/star-rating.min.js"/>'></script>
+
+    <script type='text/javascript' src='<c:url value="../resources/js/header.js"/>'></script>
     <script type="text/javascript" src='<c:url value="../resources/js/user.js"/>'></script>
+    <script type="text/javascript" src='<c:url value="../resources/js/cookie.js"/>'></script>
+    <script type="text/javascript" src='<c:url value="../resources/js/addTenderModal.js"/>'></script>
 
 </head>
 
@@ -205,9 +209,9 @@
                                     </div>
                                     <!-- Company info -->
 
-                                    <security:authorize access="hasRole('SELLER')">
+                                    <security:authorize access="hasAnyRole('MODERATOR','SELLER')">
                                         <!-- Trade Sphere info -->
-                                        <div class="panel panel-info">
+                                        <div class="panel panel-info" id="trade_sphere_info">
                                             <div class="panel-heading">
                                                 <h4 class="panel-title">
                                                     <a data-toggle="collapse" href="#collapseTradeSphere">
@@ -255,6 +259,8 @@
 </div>
 <!-- Container -->
 
+<jsp:include page="createTender.jsp"/>
+<jsp:include page="newTenderCreated.jsp"/>
 </body>
 
 </html>

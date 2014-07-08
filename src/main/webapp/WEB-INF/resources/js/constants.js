@@ -20,6 +20,7 @@ var DEALS_NUMBER_URL = '/deals/number';
 /*Constants for deals.js*/
 
 var PROPOSALS_URL = "/proposals";
+var SET_AUTHOR_SAW = "/setAuthorSaw";
 var UNITS_URL = '/units';
 var BIDS_URL = '/bids';
 
@@ -50,7 +51,34 @@ var DEFAULT_SORT_FIELD = "createDate";
 var DEFAULT_DEALS_SORT_FIELD = "date";
 
 /*Constants for conflict*/
-var DEALS ="/deals/";
+var DEALS = "/deals/";
 var CONFLICTS = "/conflicts";
 
+/*Constants for moderator.js*/
+var MODERATOR_PAGE_URL = "/moderatorHome";
+var MODERATOR_PROFILE_DATA_URL = "/moderator/profiles";
+var MODERATOR_PROFILE_STATUS_URL = "/moderator/profilestatus";
+var MODERATOR_PROFILES_NUMBER_URL = "/moderator/profilesnumber";
+var MODERATOR_PROFILE_DEFAULT_SORT_FIELD = "user.login";
+var MODERATOR_PROFILE_VIEW_DATA_URL = "/user/profile/userdata";
+var MODERATOR_CONFLICTS_NUMBER_URL = "/moderator/conflictsnumber";
+var MODERATOR_CONFLICTS_DEFAULT_SORT_FIELD = "status.name";
+/*Constants for moderator.js*/
+
+
+var LOG_OUT = "/logout";
+var HOME_PAGE_URL = "/tendersHome";
+var USER_INFO_URL = "/loggedUserInfo";
+var USER_URL = "/user";
+
+
+/*Constants for moderatorHomePage*/
+var MODERATOR_URL = "/moderator"
+
+/*variables*/
+var CURRENT_ROLE = '';
+
+/*user roles*/
+var CUSTOMER = "CUSTOMER";
+var SELLER = "SELLER";
 

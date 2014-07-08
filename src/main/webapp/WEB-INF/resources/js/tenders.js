@@ -4,16 +4,17 @@
 
         var sortDirection = false;
         var orderBy = DEFAULT_SORT_FIELD;
-        var CURRENT_ROLE = '';
-
 
         $(document).ready(function() {
-            $('#startDate, #endDate, #create_tender_enddate').datepicker({
+            $('#startDate, #endDate').datepicker({
                 format: 'yyyy/mm/dd',
                 startDate: '-5y'
             });
 
             initializeDateFilter();
+            if ($("#CURRENT_USER_ROLE").val() != "") {
+                $("#my_tenders_btn").removeAttr("disabled");
+            }
 
             $("#category_filter").select2({
                 placeholder: "All categories"
@@ -140,16 +141,6 @@
                     return false;
                 }
             });
-
-            $.getJSON(NEW_DEALS_URL, function(data){
-                var newDealsNumber = data.dealsNumber;
-
-                if(newDealsNumber > 0) {
-                    $('.new_deal_notification').html("&nbsp;+"+newDealsNumber);
-                } else {
-                    $('.new_deal_notification').html("");
-                }
-            });
         });
 
         function populateItemDropdown() {
@@ -168,13 +159,19 @@
         function showTenders() {
             var queryParams = "";
 
+            if (getCookie("userRole") != undefined) {
+                $("#CURRENT_USER_ROLE").val(getCookie("userRole"));
+            }
+
             if($("#date_from").val()!="" && $("#date_from").val() != undefined){
                 queryParams += (queryParams.length==0)?"minDate="+$("#date_from").val():"&minDate="+$("#date_from").val();
             }
             if($("#date_to").val()!="" && $("#date_to").val() != undefined){
                 queryParams += (queryParams.length==0)?"maxDate="+$("#date_to").val():"&maxDate="+$("#date_to").val();
             }
-
+            if ($("#CURRENT_USER_ROLE").val() != "" && getCookie("roleFlag") == "true") {
+                queryParams += "&userRole=" + $("#CURRENT_USER_ROLE").val();
+            }
             showPagination(queryParams);
 
             queryParams += (queryParams.length==0)?"pageSize="+pageSize:"&pageSize="+pageSize;
@@ -190,28 +187,10 @@
                 success: function(data) {
                     var html = '';
                     var dataSize = data.length;
-                    var roleSwitcherButton = '';
-                    var createTenderButton = '';
-                    var loggedUserName = '';
-                    if (data[0].roles[0]!=null){
-                        var allcookies = document.cookie;
-                        var cookiearray  = allcookies.split(';');
-                        for (var i=0; i<cookiearray.length; i++){
-                            var name = cookiearray[i].split('=')[0];
-                            var value = cookiearray[i].split('=')[1];
-                            if (name.toString()=="userRole"){
-                                CURRENT_ROLE = value;
-                            }
-                        }
-                    }else{
-                        clearMyCookie('userRole');
-                    }
-                    if ((CURRENT_ROLE==""|CURRENT_ROLE == undefined)&data[0].roles[0]!=null){
-                        CURRENT_ROLE = data[0].roles[0].toString();
-                    }
+
                     if(dataSize > 0) {
                         for (var i = 0; i < dataSize; i++) {
-                            html += '<tr><td align="center">' + data[i].title + '</td>' +
+                            html += '<tr class="'+((data[i].haveNewProposal && getCookie("roleFlag") == "true")?"info":"")+'"><td align="center">' + data[i].title + '</td>' +
                                 '<td align="center">' + data[i].authorName + '</td>' +
                                 '<td align="center">' + data[i].categories + '</td>';
                                 if (data[i].locations.toString().split(',').length>2){
@@ -233,29 +212,14 @@
                                     html += '<li><a href="#" data-toggle="modal" data-target="#close_tender_mod_wind" onclick="writeCloseTenderId(' + data[i].id + ')">Close</a></li>';
                                 }
                             }
-                            if (CURRENT_ROLE.search('SELLER')!=-1){
+                            if (CURRENT_ROLE.search('SELLER') != -1 && data[i].userId.toString() != data[i].authorId.toString()){
                                 html += '<li><a href="#" data-toggle="modal" data-target="#createProposalWindow" onclick="showUnits(' + data[i].id + ')">Create proposal</a></li>';
                             }
                             html +='</ul>' +
                                 '</div>' +
                                 '</td></tr>';
                         }
-                        if (CURRENT_ROLE.search('CUSTOMER')!=-1&(data[0].roleCount>1)){
-                            roleSwitcherButton = '<button type="button" class="btn btn-default nav_button" onclick="roleSwitcher()">Switch to Seller View</button>';
-                        }else if (CURRENT_ROLE.search('SELLER')!=-1&(data[0].roleCount>1)){
-                            roleSwitcherButton = '<button type="button" class="btn btn-default nav_button" onclick="roleSwitcher()">Switch to Customer View</button>';
-                        }
-                        if (CURRENT_ROLE.search('CUSTOMER')!=-1&(data[0].roleCount=1)){
-                            createTenderButton = '<button type="button" class="btn btn-default nav_button" data-toggle="modal" data-target="#createTenderWindow">Create tender</button>'
-                        }else if (CURRENT_ROLE.search('SELLER')!=-1&(data[0].roleCount=1)){
-                            createTenderButton = '';
-                        }
-                        if (data[0].loggedUserName!=null){
-                            loggedUserName = '<h6>'+data[0].loggedUserName+'</h6>'
-                        }
-                        $('#logged_user_name').html(loggedUserName);
-                        $('#role_switcher_button').html(roleSwitcherButton);
-                        $('#create_tender_button_onHeader').html(createTenderButton);
+
                         $('#user_message').html('');
                         $('#tender_items').show();
                         $('#tenders').html(html);
@@ -348,6 +312,9 @@
             if($('#search_tenders').val()!=""){
                 str += (str.length==0)?"searchParam="+$('#search_tenders').val():"&searchParam="+$('#search_tenders').val();
             }
+            if ($("#CURRENT_USER_ROLE").val() != "" && getCookie("roleFlag") == "true") {
+                str += "&userRole=" + $("#CURRENT_USER_ROLE").val();
+            }
 
             showPagination(str);
             str += (str.length==0)?"pageSize="+pageSize:"&pageSize="+pageSize;
@@ -363,12 +330,12 @@
                     var html = '';
                     var dataSize = data.length;
                     var roleSwitcherButton = '';
-                    if (CURRENT_ROLE==""&data[0].roles!=null){
-                        CURRENT_ROLE = data[0].roles.toString();
+                    if (CURRENT_ROLE == "" && getCookie("userRole") != undefined){
+                        CURRENT_ROLE = getCookie("userRole");
                     }
                     if(dataSize > 0) {
                         for (var i = 0; i < dataSize; i++) {
-                            html += '<tr><td align="center">' + data[i].title + '</td>' +
+                            html += '<tr class="'+((data[i].haveNewProposal && getCookie("roleFlag") == "true")?"info":"")+'"><td align="center">' + data[i].title + '</td>' +
                                 '<td align="center">' + data[i].authorName + '</td>' +
                                 '<td align="center">' + data[i].categories + '</td>';
                             if (data[i].locations.toString().split(',').length>2){
@@ -385,13 +352,13 @@
                                 '<button data-toggle="dropdown" class="btn btn-default dropdown-toggle">Action<span class="caret"></span></button>' +
                                 '<ul class="dropdown-menu">'+
                                 '<li><a href="/tenderView/' + data[i].id + '">View</a></li>';
-                            if (CURRENT_ROLE.search('CUSTOMER')!=-1){
-                                if (data[i].userId.toString()==data[i].authorId.toString()){
+                            if (CURRENT_ROLE.search(CUSTOMER) != -1){
+                                if (data[i].userId.toString() == data[i].authorId.toString()){
                                     html += '<li><a href="#" data-toggle="modal" data-target="#close_tender_mod_wind" onclick="writeCloseTenderId(' + data[i].id + ')">Close</a></li>';
                                 }
                                 roleSwitcherButton = '<button type="button" class="btn btn-default nav_button" onclick="roleSwitcher()">Switch to Seller View</button>';
                             }
-                            if (CURRENT_ROLE.search('SELLER')!=-1){
+                            if (CURRENT_ROLE.search(SELLER) != -1){
                                 html += '<li><a href="#" data-toggle="modal" data-target="#createProposalWindow" onclick="showUnits(' + data[i].id + ')">Create proposal</a></li>';
                                 roleSwitcherButton = '<button type="button" class="btn btn-default nav_button" onclick="roleSwitcher()">Switch to Customer View</button>';
                             }
@@ -495,14 +462,6 @@
             return year + '/' + month + '/' + day;
         }
 
-        function goToRegistrationPage() {
-            window.location.href = REGISTRATION_PAGE_URL;
-        }
-
-        function goToMyDealsPage() {
-            window.location.href = MYDEALS_PAGE_URL;
-        }
-
         function showPagination(queryParams) {
             $.ajax({
                 url: TENDERS_NUMBER,
@@ -560,26 +519,5 @@
             }
 
             applyFilters();
-        }
-
-        function goToUserProfilePage() {
-            window.location.href = USER_PROFILE_PAGE_URL;
-        }
-
-        function roleSwitcher(){
-            if (CURRENT_ROLE.search('CUSTOMER')!=-1){
-                 var cookievalue= 'SELLER;';
-                 document.cookie="userRole=" + cookievalue;
-            }else if (CURRENT_ROLE.search('SELLER')!=-1){
-                 var cookievalue= 'CUSTOMER;';
-                 document.cookie="userRole=" + cookievalue;
-            }
-            showTenders();
-            window.location.href = "/tendersHome"
-        }
-        function clearMyCookie(cookie_name){
-            var cookie_date = new Date ( );
-            cookie_date.setTime ( cookie_date.getTime() - 1 );
-            document.cookie = cookie_name += "=; expires=" + cookie_date.toGMTString();
         }
 

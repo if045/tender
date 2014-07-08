@@ -18,27 +18,9 @@ public class TenderDto {
     private Set<String> categories;
     private Integer proposals;
     private String description;
-    private List<String> roles;
     private Integer authorId;
     private Integer userId;
-    private Integer roleCount;
-    private String loggedUserName;
-
-    public String getLoggedUserName() {
-        return loggedUserName;
-    }
-
-    public void setLoggedUserName(String loggedUserName) {
-        this.loggedUserName = loggedUserName;
-    }
-
-    public Integer getRoleCount() {
-        return roleCount;
-    }
-
-    public void setRoleCount(Integer roleCount) {
-        this.roleCount = roleCount;
-    }
+    private Boolean haveNewProposal;
 
     public Integer getAuthorId() {
         return authorId;
@@ -54,14 +36,6 @@ public class TenderDto {
 
     public void setUserId(Integer userId) {
         this.userId = userId;
-    }
-
-    public List<String> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(List<String> roles) {
-        this.roles = roles;
     }
 
     public String getDescription() {
@@ -150,5 +124,13 @@ public class TenderDto {
 
     public void setSuitablePrice(BigDecimal suitablePrice) {
         this.suitablePrice = suitablePrice;
+    }
+
+    public Boolean getHaveNewProposal() {
+        return haveNewProposal;
+    }
+
+    public void setHaveNewProposal(Boolean haveNewProposal) {
+        this.haveNewProposal = haveNewProposal;
     }
 }

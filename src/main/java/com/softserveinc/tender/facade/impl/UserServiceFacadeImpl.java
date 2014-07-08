@@ -5,6 +5,7 @@ import com.softserveinc.tender.dto.CategoryDto;
 import com.softserveinc.tender.dto.CompanyDto;
 import com.softserveinc.tender.dto.CustomerRegistrationDataDto;
 import com.softserveinc.tender.dto.LocationDto;
+import com.softserveinc.tender.dto.LoggedUserDto;
 import com.softserveinc.tender.dto.PersonalInfoDto;
 import com.softserveinc.tender.dto.PrivateCustomerRegistrationDataDto;
 import com.softserveinc.tender.dto.PrivateSellerRegistrationDataDto;
@@ -15,9 +16,28 @@ import com.softserveinc.tender.dto.SellerRegistrationDataDto;
 import com.softserveinc.tender.dto.TradeSphereDto;
 import com.softserveinc.tender.dto.UserDto;
 import com.softserveinc.tender.dto.UsersProfileDataDto;
-import com.softserveinc.tender.entity.*;
+import com.softserveinc.tender.entity.Address;
+import com.softserveinc.tender.entity.Category;
+import com.softserveinc.tender.entity.CheckedProfile;
+import com.softserveinc.tender.entity.Company;
+import com.softserveinc.tender.entity.Feedback;
+import com.softserveinc.tender.entity.Location;
+import com.softserveinc.tender.entity.Profile;
+import com.softserveinc.tender.entity.Role;
+import com.softserveinc.tender.entity.User;
+import com.softserveinc.tender.entity.template.Roles;
 import com.softserveinc.tender.facade.UserServiceFacade;
-import com.softserveinc.tender.service.*;
+import com.softserveinc.tender.service.AddressService;
+import com.softserveinc.tender.service.CategoryService;
+import com.softserveinc.tender.service.CheckedProfileService;
+import com.softserveinc.tender.service.CheckedStatusService;
+import com.softserveinc.tender.service.CompanyService;
+import com.softserveinc.tender.service.LocationService;
+import com.softserveinc.tender.service.ProfileService;
+import com.softserveinc.tender.service.RoleService;
+import com.softserveinc.tender.service.UserService;
+import com.softserveinc.tender.util.Constants;
+
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,10 +49,16 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import static com.softserveinc.tender.util.Constants.*;
+import static com.softserveinc.tender.util.Constants.CHECKED_PROFILE_OPEN_STATUS;
+import static com.softserveinc.tender.util.Constants.CHECKED_USER;
+import static com.softserveinc.tender.util.Constants.ENABLED_USER;
+import static com.softserveinc.tender.util.Constants.LEGAL_PERSON;
 import static com.softserveinc.tender.util.Util.formatDate;
 import static com.softserveinc.tender.util.Util.getUserLogin;
 import static com.softserveinc.tender.util.Util.setCurrentTimeStamp;
+import static com.softserveinc.tender.util.Constants.CUSTOMER_AND_SELLER_HOME_PAGE;
+import static com.softserveinc.tender.util.Constants.MODERATOR_HOME_PAGE;
+import static com.softserveinc.tender.util.Constants.ADMINISTRATOR_HOME_PAGE;
 
 @Service("registrationServiceFacade")
 @Transactional
@@ -71,7 +97,8 @@ public class UserServiceFacadeImpl implements UserServiceFacade {
     // registration logic
     @Override
     public List<RoleDto> findUsersRoles() {
-        Type targetListType = new TypeToken<List<RoleDto>>(){}.getType();
+        Type targetListType = new TypeToken<List<RoleDto>>() {
+        }.getType();
         return modelMapper.map(roleService.findUsersRoles(), targetListType);
     }
 
@@ -150,7 +177,7 @@ public class UserServiceFacadeImpl implements UserServiceFacade {
     private Company mapCompany(CompanyDto companyDto, Address address) {
         Company company = new Company();
 
-        if(!companyDto.getSrnNumber().equals("")){
+        if (!companyDto.getSrnNumber().equals("")) {
             company.setSrn(Integer.valueOf(companyDto.getSrnNumber()));
         }
 
@@ -205,7 +232,7 @@ public class UserServiceFacadeImpl implements UserServiceFacade {
     private Address mapAddress(AddressDto addressDto) {
         Address address = new Address();
 
-        if(!addressDto.getPostcode().equals("")){
+        if (!addressDto.getPostcode().equals("")) {
             address.setPostcode(Integer.valueOf(addressDto.getPostcode()));
         }
         address.setCity(addressDto.getCity());
@@ -230,15 +257,15 @@ public class UserServiceFacadeImpl implements UserServiceFacade {
 
         User user = new User();
 
-        for(Integer id : userDto.getRoles()) {
+        for (Integer id : userDto.getRoles()) {
             roles.add(roleService.findRoleById(id));
         }
 
-        for(Integer id : tradeSphereDto.getCategories()) {
+        for (Integer id : tradeSphereDto.getCategories()) {
             categories.add(categoryService.findCategoryById(id));
         }
 
-        for(Integer id : tradeSphereDto.getLocations()) {
+        for (Integer id : tradeSphereDto.getLocations()) {
             locations.add(locationService.findById(id));
         }
 
@@ -259,7 +286,7 @@ public class UserServiceFacadeImpl implements UserServiceFacade {
 
         User user = new User();
 
-        for(Integer id : userDto.getRoles()) {
+        for (Integer id : userDto.getRoles()) {
             roles.add(roleService.findRoleById(id));
         }
 
@@ -278,7 +305,7 @@ public class UserServiceFacadeImpl implements UserServiceFacade {
 
         checkedProfile.setProfile(profileService.findProfileById(profile.getId()));
         checkedProfile.setStatus(checkedStatusService.findByName(CHECKED_PROFILE_OPEN_STATUS));
-        return checkedProfileService.saveCheckedProfile(checkedProfile);
+        return checkedProfileService.save(checkedProfile);
     }
     // end of registration logic
 
@@ -286,6 +313,48 @@ public class UserServiceFacadeImpl implements UserServiceFacade {
     @Override
     public UsersProfileDataDto findUsersProfileInfo() {
         return mapUserProfileData(userService.findByLogin(getUserLogin()));
+    }
+
+    @Override
+    public UsersProfileDataDto findUsersProfileInfoByLogin(String userLogin) {
+        return mapUserProfileData(userService.findByLogin(userLogin));
+    }
+
+    @Override
+    public String getHomePage() {
+        List<Role> roles = userService.findByLogin(getUserLogin()).getRoles();
+        String homePage = null;
+        if (roles.size() == 1) {
+            if (roles.get(0).getName().equals(Roles.CUSTOMER.toString()) ||
+                    roles.get(0).getName().equals(Roles.SELLER.toString())) {
+                homePage = CUSTOMER_AND_SELLER_HOME_PAGE;
+            } else if (roles.get(0).getName().equals(Roles.MODERATOR.toString())) {
+                homePage = MODERATOR_HOME_PAGE;
+            } else if (roles.get(0).getName().equals(Roles.ADMIN.toString())) {
+                homePage = ADMINISTRATOR_HOME_PAGE;
+            }
+        }
+        if (roles.size() == 2) {
+            if (roles.get(0).getName().equals(Roles.CUSTOMER.toString()) ||
+                    roles.get(0).getName().equals(Roles.SELLER.toString())) {
+                homePage = CUSTOMER_AND_SELLER_HOME_PAGE;
+            }
+        }
+        return homePage;
+    }
+
+    public LoggedUserDto getLoggedUserInfo() {
+        LoggedUserDto loggedUserDto=new LoggedUserDto();
+        List<String> roles = new ArrayList<>();
+        String userLogin = getUserLogin();
+        if (!userLogin.equals(Constants.UNKNOWN_USER)){
+            for (Role role:userService.findByLogin(userLogin).getRoles()){
+                roles.add(role.getName());
+            }
+            loggedUserDto.setLogin(userLogin);
+        }
+        loggedUserDto.setRoles(roles);
+        return loggedUserDto;
     }
 
     private UsersProfileDataDto mapUserProfileData(User user) {
@@ -313,7 +382,7 @@ public class UserServiceFacadeImpl implements UserServiceFacade {
     private CompanyDto mapCompany(User user) {
         CompanyDto companyDto = new CompanyDto();
 
-        if(user.getProfile().getPerson() == LEGAL_PERSON) {
+        if (user.getProfile().getPerson() == LEGAL_PERSON) {
             companyDto.setName(user.getProfile().getCompany().getName());
             companyDto.setEmail(user.getProfile().getCompany().getEmail());
             companyDto.setSrnNumber(String.valueOf(user.getProfile().getCompany().getSrn()));
@@ -335,7 +404,7 @@ public class UserServiceFacadeImpl implements UserServiceFacade {
     private List<RoleDto> mapRoles(User user) {
         List<RoleDto> roles = new ArrayList<>();
 
-        for(Role role : user.getRoles()) {
+        for (Role role : user.getRoles()) {
             roles.add(mapRole(role));
         }
         return roles;
@@ -383,7 +452,7 @@ public class UserServiceFacadeImpl implements UserServiceFacade {
     private List<CategoryDto> mapCategories(User user) {
         List<CategoryDto> categories = new ArrayList<>();
 
-        for(Category category : user.getSellerCategories()) {
+        for (Category category : user.getSellerCategories()) {
             categories.add(mapCategory(category));
         }
         return categories;
@@ -401,7 +470,7 @@ public class UserServiceFacadeImpl implements UserServiceFacade {
     private List<LocationDto> mapLocations(User user) {
         List<LocationDto> locations = new ArrayList<>();
 
-        for(Location location : user.getSellerLocations()) {
+        for (Location location : user.getSellerLocations()) {
             locations.add(mapLocation(location));
         }
         return locations;
@@ -419,7 +488,7 @@ public class UserServiceFacadeImpl implements UserServiceFacade {
     private List<RatingDto> mapRatings(User user) {
         List<RatingDto> ratings = new ArrayList<>();
 
-        for(Feedback feedback : user.getProfile().getFeedbacks()) {
+        for (Feedback feedback : user.getProfile().getFeedbacks()) {
             ratings.add(mapRating(feedback));
         }
         return ratings;

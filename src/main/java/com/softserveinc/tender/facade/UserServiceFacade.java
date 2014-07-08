@@ -1,6 +1,7 @@
 package com.softserveinc.tender.facade;
 
 import com.softserveinc.tender.dto.CustomerRegistrationDataDto;
+import com.softserveinc.tender.dto.LoggedUserDto;
 import com.softserveinc.tender.dto.PrivateCustomerRegistrationDataDto;
 import com.softserveinc.tender.dto.PrivateSellerRegistrationDataDto;
 import com.softserveinc.tender.dto.RoleDto;
@@ -18,4 +19,8 @@ public interface UserServiceFacade {
     User savePrivateSeller(PrivateSellerRegistrationDataDto sellerData);
     User savePrivateCustomer(PrivateCustomerRegistrationDataDto customerData);
     UsersProfileDataDto findUsersProfileInfo();
+    UsersProfileDataDto findUsersProfileInfoByLogin(String userLogin);
+    String getHomePage();
+    LoggedUserDto getLoggedUserInfo();
+
 }
