@@ -297,6 +297,10 @@ textarea {
     width: 335px;
 }
 
+#moderator_conflict_mod_wind .modal-dialog {
+    width: 400px;
+}
+
 #moderator_profile_roles {
     width: 150px;
     word-break: normal;

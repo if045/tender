@@ -195,7 +195,7 @@ function showConflicts() {
                         '<td align="center">' + data[i].customerName + '</td>' +
                         '<td align="center">' + data[i].sellerName + '</td>' +
                         '<td align="center">' + data[i].status + '</td>' +
-                        '<td align="center"><button class="btn btn-default" type="button">Action</button></td></tr>';
+                        '<td align="center"><a href="#" data-toggle="modal" data-target="#moderator_conflict_mod_wind" button class="btn btn-default" type="button" data-dismiss="modal" onclick="writeModeratorConflictId();">Action</a></td></tr>';
                 }
 
                 $('#moderator_conflicts_message').html('');
