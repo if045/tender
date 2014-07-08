@@ -12,10 +12,13 @@ import com.softserveinc.tender.dto.UsersProfileDataDto;
 import com.softserveinc.tender.entity.User;
 import com.softserveinc.tender.facade.UserServiceFacade;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
@@ -60,6 +63,12 @@ public class UserController {
         userServiceFacade.findUsersProfileInfo();
 
         return userServiceFacade.updateUserData(userPersonalData);
+    }
+
+    @PreAuthorize("hasRole('MODERATOR')")
+    @RequestMapping(value = "/profile/userdata", method = RequestMethod.GET)
+    public @ResponseBody UsersProfileDataDto showUserProfileData(@RequestParam(value = "userLogin",required = false) String userLogin) {
+        return userServiceFacade.findUsersProfileInfoByLogin(userLogin);
     }
 
     @RequestMapping(value = "/loggedUserInfo", method = RequestMethod.GET)

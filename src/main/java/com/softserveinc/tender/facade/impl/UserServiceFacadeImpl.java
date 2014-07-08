@@ -289,6 +289,11 @@ public class UserServiceFacadeImpl implements UserServiceFacade {
     }
 
     @Override
+    public UsersProfileDataDto findUsersProfileInfoByLogin(String userLogin) {
+        return mapUserProfileData(userService.findByLogin(userLogin));
+    }
+
+    @Override
     public String getHomePage() {
         List<Role> roles = userService.findByLogin(getUserLogin()).getRoles();
         String homePage = null;
