@@ -4,18 +4,23 @@ import com.softserveinc.tender.dto.BidDto;
 import com.softserveinc.tender.dto.CategoryDto;
 import com.softserveinc.tender.dto.ConflictDto;
 import com.softserveinc.tender.dto.FeedbackDto;
+import com.softserveinc.tender.dto.ProfileDto;
 import com.softserveinc.tender.dto.ProposalDto;
+import com.softserveinc.tender.dto.RoleDto;
 import com.softserveinc.tender.dto.TenderDto;
 import com.softserveinc.tender.dto.UnitDto;
 import com.softserveinc.tender.entity.Bid;
 import com.softserveinc.tender.entity.Category;
+import com.softserveinc.tender.entity.CheckedProfile;
 import com.softserveinc.tender.entity.Conflict;
 import com.softserveinc.tender.entity.Feedback;
 import com.softserveinc.tender.entity.Location;
 import com.softserveinc.tender.entity.Profile;
 import com.softserveinc.tender.entity.Proposal;
+import com.softserveinc.tender.entity.Role;
 import com.softserveinc.tender.entity.Tender;
 import com.softserveinc.tender.entity.Unit;
+import com.softserveinc.tender.service.CheckedProfileService;
 import com.softserveinc.tender.service.DealService;
 import com.softserveinc.tender.service.ProfileService;
 import com.softserveinc.tender.service.ProposalService;
@@ -31,6 +36,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -49,6 +55,9 @@ public class UtilMapper implements Convertible {
 
     @Autowired
     private ProposalService proposalService;
+
+    @Autowired
+    private CheckedProfileService checkedProfileService;
 
     public UtilMapper() {
 
@@ -201,6 +210,33 @@ public class UtilMapper implements Convertible {
                 map().setStatus(source.getStatus().getName());
                 using(toFullName).map(source.getBid().getProposal().getTender().getAuthor()).setCustomerName(null);
                 using(toFullName).map(source.getBid().getProposal().getSeller().getProfile()).setSellerName(null);
+            }
+        });
+
+        //Mapping for Profile to ProfileDto
+        nativeModelMapper.addMappings(new PropertyMap<Profile, ProfileDto>() {
+            private static final String PROFILE_UNCHECKED_STATUS = "Unchecked";
+
+            Converter<List<Role>, List<RoleDto>> toRoleDto = new AbstractConverter<List<Role>, List<RoleDto>>() {
+                @Override
+                protected List<RoleDto> convert(List<Role> source) {
+                    return mapObjects(source, RoleDto.class);
+                }
+            };
+
+            Converter<Integer, String> toStatus = new AbstractConverter<Integer, String>() {
+                @Override
+                protected String convert(Integer source) {
+                    CheckedProfile checkedProfile = checkedProfileService.findCheckedProfileByProfileId(source);
+                    return (checkedProfile != null) ? checkedProfile.getStatus().getName() : PROFILE_UNCHECKED_STATUS;
+                }
+            };
+            @Override
+            protected void configure() {
+                map().setBirthday(source.getBirthday().toString());
+                using(toRoleDto).map(source.getUser().getRoles()).setRoles(null);
+                when(Conditions.isNotNull()).map().setCompanyId(source.getCompany().getId());
+                using(toStatus).map(source.getId()).setStatus(null);
             }
         });
     }
