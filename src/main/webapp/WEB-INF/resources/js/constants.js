@@ -36,6 +36,7 @@ var SELLER_REGISTRATION_URL = "/user/registration/seller/legal";
 var CUSTOMER_REGISTRATION_URL = "/user/registration/customer/legal";
 var PRIVATE_SELLER_REGISTRATION_URL = "/user/registration/seller/private";
 var PRIVATE_CUSTOMER_REGISTRATION_URL = "/user/registration/customer/private";
+var USER_REGISTRATION_URL = "/user/registration/user";
 USER_PROFILE_PAGE_URL = "/user/profile";
 USER_PROFILE_DATA_URL = "/user/profile/data";
 /*Constants for user.js*/

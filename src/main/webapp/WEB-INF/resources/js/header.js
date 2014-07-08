@@ -44,7 +44,7 @@ $(document).ready(function () {
         });
     });
 
-    if (getCookie("userRole") != undefined) {
+    if (getCookie("userRole") == SELLER) {
         $.getJSON(NEW_DEALS_URL, function (data) {
             var newDealsNumber = data.dealsNumber;
 

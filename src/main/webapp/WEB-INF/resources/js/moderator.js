@@ -77,10 +77,10 @@ $(document).ready(function () {
     });
 
     $("#add_moderator_button").click(function () {
-        var userName = $('#m_username').val();
+        var userLogin = $('#m_userlogin').val();
         var userPassword = $('#m_password').val();
 
-
+        registerNewModerator(userLogin, userPassword);
     });
 });
 
@@ -335,6 +335,28 @@ function sortConflicts(orderByField, elementId) {
     }
 
     showConflicts();
+}
+
+function registerNewModerator(userLogin, userPassword) {
+    var userDto = '{"userDto":{'  +
+                        '"roles":["MODERATOR"],' +
+                        '"login":"' + userLogin + '",' +
+                        '"password":"' + userPassword + '"}}';
+
+    $.ajax({
+        url: USER_REGISTRATION_URL,
+        type: "POST",
+        data:  userDto,
+        dataType: 'json',
+        contentType: 'application/json',
+
+        success: function(data) {
+            console.log(data);
+        },
+        error: function(){
+            alert(ERROR_MESSAGE);
+        }
+    });
 }
 
 function buildUserData() {

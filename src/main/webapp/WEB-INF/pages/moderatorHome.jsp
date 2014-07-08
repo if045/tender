@@ -280,7 +280,7 @@
             </div>
             <div class="modal-body">
                 <form class="form-horizontal" role="form">
-                    <input type="text" name="m_username" id="m_username" class="form-control" placeholder="Email address" required autofocus>
+                    <input type="text" name="m_userlogin" id="m_userlogin" class="form-control" placeholder="Email address" required autofocus>
                     <div><br/></div>
                     <input type="password" name="m_password" id="m_password" class="form-control" placeholder="Password" required>
                 </form>

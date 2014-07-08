@@ -6,6 +6,7 @@ import com.softserveinc.tender.dto.PrivateCustomerRegistrationDataDto;
 import com.softserveinc.tender.dto.PrivateSellerRegistrationDataDto;
 import com.softserveinc.tender.dto.RoleDto;
 import com.softserveinc.tender.dto.SellerRegistrationDataDto;
+import com.softserveinc.tender.dto.UserDto;
 import com.softserveinc.tender.dto.UsersProfileDataDto;
 import com.softserveinc.tender.entity.User;
 import com.softserveinc.tender.facade.UserServiceFacade;
@@ -46,6 +47,11 @@ public class UserController {
     @RequestMapping(value = "/registration/customer/private", method = RequestMethod.POST, consumes = "application/json")
     public @ResponseBody User saveUserRegistrationData(@RequestBody PrivateCustomerRegistrationDataDto customerData) {
         return userServiceFacade.savePrivateCustomer(customerData);
+    }
+
+    @RequestMapping(value = "/registration/user", method = RequestMethod.POST, consumes = "application/json")
+    public @ResponseBody void saveUserRegistrationData(@RequestBody UserDto userData) {
+        userServiceFacade.saveUser(userData);
     }
 
     @RequestMapping(value = "/profile", method = RequestMethod.GET)
