@@ -77,6 +77,11 @@ public class TenderServiceImpl implements TenderService {
     }
 
     @Override
+    public List<Tender> findAll() {
+        return tenderRepository.findAll();
+    }
+
+    @Override
     public Tender save(Tender tender) {
         return tenderRepository.saveAndFlush(tender);
     }

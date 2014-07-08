@@ -51,8 +51,22 @@ public class ModeratorController {
         return profileFacade.updateProfileStatus(userId, statusName);
     }
 
+    @PreAuthorize("hasRole('MODERATOR')")
     @RequestMapping(value = "/conflicts", method = RequestMethod.GET)
-    public @ResponseBody List<ConflictDto> getConflicts(){
-        return moderatorServiceFacade.getConflicts();
+    public @ResponseBody List<ConflictDto> getConflicts(@RequestParam(value = "pageNumber",required = true) Integer pageNumber,
+                                                        @RequestParam(value = "pageSize",required = true) Integer pageSize,
+                                                        @RequestParam(value = "orderBy", required = false, defaultValue = "status.name") String orderBy,
+                                                        @RequestParam(value = "sortDirection", required = false, defaultValue = "DESC") String sortDirection,
+                                                        @RequestParam(value = "searchParam",required = false) String searchParam){
+
+        Sort.Direction pageSortDirection = Sort.Direction.fromString(sortDirection);
+
+        return moderatorServiceFacade.getConflicts(new PageRequest(pageNumber, pageSize, pageSortDirection, orderBy), searchParam);
+    }
+
+    @PreAuthorize("hasRole('MODERATOR')")
+    @RequestMapping(value = "/conflictsnumber", method = RequestMethod.GET)
+    public @ResponseBody Long getConflictsNumber(@RequestParam(value = "searchParam", required = false) String searchParam) {
+        return moderatorServiceFacade.getConflictsNumber(searchParam);
     }
 }
