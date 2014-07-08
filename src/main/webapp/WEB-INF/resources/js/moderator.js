@@ -76,6 +76,12 @@ $(document).ready(function () {
         }
     });
 
+    $("#add_moderator_button").click(function () {
+        var userName = $('#m_username').val();
+        var userPassword = $('#m_password').val();
+
+
+    });
 });
 
 function showUsersProfiles() {

@@ -122,7 +122,7 @@
                 <div class="row">
                     <div class="col-md-12 search_bar">
                         <div class="pull-left">
-                            <button id="add_moderator_btn" class="btn btn-primary" type="button">Add moderator</button>
+                            <button id="add_moderator_btn" data-toggle="modal" data-target="#moderator_profile_add" class="btn btn-primary" type="button">Add moderator</button>
                         </div>
                         <div class="pull-right">
                             <form id="search_form_for_profile" class="navbar-form navbar-right" role="search">
@@ -270,6 +270,29 @@
     </div>
 </div>
 <!--Profile status updating confirm-->
+
+<!--Add moderator modeal window-->
+<div class="modal fade" id="moderator_profile_add" tabindex="-1" role="dialog" hidden="">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header"><button class="close" type="button" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Add new moderator</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" role="form">
+                    <input type="text" name="m_username" id="m_username" class="form-control" placeholder="Email address" required autofocus>
+                    <div><br/></div>
+                    <input type="password" name="m_password" id="m_password" class="form-control" placeholder="Password" required>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-default" type="button" data-dismiss="modal">Cancel</button>
+                <button id="add_moderator_button" class="btn btn-primary" type="button">Confirm</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Add moderator modeal window-->
 
 </body>
 </html>
