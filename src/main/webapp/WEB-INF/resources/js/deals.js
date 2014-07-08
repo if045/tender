@@ -52,7 +52,7 @@ function showDeals() {
     
     queryParams += (queryParams.length==0)?"pageSize="+pageSize:"&pageSize="+pageSize;
     queryParams += "&pageNumber=" + currPageNumber + "&sortDirection=" +
-                                                         ((dealSortDirection)?"desc":"asc") + "&orderBy=" + dealOrderBy;
+                                                         ((!dealSortDirection)?"desc":"asc") + "&orderBy=" + dealOrderBy;
 
     if($('#search_deals').val()!=""){
         queryParams += (queryParams.length==0)?"searchParam="+$('#search_deals').val():"&searchParam="+$('#search_deals').val();
