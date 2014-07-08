@@ -17,6 +17,7 @@ import com.softserveinc.tender.facade.DealServiceFacade;
 import com.softserveinc.tender.service.ConflictService;
 import com.softserveinc.tender.service.DealService;
 import com.softserveinc.tender.service.FeedbackService;
+import com.softserveinc.tender.service.ProfileService;
 import com.softserveinc.tender.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,17 +52,20 @@ public class DealServiceFacadeImpl implements DealServiceFacade {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private ProfileService profileService;
+
     @Override
     public List<DealDto> findAllDeals(Pageable pageable, String tenderTitle, String userRole) {
         List<Deal> deals = null;
 
         for (Role role : userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).getRoles()) {
             if (role.getName().equals("CUSTOMER") && userRole.equals("CUSTOMER")) {
-                deals = dealService.findAllDealsForCustomer(pageable, userService.findByLogin(SecurityContextHolder
-                        .getContext().getAuthentication().getName()).getId(), tenderTitle);
+                deals = dealService.findAllDealsForCustomer(pageable,
+                        profileService.findProfileByUserLogin(userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).getLogin()).getId(), tenderTitle);
             } else if (role.getName().equals("SELLER") && userRole.equals("SELLER")){
-                deals = dealService.findAllDealsForSeller(pageable, userService.findByLogin(SecurityContextHolder
-                        .getContext().getAuthentication().getName()).getId(), tenderTitle);
+                deals = dealService.findAllDealsForSeller(pageable,
+                        profileService.findProfileByUserLogin(userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).getLogin()).getId(), tenderTitle);
             }
         }
 
@@ -74,7 +78,8 @@ public class DealServiceFacadeImpl implements DealServiceFacade {
 
         for (Role role : userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).getRoles()) {
             if (role.getName().equals("SELLER") && userRole.equals("SELLER")) {
-                newDealsNumber = dealService.getNewDealsNumberForSeller(userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).getId());
+                newDealsNumber = dealService.getNewDealsNumberForSeller(
+                        profileService.findProfileByUserLogin(userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).getLogin()).getId());
             }
         }
 
@@ -96,9 +101,11 @@ public class DealServiceFacadeImpl implements DealServiceFacade {
 
         for (Role role : userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).getRoles()) {
             if (role.getName().equals("CUSTOMER") && userRole.equals("CUSTOMER")) {
-                dealsNumber = dealService.getDealsNumberForCustomer(userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).getId());
+                dealsNumber = dealService.getDealsNumberForCustomer(
+                        profileService.findProfileByUserLogin(userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).getLogin()).getId());
             } else if (role.getName().equals("SELLER") && userRole.equals("SELLER")){
-                dealsNumber = dealService.getDealsNumberForSeller(userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).getId());
+                dealsNumber = dealService.getDealsNumberForSeller(
+                        profileService.findProfileByUserLogin(userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).getLogin()).getId());
             }
         }
 
