@@ -7,5 +7,5 @@ public interface CheckedProfileService {
 
     List<CheckedProfile> findAll();
     CheckedProfile findCheckedProfileById(int id);
-
+    CheckedProfile saveCheckedProfile(CheckedProfile checkedProfile);
 }

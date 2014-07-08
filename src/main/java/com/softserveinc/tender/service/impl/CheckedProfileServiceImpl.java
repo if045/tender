@@ -22,4 +22,9 @@ public class CheckedProfileServiceImpl implements CheckedProfileService {
     public CheckedProfile findCheckedProfileById(int id) {
         return checkedProfileRepository.findOne(id);
     }
+
+    @Override
+    public CheckedProfile saveCheckedProfile(CheckedProfile checkedProfile) {
+        return checkedProfileRepository.save(checkedProfile);
+    }
 }

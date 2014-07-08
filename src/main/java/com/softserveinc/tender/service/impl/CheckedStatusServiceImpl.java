@@ -22,4 +22,9 @@ public class CheckedStatusServiceImpl implements CheckedStatusService {
     public CheckedStatus findById(int id) {
         return checkedStatusRepository.findOne(id);
     }
+
+    @Override
+    public CheckedStatus findByName(String status) {
+        return checkedStatusRepository.findByName(status);
+    }
 }
