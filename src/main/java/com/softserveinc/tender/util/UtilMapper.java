@@ -3,7 +3,7 @@ package com.softserveinc.tender.util;
 import com.softserveinc.tender.dto.BidDto;
 import com.softserveinc.tender.dto.CategoryDto;
 import com.softserveinc.tender.dto.ConflictDto;
-import com.softserveinc.tender.dto.FeedbackDto;
+import com.softserveinc.tender.dto.DealDto;
 import com.softserveinc.tender.dto.ProfileDto;
 import com.softserveinc.tender.dto.ProposalDto;
 import com.softserveinc.tender.dto.RoleDto;
@@ -13,13 +13,14 @@ import com.softserveinc.tender.entity.Bid;
 import com.softserveinc.tender.entity.Category;
 import com.softserveinc.tender.entity.CheckedProfile;
 import com.softserveinc.tender.entity.Conflict;
-import com.softserveinc.tender.entity.Feedback;
+import com.softserveinc.tender.entity.Deal;
 import com.softserveinc.tender.entity.Location;
 import com.softserveinc.tender.entity.Profile;
 import com.softserveinc.tender.entity.Proposal;
 import com.softserveinc.tender.entity.Role;
 import com.softserveinc.tender.entity.Tender;
 import com.softserveinc.tender.entity.Unit;
+import com.softserveinc.tender.entity.template.Roles;
 import com.softserveinc.tender.service.CheckedProfileService;
 import com.softserveinc.tender.service.DealService;
 import com.softserveinc.tender.service.ProfileService;
@@ -35,8 +36,8 @@ import org.modelmapper.spi.MappingContext;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -237,6 +238,43 @@ public class UtilMapper implements Convertible {
                 using(toRoleDto).map(source.getUser().getRoles()).setRoles(null);
                 when(Conditions.isNotNull()).map().setCompanyId(source.getCompany().getId());
                 using(toStatus).map(source.getId()).setStatus(null);
+            }
+        });
+
+        //Mapping for Deal to DealDto
+        nativeModelMapper.addMappings(new PropertyMap<Deal, DealDto>() {
+            Converter<Deal, String> toBusinessPartner = new AbstractConverter<Deal, String>() {
+                @Override
+                protected String convert(Deal source) {
+                    String businessPartner = "";
+                    for (Role role : userService.findByLogin(Util.getUserLogin()).getRoles()) {
+                        if (role.getName().equals(Roles.CUSTOMER.name())) {
+                            businessPartner = source.getSeller().getFirstName() + " " + source.getSeller().getLastName();
+                        } else if (role.getName().equals(Roles.SELLER.name())){
+                            businessPartner = source.getCustomer().getFirstName() + " " + source.getCustomer().getLastName();
+                        }
+                    }
+                    return businessPartner;
+                }
+            };
+
+            Converter<Deal, Boolean> toNewDeal = new AbstractConverter<Deal, Boolean>() {
+                @Override
+                protected Boolean convert(Deal source) {
+                    Timestamp myDealsDate = userService.findByLogin(Util.getUserLogin()).getMyDealsDate();
+                    Timestamp dealDate = new Timestamp(source.getDate().getTime());
+                    if (dealDate.after(myDealsDate)) {
+                       return true;
+                    } else return false;
+                }
+            };
+
+            @Override
+            protected void configure() {
+                map().setStatus(source.getStatus().getName());
+                map().setTitle(source.getProposal().getTender().getTitle());
+                using(toBusinessPartner).map(source).setBusinessPartner(null);
+                using(toNewDeal).map(source).setNewDeal(null);
             }
         });
     }

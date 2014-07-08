@@ -17,12 +17,10 @@ import com.softserveinc.tender.entity.Bid;
 import com.softserveinc.tender.entity.Category;
 import com.softserveinc.tender.entity.Deal;
 import com.softserveinc.tender.entity.Item;
-import com.softserveinc.tender.entity.Location;
 import com.softserveinc.tender.entity.Proposal;
 import com.softserveinc.tender.entity.Tender;
 import com.softserveinc.tender.entity.TenderStatus;
 import com.softserveinc.tender.entity.Unit;
-import com.softserveinc.tender.facade.DealServiceFacade;
 import com.softserveinc.tender.facade.TenderServiceFacade;
 import com.softserveinc.tender.repo.TenderFilter;
 import com.softserveinc.tender.service.BidService;
@@ -40,8 +38,6 @@ import com.softserveinc.tender.service.UnitService;
 import com.softserveinc.tender.service.UserService;
 import com.softserveinc.tender.service.impl.MailService;
 import com.softserveinc.tender.util.UtilMapper;
-import org.modelmapper.ModelMapper;
-import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -53,7 +49,6 @@ import java.net.UnknownHostException;
 import java.util.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -105,9 +100,6 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
 
     @Autowired
     private DealService dealService;
-
-    @Autowired
-    private DealServiceFacade dealServiceFacade;
 
     private static final String DATE_FORMAT_FROM_CLIENT="yyyy/MM/dd";
     private static final String DEAL_CREATE_STATUS = "in progress";
@@ -299,7 +291,7 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
             Deal savedDeal = dealService.saveDeal(deal);
             deals.add(savedDeal);
         }
-        return dealServiceFacade.mapDeals(deals);
+        return utilMapper.mapObjects(deals, DealDto.class);
     }
 
     @Override
@@ -319,7 +311,7 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
 
         Deal savedDeal = dealService.saveDeal(deal);
 
-        return dealServiceFacade.mapDeal(savedDeal);
+        return utilMapper.mapObject(savedDeal, DealDto.class);
     }
 
 

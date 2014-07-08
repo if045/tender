@@ -28,7 +28,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -69,7 +68,7 @@ public class DealServiceFacadeImpl implements DealServiceFacade {
             }
         }
 
-        return mapDeals(deals);
+        return utilMapper.mapObjects(deals, DealDto.class);
     }
 
     @Override
@@ -115,45 +114,6 @@ public class DealServiceFacadeImpl implements DealServiceFacade {
     @Override
     public void updateDealWithStatus(Integer dealId, String statusName) {
         dealService.updateDealWithStatus(dealId, statusName);
-    }
-
-    @Override
-    public List<DealDto> mapDeals(List<Deal> deals) {
-        List<DealDto> dealDtos = new ArrayList<>();
-        for (Deal deal : deals) {
-            dealDtos.add(mapDeal(deal));
-        }
-
-        return dealDtos;
-    }
-
-    @Override
-    public DealDto mapDeal(Deal deal) {
-        DealDto dealDto = new DealDto();
-        dealDto.setId(deal.getId());
-        dealDto.setDate(deal.getDate());
-        dealDto.setStatus(deal.getStatus().getName());
-        dealDto.setSum(deal.getSum());
-        dealDto.setDate(deal.getDate());
-        dealDto.setTitle(deal.getProposal().getTender().getTitle());
-
-        String businessPartner = "";
-        for (Role role : userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).getRoles()) {
-            if (role.getName().equals(Roles.CUSTOMER.name())) {
-                businessPartner = deal.getSeller().getFirstName() + " " + deal.getSeller().getLastName();
-            } else if (role.getName().equals(Roles.SELLER.name())){
-                businessPartner = deal.getCustomer().getFirstName() + " " + deal.getCustomer().getLastName();
-            }
-        }
-        dealDto.setBusinessPartner(businessPartner);
-
-        Timestamp myDealsDate = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).getMyDealsDate();
-        Timestamp dealDate = new Timestamp(deal.getDate().getTime());
-        if(dealDate.after(myDealsDate)) {
-            dealDto.setNewDeal(true);
-        }
-
-        return dealDto;
     }
 
     @Override
