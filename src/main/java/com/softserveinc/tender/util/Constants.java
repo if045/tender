@@ -5,4 +5,5 @@ public class Constants {
     public static final Boolean ENABLED_USER = true;
     public static final Boolean CHECKED_USER = false;
     public static final Character LEGAL_PERSON = 'L';
+    public static final String CHECKED_PROFILE_OPEN_STATUS = "Open";
 }
