@@ -426,46 +426,10 @@ public class UserServiceFacadeImpl implements UserServiceFacade {
     private TradeSphereDto mapTradeSphere(User user) {
         TradeSphereDto tradeSphereDto = new TradeSphereDto();
 
-        tradeSphereDto.setCategoriesDto(mapCategories(user));
-        tradeSphereDto.setLocationsDto(mapLocations(user));
+        tradeSphereDto.setCategoriesDto(utilMapper.mapObjects(user.getSellerCategories(), CategoryDto.class));
+        tradeSphereDto.setLocationsDto(utilMapper.mapObjects(user.getSellerLocations(), LocationDto.class));
 
         return tradeSphereDto;
-    }
-
-    private List<CategoryDto> mapCategories(User user) {
-        List<CategoryDto> categories = new ArrayList<>();
-
-        for (Category category : user.getSellerCategories()) {
-            categories.add(mapCategory(category));
-        }
-        return categories;
-    }
-
-    private CategoryDto mapCategory(Category category) {
-        CategoryDto categoryDto = new CategoryDto();
-
-        categoryDto.setId(category.getId());
-        categoryDto.setName(category.getName());
-
-        return categoryDto;
-    }
-
-    private List<LocationDto> mapLocations(User user) {
-        List<LocationDto> locations = new ArrayList<>();
-
-        for (Location location : user.getSellerLocations()) {
-            locations.add(mapLocation(location));
-        }
-        return locations;
-    }
-
-    private LocationDto mapLocation(Location location) {
-        LocationDto locationDto = new LocationDto();
-
-        locationDto.setId(location.getId());
-        locationDto.setName(location.getName());
-
-        return locationDto;
     }
 
     private List<RatingDto> mapRatings(User user) {
