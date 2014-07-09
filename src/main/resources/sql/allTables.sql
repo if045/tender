@@ -279,8 +279,7 @@ INSERT INTO tender (author_id, title, create_date, end_date, status_id, suitable
   (/* 26 */ 11, 'Cars',               '2014-06-09', '2014-06-19', 3, 26000.00, NULL),
   (/* 27 */ 12, 'House Building',     '2014-04-12', '2014-06-11', 3, 27000.00, NULL),
   (/* 28 */ 13, 'Industry',           '2014-06-07', '2014-06-28', 3, 28000.00, NULL),
-  (/* 29 */ 15, 'Products',           '2014-06-08', '2014-06-17', 3, 29000.00, 'I want free deliver to some specific
-  place'),
+  (/* 29 */ 15, 'Products',           '2014-06-08', '2014-06-17', 3, 29000.00, 'I want free deliver to some specific place'),
   (/* 30 */ 15, 'Products for me',    CURDATE(),    '2014-06-15', 3, 30000.00, NULL),
   
   (/* 31 */ 11, 'Need computers',     CURDATE(),    '2014-07-15', 1, 60000.00, NULL),
@@ -409,15 +408,22 @@ INSERT INTO deal (bid_id, proposal_id, customer_id, seller_id, sum, date, status
   (6, 6, 6, 7, 95600.00, CURRENT_TIMESTAMP(), 3);
 
 INSERT INTO conflict (moderator_id, bid_id, description, status_id) VALUE
-  (1, 1, 'text1', 1),
-  (2, 2, 'text2', 2),
-  (3, 3, 'text3', 2),
-  (2, 4, 'text4', 2),
-  (2, 5, 'text5', 3),
-  (1, 6, 'text6', 1),
-  (1, 7, 'text7', 1),
-  (3, 8, 'text8', 3),
-  (2, 9, 'text9', 1);
+  (17, 1, 'text1', 1),
+  (17, 2, 'text2', 2),
+  (17, 3, 'text3', 2),
+  (17, 4, 'text4', 2),
+  (17, 5, 'text5', 3),
+  (17, 6, 'text6', 1),
+  (17, 7, 'text7', 1),
+  (17, 8, 'text8', 3),
+  (17, 8, 'text8', 3),
+  (17, 8, 'text8', 3),
+  (17, 8, 'text8', 3),
+  (17, 8, 'text8', 3),
+  (18, 8, 'text8', 3),
+  (18, 8, 'text8', 3),
+  (18, 8, 'text8', 3),
+  (18, 9, 'text9', 1);
 
 INSERT INTO comment (tender_id, user_id, date, message) VALUES
   (1, 1, CURDATE(), 'This price is too high'),

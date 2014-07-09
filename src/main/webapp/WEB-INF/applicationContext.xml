@@ -16,6 +16,7 @@
 
 
     <bean id="modelMapper" class="org.modelmapper.ModelMapper" />
+    <bean id="utilMapper" class="com.softserveinc.tender.util.UtilMapper" />
 
     <import resource="spring-security.xml"/>
 

@@ -5,6 +5,15 @@ public class ConflictDto extends ConflictSaveDto {
     private String title;
     private String customerName;
     private String sellerName;
+    private String status;
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
     public String getTitle() {
         return title;
