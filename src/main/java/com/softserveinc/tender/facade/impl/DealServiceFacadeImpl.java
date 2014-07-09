@@ -3,7 +3,6 @@ package com.softserveinc.tender.facade.impl;
 import com.softserveinc.tender.dto.ConflictDto;
 import com.softserveinc.tender.dto.ConflictSaveDto;
 import com.softserveinc.tender.dto.DealDto;
-import com.softserveinc.tender.dto.DealsNumberDto;
 import com.softserveinc.tender.dto.FeedbackDto;
 import com.softserveinc.tender.dto.FeedbackSaveDto;
 import com.softserveinc.tender.entity.Deal;
@@ -14,10 +13,12 @@ import com.softserveinc.tender.entity.User;
 import com.softserveinc.tender.entity.Conflict;
 import com.softserveinc.tender.entity.ConflictStatus;
 import com.softserveinc.tender.entity.Bid;
+import com.softserveinc.tender.entity.template.Roles;
 import com.softserveinc.tender.facade.DealServiceFacade;
 import com.softserveinc.tender.service.ConflictService;
 import com.softserveinc.tender.service.DealService;
 import com.softserveinc.tender.service.FeedbackService;
+import com.softserveinc.tender.service.ProfileService;
 import com.softserveinc.tender.service.UserService;
 import com.softserveinc.tender.util.UtilMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,15 +52,20 @@ public class DealServiceFacadeImpl implements DealServiceFacade {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private ProfileService profileService;
+
     @Override
-    public List<DealDto> findAllDeals(Pageable pageable, String tenderTitle) {
+    public List<DealDto> findAllDeals(Pageable pageable, String tenderTitle, String userRole) {
         List<Deal> deals = null;
+
         for (Role role : userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).getRoles()) {
-            if (role.getName().equals("CUSTOMER")) {
-                deals = dealService.findAllDealsForCustomer(pageable, userService.findByLogin(SecurityContextHolder
-                        .getContext().getAuthentication().getName()).getId(), tenderTitle);
-            } else if (role.getName().equals("SELLER")){
-                deals = dealService.findAllDealsForSeller(pageable, userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).getId(), tenderTitle);
+            if (role.getName().equals(Roles.CUSTOMER.name()) && userRole.equals(Roles.CUSTOMER.name())) {
+                deals = dealService.findAllDealsForCustomer(pageable,
+                        profileService.findProfileByUserLogin(userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).getLogin()).getId(), tenderTitle);
+            } else if (role.getName().equals(Roles.SELLER.name()) && userRole.equals(Roles.SELLER.name())){
+                deals = dealService.findAllDealsForSeller(pageable,
+                        profileService.findProfileByUserLogin(userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).getLogin()).getId(), tenderTitle);
             }
         }
 
@@ -67,19 +73,17 @@ public class DealServiceFacadeImpl implements DealServiceFacade {
     }
 
     @Override
-    public DealsNumberDto getNewDealsNumber() {
+    public Long getNewDealsNumber(String userRole) {
         Long newDealsNumber = 0L;
 
         for (Role role : userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).getRoles()) {
-            if (role.getName().equals("SELLER")) {
-                newDealsNumber = dealService.getNewDealsNumberForSeller(userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).getId());
+            if (role.getName().equals(Roles.SELLER.name()) && userRole.equals(Roles.SELLER.name())) {
+                newDealsNumber = dealService.getNewDealsNumberForSeller(
+                        profileService.findProfileByUserLogin(userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).getLogin()).getId());
             }
         }
 
-        DealsNumberDto dealsNumberDto = new DealsNumberDto();
-        dealsNumberDto.setDealsNumber(newDealsNumber);
-
-        return  dealsNumberDto;
+        return newDealsNumber;
     }
 
     @Override
@@ -92,21 +96,20 @@ public class DealServiceFacadeImpl implements DealServiceFacade {
     }
 
     @Override
-    public DealsNumberDto getDealsNumber() {
+    public Long getDealsNumber(String userRole) {
         Long dealsNumber = 0L;
 
         for (Role role : userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).getRoles()) {
-            if (role.getName().equals("CUSTOMER")) {
-                dealsNumber = dealService.getDealsNumberForCustomer(userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).getId());
-            } else if (role.getName().equals("SELLER")){
-                dealsNumber = dealService.getDealsNumberForSeller(userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).getId());
+            if (role.getName().equals(Roles.CUSTOMER.name()) && userRole.equals(Roles.CUSTOMER.name())) {
+                dealsNumber = dealService.getDealsNumberForCustomer(
+                        profileService.findProfileByUserLogin(userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).getLogin()).getId());
+            } else if (role.getName().equals(Roles.SELLER.name()) && userRole.equals(Roles.SELLER.name())){
+                dealsNumber = dealService.getDealsNumberForSeller(
+                        profileService.findProfileByUserLogin(userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).getLogin()).getId());
             }
         }
 
-        DealsNumberDto dealsNumberDto = new DealsNumberDto();
-        dealsNumberDto.setDealsNumber(dealsNumber);
-
-        return dealsNumberDto;
+        return dealsNumber;
     }
 
     @Override
@@ -136,9 +139,9 @@ public class DealServiceFacadeImpl implements DealServiceFacade {
 
         String businessPartner = "";
         for (Role role : userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).getRoles()) {
-            if (role.getName().equals("CUSTOMER")) {
+            if (role.getName().equals(Roles.CUSTOMER.name())) {
                 businessPartner = deal.getSeller().getFirstName() + " " + deal.getSeller().getLastName();
-            } else if (role.getName().equals("SELLER")){
+            } else if (role.getName().equals(Roles.SELLER.name())){
                 businessPartner = deal.getCustomer().getFirstName() + " " + deal.getCustomer().getLastName();
             }
         }
