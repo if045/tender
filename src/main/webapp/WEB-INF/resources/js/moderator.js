@@ -338,10 +338,9 @@ function sortConflicts(orderByField, elementId) {
 }
 
 function registerNewModerator(userLogin, userPassword) {
-    var userDto = '{"userDto":{'  +
-                        '"roles":["MODERATOR"],' +
-                        '"login":"' + userLogin + '",' +
-                        '"password":"' + userPassword + '"}}';
+    var userDto = '{"roles":[2],' +
+                   '"login":"' + userLogin + '",' +
+                   '"password":"' + userPassword + '"}';
 
     $.ajax({
         url: USER_REGISTRATION_URL,
@@ -359,20 +358,3 @@ function registerNewModerator(userLogin, userPassword) {
     });
 }
 
-function buildUserData() {
-    var login = $('#login').val();
-    var password = $('#password').val();
-    var roles = $('#populate_roles_dropdown').val();
-
-    var passwordChecked = passwordIsChecked(password);
-
-    if(!passwordChecked) {
-        alert("passwords are mismatched");
-        return;
-    }
-
-    return '"userDto":{'  +
-        '"roles":['    + roles    + '],' +
-        '"login":"'    + login    + '",' +
-        '"password":"' + password + '"}';
-}

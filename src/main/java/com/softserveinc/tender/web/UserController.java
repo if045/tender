@@ -1,19 +1,11 @@
 package com.softserveinc.tender.web;
 
-import com.softserveinc.tender.dto.CustomerRegistrationDataDto;
-import com.softserveinc.tender.dto.LoggedUserDto;
-import com.softserveinc.tender.dto.PrivateCustomerRegistrationDataDto;
-import com.softserveinc.tender.dto.PrivateSellerRegistrationDataDto;
-import com.softserveinc.tender.dto.RoleDto;
-import com.softserveinc.tender.dto.SellerRegistrationDataDto;
-import com.softserveinc.tender.dto.UserDto;
-import com.softserveinc.tender.dto.UsersProfileDataDto;
+import com.softserveinc.tender.dto.*;
 import com.softserveinc.tender.entity.User;
 import com.softserveinc.tender.facade.UserServiceFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -50,8 +42,8 @@ public class UserController {
     }
 
     @RequestMapping(value = "/registration/user", method = RequestMethod.POST, consumes = "application/json")
-    public @ResponseBody void saveUserRegistrationData(@RequestBody UserDto userData) {
-        userServiceFacade.saveUser(userData);
+    public @ResponseBody User saveUserRegistrationData(@RequestBody UserDto userData) {
+        return userServiceFacade.saveUser(userData);
     }
 
     @RequestMapping(value = "/profile", method = RequestMethod.GET)
