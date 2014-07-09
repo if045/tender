@@ -2,7 +2,7 @@ package com.softserveinc.tender.dto;
 
 public class ConflictSaveDto {
     private Integer moderatorId;
-    private Integer bidId;
+    private Integer dealId;
     private String description;
     private Integer statusId;
 
@@ -14,12 +14,12 @@ public class ConflictSaveDto {
         this.moderatorId = moderatorId;
     }
 
-    public Integer getBidId() {
-        return bidId;
+    public Integer getDealId() {
+        return dealId;
     }
 
-    public void setBidId(Integer bidId) {
-        this.bidId = bidId;
+    public void setDealId(Integer dealId) {
+        this.dealId = dealId;
     }
 
     public String getDescription() {

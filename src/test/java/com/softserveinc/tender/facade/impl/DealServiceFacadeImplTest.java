@@ -1,5 +1,6 @@
 package com.softserveinc.tender.facade.impl;
 
+import com.softserveinc.tender.dto.ConflictDto;
 import com.softserveinc.tender.dto.FeedbackDto;
 import com.softserveinc.tender.dto.FeedbackSaveDto;
 import com.softserveinc.tender.dto.ConflictSaveDto;
@@ -34,13 +35,13 @@ public class DealServiceFacadeImplTest {
     private static final Integer TEST_USER_ID = 1;
     private static final String TEST_LOGIN = "odin_ogame@ukr.net";
 
-    private static final Integer TEST_BID_ID = 4;
-    private static final Integer TEST_MODERATOR_ID = 5;
-    private static final Integer TEST_STATUS_ID = 6;
+    private static final Integer TEST_DEAL_ID = 7;
+    private static final Integer TEST_MODERATOR_ID = 18;
+    private static final Integer TEST_STATUS_ID = 1;
 
 
     private FeedbackSaveDto feedbackSaveDto;
-/*    private ConflictSaveDto conflictSaveDto;*/
+    private ConflictSaveDto conflictSaveDto;
 
     @Autowired
     private DealServiceFacade dealServiceFacade;
@@ -48,7 +49,7 @@ public class DealServiceFacadeImplTest {
     @Before
     public void setUp() throws Exception {
         feedbackSaveDto = new FeedbackSaveDto();
-/*        conflictSaveDto = new ConflictSaveDto();*/
+        conflictSaveDto = new ConflictSaveDto();
     }
 
     @Test
@@ -108,18 +109,16 @@ public class DealServiceFacadeImplTest {
         assertEquals(TEST_USER_ID, feedbackDto.getUserId());
 
     }
-}
-   /* @Test
+
+    @Test
     public void testSaveConflict() throws Exception {
         conflictSaveDto.setDescription(TEST_COMMENT);
-        conflictSaveDto.setBidId(TEST_BID_ID);
-        conflictSaveDto.setModeratorId(TEST_MODERATOR_ID);
+        conflictSaveDto.setDealId(TEST_DEAL_ID);
         conflictSaveDto.setStatusId(TEST_STATUS_ID);
 
-        ConflictSaveDto conflictDto = dealServiceFacade.saveConflict(conflictSaveDto);
+        ConflictDto conflictDto = dealServiceFacade.saveConflict(conflictSaveDto);
         assertEquals(TEST_COMMENT, conflictDto.getDescription());
-        assertEquals(TEST_BID_ID, conflictDto.getBidId());
         assertEquals(TEST_MODERATOR_ID, conflictDto.getModeratorId());
         assertEquals(TEST_STATUS_ID, conflictDto.getStatusId());
     }
-}*/
+}

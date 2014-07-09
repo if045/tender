@@ -161,13 +161,13 @@ public class DealServiceFacadeImpl implements DealServiceFacade {
         Conflict conflict = new Conflict();
         conflict.setDescription(conflictSaveDto.getDescription());
         User moderator = new User();
-        moderator.setId(userService.findByModeratorCategoriesId(dealService.findDealById(conflictSaveDto.getBidId()).getBid().getUnit().getItem().getCategory().getId()).getId());
+        moderator.setId(userService.findByModeratorCategoriesId(dealService.findDealById(conflictSaveDto.getDealId()).getBid().getUnit().getItem().getCategory().getId()).getId());
         conflict.setModerator(moderator);
         ConflictStatus conflictStatus = new ConflictStatus();
         conflictStatus.setId(1);
         conflict.setStatus(conflictStatus);
         Bid bid = new Bid();
-        bid.setId(dealService.findDealById(conflictSaveDto.getBidId()).getBid().getId());
+        bid.setId(dealService.findDealById(conflictSaveDto.getDealId()).getBid().getId());
         conflict.setBid(bid);
 
         Conflict savedConflict = conflictService.save(conflict);
