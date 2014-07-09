@@ -43,11 +43,13 @@
                 </security:authorize>
                 <security:authorize access="isAuthenticated()">
                     <li>
-                        <security:authorize access="hasAnyRole('CUSTOMER','SELLER')">
-                            <ul style="padding-left: 40px"><a class="glyphicon glyphicon-user"
-                                                           onclick="goToUserProfilePage()"></a></ul>
-                        </security:authorize>
-                        <ul id="logged_user_name" style="padding-left: 0px"></ul>
+                        <ul id="logged_user_name" style="padding: 9px 5px 5px 5px"></ul>
+                    </li>
+                </security:authorize>
+                <security:authorize access="hasAnyRole('CUSTOMER','SELLER')">
+                    <li>
+                        <a style="padding: 13px 5px 5px 5px; font-size: 24px"
+                           class="glyphicon glyphicon-user" onclick="goToUserProfilePage()"></a>
                     </li>
                 </security:authorize>
                 <security:authorize access="! isAuthenticated()">
