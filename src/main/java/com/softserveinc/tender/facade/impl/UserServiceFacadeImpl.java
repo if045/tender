@@ -38,6 +38,7 @@ import com.softserveinc.tender.service.RoleService;
 import com.softserveinc.tender.service.UserService;
 import com.softserveinc.tender.util.Constants;
 
+import com.softserveinc.tender.util.UtilMapper;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,6 +67,9 @@ public class UserServiceFacadeImpl implements UserServiceFacade {
 
     @Autowired
     private ModelMapper modelMapper;
+
+    @Autowired
+    private UtilMapper utilMapper;
 
     @Autowired
     private RoleService roleService;
@@ -360,36 +364,15 @@ public class UserServiceFacadeImpl implements UserServiceFacade {
     private UsersProfileDataDto mapUserProfileData(User user) {
         UsersProfileDataDto profileData = new UsersProfileDataDto();
 
-        profileData.setCompanyDto(mapCompany(user));
+        if (user.getProfile().getPerson() == LEGAL_PERSON) {
+            profileData.setCompanyDto(utilMapper.mapObject(user.getProfile().getCompany(), CompanyDto.class));
+        }
+
         profileData.setTradeSphereDto(mapTradeSphere(user));
         profileData.setPersonalInfoDto(mapPersonalInfo(user));
         profileData.setRatingDto(mapRatings(user));
 
         return profileData;
-    }
-
-    private AddressDto mapAddress(User user) {
-        AddressDto addressDto = new AddressDto();
-
-        addressDto.setStreet(user.getProfile().getCompany().getAddress().getStreet());
-        addressDto.setCity(user.getProfile().getCompany().getAddress().getCity());
-        addressDto.setBuildingNumber(String.valueOf(user.getProfile().getCompany().getAddress().getBuildingNumber()));
-        addressDto.setPostcode(String.valueOf(user.getProfile().getCompany().getAddress().getPostcode()));
-
-        return addressDto;
-    }
-
-    private CompanyDto mapCompany(User user) {
-        CompanyDto companyDto = new CompanyDto();
-
-        if (user.getProfile().getPerson() == LEGAL_PERSON) {
-            companyDto.setName(user.getProfile().getCompany().getName());
-            companyDto.setEmail(user.getProfile().getCompany().getEmail());
-            companyDto.setSrnNumber(String.valueOf(user.getProfile().getCompany().getSrn()));
-            companyDto.setAddressDto(mapAddress(user));
-        }
-
-        return companyDto;
     }
 
     private UserDto mapUser(User user) {

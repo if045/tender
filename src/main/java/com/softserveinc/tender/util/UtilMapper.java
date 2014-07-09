@@ -1,7 +1,9 @@
 package com.softserveinc.tender.util;
 
+import com.softserveinc.tender.dto.AddressDto;
 import com.softserveinc.tender.dto.BidDto;
 import com.softserveinc.tender.dto.CategoryDto;
+import com.softserveinc.tender.dto.CompanyDto;
 import com.softserveinc.tender.dto.ConflictDto;
 import com.softserveinc.tender.dto.DealDto;
 import com.softserveinc.tender.dto.ProfileDto;
@@ -9,9 +11,11 @@ import com.softserveinc.tender.dto.ProposalDto;
 import com.softserveinc.tender.dto.RoleDto;
 import com.softserveinc.tender.dto.TenderDto;
 import com.softserveinc.tender.dto.UnitDto;
+import com.softserveinc.tender.entity.Address;
 import com.softserveinc.tender.entity.Bid;
 import com.softserveinc.tender.entity.Category;
 import com.softserveinc.tender.entity.CheckedProfile;
+import com.softserveinc.tender.entity.Company;
 import com.softserveinc.tender.entity.Conflict;
 import com.softserveinc.tender.entity.Deal;
 import com.softserveinc.tender.entity.Location;
@@ -275,6 +279,22 @@ public class UtilMapper implements Convertible {
                 map().setTitle(source.getProposal().getTender().getTitle());
                 using(toBusinessPartner).map(source).setBusinessPartner(null);
                 using(toNewDeal).map(source).setNewDeal(null);
+            }
+        });
+
+        //Mapping for Company to CompanyDto
+        nativeModelMapper.addMappings(new PropertyMap<Company, CompanyDto>() {
+            Converter<Address, AddressDto> toAddressDto = new AbstractConverter<Address, AddressDto>() {
+                @Override
+                protected AddressDto convert(Address source) {
+                    return mapObject(source, AddressDto.class);
+                }
+            };
+
+            @Override
+            protected void configure() {
+                map().setSrnNumber(String.valueOf(source.getSrn()));
+                using(toAddressDto).map(source.getAddress()).setAddressDto(null);
             }
         });
     }
