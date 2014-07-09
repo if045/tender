@@ -11,6 +11,7 @@ import com.softserveinc.tender.dto.ProposalDto;
 import com.softserveinc.tender.dto.RoleDto;
 import com.softserveinc.tender.dto.TenderDto;
 import com.softserveinc.tender.dto.UnitDto;
+import com.softserveinc.tender.dto.UserDto;
 import com.softserveinc.tender.entity.Address;
 import com.softserveinc.tender.entity.Bid;
 import com.softserveinc.tender.entity.Category;
@@ -24,6 +25,7 @@ import com.softserveinc.tender.entity.Proposal;
 import com.softserveinc.tender.entity.Role;
 import com.softserveinc.tender.entity.Tender;
 import com.softserveinc.tender.entity.Unit;
+import com.softserveinc.tender.entity.User;
 import com.softserveinc.tender.entity.template.Roles;
 import com.softserveinc.tender.service.CheckedProfileService;
 import com.softserveinc.tender.service.DealService;
@@ -295,6 +297,23 @@ public class UtilMapper implements Convertible {
             protected void configure() {
                 map().setSrnNumber(String.valueOf(source.getSrn()));
                 using(toAddressDto).map(source.getAddress()).setAddressDto(null);
+            }
+        });
+
+        //Mapping for User to UserDto
+        nativeModelMapper.addMappings(new PropertyMap<User, UserDto>() {
+            Converter<List<Role>, List<RoleDto>> toRolesNames = new AbstractConverter<List<Role>, List<RoleDto>>() {
+                @Override
+                protected List<RoleDto> convert(List<Role> source) {
+                    return mapObjects(source, RoleDto.class);
+                }
+            };
+
+            @Override
+            protected void configure() {
+                using(toRolesNames).map(source.getRoles()).setRolesNames(null);
+                skip().setRoles(null);
+                skip().setPassword(null);
             }
         });
     }

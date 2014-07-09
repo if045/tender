@@ -375,50 +375,11 @@ public class UserServiceFacadeImpl implements UserServiceFacade {
         return profileData;
     }
 
-    private UserDto mapUser(User user) {
-        UserDto userDto = new UserDto();
-
-        userDto.setLogin(user.getLogin());
-        userDto.setRolesNames(mapRoles(user));
-
-        return userDto;
-    }
-
-    private List<RoleDto> mapRoles(User user) {
-        List<RoleDto> roles = new ArrayList<>();
-
-        for (Role role : user.getRoles()) {
-            roles.add(mapRole(role));
-        }
-        return roles;
-    }
-
-    private RoleDto mapRole(Role role) {
-        RoleDto roleDto = new RoleDto();
-
-        roleDto.setId(role.getId());
-        roleDto.setName(role.getName());
-
-        return roleDto;
-    }
-
-    private ProfileDto mapProfile(User user) {
-        ProfileDto profileDto = new ProfileDto();
-
-        profileDto.setFirstName(user.getProfile().getFirstName());
-        profileDto.setLastName(user.getProfile().getLastName());
-        profileDto.setTelephone(user.getProfile().getTelephone());
-        profileDto.setPerson(user.getProfile().getPerson());
-        profileDto.setBirthday(String.valueOf(user.getProfile().getBirthday()));
-
-        return profileDto;
-    }
-
     private PersonalInfoDto mapPersonalInfo(User user) {
         PersonalInfoDto personalInfoDto = new PersonalInfoDto();
 
-        personalInfoDto.setProfileDto(mapProfile(user));
-        personalInfoDto.setUserDto(mapUser(user));
+        personalInfoDto.setProfileDto(utilMapper.mapObject(user.getProfile(), ProfileDto.class));
+        personalInfoDto.setUserDto(utilMapper.mapObject(user, UserDto.class));
 
         return personalInfoDto;
     }
