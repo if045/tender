@@ -15,19 +15,9 @@ $(document).ready(function() {
         placeholder: "Select locations"
     });
 
-    $("#populate_update_categories_dropdown").select2({
-        placeholder: "update categories"
-    });
-
-    $("#populate_update_locations_dropdown").select2({
-        placeholder: "update locations"
-    });
-
     mapDropdownData(ROLES_URL, '#populate_roles_dropdown');
     mapDropdownData(CATEGORIES_URL, '#populate_categories_dropdown');
     mapDropdownData(LOCATIONS_URL, "#populate_locations_dropdown");
-    mapDropdownData(CATEGORIES_URL, '#populate_update_categories_dropdown');
-    mapDropdownData(LOCATIONS_URL, "#populate_update_locations_dropdown");
 
     showUserPersonalInfoPanelData();
     showCompanyInfoPanelData();
@@ -464,6 +454,8 @@ function showEditTradeSpherePanel() {
     $(".personal-info").attr("hidden", "hidden");
     $(".company-info").attr("hidden", "hidden");
     $(".trade-sphere-info").removeAttr("hidden");
+    prepareInputsForDialog('#populate_update_locations_dropdown', USER_PROFILE_DATA_URL, LOCATIONS_URL, "loc");
+    prepareInputsForDialog('#populate_update_categories_dropdown', USER_PROFILE_DATA_URL, CATEGORIES_URL, "cat");
 }
 
 function updateUserData() {
@@ -610,5 +602,87 @@ function setDefaultPersonRadio() {
         if ($radios.is(':checked') === false) {
             $radios.filter('[value=' + value + ']').prop('checked', true);
         }
+    });
+}
+
+// 1. input value based on
+// locations : data.tradeSphereDto.locationsDto id's
+// categories : data.tradeSphereDto.categoriesDto id's
+// 2. select2 data from db
+// $('input').select2({
+//    width: "100%",
+//        multiple: true,
+//        data: data
+//    });
+
+function populateInputValues(el_id, url, type) {
+    $.getJSON(url, function (data) {
+        var result = [];
+        var temp;
+        switch(type) {
+            case ("loc") :
+                temp = data.tradeSphereDto.locationsDto;
+                break;
+            case("cat") :
+                temp = data.tradeSphereDto.categoriesDto;
+                break;
+        }
+        var length = temp.length;
+
+        /*alert(temp[0].id + ' ' + temp[0].name);*/
+
+        for (var i = 0; i < length; i++) {
+            result.push(temp[i].id);
+        }
+        result = result.join(",");
+        $(el_id).attr("value", result);
+    });
+}
+
+function wrapInputWithSelect2(el_id, data) {
+    $(el_id).select2({
+        width: "100%",
+        multiple: true,
+        placeholder: "can't be empty field",
+        data: data
+    });
+}
+
+// resulting in [{id, name}]
+function prepareData(data, type) {
+    var result = [];
+    var temp = [];
+    switch(type) {
+        case ("loc") :
+            temp = data;
+            break;
+        case("cat") :
+            temp = data;
+            break;
+    }
+
+    for ( var i = 0 ; i < temp.length; i++) {
+        var self = {};
+        self.id = temp[i].id;
+        self.text = temp[i].name;
+        result.push(self);
+    }
+
+    return result;
+}
+
+/** el_id - id of the HTML element to act on
+ * url - path for getting user information
+ * data_url - path for getting information for all information
+ * type - key in ["loc", "cat"] - for location or categories
+ * */
+
+function prepareInputsForDialog(el_id, url, data_url, type) {
+    $.getJSON(data_url, {
+        ajax : 'true'
+    }, function(data){
+        var dataForSelect2 = prepareData(data, type);
+        populateInputValues(el_id, url, type);
+        wrapInputWithSelect2(el_id, dataForSelect2);
     });
 }
