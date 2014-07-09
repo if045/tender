@@ -464,8 +464,8 @@ function showEditTradeSpherePanel() {
     $(".personal-info").attr("hidden", "hidden");
     $(".company-info").attr("hidden", "hidden");
     $(".trade-sphere-info").removeAttr("hidden");
-    prepareInputsForDialog('#populate_update_locations_dropdown', USER_PROFILE_DATA_URL, LOCATIONS_URL, "loc");
-    prepareInputsForDialog('#populate_update_categories_dropdown', USER_PROFILE_DATA_URL, CATEGORIES_URL, "cat");
+    setTradeSphereDropdownWithData('#populate_update_locations_dropdown', USER_PROFILE_DATA_URL, LOCATIONS_URL, TRADE_SPHERE_LOCATION);
+    setTradeSphereDropdownWithData('#populate_update_categories_dropdown', USER_PROFILE_DATA_URL, CATEGORIES_URL, TRADE_SPHERE_CATEGORY);
 }
 
 function updateUserData() {
@@ -615,31 +615,19 @@ function setDefaultPersonRadio() {
     });
 }
 
-// 1. input value based on
-// locations : data.tradeSphereDto.locationsDto id's
-// categories : data.tradeSphereDto.categoriesDto id's
-// 2. select2 data from db
-// $('input').select2({
-//    width: "100%",
-//        multiple: true,
-//        data: data
-//    });
-
 function populateInputValues(el_id, url, type) {
     $.getJSON(url, function (data) {
         var result = [];
         var temp;
         switch(type) {
-            case ("loc") :
+            case (TRADE_SPHERE_LOCATION) :
                 temp = data.tradeSphereDto.locationsDto;
                 break;
-            case("cat") :
+            case(TRADE_SPHERE_CATEGORY) :
                 temp = data.tradeSphereDto.categoriesDto;
                 break;
         }
         var length = temp.length;
-
-        /*alert(temp[0].id + ' ' + temp[0].name);*/
 
         for (var i = 0; i < length; i++) {
             result.push(temp[i].id);
@@ -653,23 +641,15 @@ function wrapInputWithSelect2(el_id, data) {
     $(el_id).select2({
         width: "100%",
         multiple: true,
-        placeholder: "can't be empty field",
+        placeholder: EMPTY_FIELD_MESSAGE,
         data: data
     });
 }
 
-// resulting in [{id, name}]
-function prepareData(data, type) {
+function prepareDropdownData(data, type) {
     var result = [];
     var temp = [];
-    switch(type) {
-        case ("loc") :
-            temp = data;
-            break;
-        case("cat") :
-            temp = data;
-            break;
-    }
+    temp = data;
 
     for ( var i = 0 ; i < temp.length; i++) {
         var self = {};
@@ -681,18 +661,17 @@ function prepareData(data, type) {
     return result;
 }
 
-/** el_id - id of the HTML element to act on
- * url - path for getting user information
- * data_url - path for getting information for all information
- * type - key in ["loc", "cat"] - for location or categories
- * */
 
-function prepareInputsForDialog(el_id, url, data_url, type) {
-    $.getJSON(data_url, {
-        ajax : 'true'
-    }, function(data){
-        var dataForSelect2 = prepareData(data, type);
+/**
+ *  el_id - id of the HTML element to act on
+ *  url - path for getting user data
+ *  data_url - path for getting information for trade sphere (categories or locations)
+ *  type - key in ["location", "category"] - for location or categories
+**/
+function setTradeSphereDropdownWithData(el_id, url, data_url, type) {
+    $.getJSON(data_url, function(data){
+        var dropdownData = prepareDropdownData(data, type);
         populateInputValues(el_id, url, type);
-        wrapInputWithSelect2(el_id, dataForSelect2);
+        wrapInputWithSelect2(el_id, dropdownData);
     });
 }
