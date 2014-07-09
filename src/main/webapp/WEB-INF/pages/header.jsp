@@ -43,8 +43,10 @@
                 </security:authorize>
                 <security:authorize access="isAuthenticated()">
                     <li>
-                        <ul style="padding-left: 40px"><a class="glyphicon glyphicon-user"
-                                                       onclick="goToUserProfilePage()"></a></ul>
+                        <security:authorize access="hasAnyRole('CUSTOMER','SELLER')">
+                            <ul style="padding-left: 40px"><a class="glyphicon glyphicon-user"
+                                                           onclick="goToUserProfilePage()"></a></ul>
+                        </security:authorize>
                         <ul id="logged_user_name" style="padding-left: 0px"></ul>
                     </li>
                 </security:authorize>

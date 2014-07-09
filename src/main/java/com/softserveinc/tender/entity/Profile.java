@@ -46,6 +46,9 @@ public class Profile {
     @Column(name = "checked", nullable = false, length = 1)
     private Boolean checked;
 
+    @OneToOne(mappedBy = "profile")
+    private CheckedProfile checkedProfile;
+
     @OneToOne
     @JoinColumn(name = "user_id")
     private User user;

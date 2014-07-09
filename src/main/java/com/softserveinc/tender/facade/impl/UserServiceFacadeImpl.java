@@ -19,6 +19,7 @@ import com.softserveinc.tender.dto.UserPersonalDataDto;
 import com.softserveinc.tender.dto.UsersProfileDataDto;
 import com.softserveinc.tender.entity.Address;
 import com.softserveinc.tender.entity.Category;
+import com.softserveinc.tender.entity.CheckedProfile;
 import com.softserveinc.tender.entity.Company;
 import com.softserveinc.tender.entity.Feedback;
 import com.softserveinc.tender.entity.Location;
@@ -29,12 +30,15 @@ import com.softserveinc.tender.entity.template.Roles;
 import com.softserveinc.tender.facade.UserServiceFacade;
 import com.softserveinc.tender.service.AddressService;
 import com.softserveinc.tender.service.CategoryService;
+import com.softserveinc.tender.service.CheckedProfileService;
+import com.softserveinc.tender.service.CheckedStatusService;
 import com.softserveinc.tender.service.CompanyService;
 import com.softserveinc.tender.service.LocationService;
 import com.softserveinc.tender.service.ProfileService;
 import com.softserveinc.tender.service.RoleService;
 import com.softserveinc.tender.service.UserService;
 import com.softserveinc.tender.util.Constants;
+
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,10 +50,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import static com.softserveinc.tender.util.Constants.LEGAL_PERSON;
-import static com.softserveinc.tender.util.Util.formatDate;
+import static com.softserveinc.tender.util.Constants.CHECKED_PROFILE_UNCHECKED_STATUS;
 import static com.softserveinc.tender.util.Constants.CHECKED_USER;
 import static com.softserveinc.tender.util.Constants.ENABLED_USER;
+import static com.softserveinc.tender.util.Constants.LEGAL_PERSON;
+import static com.softserveinc.tender.util.Util.formatDate;
 import static com.softserveinc.tender.util.Util.getUserLogin;
 import static com.softserveinc.tender.util.Util.setCurrentTimeStamp;
 import static com.softserveinc.tender.util.Constants.CUSTOMER_AND_SELLER_HOME_PAGE;
@@ -84,6 +89,12 @@ public class UserServiceFacadeImpl implements UserServiceFacade {
     @Autowired
     private CategoryService categoryService;
 
+    @Autowired
+    private CheckedProfileService checkedProfileService;
+
+    @Autowired
+    private CheckedStatusService checkedStatusService;
+
     // registration logic
     @Override
     public List<RoleDto> findUsersRoles() {
@@ -115,7 +126,9 @@ public class UserServiceFacadeImpl implements UserServiceFacade {
     private User mapPrivateCustomerRegistrationData(PrivateCustomerRegistrationDataDto customerData) {
         User savedCustomer = saveUser(customerData.getUserDto());
 
-        saveProfile(customerData.getProfileDto(), savedCustomer);
+        Profile savedProfile = saveProfile(customerData.getProfileDto(), savedCustomer);
+
+        saveCheckedProfile(savedProfile);
 
         return userService.findUserById(savedCustomer.getId());
     }
@@ -127,7 +140,9 @@ public class UserServiceFacadeImpl implements UserServiceFacade {
 
         Company savedCompany = saveCompany(customerData.getCompanyDto(), savedAddress);
 
-        saveProfile(customerData.getProfileDto(), savedCompany, savedCustomer);
+        Profile savedProfile = saveProfile(customerData.getProfileDto(), savedCompany, savedCustomer);
+
+        saveCheckedProfile(savedProfile);
 
         return userService.findUserById(savedCustomer.getId());
     }
@@ -139,7 +154,9 @@ public class UserServiceFacadeImpl implements UserServiceFacade {
 
         Company savedCompany = saveCompany(sellerData.getCompanyDto(), savedAddress);
 
-        saveProfile(sellerData.getProfileDto(), savedCompany, savedSeller);
+        Profile savedProfile = saveProfile(sellerData.getProfileDto(), savedCompany, savedSeller);
+
+        saveCheckedProfile(savedProfile);
 
         return userService.findUserById(savedSeller.getId());
     }
@@ -147,7 +164,9 @@ public class UserServiceFacadeImpl implements UserServiceFacade {
     private User mapPrivateSellerRegistrationData(PrivateSellerRegistrationDataDto sellerData) {
         User savedSeller = saveUser(sellerData.getUserDto(), sellerData.getTradeSphereDto());
 
-        saveProfile(sellerData.getProfileDto(), savedSeller);
+        Profile savedProfile = saveProfile(sellerData.getProfileDto(), savedSeller);
+
+        saveCheckedProfile(savedProfile);
 
         return userService.findUserById(savedSeller.getId());
     }
@@ -282,10 +301,24 @@ public class UserServiceFacadeImpl implements UserServiceFacade {
         return user;
     }
 
+    private CheckedProfile saveCheckedProfile(Profile profile) {
+        CheckedProfile checkedProfile = new CheckedProfile();
+
+        checkedProfile.setProfile(profileService.findProfileById(profile.getId()));
+        checkedProfile.setStatus(checkedStatusService.findByName(CHECKED_PROFILE_UNCHECKED_STATUS));
+        return checkedProfileService.save(checkedProfile);
+    }
+    // end of registration logic
+
     // Fill profile page logic
     @Override
     public UsersProfileDataDto findUsersProfileInfo() {
         return mapUserProfileData(userService.findByLogin(getUserLogin()));
+    }
+
+    @Override
+    public UsersProfileDataDto findUsersProfileInfoByLogin(String userLogin) {
+        return mapUserProfileData(userService.findByLogin(userLogin));
     }
 
     @Override
