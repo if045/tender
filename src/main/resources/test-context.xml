@@ -35,7 +35,7 @@
 
     <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
         <property name="driverClass" value="com.mysql.jdbc.Driver" />
-        <property name="jdbcUrl" value="jdbc:mysql://localhost:3306/tender?characterEncoding=UTF-8" />
+        <property name="jdbcUrl" value="jdbc:mysql://localhost:3306/test_tenders?characterEncoding=UTF-8" />
         <property name="user" value="root" />
         <property name="password" value="root" />
     </bean>
@@ -47,10 +47,10 @@
         <property name="dataSource" ref="dataSource" />
         <property name="jpaProperties">
             <props>
-                <prop key="hibernate.show_sql">${showSql}</prop>
-                <prop key="hibernate.dialect">${dialect}</prop>
-                <prop key="hibernate.connection.charSet">${charSet}</prop>
-                <prop key="hibernate.hbm2ddl.auto">${hbm2ddl}</prop>
+                <prop key="hibernate.show_sql">true</prop>
+                <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+                <prop key="hibernate.connection.charSet">UTF-8</prop>
+                <prop key="hibernate.hbm2ddl.auto">update</prop>
             </props>
         </property>
         <property name="persistenceProvider">
