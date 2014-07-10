@@ -9,7 +9,6 @@ $(document).ready(function() {
 
     $("#populate_categories_dropdown").select2({
         placeholder: "Select categories"
-
     });
 
     $("#populate_locations_dropdown").select2({
@@ -25,6 +24,10 @@ $(document).ready(function() {
     showTradeSphereInfoPanelData();
     showRating();
     checkPerson();
+    showEditPersonalPanel();
+    showEditCompanyPanel();
+    showEditTradeSpherePanel();
+    setDefaultPersonRadio();
 });
 
 function mapDropdownData(url, id) {
@@ -442,4 +445,233 @@ function checkPerson(person) {
         document.getElementById("company_info").removeAttribute('hidden');
         return "Legal";
     }
+}
+
+// Edit profile logic
+function showEditPersonalPanel() {
+    $(".personal-info").removeAttr("hidden");
+    $(".company-info").attr("hidden", "hidden");
+    $(".trade-sphere-info").attr("hidden", "hidden");
+}
+
+function showEditCompanyPanel() {
+    $(".personal-info").attr("hidden", "hidden");
+    $(".company-info").removeAttr("hidden");
+    $(".trade-sphere-info").attr("hidden", "hidden");
+}
+
+function showEditTradeSpherePanel() {
+    $(".personal-info").attr("hidden", "hidden");
+    $(".company-info").attr("hidden", "hidden");
+    $(".trade-sphere-info").removeAttr("hidden");
+    setTradeSphereDropdownWithData('#populate_update_locations_dropdown', USER_PROFILE_DATA_URL, LOCATIONS_URL, TRADE_SPHERE_LOCATION);
+    setTradeSphereDropdownWithData('#populate_update_categories_dropdown', USER_PROFILE_DATA_URL, CATEGORIES_URL, TRADE_SPHERE_CATEGORY);
+}
+
+function updateUserData() {
+    var newJson = $.parseJSON(buildPersonalDataJSON());
+
+    var url = USER_PERSONAL_DATA_URL;
+
+    $.ajax({
+        url: url,
+        type: "PUT",
+        data:  JSON.stringify(newJson),
+        dataType:'json',
+        contentType: 'application/json',
+
+        success: function(data) {
+            goToUserProfilePage();
+        },
+
+        error: function(){
+            alert(ERROR_MESSAGE);
+        }
+    });
+}
+
+function updateCompanyData() {
+    var newJson = $.parseJSON(buildCompanyDataJSON());
+
+    var url = USER_UPDATE_COMPANY_URL;
+
+    $.ajax({
+        url: url,
+        type: "PUT",
+        data:  JSON.stringify(newJson),
+        dataType:'json',
+        contentType: 'application/json',
+
+        success: function(data) {
+            goToUserProfilePage();
+        },
+
+        error: function(){
+            alert(ERROR_MESSAGE);
+        }
+    });
+}
+
+function updateTradeSphereData() {
+    var newJson = $.parseJSON(buildTradeSphereDataJSON());
+
+    var url = USER_UPDATE_TRADE_SPHERE_DATA;
+
+    $.ajax({
+        url: url,
+        type: "PUT",
+        data:  JSON.stringify(newJson),
+        dataType:'json',
+        contentType: 'application/json',
+
+        success: function(data) {
+            goToUserProfilePage();
+        },
+
+        error: function(){
+            alert(ERROR_MESSAGE);
+        }
+    });
+}
+
+function buildPersonalDataJSON() {
+    return '{' + buildUserPersonalData() + ',' + buildProfileUpdateData() + '}';
+}
+
+function buildUserPersonalData() {
+    var login = $('#login_to_update').val();
+    var password = $('#password_to_update').val();
+
+    return '"login":"'    + login    + '",' +
+           '"password":"' + password + '"';
+}
+
+function buildProfileUpdateData() {
+    var firstNme = $('#first_name_to_update').val();
+    var lastName = $('#last_name_to_update').val();
+    var birthday = $('#birth_to_update').val();
+    var phoneNumber = $('#phone_to_update').val();
+    var person;
+
+    if($('#legal_to_update').is(":checked")) {
+        person = LEGAL_PERSON;
+    } else if($('#private_to_update').is(":checked")) {
+        person = PRIVATE_PERSON;
+    }
+
+    return '"profileDto":{' +
+        '"firstName":"'  + firstNme    + '",' +
+        '"lastName":"'   + lastName    + '",' +
+        '"birthday":"'   + birthday    + '",' +
+        '"telephone":"'  + phoneNumber + '",' +
+        '"person":"'     + person      + '"}';
+}
+
+function buildCompanyDataJSON() {
+    var companyName = $('#company_name_to_update').val();
+    var city = $('#city_to_update').val();
+    var street = $('#street_to_update').val();
+    var buildingNumber = $('#building_number_to_update').val();
+    var postcode = $('#postcode_to_update').val();
+    var email = $('#email_to_update').val();
+    var srnNumber = $('#srn_number_to_update').val();
+
+    return '{"name":"'      + companyName + '",' +
+        '"srnNumber":"'     + srnNumber + '",' +
+        '"email":"'         + email + '",' +
+        '"addressDto":{' +
+            '"city":"'              + city+ '",' +
+            '"street":"'            + street + '",' +
+            '"buildingNumber":"'    + buildingNumber + '",' +
+            '"postcode":"'          + postcode +'"}}';
+}
+
+function buildTradeSphereDataJSON() {
+    var locations = $('#populate_update_locations_dropdown').val();
+    var categories = $('#populate_update_categories_dropdown').val();
+
+    return '{' +
+        '"locations":['  + locations  + '],' +
+        '"categories":[' + categories + ']}';
+}
+
+function setDefaultPersonRadio() {
+
+    $.getJSON(USER_PROFILE_DATA_URL, function (data) {
+        var person = data.personalInfoDto.profileDto.person;
+
+        var value;
+
+        if (person == LEGAL_PERSON) {
+            value = 'legal';
+        } else if (person == PRIVATE_PERSON) {
+            value = 'private';
+        }
+
+        var $radios = $('input:radio[name=person]');
+        if ($radios.is(':checked') === false) {
+            $radios.filter('[value=' + value + ']').prop('checked', true);
+        }
+    });
+}
+
+function populateInputValues(el_id, url, type) {
+    $.getJSON(url, function (data) {
+        var result = [];
+        var temp;
+        switch(type) {
+            case (TRADE_SPHERE_LOCATION) :
+                temp = data.tradeSphereDto.locationsDto;
+                break;
+            case(TRADE_SPHERE_CATEGORY) :
+                temp = data.tradeSphereDto.categoriesDto;
+                break;
+        }
+        var length = temp.length;
+
+        for (var i = 0; i < length; i++) {
+            result.push(temp[i].id);
+        }
+        result = result.join(",");
+        $(el_id).attr("value", result);
+    });
+}
+
+function wrapInputWithSelect2(el_id, data) {
+    $(el_id).select2({
+        width: "100%",
+        multiple: true,
+        placeholder: EMPTY_FIELD_MESSAGE,
+        data: data
+    });
+}
+
+function prepareDropdownData(data, type) {
+    var result = [];
+    var temp = [];
+    temp = data;
+
+    for ( var i = 0 ; i < temp.length; i++) {
+        var self = {};
+        self.id = temp[i].id;
+        self.text = temp[i].name;
+        result.push(self);
+    }
+
+    return result;
+}
+
+
+/**
+ *  el_id - id of the HTML element to act on
+ *  url - path for getting user data
+ *  data_url - path for getting information for trade sphere (categories or locations)
+ *  type - key in ["location", "category"] - for location or categories
+**/
+function setTradeSphereDropdownWithData(el_id, url, data_url, type) {
+    $.getJSON(data_url, function(data){
+        var dropdownData = prepareDropdownData(data, type);
+        populateInputValues(el_id, url, type);
+        wrapInputWithSelect2(el_id, dropdownData);
+    });
 }

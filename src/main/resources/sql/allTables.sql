@@ -279,8 +279,7 @@ INSERT INTO tender (author_id, title, create_date, end_date, status_id, suitable
   (/* 26 */ 11, 'Cars',               '2014-06-09', '2014-06-19', 3, 26000.00, NULL),
   (/* 27 */ 12, 'House Building',     '2014-04-12', '2014-06-11', 3, 27000.00, NULL),
   (/* 28 */ 13, 'Industry',           '2014-06-07', '2014-06-28', 3, 28000.00, NULL),
-  (/* 29 */ 15, 'Products',           '2014-06-08', '2014-06-17', 3, 29000.00, 'I want free deliver to some specific
-  place'),
+  (/* 29 */ 15, 'Products',           '2014-06-08', '2014-06-17', 3, 29000.00, 'I want free deliver to some specific place'),
   (/* 30 */ 15, 'Products for me',    CURDATE(),    '2014-06-15', 3, 30000.00, NULL),
   
   (/* 31 */ 11, 'Need computers',     CURDATE(),    '2014-07-15', 1, 60000.00, NULL),
