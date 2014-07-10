@@ -4,7 +4,7 @@ $(document).ready(function() {
 function createConflict() {
     var str = '';
     str += '{"description": ' + '\"' + $('#conflict_comment').val() +'\"'+
-        ', "bidId": ' + '\"' + $('#conflict_id').val() +'\"}';
+        ', "dealId": ' + '\"' + $('#conflict_id').val() +'\"}';
     var newJson = $.parseJSON(str);
     $.ajax({
         url: DEALS + $('#conflict_id').val() + CONFLICTS,

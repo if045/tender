@@ -199,8 +199,10 @@ public class UtilMapper implements Convertible {
             protected void configure() {
                 map().setTitle(source.getBid().getProposal().getTender().getTitle());
                 map().setStatus(source.getStatus().getName());
-                using(toFullName).map(source.getBid().getProposal().getTender().getAuthor()).setCustomerName(null);
-                using(toFullName).map(source.getBid().getProposal().getSeller().getProfile()).setSellerName(null);
+                when(Conditions.isNotNull()).using(toFullName).map(source.getBid().getProposal().getTender()
+                        .getAuthor()).setCustomerName(null);
+                when(Conditions.isNotNull()).using(toFullName).map(source.getBid().getProposal().getSeller()
+                        .getProfile()).setSellerName(null);
             }
         });
     }
