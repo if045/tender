@@ -43,12 +43,16 @@ $(document).ready(function() {
 
 function showDeals() {
     var queryParams = '';
+    if(getCookie("userRole") != "undefined") {
+        var  userRole = getCookie("userRole");
+        queryParams += (queryParams.length==0)?"userRole=" + userRole : "&userRole=" + userRole;
+    }
     
     showDealsPagination(queryParams);
     
     queryParams += (queryParams.length==0)?"pageSize="+pageSize:"&pageSize="+pageSize;
     queryParams += "&pageNumber=" + currPageNumber + "&sortDirection=" +
-                                                         ((dealSortDirection)?"desc":"asc") + "&orderBy=" + dealOrderBy;
+                                                         ((!dealSortDirection)?"desc":"asc") + "&orderBy=" + dealOrderBy;
 
     if($('#search_deals').val()!=""){
         queryParams += (queryParams.length==0)?"searchParam="+$('#search_deals').val():"&searchParam="+$('#search_deals').val();
@@ -156,7 +160,7 @@ function showDealsPagination(queryParams) {
         dataType:'json',
 
         success: function(data) {
-            var dataSize = data.dealsNumber;
+            var dataSize = data;
             var pageNumber = Math.ceil(dataSize / pageSize);
 
             if(dataSize > 0 && pageSize < dataSize) {

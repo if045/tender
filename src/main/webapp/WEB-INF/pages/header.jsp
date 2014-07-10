@@ -5,7 +5,7 @@
     <div class="container-fluid">
         <div class="navbar-header">
             <ul class="nav navbar-nav navbar-left nav_buttons">
-                <security:authorize access="hasAnyRole('CUSTOMER','SELLER')">
+                <security:authorize access="!hasRole('MODERATOR')">
                     <li><a class="navbar-brand" href="#" onclick="goToHomePage();">UATender</a></li>
                 </security:authorize>
                 <security:authorize access="hasAnyRole('CUSTOMER','SELLER')">

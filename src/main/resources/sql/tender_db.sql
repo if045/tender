@@ -182,10 +182,10 @@ CREATE TABLE moderator_category (
 
 CREATE TABLE checked_profile (
 
-	id INT NOT NULL AUTO_INCREMENT,
-	profile_id INT NOT NULL,
-	moderator_id INT NOT NULL,
-	status_id INT NOT NULL,
+	id INT AUTO_INCREMENT,
+	profile_id INT,
+	moderator_id INT,
+	status_id INT,
 
 	FOREIGN KEY (profile_id) REFERENCES profile(id),
 	FOREIGN KEY (moderator_id) REFERENCES user(id),
