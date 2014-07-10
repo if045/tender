@@ -3,7 +3,7 @@ package com.softserveinc.tender.facade.impl;
 import com.softserveinc.tender.dto.CategoryDto;
 import com.softserveinc.tender.facade.CategoryServiceFacade;
 import com.softserveinc.tender.service.CategoryService;
-import com.softserveinc.tender.util.UtilMapper;
+import com.softserveinc.tender.util.Convertible;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,10 +18,10 @@ public class CategoryServiceFacadeImpl implements CategoryServiceFacade{
     private CategoryService categoryService;
 
     @Autowired
-    private UtilMapper utilMapper;
+    private Convertible convertible;
 
     @Override
     public List<CategoryDto> findCategories() {
-        return utilMapper.mapObjects(categoryService.findAll(), CategoryDto.class);
+        return convertible.mapObjects(categoryService.findAll(), CategoryDto.class);
     }
 }

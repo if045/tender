@@ -8,8 +8,8 @@ import com.softserveinc.tender.service.CheckedProfileService;
 import com.softserveinc.tender.service.CheckedStatusService;
 import com.softserveinc.tender.service.ProfileService;
 import com.softserveinc.tender.service.UserService;
+import com.softserveinc.tender.util.Convertible;
 import com.softserveinc.tender.util.Util;
-import com.softserveinc.tender.util.UtilMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -37,11 +37,11 @@ public class ProfileServiceFacadeImpl implements ProfileServiceFacade {
     private UserService userService;
 
     @Autowired
-    private UtilMapper utilMapper;
+    private Convertible convertible;
 
     @Override
     public List<ProfileDto> findAllProfiles(Pageable pageable, String searchParam) {
-        return utilMapper.mapObjects(profileService.findAllProfiles(pageable, searchParam), ProfileDto.class);
+        return convertible.mapObjects(profileService.findAllProfiles(pageable, searchParam), ProfileDto.class);
     }
 
     @Override
@@ -70,6 +70,6 @@ public class ProfileServiceFacadeImpl implements ProfileServiceFacade {
             checkedProfileService.save(checkedProfile);
         }
 
-        return utilMapper.mapObject(profile, ProfileDto.class);
+        return convertible.mapObject(profile, ProfileDto.class);
     }
 }

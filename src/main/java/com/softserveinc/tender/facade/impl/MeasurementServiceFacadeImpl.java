@@ -3,7 +3,7 @@ package com.softserveinc.tender.facade.impl;
 import com.softserveinc.tender.dto.MeasurementDto;
 import com.softserveinc.tender.facade.MeasurementServiceFacade;
 import com.softserveinc.tender.service.MeasurementService;
-import com.softserveinc.tender.util.UtilMapper;
+import com.softserveinc.tender.util.Convertible;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,10 +18,10 @@ public class MeasurementServiceFacadeImpl implements MeasurementServiceFacade{
     private MeasurementService measurementService;
 
     @Autowired
-    private UtilMapper utilMapper;
+    private Convertible convertible;
 
     @Override
     public List<MeasurementDto> findMeasurements() {
-        return utilMapper.mapObjects(measurementService.findAll(), MeasurementDto.class);
+        return convertible.mapObjects(measurementService.findAll(), MeasurementDto.class);
     }
 }

@@ -20,7 +20,6 @@ import com.softserveinc.tender.entity.Address;
 import com.softserveinc.tender.entity.Category;
 import com.softserveinc.tender.entity.CheckedProfile;
 import com.softserveinc.tender.entity.Company;
-import com.softserveinc.tender.entity.Feedback;
 import com.softserveinc.tender.entity.Location;
 import com.softserveinc.tender.entity.Profile;
 import com.softserveinc.tender.entity.Role;
@@ -38,14 +37,11 @@ import com.softserveinc.tender.service.RoleService;
 import com.softserveinc.tender.service.UserService;
 import com.softserveinc.tender.util.Constants;
 
-import com.softserveinc.tender.util.UtilMapper;
-import org.modelmapper.ModelMapper;
-import org.modelmapper.TypeToken;
+import com.softserveinc.tender.util.Convertible;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -66,7 +62,7 @@ import static com.softserveinc.tender.util.Constants.ADMINISTRATOR_HOME_PAGE;
 public class UserServiceFacadeImpl implements UserServiceFacade {
 
     @Autowired
-    private UtilMapper utilMapper;
+    private Convertible convertible;
 
     @Autowired
     private RoleService roleService;
@@ -98,7 +94,7 @@ public class UserServiceFacadeImpl implements UserServiceFacade {
     // registration logic
     @Override
     public List<RoleDto> findUsersRoles() {
-        return utilMapper.mapObjects(roleService.findUsersRoles(), RoleDto.class);
+        return convertible.mapObjects(roleService.findUsersRoles(), RoleDto.class);
     }
 
     @Override
@@ -360,12 +356,12 @@ public class UserServiceFacadeImpl implements UserServiceFacade {
         UsersProfileDataDto profileData = new UsersProfileDataDto();
 
         if (user.getProfile().getPerson() == LEGAL_PERSON) {
-            profileData.setCompanyDto(utilMapper.mapObject(user.getProfile().getCompany(), CompanyDto.class));
+            profileData.setCompanyDto(convertible.mapObject(user.getProfile().getCompany(), CompanyDto.class));
         }
 
         profileData.setTradeSphereDto(mapTradeSphere(user));
         profileData.setPersonalInfoDto(mapPersonalInfo(user));
-        profileData.setRatingDto(utilMapper.mapObjects(user.getProfile().getFeedbacks(), RatingDto.class));
+        profileData.setRatingDto(convertible.mapObjects(user.getProfile().getFeedbacks(), RatingDto.class));
 
         return profileData;
     }
@@ -373,8 +369,8 @@ public class UserServiceFacadeImpl implements UserServiceFacade {
     private PersonalInfoDto mapPersonalInfo(User user) {
         PersonalInfoDto personalInfoDto = new PersonalInfoDto();
 
-        personalInfoDto.setProfileDto(utilMapper.mapObject(user.getProfile(), ProfileDto.class));
-        personalInfoDto.setUserDto(utilMapper.mapObject(user, UserDto.class));
+        personalInfoDto.setProfileDto(convertible.mapObject(user.getProfile(), ProfileDto.class));
+        personalInfoDto.setUserDto(convertible.mapObject(user, UserDto.class));
 
         return personalInfoDto;
     }
@@ -382,8 +378,8 @@ public class UserServiceFacadeImpl implements UserServiceFacade {
     private TradeSphereDto mapTradeSphere(User user) {
         TradeSphereDto tradeSphereDto = new TradeSphereDto();
 
-        tradeSphereDto.setCategoriesDto(utilMapper.mapObjects(user.getSellerCategories(), CategoryDto.class));
-        tradeSphereDto.setLocationsDto(utilMapper.mapObjects(user.getSellerLocations(), LocationDto.class));
+        tradeSphereDto.setCategoriesDto(convertible.mapObjects(user.getSellerCategories(), CategoryDto.class));
+        tradeSphereDto.setLocationsDto(convertible.mapObjects(user.getSellerLocations(), LocationDto.class));
 
         return tradeSphereDto;
     }

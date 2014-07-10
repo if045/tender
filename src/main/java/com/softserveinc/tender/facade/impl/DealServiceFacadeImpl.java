@@ -20,7 +20,7 @@ import com.softserveinc.tender.service.DealService;
 import com.softserveinc.tender.service.FeedbackService;
 import com.softserveinc.tender.service.ProfileService;
 import com.softserveinc.tender.service.UserService;
-import com.softserveinc.tender.util.UtilMapper;
+import com.softserveinc.tender.util.Convertible;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.data.domain.Pageable;
@@ -43,7 +43,7 @@ public class DealServiceFacadeImpl implements DealServiceFacade {
     private FeedbackService feedbackService;
 
     @Autowired
-    private UtilMapper utilMapper;
+    private Convertible convertible;
 
     @Autowired
     private ConflictService conflictService;
@@ -68,7 +68,7 @@ public class DealServiceFacadeImpl implements DealServiceFacade {
             }
         }
 
-        return utilMapper.mapObjects(deals, DealDto.class);
+        return convertible.mapObjects(deals, DealDto.class);
     }
 
     @Override
@@ -131,7 +131,7 @@ public class DealServiceFacadeImpl implements DealServiceFacade {
         conflict.setBid(bid);
 
         Conflict savedConflict = conflictService.save(conflict);
-        return utilMapper.mapObject(savedConflict, ConflictDto.class);
+        return convertible.mapObject(savedConflict, ConflictDto.class);
     }
 
     @Override
@@ -149,6 +149,6 @@ public class DealServiceFacadeImpl implements DealServiceFacade {
         feedback.setUser(user);
 
         Feedback savedFeedback = feedbackService.save(feedback);
-        return utilMapper.mapObject(savedFeedback, FeedbackDto.class);
+        return convertible.mapObject(savedFeedback, FeedbackDto.class);
     }
 }

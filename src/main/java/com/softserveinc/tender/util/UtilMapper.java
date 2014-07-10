@@ -40,6 +40,7 @@ import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
 import org.modelmapper.spi.MappingContext;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
@@ -48,6 +49,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+@Component
 public class UtilMapper implements Convertible {
     private ModelMapper nativeModelMapper = new ModelMapper();
 
@@ -269,9 +271,7 @@ public class UtilMapper implements Convertible {
                 protected Boolean convert(Deal source) {
                     Timestamp myDealsDate = userService.findByLogin(Util.getUserLogin()).getMyDealsDate();
                     Timestamp dealDate = new Timestamp(source.getDate().getTime());
-                    if (dealDate.after(myDealsDate)) {
-                       return true;
-                    } else return false;
+                    return dealDate.after(myDealsDate);
                 }
             };
 
