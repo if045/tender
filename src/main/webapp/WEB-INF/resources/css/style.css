@@ -325,3 +325,11 @@ textarea {
 #moderator_conflict_status_name {
     width: 200px;
 }
+
+.m_glyphicon {
+    top:0px;
+}
+
+#new_moderator_data_validation {
+    margin-top: 15px;
+}

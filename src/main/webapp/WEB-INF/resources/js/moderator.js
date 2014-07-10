@@ -79,8 +79,25 @@ $(document).ready(function () {
     $("#add_moderator_button").click(function () {
         var userLogin = $('#m_userlogin').val();
         var userPassword = $('#m_password').val();
+        var confirmUserPassword = $('#m_confirm_password').val();
+
+        if(confirmUserPassword != userPassword) {
+            alert("Passwords are mismatched");
+            return;
+        }
 
         registerNewModerator(userLogin, userPassword);
+    });
+
+    $("#add_moderator_cancel_button").click(function () {
+        hideNewModeratorModal();
+    });
+
+    $('#moderator_profile_add').on('shown.bs.modal', function() {
+        $('#m_userlogin,#m_password,#m_confirm_password').val('');
+        $('.form-group').removeClass('has-error').removeClass('has-success');
+        $("#new_moderator_data_validation").validate().resetForm();
+        $('#add_moderator_button').attr('disabled', true);
     });
 });
 
@@ -350,9 +367,7 @@ function registerNewModerator(userLogin, userPassword) {
         contentType: 'application/json',
 
         success: function(data) {
-            $('#m_userlogin').val('');
-            $('#m_password').val('');
-            $("#moderator_profile_add").modal('hide');
+            hideNewModeratorModal();
             $("#moderator_register_login").html('<b>'+data.login+'</b>');
             $("#moderator_register_success").modal("show");
         },
@@ -360,5 +375,14 @@ function registerNewModerator(userLogin, userPassword) {
             alert(ERROR_MESSAGE);
         }
     });
+}
+
+function hideNewModeratorModal() {
+    $('#m_userlogin,#m_password,#m_confirm_password').val('');
+    $('.form-group').removeClass('has-error').removeClass('has-success');
+    $("#new_moderator_data_validation").validate().resetForm();
+    $("#m_userlogin").focus();
+    $('#add_moderator_button').attr('disabled', true);
+    $("#moderator_profile_add").modal("hide");
 }
 

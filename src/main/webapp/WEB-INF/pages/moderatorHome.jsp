@@ -17,6 +17,8 @@
 
     <script type='text/javascript' src='<c:url value="../resources/js/jquery-2.1.1.min.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/bootstrap.min.js"/>'></script>
+    <script type='text/javascript' src='<c:url value="../resources/js/jquery.validate.min.js"/>'></script>
+    <script type='text/javascript' src='<c:url value="../resources/js/validations.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/cookie.js"/>'></script>
 
     <script type='text/javascript' src='<c:url value="../resources/js/constants.js"/>'></script>
@@ -279,15 +281,30 @@
                 <h4 class="modal-title">Add new moderator</h4>
             </div>
             <div class="modal-body">
-                <form class="form-horizontal" role="form">
-                    <input type="text" name="m_userlogin" id="m_userlogin" class="form-control" placeholder="Email address" required autofocus>
-                    <div><br/></div>
-                    <input type="password" name="m_password" id="m_password" class="form-control" placeholder="Password" required>
+                <form role="form" id="new_moderator_data_validation">
+                    <div class="form-group has-feedback">
+                        <div class="input-group">
+                            <span class="input-group-addon glyphicon glyphicon-user m_glyphicon"></span>
+                            <input type="text" name="m_userlogin" id="m_userlogin" class="form-control required-field" placeholder="Email address" required autofocus>
+                        </div>
+                    </div>
+                    <div class="form-group has-feedback">
+                        <div class="input-group">
+                            <span class="input-group-addon glyphicon glyphicon-lock m_glyphicon"></span>
+                            <input type="password" name="m_password" id="m_password" class="form-control required-field" placeholder="Password" required autofocus>
+                        </div>
+                    </div>
+                    <div class="form-group has-feedback">
+                        <div class="input-group">
+                            <span class="input-group-addon glyphicon glyphicon-lock m_glyphicon"></span>
+                            <input type="password" name="m_confirm_password" id="m_confirm_password" class="form-control required-field" placeholder="Confirm password" required autofocus>
+                        </div>
+                    </div>
                 </form>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-default" type="button" data-dismiss="modal">Cancel</button>
-                <button id="add_moderator_button" class="btn btn-primary" type="button">Confirm</button>
+                <button id="add_moderator_cancel_button" class="btn btn-default" type="button" data-dismiss="modal">Cancel</button>
+                <button id="add_moderator_button" class="btn btn-primary" type="button" disabled>Confirm</button>
             </div>
         </div>
     </div>
