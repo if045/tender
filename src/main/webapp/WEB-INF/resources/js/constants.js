@@ -64,6 +64,7 @@ var MODERATOR_PROFILE_DEFAULT_SORT_FIELD = "user.login";
 var MODERATOR_PROFILE_VIEW_DATA_URL = "/user/profile/userdata";
 var MODERATOR_CONFLICTS_NUMBER_URL = "/moderator/conflictsnumber";
 var MODERATOR_CONFLICTS_DEFAULT_SORT_FIELD = "status.name";
+var MODERATOR_ROLE_ID = 2;
 /*Constants for moderator.js*/
 
 

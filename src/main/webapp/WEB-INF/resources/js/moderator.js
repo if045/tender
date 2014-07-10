@@ -338,7 +338,7 @@ function sortConflicts(orderByField, elementId) {
 }
 
 function registerNewModerator(userLogin, userPassword) {
-    var userDto = '{"roles":[2],' +
+    var userDto = '{"roles":[' + MODERATOR_ROLE_ID + '],' +
                    '"login":"' + userLogin + '",' +
                    '"password":"' + userPassword + '"}';
 
@@ -350,7 +350,11 @@ function registerNewModerator(userLogin, userPassword) {
         contentType: 'application/json',
 
         success: function(data) {
-            console.log(data);
+            $('#m_userlogin').val('');
+            $('#m_password').val('');
+            $("#moderator_profile_add").modal('hide');
+            $("#moderator_register_login").html('<b>'+data.login+'</b>');
+            $("#moderator_register_success").modal("show");
         },
         error: function(){
             alert(ERROR_MESSAGE);

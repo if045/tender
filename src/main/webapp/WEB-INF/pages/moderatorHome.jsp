@@ -294,5 +294,23 @@
 </div>
 <!--Add moderator modal window-->
 
+<!--Moderator register success-->
+<div class="modal fade" id="moderator_register_success" tabindex="-1" role="dialog" hidden="">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header"><button class="close" type="button" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Success</h4>
+            </div>
+            <div class="modal-body">
+                <div>You have successfully registered new moderator with login <span id="moderator_register_login"></span>.</div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" type="button" data-dismiss="modal">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Moderator register success-->
+
 </body>
 </html>

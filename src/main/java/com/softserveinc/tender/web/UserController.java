@@ -1,6 +1,13 @@
 package com.softserveinc.tender.web;
 
-import com.softserveinc.tender.dto.*;
+import com.softserveinc.tender.dto.CustomerRegistrationDataDto;
+import com.softserveinc.tender.dto.LoggedUserDto;
+import com.softserveinc.tender.dto.PrivateCustomerRegistrationDataDto;
+import com.softserveinc.tender.dto.PrivateSellerRegistrationDataDto;
+import com.softserveinc.tender.dto.RoleDto;
+import com.softserveinc.tender.dto.SellerRegistrationDataDto;
+import com.softserveinc.tender.dto.UserDto;
+import com.softserveinc.tender.dto.UsersProfileDataDto;
 import com.softserveinc.tender.entity.User;
 import com.softserveinc.tender.facade.UserServiceFacade;
 import org.springframework.beans.factory.annotation.Autowired;
