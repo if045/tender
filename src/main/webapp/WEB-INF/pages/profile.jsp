@@ -21,13 +21,13 @@
     <script type='text/javascript' src='<c:url value="../resources/js/jquery-2.1.1.min.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/bootstrap.min.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/bootstrap-datepicker.js"/>'></script>
-    <script type='text/javascript' src='<c:url value="../resources/js/select2.min.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/jquery.validate.min.js"/>'></script>
-    <script type='text/javascript' src='<c:url value="../resources/js/validations.js"/>'></script>
-    <script type='text/javascript' src='<c:url value="../resources/js/constants.js"/>'></script>
     <script type="text/javascript" src='<c:url value="../resources/js/star-rating.min.js"/>'></script>
+    <script type='text/javascript' src='<c:url value="../resources/js/select2.min.js"/>'></script>
 
+    <script type='text/javascript' src='<c:url value="../resources/js/validations.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/header.js"/>'></script>
+    <script type='text/javascript' src='<c:url value="../resources/js/constants.js"/>'></script>
     <script type="text/javascript" src='<c:url value="../resources/js/user.js"/>'></script>
     <script type="text/javascript" src='<c:url value="../resources/js/cookie.js"/>'></script>
     <script type="text/javascript" src='<c:url value="../resources/js/addTenderModal.js"/>'></script>
@@ -151,7 +151,9 @@
                                                         <button type="button"
                                                                 class="btn btn-primary btn-lg"
                                                                 data-toggle="modal"
-                                                                data-target="#editProfile">
+                                                                data-target="#editProfile"
+                                                                onclick="showEditPersonalPanel()"
+                                                                id="edit_personal_info">
                                                             Edit
                                                         </button>
                                                     </div>
@@ -199,7 +201,9 @@
                                                         <button type="button"
                                                                 class="btn btn-primary btn-lg"
                                                                 data-toggle="modal"
-                                                                data-target="#editProfile">
+                                                                data-target="#editProfile"
+                                                                onclick="showEditCompanyPanel()"
+                                                                id="edit_company_info">
                                                             Edit
                                                         </button>
                                                     </div>
@@ -232,7 +236,9 @@
                                                             <button type="button"
                                                                     class="btn btn-primary btn-lg"
                                                                     data-toggle="modal"
-                                                                    data-target="#editProfile">
+                                                                    data-target="#editProfile"
+                                                                    onclick="showEditTradeSpherePanel()"
+                                                                    id="edit_trade_sphere_info">
                                                                 Edit
                                                             </button>
                                                         </div>

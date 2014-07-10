@@ -15,6 +15,7 @@ import com.softserveinc.tender.dto.RoleDto;
 import com.softserveinc.tender.dto.SellerRegistrationDataDto;
 import com.softserveinc.tender.dto.TradeSphereDto;
 import com.softserveinc.tender.dto.UserDto;
+import com.softserveinc.tender.dto.UserPersonalDataDto;
 import com.softserveinc.tender.dto.UsersProfileDataDto;
 import com.softserveinc.tender.entity.Address;
 import com.softserveinc.tender.entity.Category;
@@ -241,7 +242,7 @@ public class UserServiceFacadeImpl implements UserServiceFacade {
         return userService.saveUser(mapUser(userDto, tradeSphereDto));
     }
 
-    private User saveUser(UserDto userDto) {
+    public User saveUser(UserDto userDto) {
         return userService.saveUser(mapUser(userDto));
     }
 
@@ -380,6 +381,104 @@ public class UserServiceFacadeImpl implements UserServiceFacade {
 
         tradeSphereDto.setCategoriesDto(convertible.mapObjects(user.getSellerCategories(), CategoryDto.class));
         tradeSphereDto.setLocationsDto(convertible.mapObjects(user.getSellerLocations(), LocationDto.class));
+
+        return tradeSphereDto;
+    }
+
+    // Update profile logic
+    @Override
+    public UserPersonalDataDto updateUserData(UserPersonalDataDto userPersonalData) {
+        User user = userService.findByLogin(getUserLogin());
+
+        profileService.saveProfile(mapProfile(userPersonalData, user));
+
+        userService.saveUser(mapUser(userPersonalData, user));
+
+        return userPersonalData;
+    }
+
+    private User mapUser(UserPersonalDataDto personalData, User user) {
+
+        if(!personalData.getLogin().equals("")) {
+            user.setLogin(personalData.getLogin());
+        }
+        if(!personalData.getPassword().equals("")) {
+            user.setPassword(personalData.getPassword());
+        }
+
+        return user;
+    }
+
+    private Profile mapProfile(UserPersonalDataDto personalData, User user) {
+        Profile profile = profileService.findProfileById(user.getProfile().getId());
+
+        if(!personalData.getProfileDto().getFirstName().equals("")) {
+            profile.setFirstName(personalData.getProfileDto().getFirstName());
+        }
+        if(!personalData.getProfileDto().getLastName().equals("")) {
+            profile.setLastName((personalData.getProfileDto().getLastName()));
+        }
+        if(!personalData.getProfileDto().getTelephone().equals("")){
+            profile.setTelephone(personalData.getProfileDto().getTelephone());
+        }
+        if(!personalData.getProfileDto().getBirthday().equals("")){
+            profile.setBirthday(formatDate(personalData.getProfileDto().getBirthday()));
+        }
+        profile.setPerson(personalData.getProfileDto().getPerson());
+
+        return profile;
+    }
+
+    @Override
+    public CompanyDto updateUserCompanyData(CompanyDto companyDto) {
+        Profile profile = profileService.findProfileByUserLogin(getUserLogin());
+        Company company = profile.getCompany();
+        Address companyAddress = company.getAddress();
+
+        if (!companyDto.getName().equals("")) {
+            company.setName(companyDto.getName().trim());
+        }
+        if (!companyDto.getSrnNumber().equals("")) {
+            company.setSrn(Integer.parseInt(companyDto.getSrnNumber().trim()));
+        }
+        if (!companyDto.getEmail().equals("")) {
+            company.setEmail(companyDto.getEmail().trim());
+        }
+        Company savedCompany = companyService.save(company);
+
+        if (!companyDto.getAddressDto().getPostcode().equals("")) {
+            companyAddress.setPostcode(Integer.parseInt(companyDto.getAddressDto().getPostcode()));
+        }
+        if (!companyDto.getAddressDto().getCity().equals("")) {
+            companyAddress.setCity(companyDto.getAddressDto().getCity().trim());
+        }
+        if (!companyDto.getAddressDto().getStreet().equals("")) {
+            companyAddress.setStreet(companyDto.getAddressDto().getStreet().trim());
+        }
+        if (!companyDto.getAddressDto().getBuildingNumber().equals("")) {
+            companyAddress.setBuildingNumber(companyDto.getAddressDto().getBuildingNumber().trim());
+        }
+        Address savedAddress = addressService.save(companyAddress);
+        savedCompany.setAddress(savedAddress);
+        return convertible.mapObject(userService.findByLogin(getUserLogin()).getProfile().getCompany(), CompanyDto.class);
+    }
+
+    public TradeSphereDto updateTradeSphereData(TradeSphereDto tradeSphereDto) {
+        User user = userService.findByLogin(getUserLogin());
+        List<Category> categories = new ArrayList<>();
+        List<Location> locations = new ArrayList<>();
+
+        for (Integer id : tradeSphereDto.getCategories()) {
+            categories.add(categoryService.findCategoryById(id));
+        }
+
+        for (Integer id : tradeSphereDto.getLocations()) {
+            locations.add(locationService.findById(id));
+        }
+
+        user.setSellerCategories(categories);
+        user.setSellerLocations(locations);
+        userService.saveUser(user);
 
         return tradeSphereDto;
     }

@@ -36,8 +36,15 @@ var SELLER_REGISTRATION_URL = "/user/registration/seller/legal";
 var CUSTOMER_REGISTRATION_URL = "/user/registration/customer/legal";
 var PRIVATE_SELLER_REGISTRATION_URL = "/user/registration/seller/private";
 var PRIVATE_CUSTOMER_REGISTRATION_URL = "/user/registration/customer/private";
+var USER_REGISTRATION_URL = "/user/registration/user";
 USER_PROFILE_PAGE_URL = "/user/profile";
 USER_PROFILE_DATA_URL = "/user/profile/data";
+USER_PERSONAL_DATA_URL = "/user/update/data";
+var USER_UPDATE_COMPANY_URL = "/user/update/companyData";
+var USER_UPDATE_TRADE_SPHERE_DATA = "/user/update/tradeSphere";
+var TRADE_SPHERE_CATEGORY = "category";
+var TRADE_SPHERE_LOCATION = "location";
+var EMPTY_FIELD_MESSAGE = "can't be empty field";
 /*Constants for user.js*/
 
 /*Constants for tenders pagination*/
@@ -63,6 +70,7 @@ var MODERATOR_PROFILE_DEFAULT_SORT_FIELD = "user.login";
 var MODERATOR_PROFILE_VIEW_DATA_URL = "/user/profile/userdata";
 var MODERATOR_CONFLICTS_NUMBER_URL = "/moderator/conflictsnumber";
 var MODERATOR_CONFLICTS_DEFAULT_SORT_FIELD = "status.name";
+var MODERATOR_ROLE_ID = 2;
 /*Constants for moderator.js*/
 
 
