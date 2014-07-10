@@ -373,3 +373,10 @@ function disabledUnitDealButton(){
         $("#unit_deal_button_" + Units[i].id).attr('disabled', 'disabled');
     }
 }
+
+function getTenderId(){
+    var str = location.href;
+    var tender1 = str.split(TENDER_VIEW_URL);
+    var tender = tender1[tender1.length - 1];
+    showUnits(tender.substring(1));
+}
