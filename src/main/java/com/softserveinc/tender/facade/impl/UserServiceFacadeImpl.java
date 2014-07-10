@@ -247,7 +247,7 @@ public class UserServiceFacadeImpl implements UserServiceFacade {
         return userService.saveUser(mapUser(userDto, tradeSphereDto));
     }
 
-    private User saveUser(UserDto userDto) {
+    public User saveUser(UserDto userDto) {
         return userService.saveUser(mapUser(userDto));
     }
 

@@ -89,9 +89,10 @@ $(document).ready(function () {
         return /^[A-Za-z0-9\d=!]*$/.test(value) // consists of only these
             && /[a-z]/.test(value) // has a lowercase letter
             && /\d/.test(value); // has a digit
-    }, "Please enter only letters");
+    }, "Please enter only letters and digits");
 
     registrationPageValidation();
+    addNewModeratorValidation();
 });
 
 function registrationPageValidation() {
@@ -225,6 +226,55 @@ function registrationPageValidation() {
             } else {
                 error.insertAfter(element);
             }
+        }
+    });
+}
+
+function addNewModeratorValidation() {
+    $("#new_moderator_data_validation").validate({
+        rules: {
+            m_userlogin: {
+                email: true,
+                maxlength: 30,
+                required: true
+            },
+
+            m_password: {
+                minlength: 6,
+                password: true
+            },
+
+            m_confirm_password: {
+                equalTo: "#m_password",
+                minlength: 6
+            }
+        },
+
+        highlight: function(element) {
+            $(element).closest('.form-group').removeClass('has-success').addClass('has-error');
+        },
+
+        unhighlight: function(element) {
+            $(element).closest('.form-group').removeClass('has-error').addClass('has-success');
+        },
+
+        errorElement: 'span',
+        errorClass: 'help-block',
+
+        errorPlacement: function(error, element) {
+            if(element.parent('.input-group').length) {
+                error.insertAfter(element.parent());
+            } else {
+                error.insertAfter(element);
+            }
+        }
+    });
+
+    $('#moderator_profile_add').bind('change keyup', function() {
+        if($(this).validate().checkForm()) {
+            $('#add_moderator_button').attr('disabled', false);
+        } else {
+            $('#add_moderator_button').attr('disabled', true);
         }
     });
 }
