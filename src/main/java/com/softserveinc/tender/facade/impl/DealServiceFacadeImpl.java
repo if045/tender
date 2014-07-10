@@ -138,13 +138,16 @@ public class DealServiceFacadeImpl implements DealServiceFacade {
         dealDto.setTitle(deal.getProposal().getTender().getTitle());
 
         String businessPartner = "";
-        for (Role role : userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).getRoles()) {
-            if (role.getName().equals(Roles.CUSTOMER.name())) {
-                businessPartner = deal.getSeller().getFirstName() + " " + deal.getSeller().getLastName();
-            } else if (role.getName().equals(Roles.SELLER.name())){
+        if (SecurityContextHolder.getContext().getAuthentication() != null) {
+            User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
+
+            if(deal.getSeller().getId() == currentUser.getProfile().getId()) {
                 businessPartner = deal.getCustomer().getFirstName() + " " + deal.getCustomer().getLastName();
+            } else if(deal.getCustomer().getId() == currentUser.getProfile().getId()) {
+                businessPartner = deal.getSeller().getFirstName() + " " + deal.getSeller().getLastName();
             }
         }
+
         dealDto.setBusinessPartner(businessPartner);
 
         Timestamp myDealsDate = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).getMyDealsDate();
