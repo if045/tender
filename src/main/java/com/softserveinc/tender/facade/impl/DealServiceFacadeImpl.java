@@ -20,7 +20,7 @@ import com.softserveinc.tender.service.DealService;
 import com.softserveinc.tender.service.FeedbackService;
 import com.softserveinc.tender.service.ProfileService;
 import com.softserveinc.tender.service.UserService;
-import com.softserveinc.tender.util.UtilMapper;
+import com.softserveinc.tender.util.Convertible;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.data.domain.Pageable;
@@ -28,7 +28,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -44,7 +43,7 @@ public class DealServiceFacadeImpl implements DealServiceFacade {
     private FeedbackService feedbackService;
 
     @Autowired
-    private UtilMapper utilMapper;
+    private Convertible convertible;
 
     @Autowired
     private ConflictService conflictService;
@@ -69,7 +68,7 @@ public class DealServiceFacadeImpl implements DealServiceFacade {
             }
         }
 
-        return mapDeals(deals);
+        return convertible.mapObjects(deals, DealDto.class);
     }
 
     @Override
@@ -118,45 +117,6 @@ public class DealServiceFacadeImpl implements DealServiceFacade {
     }
 
     @Override
-    public List<DealDto> mapDeals(List<Deal> deals) {
-        List<DealDto> dealDtos = new ArrayList<>();
-        for (Deal deal : deals) {
-            dealDtos.add(mapDeal(deal));
-        }
-
-        return dealDtos;
-    }
-
-    @Override
-    public DealDto mapDeal(Deal deal) {
-        DealDto dealDto = new DealDto();
-        dealDto.setId(deal.getId());
-        dealDto.setDate(deal.getDate());
-        dealDto.setStatus(deal.getStatus().getName());
-        dealDto.setSum(deal.getSum());
-        dealDto.setDate(deal.getDate());
-        dealDto.setTitle(deal.getProposal().getTender().getTitle());
-
-        String businessPartner = "";
-        for (Role role : userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).getRoles()) {
-            if (role.getName().equals(Roles.CUSTOMER.name())) {
-                businessPartner = deal.getSeller().getFirstName() + " " + deal.getSeller().getLastName();
-            } else if (role.getName().equals(Roles.SELLER.name())){
-                businessPartner = deal.getCustomer().getFirstName() + " " + deal.getCustomer().getLastName();
-            }
-        }
-        dealDto.setBusinessPartner(businessPartner);
-
-        Timestamp myDealsDate = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).getMyDealsDate();
-        Timestamp dealDate = new Timestamp(deal.getDate().getTime());
-        if(dealDate.after(myDealsDate)) {
-            dealDto.setNewDeal(true);
-        }
-
-        return dealDto;
-    }
-
-    @Override
     public ConflictDto saveConflict(ConflictSaveDto conflictSaveDto) {
         Conflict conflict = new Conflict();
         conflict.setDescription(conflictSaveDto.getDescription());
@@ -171,7 +131,7 @@ public class DealServiceFacadeImpl implements DealServiceFacade {
         conflict.setBid(bid);
 
         Conflict savedConflict = conflictService.save(conflict);
-        return utilMapper.mapObject(savedConflict, ConflictDto.class);
+        return convertible.mapObject(savedConflict, ConflictDto.class);
     }
 
     @Override
@@ -189,6 +149,6 @@ public class DealServiceFacadeImpl implements DealServiceFacade {
         feedback.setUser(user);
 
         Feedback savedFeedback = feedbackService.save(feedback);
-        return utilMapper.mapObject(savedFeedback, FeedbackDto.class);
+        return convertible.mapObject(savedFeedback, FeedbackDto.class);
     }
 }

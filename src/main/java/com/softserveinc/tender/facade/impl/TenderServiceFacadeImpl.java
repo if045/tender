@@ -17,12 +17,10 @@ import com.softserveinc.tender.entity.Bid;
 import com.softserveinc.tender.entity.Category;
 import com.softserveinc.tender.entity.Deal;
 import com.softserveinc.tender.entity.Item;
-import com.softserveinc.tender.entity.Location;
 import com.softserveinc.tender.entity.Proposal;
 import com.softserveinc.tender.entity.Tender;
 import com.softserveinc.tender.entity.TenderStatus;
 import com.softserveinc.tender.entity.Unit;
-import com.softserveinc.tender.facade.DealServiceFacade;
 import com.softserveinc.tender.facade.TenderServiceFacade;
 import com.softserveinc.tender.repo.TenderFilter;
 import com.softserveinc.tender.service.BidService;
@@ -39,9 +37,7 @@ import com.softserveinc.tender.service.TenderStatusService;
 import com.softserveinc.tender.service.UnitService;
 import com.softserveinc.tender.service.UserService;
 import com.softserveinc.tender.service.impl.MailService;
-import com.softserveinc.tender.util.UtilMapper;
-import org.modelmapper.ModelMapper;
-import org.modelmapper.TypeToken;
+import com.softserveinc.tender.util.Convertible;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -53,7 +49,6 @@ import java.net.UnknownHostException;
 import java.util.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -65,7 +60,7 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
     private TenderStatusService tenderStatusService;
 
     @Autowired
-    private UtilMapper utilMapper;
+    private Convertible convertible;
 
     @Autowired
     private ItemService itemService;
@@ -106,9 +101,6 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
     @Autowired
     private DealService dealService;
 
-    @Autowired
-    private DealServiceFacade dealServiceFacade;
-
     private static final String DATE_FORMAT_FROM_CLIENT="yyyy/MM/dd";
     private static final String DEAL_CREATE_STATUS = "in progress";
     private static final String TENDER_STATUS_IN_PROGRESS = "In progress";
@@ -120,7 +112,7 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
     @Override
     public List<TenderDto> findByCustomParams(TenderFilter tenderFilter, Pageable pageable) {
         List<Tender> tenders = tenderService.findByCustomParameters(tenderFilter, pageable);
-        return utilMapper.mapObjects(tenders, TenderDto.class);
+        return convertible.mapObjects(tenders, TenderDto.class);
     }
 
     @Override
@@ -132,26 +124,26 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
     }
 
     public List<TenderStatusDto> findTendersStatuses() {
-        return utilMapper.mapObjects(tenderStatusService.findAllTendersStatuses(), TenderStatusDto.class);
+        return convertible.mapObjects(tenderStatusService.findAllTendersStatuses(), TenderStatusDto.class);
     }
 
     public List<ItemDto> findTendersItems(TenderFilter tenderFilter) {
-        return utilMapper.mapObjects(itemService.findAllItemsByTenders(tenderFilter), ItemDto.class);
+        return convertible.mapObjects(itemService.findAllItemsByTenders(tenderFilter), ItemDto.class);
     }
 
     @Override
     public List<UnitDto> findUnitsByTenderId(Integer tenderId, Pageable pageable) {
         List<Unit> units = unitService.findUnitsByTenderId(tenderId, pageable);
-        return utilMapper.mapObjects(units, UnitDto.class);
+        return convertible.mapObjects(units, UnitDto.class);
     }
 
     public List<LocationDto> findTendersLocations() {
-        return utilMapper.mapObjects(locationService.getTendersLocations(), LocationDto.class);
+        return convertible.mapObjects(locationService.getTendersLocations(), LocationDto.class);
     }
 
     public List<CategoryDto> findTendersCategories() {
         List<Category> categories = categoryService.findAllWithCategory();
-        return utilMapper.mapObjects(categories, CategoryDto.class);
+        return convertible.mapObjects(categories, CategoryDto.class);
     }
 
     @Override
@@ -214,7 +206,7 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
             units.add(unitService.save(unit));
         }
         savedTender.setUnits(units);
-        return utilMapper.mapObject(savedTender, TenderDto.class);
+        return convertible.mapObject(savedTender, TenderDto.class);
     }
 
     public TenderDto updateTender(Integer tenderId, String statusName, String endDate, String description) {
@@ -229,11 +221,11 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
                 e.printStackTrace();
             }
         }
-        return utilMapper.mapObject(tenderService.updateTender(tenderId, statusName, date, description), TenderDto.class);
+        return convertible.mapObject(tenderService.updateTender(tenderId, statusName, date, description), TenderDto.class);
     }
 
     public List<ProposalDto> findTendersProposals(Integer tenderId) {
-        return utilMapper.mapObjects(proposalService.findByTenderId(tenderId), ProposalDto.class);
+        return convertible.mapObjects(proposalService.findByTenderId(tenderId), ProposalDto.class);
     }
 
     @Override
@@ -271,12 +263,12 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
         } catch (UnknownHostException e) {
             e.printStackTrace();
         }
-        return utilMapper.mapObject(savedProposal, ProposalDto.class);
+        return convertible.mapObject(savedProposal, ProposalDto.class);
     }
 
     @Override
     public TenderDto findOneById(Integer id) {
-        return utilMapper.mapObject(tenderService.findOne(id), TenderDto.class);
+        return convertible.mapObject(tenderService.findOne(id), TenderDto.class);
     }
 
     @Override
@@ -299,7 +291,7 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
             Deal savedDeal = dealService.saveDeal(deal);
             deals.add(savedDeal);
         }
-        return dealServiceFacade.mapDeals(deals);
+        return convertible.mapObjects(deals, DealDto.class);
     }
 
     @Override
@@ -319,7 +311,7 @@ public class TenderServiceFacadeImpl implements TenderServiceFacade {
 
         Deal savedDeal = dealService.saveDeal(deal);
 
-        return dealServiceFacade.mapDeal(savedDeal);
+        return convertible.mapObject(savedDeal, DealDto.class);
     }
 
 
