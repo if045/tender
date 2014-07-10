@@ -6,15 +6,19 @@ import com.softserveinc.tender.dto.LoggedUserDto;
 import com.softserveinc.tender.dto.PrivateCustomerRegistrationDataDto;
 import com.softserveinc.tender.dto.PrivateSellerRegistrationDataDto;
 import com.softserveinc.tender.dto.SellerRegistrationDataDto;
+import com.softserveinc.tender.dto.TradeSphereDto;
 import com.softserveinc.tender.dto.UserPersonalDataDto;
 import com.softserveinc.tender.dto.UsersProfileDataDto;
 import com.softserveinc.tender.entity.User;
 import com.softserveinc.tender.facade.UserServiceFacade;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
@@ -61,6 +65,12 @@ public class UserController {
         return userServiceFacade.updateUserData(userPersonalData);
     }
 
+    @PreAuthorize("hasRole('MODERATOR')")
+    @RequestMapping(value = "/profile/userdata", method = RequestMethod.GET)
+    public @ResponseBody UsersProfileDataDto showUserProfileData(@RequestParam(value = "userLogin",required = false) String userLogin) {
+        return userServiceFacade.findUsersProfileInfoByLogin(userLogin);
+    }
+
     @RequestMapping(value = "/loggedUserInfo", method = RequestMethod.GET)
     public @ResponseBody LoggedUserDto getLoggedUserInfo() {
         return userServiceFacade.getLoggedUserInfo();
@@ -69,5 +79,10 @@ public class UserController {
     @RequestMapping(value = "/update/companyData", method = RequestMethod.PUT, consumes = "application/json")
     public @ResponseBody CompanyDto updateUserCompanyData(@RequestBody CompanyDto companyDto) {
         return userServiceFacade.updateUserCompanyData(companyDto);
+    }
+
+    @RequestMapping(value = "/update/tradeSphere", method = RequestMethod.PUT, consumes = "application/json")
+    public @ResponseBody TradeSphereDto updateUserTradeSphereData(@RequestBody TradeSphereDto tradeSphereDto) {
+        return userServiceFacade.updateTradeSphereData(tradeSphereDto);
     }
 }

@@ -30,6 +30,9 @@ public class Util {
     }
 
     public static String getUserLogin() {
-        return SecurityContextHolder.getContext().getAuthentication().getName();
+        if (SecurityContextHolder.getContext().getAuthentication()!=null) {
+            return SecurityContextHolder.getContext().getAuthentication().getName();
+        }
+        return "anonymousUser";
     }
 }

@@ -21,15 +21,16 @@
     <script type='text/javascript' src='<c:url value="../resources/js/jquery-2.1.1.min.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/bootstrap.min.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/bootstrap-datepicker.js"/>'></script>
-    <script type='text/javascript' src='<c:url value="../resources/js/select2.min.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/jquery.validate.min.js"/>'></script>
     <script type="text/javascript" src='<c:url value="../resources/js/star-rating.min.js"/>'></script>
+    <script type='text/javascript' src='<c:url value="../resources/js/select2.min.js"/>'></script>
 
     <script type='text/javascript' src='<c:url value="../resources/js/validations.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/header.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/constants.js"/>'></script>
     <script type="text/javascript" src='<c:url value="../resources/js/user.js"/>'></script>
     <script type="text/javascript" src='<c:url value="../resources/js/cookie.js"/>'></script>
+    <script type="text/javascript" src='<c:url value="../resources/js/addTenderModal.js"/>'></script>
 
 </head>
 
@@ -212,9 +213,8 @@
                                     </div>
                                     <!-- Company info -->
 
-                                    <security:authorize access="hasRole('SELLER')">
                                         <!-- Trade Sphere info -->
-                                        <div class="panel panel-info">
+                                        <div class="panel panel-info" id="trade_sphere_info">
                                             <div class="panel-heading">
                                                 <h4 class="panel-title">
                                                     <a data-toggle="collapse" href="#collapseTradeSphere">
@@ -247,7 +247,6 @@
                                             </div>
                                         </div>
                                         <!-- Trade Sphere info -->
-                                    </security:authorize>
                                 </div>
                             </div>
                         </form>

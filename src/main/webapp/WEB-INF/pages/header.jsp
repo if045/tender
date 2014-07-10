@@ -5,7 +5,7 @@
     <div class="container-fluid">
         <div class="navbar-header">
             <ul class="nav navbar-nav navbar-left nav_buttons">
-                <security:authorize access="hasAnyRole('CUSTOMER','SELLER')">
+                <security:authorize access="!hasRole('MODERATOR')">
                     <li><a class="navbar-brand" href="#" onclick="goToHomePage();">UATender</a></li>
                 </security:authorize>
                 <security:authorize access="hasAnyRole('CUSTOMER','SELLER')">
@@ -43,8 +43,10 @@
                 </security:authorize>
                 <security:authorize access="isAuthenticated()">
                     <li>
-                        <ul style="padding-left: 40px"><a class="glyphicon glyphicon-user"
-                                                       onclick="goToUserProfilePage()"></a></ul>
+                        <security:authorize access="hasAnyRole('CUSTOMER','SELLER')">
+                            <ul style="padding-left: 40px"><a class="glyphicon glyphicon-user"
+                                                           onclick="goToUserProfilePage()"></a></ul>
+                        </security:authorize>
                         <ul id="logged_user_name" style="padding-left: 0px"></ul>
                     </li>
                 </security:authorize>
