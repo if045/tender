@@ -5,7 +5,7 @@ import com.softserveinc.tender.entity.Conflict;
 import com.softserveinc.tender.facade.ModeratorServiceFacade;
 import com.softserveinc.tender.service.ConflictService;
 import com.softserveinc.tender.service.UserService;
-import com.softserveinc.tender.util.UtilMapper;
+import com.softserveinc.tender.util.Convertible;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -26,13 +26,13 @@ public class ModeratorServiceFacadeImpl implements ModeratorServiceFacade {
     private UserService userService;
 
     @Autowired
-    private UtilMapper utilMapper;
+    private Convertible convertible;
 
     @Override
     public List<ConflictDto> getConflicts(Pageable pageable, String searchParam) {
         List<Conflict> conflicts = conflictService.findAllByModeratorId(userService.findByLogin(getUserLogin()).getId
                 (), pageable, searchParam);
-        return utilMapper.mapObjects(conflicts, ConflictDto.class);
+        return convertible.mapObjects(conflicts, ConflictDto.class);
     }
 
     @Override
