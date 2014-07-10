@@ -1,3 +1,6 @@
+var locationsData;
+var categoriesData;
+
 $(document).ready(function() {
     $('#birth_date').datepicker({
         format: 'yyyy/mm/dd'
@@ -622,9 +625,11 @@ function populateInputValues(el_id, url, type) {
         switch(type) {
             case (TRADE_SPHERE_LOCATION) :
                 temp = data.tradeSphereDto.locationsDto;
+                locationsData = temp;
                 break;
             case(TRADE_SPHERE_CATEGORY) :
                 temp = data.tradeSphereDto.categoriesDto;
+                categoriesData = temp;
                 break;
         }
         var length = temp.length;
@@ -661,7 +666,6 @@ function prepareDropdownData(data, type) {
     return result;
 }
 
-
 /**
  *  el_id - id of the HTML element to act on
  *  url - path for getting user data
@@ -674,4 +678,15 @@ function setTradeSphereDropdownWithData(el_id, url, data_url, type) {
         populateInputValues(el_id, url, type);
         wrapInputWithSelect2(el_id, dropdownData);
     });
+}
+
+function checkValidDropdownInputs() {
+    var categories = document.getElementById("populate_update_categories_dropdown").getAttribute('value');
+    var locations = document.getElementById("populate_update_locations_dropdown").getAttribute('value');
+
+    if((locations == []) || ( categories == [])) {
+        document.getElementById("trade-sphere-info").setAttribute('disabled', 'disabled');
+    } else {
+        document.getElementById("trade-sphere-info").removeAttribute('disabled');
+    }
 }

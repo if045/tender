@@ -271,20 +271,20 @@
                                 <div class="panel-group">
                                     <div class="row backdown">
                                         <div class="col-md-12">
-                                            <input type="hidden" id="populate_update_locations_dropdown">
+                                            <input type="hidden" id="populate_update_locations_dropdown" onclick="checkValidDropdownInputs()">
                                         </div>
                                     </div>
 
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <input type="hidden" id="populate_update_categories_dropdown">
+                                            <input type="hidden" id="populate_update_categories_dropdown" onclick="checkValidDropdownInputs()">
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="modal-footer">
                                     <div class="row">
-                                        <button type="button" onclick="updateTradeSphereData()" class="btn btn-success" disabled>Confirm</button>
+                                        <button id="trade-sphere-info" type="button" onclick="updateTradeSphereData()" class="btn btn-success">Confirm</button>
                                         <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
                                     </div>
                                 </div>
