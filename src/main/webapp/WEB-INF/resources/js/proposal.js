@@ -24,10 +24,11 @@ function showUnits(id) {
                 '<td>' + itemType + '</td>' +
                 '<td>' + data[i].categoryName + '</td>' +
                 '<td>' + data[i].quantity + ' ' + data[i].measurementName + '</td>' +
-                '<td><div class="input-group"><input placeholder="0.00" type="text" class="form-control" onchange="enableCreateButton()" id="' + i + '"/><span class="input-group-addon">UAH</span></div></td>' +
+                '<td><div class="input-group"><input placeholder="0.00" type="text" name="price" class="form-control" onchange="enableCreateButton()" id="' + i + '"/><span class="input-group-addon">UAH</span></div></td>' +
             '</tr>';
         }
         $('#tenderUnits').html(html);
+
     });
 }
 
@@ -112,6 +113,8 @@ function cleanCreateProposalFields() {
     $("#optRadPercent").attr("disabled", "disabled");
     $("#allowance").val("");
     showTenders();
+    showProposals();
+    location.reload(true);
 }
 
 
