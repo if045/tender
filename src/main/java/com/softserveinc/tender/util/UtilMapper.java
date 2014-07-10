@@ -26,7 +26,6 @@ import com.softserveinc.tender.entity.Role;
 import com.softserveinc.tender.entity.Tender;
 import com.softserveinc.tender.entity.Unit;
 import com.softserveinc.tender.entity.User;
-import com.softserveinc.tender.entity.template.Roles;
 import com.softserveinc.tender.service.CheckedProfileService;
 import com.softserveinc.tender.service.DealService;
 import com.softserveinc.tender.service.ProfileService;
@@ -40,6 +39,7 @@ import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
 import org.modelmapper.spi.MappingContext;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
@@ -257,12 +257,12 @@ public class UtilMapper implements Convertible {
                 @Override
                 protected String convert(Deal source) {
                     String businessPartner = "";
-                    for (Role role : userService.findByLogin(Util.getUserLogin()).getRoles()) {
-                        if (role.getName().equals(Roles.CUSTOMER.name())) {
-                            businessPartner = source.getSeller().getFirstName() + " " + source.getSeller().getLastName();
-                        } else if (role.getName().equals(Roles.SELLER.name())){
-                            businessPartner = source.getCustomer().getFirstName() + " " + source.getCustomer().getLastName();
-                        }
+                    User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
+
+                    if(source.getSeller().getId() == currentUser.getProfile().getId()) {
+                        businessPartner = source.getCustomer().getFirstName() + " " + source.getCustomer().getLastName();
+                    } else if(source.getCustomer().getId() == currentUser.getProfile().getId()) {
+                        businessPartner = source.getSeller().getFirstName() + " " + source.getSeller().getLastName();
                     }
                     return businessPartner;
                 }
