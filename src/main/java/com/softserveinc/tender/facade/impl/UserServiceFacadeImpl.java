@@ -66,9 +66,6 @@ import static com.softserveinc.tender.util.Constants.ADMINISTRATOR_HOME_PAGE;
 public class UserServiceFacadeImpl implements UserServiceFacade {
 
     @Autowired
-    private ModelMapper modelMapper;
-
-    @Autowired
     private UtilMapper utilMapper;
 
     @Autowired
@@ -101,9 +98,7 @@ public class UserServiceFacadeImpl implements UserServiceFacade {
     // registration logic
     @Override
     public List<RoleDto> findUsersRoles() {
-        Type targetListType = new TypeToken<List<RoleDto>>() {
-        }.getType();
-        return modelMapper.map(roleService.findUsersRoles(), targetListType);
+        return utilMapper.mapObjects(roleService.findUsersRoles(), RoleDto.class);
     }
 
     @Override
@@ -370,7 +365,7 @@ public class UserServiceFacadeImpl implements UserServiceFacade {
 
         profileData.setTradeSphereDto(mapTradeSphere(user));
         profileData.setPersonalInfoDto(mapPersonalInfo(user));
-        profileData.setRatingDto(mapRatings(user));
+        profileData.setRatingDto(utilMapper.mapObjects(user.getProfile().getFeedbacks(), RatingDto.class));
 
         return profileData;
     }
@@ -391,24 +386,5 @@ public class UserServiceFacadeImpl implements UserServiceFacade {
         tradeSphereDto.setLocationsDto(utilMapper.mapObjects(user.getSellerLocations(), LocationDto.class));
 
         return tradeSphereDto;
-    }
-
-    private List<RatingDto> mapRatings(User user) {
-        List<RatingDto> ratings = new ArrayList<>();
-
-        for (Feedback feedback : user.getProfile().getFeedbacks()) {
-            ratings.add(mapRating(feedback));
-        }
-        return ratings;
-    }
-
-    private RatingDto mapRating(Feedback feedback) {
-        RatingDto ratingDto = new RatingDto();
-
-        ratingDto.setCommunication(feedback.getCommunication());
-        ratingDto.setLogistic(feedback.getLogistic());
-        ratingDto.setSpeed(feedback.getSpeed());
-
-        return ratingDto;
     }
 }
