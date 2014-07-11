@@ -181,9 +181,9 @@ function buildTradeSphereData() {
 
 function enableConfirmButton() {
     if($('#agreement').is(":checked")){
-        $("#confirm_button").removeAttr("disabled")
+        $("#Registration_confirm_button").removeAttr("disabled")
     } else {
-        $("#confirm_button").attr("disabled", "disabled")
+        $("#registration_confirm_button").attr("disabled", "disabled")
     }
 }
 

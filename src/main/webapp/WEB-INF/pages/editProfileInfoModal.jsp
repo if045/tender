@@ -137,7 +137,7 @@
                                                 <div class="form-group has-feedback">
                                                     <div class="input-group">
                                                         <span class="input-group-addon glyphicon glyphicon-wrench"></span>
-                                                        <input name="password" id="password_to_update"
+                                                        <input name="password_to_update" id="password_to_update"
                                                                type="password" class="form-control required-field"
                                                                placeholder="Password">
                                                     </div>
@@ -150,7 +150,7 @@
                                                 <div class="form-group has-feedback">
                                                     <div class="input-group">
                                                         <span class="input-group-addon glyphicon glyphicon-wrench"></span>
-                                                        <input name="confirm_password" id="confirm_password_to_update"
+                                                        <input name="confirm_password_to_update" id="confirm_password_to_update"
                                                                type="password" class="form-control required-field"
                                                                placeholder="Confirm password">
                                                     </div>

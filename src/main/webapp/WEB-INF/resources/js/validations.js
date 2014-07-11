@@ -85,11 +85,15 @@ $(document).ready(function () {
         return this.optional(element) || /^[a-z]+$/i.test(value);
     }, "Please enter only letters");
 
+    jQuery.validator.addMethod("lettersAndWhitespaces", function(value, element) {
+        return this.optional(element) || /^[a-z]/i.test(value);
+    }, "Please enter only letters");
+
     jQuery.validator.addMethod("password", function(value) {
         return /^[A-Za-z0-9\d=!]*$/.test(value) // consists of only these
             && /[a-z]/.test(value) // has a lowercase letter
             && /\d/.test(value); // has a digit
-    }, "Please enter only letters");
+    }, "Password must not be shorter than 6 characters and contain both numbers and letters");
 
     registrationPageValidation();
     updateProfileValidation();
@@ -149,10 +153,12 @@ function registrationPageValidation() {
 
         highlight: function(element) {
             $(element).closest('.form-group').removeClass('has-success').addClass('has-error');
+            document.getElementById("registration_confirm_button").setAttribute('disabled', 'disabled');
         },
 
         unhighlight: function(element) {
             $(element).closest('.form-group').removeClass('has-error').addClass('has-success');
+            document.getElementById("registration_confirm_button").removeAttribute('disabled');
         },
 
         errorElement: 'span',
@@ -172,7 +178,7 @@ function registrationPageValidation() {
             company_name: {
                 minlength: 3,
                 maxlength: 50,
-                lettersonly: true
+                lettersAndWhitespaces: true
             },
 
             city: {
@@ -238,13 +244,14 @@ function updateProfileValidation() {
                 maxlength: 30
             },
 
-            password: {
+            password_to_update: {
                 minlength: 6,
-                password: true
+                password: true,
+                required: false
             },
 
-            confirm_password: {
-                equalTo: "#password"
+            confirm_password_to_update: {
+                equalTo: "#password_to_update"
             },
 
             first_name: {
@@ -302,7 +309,7 @@ function updateProfileValidation() {
             company_name: {
                 minlength: 3,
                 maxlength: 50,
-                lettersonly: true
+                lettersAndWhitespaces: true
             },
 
             city: {
