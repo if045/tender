@@ -44,10 +44,9 @@ $(document).ready(function () {
         });
     });
 
-    if (getCookie("userRole") != undefined) {
+    if (getCookie("userRole") == SELLER) {
         $.getJSON(NEW_DEALS_URL+"?userRole=" + getCookie("userRole"), function (data) {
             var newDealsNumber = data;
-
             if (newDealsNumber > 0) {
                 $('#my_deals_btn').html("My deals <span class='badge'>" + newDealsNumber + "</span>");
             } else {

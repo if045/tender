@@ -13,7 +13,7 @@ public class DealDto {
     private String businessPartner;
     private BigDecimal sum;
     private String status;
-    private boolean newDeal;
+    private Boolean newDeal;
 
     public Integer getId() {
         return id;
@@ -63,11 +63,11 @@ public class DealDto {
         this.status = status;
     }
 
-    public boolean isNewDeal() {
+    public Boolean isNewDeal() {
         return newDeal;
     }
 
-    public void setNewDeal(boolean newDeal) {
+    public void setNewDeal(Boolean newDeal) {
         this.newDeal = newDeal;
     }
 }

@@ -32,6 +32,7 @@
     <script type='text/javascript' src='<c:url value="../resources/js/tenderview.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/addTenderModal.js"/>'></script>
     <script type='text/javascript' src='<c:url value="../resources/js/header.js"/>'></script>
+    <script type='text/javascript' src='<c:url value="../resources/js/proposal.js"/>'></script>
 </head>
 <body>
     <div class="container">
@@ -81,6 +82,10 @@
                 <div class="row col-md-12">
                     <div id="save_button_on_tender_view_page"></div>
                 </div>
+                <security:authorize access="hasRole('SELLER')">
+                    <button type="submit" class="btn btn-primary col-md-2 col-md-offset-9"
+                            data-toggle="modal" data-target="#createProposalWindow" onclick="getTenderId()">Create Proposal</button>
+                </security:authorize>
 
                 <div class="row">
                     <label for="units" class="col-md-6 col-md-offset-1 control-label"><h4>Units</h4></label>
@@ -165,6 +170,10 @@
 <!-- new tender modal window -->
 <jsp:include page="newTenderCreated.jsp"/>
 <!-- new tender modal window -->
+
+<!--create proposal modal -->
+<jsp:include page="createProposal.jsp" />
+<!--create proposal modal -->
 
     <!-- successfully update tender info -->
     <div class="modal fade" id="success_update_tender_info" tabindex="-1" role="dialog" hidden="">
