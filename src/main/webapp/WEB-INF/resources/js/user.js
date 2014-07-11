@@ -1,6 +1,3 @@
-var locationsData;
-var categoriesData;
-
 $(document).ready(function() {
     $('#birth_date').datepicker({
         format: 'yyyy/mm/dd'
@@ -625,11 +622,9 @@ function populateInputValues(el_id, url, type) {
         switch(type) {
             case (TRADE_SPHERE_LOCATION) :
                 temp = data.tradeSphereDto.locationsDto;
-                locationsData = temp;
                 break;
             case(TRADE_SPHERE_CATEGORY) :
                 temp = data.tradeSphereDto.categoriesDto;
-                categoriesData = temp;
                 break;
         }
         var length = temp.length;
