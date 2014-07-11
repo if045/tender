@@ -94,12 +94,12 @@ CREATE TABLE address (
 
 CREATE TABLE company (
 
-	id INT NOT NULL AUTO_INCREMENT,
+	id INT AUTO_INCREMENT,
 	name VARCHAR(50),
-	srn INT DEFAULT NULL,
-	email VARCHAR(30) NOT NULL,
+	srn INT,
+	email VARCHAR(30),
 	logo LONGBLOB,
-	address_id INT NOT NULL,
+	address_id INT,
 
 	FOREIGN KEY (address_id) REFERENCES address(id),
 	PRIMARY KEY (id)

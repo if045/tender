@@ -37,7 +37,6 @@ import com.softserveinc.tender.service.ProfileService;
 import com.softserveinc.tender.service.RoleService;
 import com.softserveinc.tender.service.UserService;
 import com.softserveinc.tender.util.Constants;
-
 import com.softserveinc.tender.util.Convertible;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -47,16 +46,16 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import static com.softserveinc.tender.util.Constants.ADMINISTRATOR_HOME_PAGE;
 import static com.softserveinc.tender.util.Constants.CHECKED_PROFILE_UNCHECKED_STATUS;
 import static com.softserveinc.tender.util.Constants.CHECKED_USER;
+import static com.softserveinc.tender.util.Constants.CUSTOMER_AND_SELLER_HOME_PAGE;
 import static com.softserveinc.tender.util.Constants.ENABLED_USER;
 import static com.softserveinc.tender.util.Constants.LEGAL_PERSON;
+import static com.softserveinc.tender.util.Constants.MODERATOR_HOME_PAGE;
 import static com.softserveinc.tender.util.Util.formatDate;
 import static com.softserveinc.tender.util.Util.getUserLogin;
 import static com.softserveinc.tender.util.Util.setCurrentTimeStamp;
-import static com.softserveinc.tender.util.Constants.CUSTOMER_AND_SELLER_HOME_PAGE;
-import static com.softserveinc.tender.util.Constants.MODERATOR_HOME_PAGE;
-import static com.softserveinc.tender.util.Constants.ADMINISTRATOR_HOME_PAGE;
 
 @Service("registrationServiceFacade")
 @Transactional
@@ -340,11 +339,11 @@ public class UserServiceFacadeImpl implements UserServiceFacade {
     }
 
     public LoggedUserDto getLoggedUserInfo() {
-        LoggedUserDto loggedUserDto=new LoggedUserDto();
+        LoggedUserDto loggedUserDto = new LoggedUserDto();
         List<String> roles = new ArrayList<>();
         String userLogin = getUserLogin();
-        if (!userLogin.equals(Constants.UNKNOWN_USER)){
-            for (Role role:userService.findByLogin(userLogin).getRoles()){
+        if (!userLogin.equals(Constants.UNKNOWN_USER)) {
+            for (Role role : userService.findByLogin(userLogin).getRoles()) {
                 roles.add(role.getName());
             }
             loggedUserDto.setLogin(userLogin);
@@ -399,10 +398,10 @@ public class UserServiceFacadeImpl implements UserServiceFacade {
 
     private User mapUser(UserPersonalDataDto personalData, User user) {
 
-        if(!personalData.getLogin().equals("")) {
+        if (!personalData.getLogin().equals("")) {
             user.setLogin(personalData.getLogin());
         }
-        if(!personalData.getPassword().equals("")) {
+        if (!personalData.getPassword().equals("")) {
             user.setPassword(personalData.getPassword());
         }
 
@@ -412,19 +411,28 @@ public class UserServiceFacadeImpl implements UserServiceFacade {
     private Profile mapProfile(UserPersonalDataDto personalData, User user) {
         Profile profile = profileService.findProfileById(user.getProfile().getId());
 
-        if(!personalData.getProfileDto().getFirstName().equals("")) {
+        if (!personalData.getProfileDto().getFirstName().equals("")) {
             profile.setFirstName(personalData.getProfileDto().getFirstName());
         }
-        if(!personalData.getProfileDto().getLastName().equals("")) {
+        if (!personalData.getProfileDto().getLastName().equals("")) {
             profile.setLastName((personalData.getProfileDto().getLastName()));
         }
-        if(!personalData.getProfileDto().getTelephone().equals("")){
+        if (!personalData.getProfileDto().getTelephone().equals("")) {
             profile.setTelephone(personalData.getProfileDto().getTelephone());
         }
-        if(!personalData.getProfileDto().getBirthday().equals("")){
+        if (!personalData.getProfileDto().getBirthday().equals("")) {
             profile.setBirthday(formatDate(personalData.getProfileDto().getBirthday()));
         }
-        profile.setPerson(personalData.getProfileDto().getPerson());
+
+        if(user.getProfile().getPerson() != personalData.getProfileDto().getPerson()) {
+            Address address = new Address();
+            Company company = new Company();
+            company.setAddress(addressService.save(address));
+            profile.setCompany(companyService.save(company));
+
+            profile.setPerson(personalData.getProfileDto().getPerson());
+        }
+
 
         return profile;
     }
@@ -432,6 +440,7 @@ public class UserServiceFacadeImpl implements UserServiceFacade {
     @Override
     public CompanyDto updateUserCompanyData(CompanyDto companyDto) {
         Profile profile = profileService.findProfileByUserLogin(getUserLogin());
+
         Company company = profile.getCompany();
         Address companyAddress = company.getAddress();
 
@@ -460,7 +469,9 @@ public class UserServiceFacadeImpl implements UserServiceFacade {
         }
         Address savedAddress = addressService.save(companyAddress);
         savedCompany.setAddress(savedAddress);
-        return convertible.mapObject(userService.findByLogin(getUserLogin()).getProfile().getCompany(), CompanyDto.class);
+        convertible.mapObject(userService.findByLogin(getUserLogin()).getProfile().getCompany(), CompanyDto.class);
+
+        return companyDto;
     }
 
     public TradeSphereDto updateTradeSphereData(TradeSphereDto tradeSphereDto) {
