@@ -85,14 +85,19 @@ $(document).ready(function () {
         return this.optional(element) || /^[a-z]+$/i.test(value);
     }, "Please enter only letters");
 
+    jQuery.validator.addMethod("lettersAndWhitespaces", function(value, element) {
+        return this.optional(element) || /^[a-z]/i.test(value);
+    }, "Please enter only letters");
+
     jQuery.validator.addMethod("password", function(value) {
         return /^[A-Za-z0-9\d=!]*$/.test(value) // consists of only these
             && /[a-z]/.test(value) // has a lowercase letter
             && /\d/.test(value); // has a digit
-    }, "Please enter only letters and digits");
+    }, "Password must not be shorter than 6 characters and contain both numbers and letters");
 
     registrationPageValidation();
     addNewModeratorValidation();
+    updateProfileValidation();
 });
 
 function registrationPageValidation() {
@@ -149,10 +154,12 @@ function registrationPageValidation() {
 
         highlight: function(element) {
             $(element).closest('.form-group').removeClass('has-success').addClass('has-error');
+            document.getElementById("registration_confirm_button").setAttribute('disabled', 'disabled');
         },
 
         unhighlight: function(element) {
             $(element).closest('.form-group').removeClass('has-error').addClass('has-success');
+            document.getElementById("registration_confirm_button").removeAttribute('disabled');
         },
 
         errorElement: 'span',
@@ -172,7 +179,7 @@ function registrationPageValidation() {
             company_name: {
                 minlength: 3,
                 maxlength: 50,
-                lettersonly: true
+                lettersAndWhitespaces: true
             },
 
             city: {
@@ -215,6 +222,139 @@ function registrationPageValidation() {
 
         unhighlight: function(element) {
             $(element).closest('.form-group').removeClass('has-error');
+        },
+
+        errorElement: 'span',
+        errorClass: 'help-block',
+
+        errorPlacement: function(error, element) {
+            if(element.parent('.input-group').length) {
+                error.insertAfter(element.parent());
+            } else {
+                error.insertAfter(element);
+            }
+        }
+    });
+}
+
+function updateProfileValidation() {
+    $("#profile_data_validation").validate({
+        rules: {
+            login: {
+                email: true,
+                maxlength: 30
+            },
+
+            password_to_update: {
+                minlength: 6,
+                password: true,
+                required: false
+            },
+
+            confirm_password_to_update: {
+                equalTo: "#password_to_update"
+            },
+
+            first_name: {
+                minlength: 3,
+                maxlength: 20,
+                lettersonly: true
+            },
+
+            last_name: {
+                minlength: 3,
+                maxlength: 20,
+                lettersonly: true
+            },
+
+            phone_number: {
+                maxlength: 10,
+                minlength: 10,
+                digits: true
+            }
+        },
+
+        messages : {
+            first_name: {
+                lettersonly: "please enter your name correctly, like: John"
+            },
+            last_name: {
+                lettersonly: "please enter your name correctly, like: Doe"
+            }
+        },
+
+        highlight: function(element) {
+            $(element).closest('.form-group').addClass('has-error');
+            document.getElementById("personal-info").setAttribute('disabled', 'disabled');
+        },
+
+        unhighlight: function(element) {
+            $(element).closest('.form-group').removeClass('has-error');
+            document.getElementById("personal-info").removeAttribute('disabled');
+        },
+
+        errorElement: 'span',
+        errorClass: 'help-block',
+
+        errorPlacement: function(error, element) {
+            if(element.parent('.input-group').length) {
+                error.insertAfter(element.parent());
+            } else {
+                error.insertAfter(element);
+            }
+        }
+    });
+
+    $("#profile_company_data_validation").validate({
+        rules: {
+            company_name: {
+                minlength: 3,
+                maxlength: 50,
+                lettersAndWhitespaces: true
+            },
+
+            city: {
+                minlength: 3,
+                maxlength: 30,
+                lettersonly: true
+            },
+
+            street: {
+                minlength: 3,
+                maxlength: 30,
+                lettersonly: true
+            },
+
+            building_number: {
+                maxlength: 5
+            },
+
+            postcode: {
+                digits: true
+            },
+
+            email: {
+                email: true,
+                maxlength: 30
+            },
+
+            srn_number: {
+                digits: true
+            }
+        },
+
+        messages : {
+
+        },
+
+        highlight: function(element) {
+            $(element).closest('.form-group').addClass('has-error');
+            document.getElementById("company-info").setAttribute('disabled', 'disabled');
+        },
+
+        unhighlight: function(element) {
+            $(element).closest('.form-group').removeClass('has-error');
+            document.getElementById("company-info").removeAttribute('disabled');
         },
 
         errorElement: 'span',

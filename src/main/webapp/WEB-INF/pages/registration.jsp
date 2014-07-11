@@ -296,7 +296,7 @@
                                             <h3>Accept website <a href="">policy</a>  <input id="agreement" onclick="enableConfirmButton()" type="checkbox"></h3>
                                         </div>
                                         <div class="row">
-                                            <button id="confirm_button" onclick="addRegisteredUser()" class="btn btn-success" type="button" disabled>Confirm</button>
+                                            <button id="registration_confirm_button" onclick="addRegisteredUser()" class="btn btn-success" type="button" disabled>Confirm</button>
                                         </div>
                                     </div>
                                     <!-- Panel group -->

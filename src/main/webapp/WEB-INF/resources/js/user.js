@@ -178,9 +178,9 @@ function buildTradeSphereData() {
 
 function enableConfirmButton() {
     if($('#agreement').is(":checked")){
-        $("#confirm_button").removeAttr("disabled")
+        $("#Registration_confirm_button").removeAttr("disabled")
     } else {
-        $("#confirm_button").attr("disabled", "disabled")
+        $("#registration_confirm_button").attr("disabled", "disabled")
     }
 }
 
@@ -661,7 +661,6 @@ function prepareDropdownData(data, type) {
     return result;
 }
 
-
 /**
  *  el_id - id of the HTML element to act on
  *  url - path for getting user data
@@ -674,4 +673,15 @@ function setTradeSphereDropdownWithData(el_id, url, data_url, type) {
         populateInputValues(el_id, url, type);
         wrapInputWithSelect2(el_id, dropdownData);
     });
+}
+
+function checkValidDropdownInputs() {
+    var categories = document.getElementById("populate_update_categories_dropdown").getAttribute('value');
+    var locations = document.getElementById("populate_update_locations_dropdown").getAttribute('value');
+
+    if((locations == []) || ( categories == [])) {
+        document.getElementById("trade-sphere-info").setAttribute('disabled', 'disabled');
+    } else {
+        document.getElementById("trade-sphere-info").removeAttribute('disabled');
+    }
 }
