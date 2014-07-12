@@ -6,6 +6,7 @@ var Proposals = [];
 var highLightedElement;
 var USER_ROLE;
 var LOGGED_USER_ID ='';
+var tender_author_id = '';
 
 $(document).ready(function () {
     $('#endDate').datepicker({
@@ -96,7 +97,7 @@ function buildUnitTable(data){
             '<td>' + data[i].quantity + ' ' + data[i].measurementName + '</td>' +
             '<td>' + data[i].numberOfBids + '</td>' +
         '<td class="js-sellerPrice" id="seller_price_' + data[i].id + '"></td>';
-        if (USER_ROLE.search('CUSTOMER')!=-1&LOGGED_USER_ID!=null) {
+        if (/*USER_ROLE.search('CUSTOMER')!=-1&LOGGED_USER_ID!=null*/ LOGGED_USER_ID == tender_author_id) {
             html += '<td align="center">' +
                 '<input  hidden="" type="text" id="selected_proposal_id_' + data[i].id + '"/>' +
                 '<input  hidden="" type="text" id="selected_bid_id_' + data[i].id + '"/>' +
@@ -209,6 +210,7 @@ function showInfo(){
         }
         $('#save_button_on_tender_view_page').html(saveButtonOnTenderViewPage);
         LOGGED_USER_ID = data.userId
+        tender_author_id = data.authorId;
     });
 }
 
@@ -271,7 +273,7 @@ function showProposalsTable(propsArray, unitsArray) {
                     '<td class="js-highlightUnits" propId="' + propsArray[i].id +'">' + propsArray[i].numberOfBids + '</td>' +
                     '<td class="js-highlightUnits" propId="' + propsArray[i].id +'">' + propsArray[i].totalBidsPrice + '</td>';
                     //This button should only be available to the customer
-                    if (USER_ROLE.search(CUSTOMER) != -1 && LOGGED_USER_ID != null) {
+                    if (/*USER_ROLE.search(CUSTOMER) != -1 && LOGGED_USER_ID != null*/LOGGED_USER_ID == tender_author_id) {
                         html += '<td align="center">' +
                             '<button type="submit" class="btn' + buttonStyle + '" onclick="createProposalDeal(' + propsArray[i].id + ')">Deal</button>' +
                             '</td></tr>';
