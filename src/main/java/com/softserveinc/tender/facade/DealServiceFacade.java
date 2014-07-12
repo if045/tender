@@ -11,9 +11,9 @@ import java.util.List;
 public interface DealServiceFacade {
 
     List<DealDto> findAllDeals(Pageable pageable, String tenderTitle, String userRole);
-    Long getNewDealsNumber(String userRole);
+    Long getNewDealsNumber(String userRole, String tenderTitle);
     void updateMyDealsDate();
-    Long getDealsNumber(String userRole);
+    Long getDealsNumber(String userRole, String tenderTitle);
     void updateDealWithStatus(Integer dealId, String statusName);
     ConflictDto saveConflict(ConflictSaveDto conflictSaveDto);
     FeedbackDto saveFeedback(FeedbackSaveDto feedbackSaveDto);
