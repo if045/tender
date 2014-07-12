@@ -97,7 +97,7 @@ function buildUnitTable(data){
             '<td>' + data[i].quantity + ' ' + data[i].measurementName + '</td>' +
             '<td>' + data[i].numberOfBids + '</td>' +
         '<td class="js-sellerPrice" id="seller_price_' + data[i].id + '"></td>';
-        if (/*USER_ROLE.search('CUSTOMER')!=-1&LOGGED_USER_ID!=null*/ LOGGED_USER_ID == tender_author_id) {
+        if (LOGGED_USER_ID == tender_author_id) {
             html += '<td align="center">' +
                 '<input  hidden="" type="text" id="selected_proposal_id_' + data[i].id + '"/>' +
                 '<input  hidden="" type="text" id="selected_bid_id_' + data[i].id + '"/>' +
@@ -164,6 +164,8 @@ function showInfo(){
     var tender1 = str.split(TENDER_VIEW_URL);
     var tender = tender1[tender1.length - 1];
     $.getJSON(TENDERS_URL+'/'+tender.substring(1), function(data){
+        LOGGED_USER_ID = data.userId;
+        tender_author_id = data.authorId;
         var titleHtml = '';
         titleHtml += '<h4>' + data.title + '</h4>';
         $('#tender_title_onTenderViewPage').html(titleHtml);
@@ -203,14 +205,12 @@ function showInfo(){
             deleteCookie("userRole");
         }
         var saveButtonOnTenderViewPage = '';
-        if (data.userId != null) {
-            if (data.userId.toString() == data.authorId.toString()) {
-                saveButtonOnTenderViewPage = '<button type="submit" class="btn btn-primary col-md-1 col-md-offset-10" id="save_tender_button" onclick="saveTenderAfterUpdate();" disabled>Save</button>'
-            }
+        if (LOGGED_USER_ID == tender_author_id && getCookie("userRole") != SELLER) {
+            saveButtonOnTenderViewPage = '<button type="submit" class="btn btn-primary col-md-1 col-md-offset-10" id="save_tender_button" onclick="saveTenderAfterUpdate();" disabled>Save</button>'
+        } else if (LOGGED_USER_ID != tender_author_id && getCookie("userRole") == SELLER) {
+            document.getElementById("create_proposal_cur_tender").removeAttribute('hidden');
         }
         $('#save_button_on_tender_view_page').html(saveButtonOnTenderViewPage);
-        LOGGED_USER_ID = data.userId
-        tender_author_id = data.authorId;
     });
 }
 
@@ -272,8 +272,8 @@ function showProposalsTable(propsArray, unitsArray) {
                     '<td class="js-highlightUnits" propId="' + propsArray[i].id +'">' + propsArray[i].fullName + '</td>' +
                     '<td class="js-highlightUnits" propId="' + propsArray[i].id +'">' + propsArray[i].numberOfBids + '</td>' +
                     '<td class="js-highlightUnits" propId="' + propsArray[i].id +'">' + propsArray[i].totalBidsPrice + '</td>';
-                    //This button should only be available to the customer
-                    if (/*USER_ROLE.search(CUSTOMER) != -1 && LOGGED_USER_ID != null*/LOGGED_USER_ID == tender_author_id) {
+
+                    if (LOGGED_USER_ID == tender_author_id) {
                         html += '<td align="center">' +
                             '<button type="submit" class="btn' + buttonStyle + '" onclick="createProposalDeal(' + propsArray[i].id + ')">Deal</button>' +
                             '</td></tr>';
