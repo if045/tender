@@ -44,13 +44,15 @@ public class DealController {
     }
 
     @RequestMapping(value = "/number", method = RequestMethod.GET)
-    public @ResponseBody Long getDealsNumber(@RequestParam(value = "userRole",required = false) String userRole) {
-         return dealFacade.getDealsNumber(userRole);
+    public @ResponseBody Long getDealsNumber(@RequestParam(value = "userRole",required = false) String userRole,
+                                             @RequestParam(value = "searchParam",required = false) String searchParam) {
+         return dealFacade.getDealsNumber(userRole, searchParam);
     }
 
     @RequestMapping(value = "/newdeals", method = RequestMethod.GET)
-    public @ResponseBody Long getNewDealsNumber(@RequestParam(value = "userRole",required = false) String userRole) {
-        return dealFacade.getNewDealsNumber(userRole);
+    public @ResponseBody Long getNewDealsNumber(@RequestParam(value = "userRole",required = false) String userRole,
+                                                @RequestParam(value = "searchParam",required = false) String searchParam) {
+        return dealFacade.getNewDealsNumber(userRole, searchParam);
     }
 
     @RequestMapping(value = "/mydealsdate", method = RequestMethod.PUT)

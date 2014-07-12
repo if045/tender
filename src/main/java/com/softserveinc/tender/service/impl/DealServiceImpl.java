@@ -22,41 +22,47 @@ public class DealServiceImpl implements DealService {
 
     @Override
     public List<Deal> findAllDealsForCustomer(Pageable pageable, Integer id, String tenderTitle) {
-        Integer searchFlag;
-        if (tenderTitle==null){
-            searchFlag=1;
-        }else {
-            searchFlag=0;
-            tenderTitle = PERCENT +tenderTitle+PERCENT;
+        Integer searchFlag = (tenderTitle == null) ? 1 : 0;
+        if (searchFlag == 0) {
+            tenderTitle = PERCENT + tenderTitle.toLowerCase().trim() + PERCENT;
         }
         return dealRepository.findAllDealsForCustomer(id,pageable, tenderTitle, searchFlag);
     }
 
     @Override
     public List<Deal> findAllDealsForSeller(Pageable pageable, Integer id, String tenderTitle) {
-        Integer searchFlag;
-        if (tenderTitle==null){
-            searchFlag=1;
-        }else {
-            searchFlag=0;
-            tenderTitle = PERCENT+tenderTitle+PERCENT;
+        Integer searchFlag = (tenderTitle == null) ? 1 : 0;
+        if (searchFlag == 0) {
+            tenderTitle = PERCENT + tenderTitle.toLowerCase().trim() + PERCENT;
         }
         return dealRepository.findAllDealsForSeller(id,pageable, tenderTitle, searchFlag);
     }
 
     @Override
-    public Long getNewDealsNumberForSeller(Integer id) {
-        return dealRepository.getNewDealsNumberForSeller(id);
+    public Long getNewDealsNumberForSeller(Integer id, String tenderTitle) {
+        Integer searchFlag = (tenderTitle == null) ? 1 : 0;
+        if (searchFlag == 0) {
+            tenderTitle = PERCENT + tenderTitle.toLowerCase().trim() + PERCENT;
+        }
+        return dealRepository.getNewDealsNumberForSeller(id, tenderTitle, searchFlag);
     }
 
     @Override
-    public Long getDealsNumberForCustomer(Integer id) {
-        return dealRepository.getDealsNumberForCustomer(id);
+    public Long getDealsNumberForCustomer(Integer id, String tenderTitle) {
+        Integer searchFlag = (tenderTitle == null) ? 1 : 0;
+        if (searchFlag == 0) {
+            tenderTitle = PERCENT + tenderTitle.toLowerCase().trim() + PERCENT;
+        }
+        return dealRepository.getDealsNumberForCustomer(id, tenderTitle, searchFlag);
     }
 
     @Override
-    public Long getDealsNumberForSeller(Integer id) {
-        return dealRepository.getDealsNumberForSeller(id);
+    public Long getDealsNumberForSeller(Integer id, String tenderTitle) {
+        Integer searchFlag = (tenderTitle == null) ? 1 : 0;
+        if (searchFlag == 0) {
+            tenderTitle = PERCENT + tenderTitle.toLowerCase().trim() + PERCENT;
+        }
+        return dealRepository.getDealsNumberForSeller(id, tenderTitle, searchFlag);
     }
 
     @Override

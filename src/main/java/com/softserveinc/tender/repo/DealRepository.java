@@ -21,14 +21,21 @@ public interface DealRepository extends JpaRepository<Deal, Integer> {
                                      Pageable pageable,@Param("tenderTitle") String searchParam,
                                      @Param("searchFlag") Integer searchFlag);
 
-    @Query("select count(distinct d) from Deal d where d.customer.id = :customerId")
-    Long getDealsNumberForCustomer(@Param("customerId") Integer id);
+    @Query("select count(distinct d) from Deal d where d.customer.id = :customerId and (1 = :searchFlag or d.bid.proposal.tender.title like :tenderTitle)")
+    Long getDealsNumberForCustomer(@Param("customerId") Integer id,
+                                   @Param("tenderTitle") String searchParam,
+                                   @Param("searchFlag") Integer searchFlag);
 
-    @Query("select count(distinct d) from Deal d where d.seller.id = :sellerId")
-    Long getDealsNumberForSeller(@Param("sellerId") Integer id);
+    @Query("select count(distinct d) from Deal d where d.seller.id = :sellerId and (1 = :searchFlag or d.bid.proposal.tender.title like :tenderTitle)")
+    Long getDealsNumberForSeller(@Param("sellerId") Integer id,
+                                 @Param("tenderTitle") String searchParam,
+                                 @Param("searchFlag") Integer searchFlag);
 
-    @Query("select count(distinct d) from Deal d, User u where d.seller.id = :sellerId and d.status.id IN (1,2) and u.profile.id = :sellerId and d.date > u.myDealsDate")
-    Long getNewDealsNumberForSeller(@Param("sellerId") Integer id);
+    @Query("select count(distinct d) from Deal d, User u where d.seller.id = :sellerId and d.status.id IN (1,2) and u.profile.id = :sellerId and d.date > u.myDealsDate " +
+            "and (1 = :searchFlag or d.bid.proposal.tender.title like :tenderTitle)")
+    Long getNewDealsNumberForSeller(@Param("sellerId") Integer id,
+                                    @Param("tenderTitle") String searchParam,
+                                    @Param("searchFlag") Integer searchFlag);
 
     List<Deal> findByProposalId(Integer proposalId);
 
