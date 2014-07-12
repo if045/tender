@@ -82,11 +82,10 @@
                 <div class="row col-md-12">
                     <div id="save_button_on_tender_view_page"></div>
                 </div>
-                <security:authorize access="hasRole('SELLER')">
+                <div id="create_proposal_cur_tender" hidden="hidden">
                     <button type="submit" class="btn btn-primary col-md-2 col-md-offset-9"
                             data-toggle="modal" data-target="#createProposalWindow" onclick="getTenderId()">Create Proposal</button>
-                </security:authorize>
-
+                </div>
                 <div class="row">
                     <label for="units" class="col-md-6 col-md-offset-1 control-label"><h4>Units</h4></label>
                     <label for="proposals" class="col-md-5 control-label"><h4>Proposals</h4></label>
