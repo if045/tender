@@ -218,10 +218,12 @@ function registrationPageValidation() {
 
         highlight: function(element) {
             $(element).closest('.form-group').addClass('has-error');
+            document.getElementById("registration_confirm_button").setAttribute('disabled', 'disabled');
         },
 
         unhighlight: function(element) {
             $(element).closest('.form-group').removeClass('has-error');
+            document.getElementById("registration_confirm_button").removeAttribute('disabled');
         },
 
         errorElement: 'span',
