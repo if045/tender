@@ -145,7 +145,13 @@ public class DealServiceFacadeImpl implements DealServiceFacade {
         feedback.setLogistic(feedbackSaveDto.getLogistic());
         feedback.setComment(feedbackSaveDto.getComment());
         Profile profile = new Profile();
-        profile.setId(dealService.findDealById(feedbackSaveDto.getProfileId()).getCustomer().getId());
+        for (Role role : userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).getRoles()) {
+            if (role.getName().equals(Roles.SELLER.name())) {
+                profile.setId(dealService.findDealById(feedbackSaveDto.getProfileId()).getCustomer().getId());
+            } else if (role.getName().equals(Roles.CUSTOMER.name())) {
+                profile.setId(dealService.findDealById(feedbackSaveDto.getProfileId()).getSeller().getId());
+            }
+        }
         feedback.setProfile(profile);
         User user = new User();
         user.setId(userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).getId());
