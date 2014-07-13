@@ -159,7 +159,9 @@ function registrationPageValidation() {
 
         unhighlight: function(element) {
             $(element).closest('.form-group').removeClass('has-error').addClass('has-success');
-            document.getElementById("registration_confirm_button").removeAttribute('disabled');
+            if($('#agreement').is(":checked")) {
+                document.getElementById("registration_confirm_button").removeAttribute('disabled');
+            }
         },
 
         errorElement: 'span',
@@ -223,7 +225,9 @@ function registrationPageValidation() {
 
         unhighlight: function(element) {
             $(element).closest('.form-group').removeClass('has-error');
-            document.getElementById("registration_confirm_button").removeAttribute('disabled');
+            if($('#agreement').is(":checked")) {
+                document.getElementById("registration_confirm_button").removeAttribute('disabled');
+            }
         },
 
         errorElement: 'span',

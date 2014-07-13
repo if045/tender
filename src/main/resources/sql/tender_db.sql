@@ -82,11 +82,11 @@ CREATE TABLE user (
 
 CREATE TABLE address (
 
-	id INT NOT NULL AUTO_INCREMENT,
+	id INT AUTO_INCREMENT,
 	city VARCHAR(30),
 	street VARCHAR(30),
-	building_number VARCHAR(5) DEFAULT NULL,
-	postcode INT DEFAULT NULL,
+	building_number VARCHAR(5),
+	postcode INT,
 	
 	PRIMARY KEY (id)
 
