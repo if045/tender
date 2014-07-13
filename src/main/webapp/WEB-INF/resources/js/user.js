@@ -1,3 +1,4 @@
+var isNewLogin = false;
 $(document).ready(function() {
     $('#birth_date').datepicker({
         format: 'yyyy/mm/dd'
@@ -120,6 +121,16 @@ function buildUserData() {
         return;
     }
 
+    if(login == '') {
+        alert("type your login please!");
+        return;
+    }
+
+    if(roles == '') {
+        alert("choose at least one role");
+        return;
+    }
+
     return '"userDto":{'  +
            '"roles":['    + roles    + '],' +
            '"login":"'    + login    + '",' +
@@ -137,6 +148,21 @@ function buildProfileData() {
         person = LEGAL_PERSON;
     } else if($('#private').is(":checked")) {
         person = PRIVATE_PERSON;
+    }
+
+    if(firstNme == '') {
+        alert("type your first name");
+        return;
+    }
+
+    if(lastName == '') {
+        alert("type your last name");
+        return;
+    }
+
+    if(phoneNumber == '') {
+        alert("type your phone number");
+        return;
     }
 
     return '"profileDto":{' +
@@ -178,7 +204,7 @@ function buildTradeSphereData() {
 
 function enableConfirmButton() {
     if($('#agreement').is(":checked")){
-        $("#Registration_confirm_button").removeAttr("disabled")
+        $("#registration_confirm_button").removeAttr("disabled")
     } else {
         $("#registration_confirm_button").attr("disabled", "disabled")
     }
@@ -427,7 +453,7 @@ function showRating() {
 }
 
 function checkNullData(value) {
-    if(value == null) return "---";
+    if((value == null) || (value == "") || (value == 0)) return "---";
     return value;
 }
 
@@ -481,7 +507,11 @@ function updateUserData() {
         contentType: 'application/json',
 
         success: function(data) {
-            goToUserProfilePage();
+            if(isNewLogin) {
+                goLogOut();
+            } else {
+                goToUserProfilePage();
+            }
         },
 
         error: function(){
@@ -541,6 +571,8 @@ function buildPersonalDataJSON() {
 function buildUserPersonalData() {
     var login = $('#login_to_update').val();
     var password = $('#password_to_update').val();
+
+    isNewLogin = login != '';
 
     return '"login":"'    + login    + '",' +
            '"password":"' + password + '"';

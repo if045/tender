@@ -82,11 +82,11 @@ CREATE TABLE user (
 
 CREATE TABLE address (
 
-	id INT NOT NULL AUTO_INCREMENT,
+	id INT AUTO_INCREMENT,
 	city VARCHAR(30),
 	street VARCHAR(30),
-	building_number VARCHAR(5) DEFAULT NULL,
-	postcode INT DEFAULT NULL,
+	building_number VARCHAR(5),
+	postcode INT,
 	
 	PRIMARY KEY (id)
 
@@ -94,12 +94,12 @@ CREATE TABLE address (
 
 CREATE TABLE company (
 
-	id INT NOT NULL AUTO_INCREMENT,
+	id INT AUTO_INCREMENT,
 	name VARCHAR(50),
-	srn INT DEFAULT NULL,
-	email VARCHAR(30) NOT NULL,
+	srn INT,
+	email VARCHAR(30),
 	logo LONGBLOB,
-	address_id INT NOT NULL,
+	address_id INT,
 
 	FOREIGN KEY (address_id) REFERENCES address(id),
 	PRIMARY KEY (id)

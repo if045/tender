@@ -160,7 +160,7 @@
 
                                         <div class="modal-footer">
                                             <div class="row">
-                                                <button id="personal-info" type="button" onclick="updateUserData()" class="btn btn-success" disabled>Confirm</button>
+                                                <button id="personal-info" type="button" onclick="updateUserData()" class="btn btn-success">Confirm</button>
                                                 <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
                                             </div>
                                         </div>
@@ -245,7 +245,7 @@
 
                                         <div class="modal-footer">
                                             <div class="row">
-                                                <button id="company-info" type="button" onclick="updateCompanyData()" class="btn btn-success" disabled>Confirm</button>
+                                                <button id="company-info" type="button" onclick="updateCompanyData()" class="btn btn-success">Confirm</button>
                                                 <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
                                             </div>
                                         </div>

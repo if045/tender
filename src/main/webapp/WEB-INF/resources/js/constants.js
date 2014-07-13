@@ -81,7 +81,7 @@ var USER_URL = "/user";
 
 
 /*Constants for moderatorHomePage*/
-var MODERATOR_URL = "/moderator"
+var MODERATOR_URL = "/moderator";
 
 /*variables*/
 var CURRENT_ROLE = '';
